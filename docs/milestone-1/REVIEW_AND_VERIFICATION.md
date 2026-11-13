@@ -6,6 +6,8 @@ The backend has a passing local verification baseline. It is not an exhaustive a
 
 This is an AI-assisted engineering self-review. There is one human student/developer. No student approval, additional team member, GitHub publication or instructor acceptance is invented. The [policy record](AI_POLICY_AND_SOLO_SUBMISSION.md) distinguishes AI checks from the student's own review; a second teammate is not a prerequisite imposed by this repository.
 
+On 14 November 2026, the API audit expanded the suite from 46 to 56 passing tests and measured successful HTTP workflows for all 147 documented operations. The global permission matrix passed 120 anonymous, 100 wrong-role and 86 missing-CSRF checks. See [the API test report](API_TEST_REPORT.md). These workflows use an isolated real replica set and fixture Stripe/SMTP adapters; the live Atlas application was checked separately with 11 public GET requests. Operation coverage is not exhaustive requirement acceptance.
+
 ## Executed evidence
 
 | Check | Result | Evidence / limits |
@@ -14,7 +16,10 @@ This is an AI-assisted engineering self-review. There is one human student/devel
 | ESLint | Passed | `npm.cmd run lint`; unused-code and recommended TypeScript rules |
 | Compiled backend | Passed | `npm.cmd run build`; native ES modules on Node 22.14.0 |
 | Fresh checkout / install | Passed | `clean-checkout.json`; separate clone, fresh node_modules, npm ci, type checking, lint, 46 tests, and build |
-| Unit/integration suite | **46 passed, 0 failed**, two suites | `test-results.json`; six unit scenarios and 40 HTTP/replica-set scenarios |
+| Unit/integration suite | **56 passed, 0 failed**, two suites | Latest: `evidence/api-test-results.json`; six unit and 50 HTTP/replica-set scenarios. `test-results.json` preserves the earlier 46-test baseline. |
+| Complete API operation coverage | **147/147 successful workflows** | `evidence/api-route-coverage.json`, observed from completed HTTP requests; gate rejects an untested documented operation. 120 anonymous/100 incorrect-role/86 missing-CSRF checks passed. |
+| Running Atlas-backed API | **11 public GET checks passed** | `evidence/live-api-readonly.json`; verified local TLS certificate, health/database connectivity, four reference lists, currencies, posts/public itinerary search, Swagger assets and response-specific OpenAPI examples. No credentials, cookies or body data retained. |
+| VS Code browser inspection | Passed, limited scope | Swagger rendered in the user's VS Code browser; navigated to public health and observed database=true, then restored Swagger. This did not click through all 147 operations or constitute the student's review. |
 | Transaction behavior | Passed locally | Real disposable MongoDB 8.2.6 replica set; no mocked database for inventory checks |
 | Live MongoDB Atlas connection | Passed, limited scope | 13 November 2026: `npm.cmd run check:atlas --prefix backend` exited 0; authentication/ping and a read-only snapshot transaction succeeded. Transaction was aborted; no data written. Does not establish write permissions, indexes, seed or application startup. |
 | Atlas application setup | Passed, limited scope | `evidence/atlas-setup.json`: fresh build, 28 models/indexes initialized; 8 each of official countries/cities/airports/attractions preserved; reference and user-configured administrator seeds repeated without duplicate records. Compiled `createApp`, `seedReference` and `seedAdmin` were exercised directly. |
@@ -54,6 +59,10 @@ Machine-readable reports are authoritative if counts change after a later run. R
 
 The temporary-download cleanup attempt was rejected by automatic approval review. That file was left untouched. Tests instead used an explicitly scoped disposable database on D:; the rejection did not prevent verification.
 
+The 14 November API audit also corrected Swagger's error examples, which previously showed statusCode 400 under every error status. Response-specific examples now match 400/401/403/404/409/500/503. A regression covers every operation; the rebuilt/restarted server's live OpenAPI check confirms the correction.
+
+The first 46-test run passed but measured only 87 exercised operations (80 with successful responses). New workflows filled the gaps. Initial expanded-test failures exposed incorrect test assumptions/fixtures (incomplete FX payload, treating flight preview as a saved hold, expecting database rather than API list identifiers, missing delete confirmation); these fixtures were corrected. Refresh deliberately returns 401 for invalid/missing CSRF combined with refresh credentials, whereas ordinary protected mutations return 403. The final 56-test run passed. No independent human approval is inferred.
+
 ## Coverage performed
 
 - Authentication validation, uniqueness, secure cookie attributes, role/CSRF enforcement, lockout, idle expiry, rotation, logout, suspension and temporary-password restrictions.
@@ -74,7 +83,7 @@ The temporary-download cleanup attempt was rejected by automatic approval review
 | SMTP test inbox | Enable email bonuses with configured SMTP and observe verification/reset/invitation/notification delivery |
 | GitHub | Connect the user's repository and push genuine commits; CI has been authored but not run by GitHub |
 | Sole student's human review | Review the actual source/version and perform the walkthrough using the solo discussion guide; record the real date/findings. No additional teammate or prior approval is invented |
-| Browser and frontend | A browser visual/accessibility review and all Next.js/UI requirements are still Milestone 2 work; HTTPS smoke is not browser interaction |
+| Browser and frontend | Swagger rendering and public live-health navigation were checked in VS Code. Full browser workflow/accessibility review and all Next.js/UI requirements remain separate; automated HTTPS workflows are not 147 manual UI interactions. |
 
 ## Operational limits to retain in review
 

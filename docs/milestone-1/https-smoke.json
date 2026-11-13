@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-11-13T16:22:15.491Z",
+  "checkedAt": "2026-11-13T22:13:18.671Z",
   "node": "v22.14.0",
   "database": "Disposable MongoDB 8.2.6 replica set, not Atlas",
   "transport": "HTTPS with generated localhost certificate",

@@ -2,6 +2,8 @@
 
 147 operations across 123 paths. This index is derived from the exported OpenAPI document.
 
+The [14 November API test report](../milestone-1/API_TEST_REPORT.md) records successful HTTP workflows for all 147 operations and the separate permission checks. External Stripe/SMTP account verification remains pending.
+
 | Method | Path | Requirements | Access |
 | --- | --- | --- | --- |
 | POST | `/api/auth/register` | ACC-01 | Public (authentication optional) |

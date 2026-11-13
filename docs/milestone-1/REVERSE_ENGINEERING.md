@@ -158,6 +158,8 @@ Follow the root README for Atlas, TLS, secrets, Stripe CLI, FXRatesAPI and SMTP 
 
 `npm.cmd run typecheck`, `lint`, `test`, and `build` verify the local code. `https-smoke.mjs` exercises the compiled server through real HTTPS and fetches/caches a real FXRatesAPI response. Tests use an isolated MongoDB 8.2.6 replica set; `TEST_TMP_DIR` can move only its disposable database to a drive with space.
 
+`npm.cmd run test:api` records completed HTTP requests using `test/api-coverage.ts`, checks every documented operation has a successful workflow, and regenerates `API_TEST_REPORT.md` through `scripts/api-report.mjs`. The 14 November run has 56 passing tests (six unit and 50 HTTP scenarios), all 147 operations successful, plus anonymous/role/CSRF matrices. Only route templates, status codes and explicit matrix labels are retained; request bodies/cookies/tokens are not recorded by the coverage observer. `npm.cmd run check:live` performs 11 public GET checks against the running loopback HTTPS application using its actual certificate as the trust anchor, including checking exported error examples match their response statuses. Full mutating workflows run on the disposable database rather than the student's Atlas application records. See `evidence/api-test-results.json`, `evidence/api-route-coverage.json` and `evidence/live-api-readonly.json` for the current results.
+
 For a new feature: define DTOs, add explicit schema/index changes, enforce service ownership and invariants, identify atomic operations, document the API, test unauthorized and concurrent calls, update traceability, and record material AI use. Keep external calls outside database transactions and preserve idempotency when adding background work.
 
 ## 11. Evidence and limits

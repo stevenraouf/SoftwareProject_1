@@ -15,10 +15,12 @@
     "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js --runInBand",
     "test:unit": "node --experimental-vm-modules node_modules/jest/bin/jest.js --runInBand --testPathPatterns=unit",
     "test:integration": "node --experimental-vm-modules node_modules/jest/bin/jest.js --runInBand --testPathPatterns=integration",
+    "test:api": "node --experimental-vm-modules node_modules/jest/bin/jest.js --runInBand --json --outputFile=../docs/milestone-1/evidence/api-test-results.json && node scripts/api-report.mjs",
     "seed": "npm run build && node dist/seed.js",
     "seed:demo": "npm run build && node dist/seed.js --demo",
     "certs": "node scripts/certs.mjs",
     "check:atlas": "node scripts/check-atlas.mjs",
+    "check:live": "node scripts/check-live-api.mjs",
     "openapi": "npm run build && node dist/openapi.js",
     "verify": "npm run typecheck && npm run lint && npm test && npm run build"
   },

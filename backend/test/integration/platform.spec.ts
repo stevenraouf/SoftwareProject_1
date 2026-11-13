@@ -17,6 +17,7 @@ import { PaymentsService } from "../../src/payments/payments.js";
 import { Inventory } from "../../src/bookings/inventory.js";
 import { Ops } from "../../src/ops.js";
 import { Jobs } from "../../src/jobs.js";
+import { apiCoverage } from "../api-coverage.js";
 
 let repl: MongoMemoryReplSet,
   app: INestApplication,
@@ -24,6 +25,7 @@ let repl: MongoMemoryReplSet,
   payments: PaymentsService,
   inventory: Inventory;
 let testDbPath: string | undefined;
+let coverageReport: ReturnType<typeof apiCoverage>;
 const password = "TestPassword123";
 type Login = { cookie: string; csrf: string; user: any };
 const users: Record<string, Login> = {};
@@ -172,6 +174,7 @@ beforeAll(async () => {
   process.env.MONGODB_URI = repl.getUri("travel_test");
   const result = await createApp({ logger: false });
   app = result.app;
+  coverageReport = apiCoverage(result.document, app.getHttpServer());
   db = app.get(Db);
   payments = app.get(PaymentsService);
   inventory = app.get(Inventory);
@@ -275,6 +278,13 @@ beforeAll(async () => {
   );
 }, 180000);
 afterAll(async () => {
+  if (coverageReport) {
+    await mkdir(resolve("../docs/milestone-1/evidence"), { recursive: true });
+    await writeFile(
+      resolve("../docs/milestone-1/evidence/api-route-coverage.json"),
+      JSON.stringify(coverageReport(), null, 2),
+    );
+  }
   await app?.close();
   await repl?.stop();
   if (testDbPath) await rm(testDbPath, { recursive: true, force: true });
@@ -355,20 +365,18 @@ describe("Boundary, provider and integration adapter regressions", () => {
       traveler("review-deactivate@example.test"),
     );
     const user = await login("review-deactivate@example.test");
-    const b = await db
-      .model("Booking")
-      .create({
-        type: "hotel",
-        userId: oidUser(user),
-        providerIds: [hotel._id],
-        status: "Completed",
-        amount: 100,
-        currency: "USD",
-        snapshot: { hotelId: hotel._id },
-        policySnapshot: {},
-        startsAt: new Date(Date.now() - 3 * 86400000),
-        endsAt: new Date(Date.now() - 86400000),
-      });
+    const b = await db.model("Booking").create({
+      type: "hotel",
+      userId: oidUser(user),
+      providerIds: [hotel._id],
+      status: "Completed",
+      amount: 100,
+      currency: "USD",
+      snapshot: { hotelId: hotel._id },
+      policySnapshot: {},
+      startsAt: new Date(Date.now() - 3 * 86400000),
+      endsAt: new Date(Date.now() - 86400000),
+    });
     const review = await send("post", `/hotel-bookings/${b.id}/review`, user, {
       rating: 5,
       body: "Audit review",
@@ -1194,6 +1202,17 @@ describe("HTTP contracts and account security", () => {
         ).status,
       ).toBe(400);
   });
+  test("Swagger error examples match each documented response status", async () => {
+    const document = (await send("get", "/openapi.json")).body;
+    for (const item of Object.values(document.paths) as any[])
+      for (const operation of Object.values(item) as any[])
+        for (const code of [400, 401, 403, 404, 409, 500, 503]) {
+          const example =
+            operation.responses[code].content["application/json"].example;
+          expect(example.statusCode).toBe(code);
+          if (code !== 400) expect(example.errors).toBeUndefined();
+        }
+  });
   test("cookies are secure and httpOnly; CSRF and roles are enforced", async () => {
     const r = await send("post", "/auth/login", undefined, {
       email: "a@example.test",
@@ -1930,5 +1949,559 @@ describe("Itineraries, privacy, community and bonuses", () => {
     } finally {
       global.fetch = original;
     }
+  });
+});
+
+describe("Complete operation workflows on independent fixtures", () => {
+  let owner: Login, other: Login, air: Login, host: Login;
+  let carrier: any, lodging: any, scheduled: any, vacant: any;
+  async function ok(
+    method: Parameters<typeof send>[0],
+    path: string,
+    user?: Login,
+    body?: any,
+  ) {
+    const response = await send(method, path, user, body);
+    expect({
+      path,
+      status: response.status,
+      message: response.status >= 400 ? response.body.message : undefined,
+      errors: response.status >= 400 ? response.body.errors : undefined,
+    }).toEqual({
+      path,
+      status: method === "post" ? 201 : 200,
+      message: undefined,
+      errors: undefined,
+    });
+    return response;
+  }
+  beforeAll(async () => {
+    for (const name of ["coverage-owner", "coverage-other"])
+      await ok(
+        "post",
+        "/auth/register",
+        undefined,
+        traveler(`${name}@example.test`),
+      );
+    owner = await login("coverage-owner@example.test");
+    other = await login("coverage-other@example.test");
+    carrier = (
+      await ok("post", "/airlines", users.admin, {
+        name: "Coverage Airways",
+        code: "COVER",
+      })
+    ).body;
+    lodging = (
+      await ok("post", "/hotels", users.admin, {
+        name: "Coverage Hotel",
+        address: "Test Cairo",
+        city: "cairo",
+        country: "EG",
+        description: "Endpoint verification",
+        starClass: 4,
+        amenities: ["WiFi"],
+        timezone: "Africa/Cairo",
+      })
+    ).body;
+    for (const [name, role, provider] of [
+      ["coverage-air", "AirlineModerator", carrier],
+      ["coverage-host", "HotelModerator", lodging],
+    ] as const) {
+      await ok("post", "/admin/moderators", users.admin, {
+        name,
+        email: `${name}@example.test`,
+        role,
+        providerId: provider._id,
+        temporaryPassword: password,
+      });
+      const temporary = await login(`${name}@example.test`);
+      await ok("patch", "/auth/change-password", temporary, {
+        currentPassword: password,
+        newPassword: password,
+      });
+      expect((await send("get", "/auth/me", temporary)).status).toBe(401);
+    }
+    air = await login("coverage-air@example.test");
+    host = await login("coverage-host@example.test");
+  });
+
+  test("reference lists, current account and administrative views return their documented data", async () => {
+    for (const path of ["/airports", "/countries", "/cities", "/attractions"]) {
+      const response = await ok("get", path);
+      expect(response.body.items).toHaveLength(8);
+      expect(response.body.pageSize).toBe(10);
+    }
+    expect((await ok("get", "/currencies")).body).toContain("USD");
+    expect((await ok("get", "/health")).body.database).toBe(true);
+    expect((await ok("get", "/auth/me", owner)).body.id).toBe(owner.user.id);
+    for (const path of [
+      "/admin/accounts",
+      "/admin/bookings",
+      "/admin/reports",
+      "/admin/audit-logs",
+    ]) {
+      const response = await ok("get", path, users.admin);
+      expect(Array.isArray(response.body.items)).toBe(true);
+      expect(response.body.pageSize).toBe(10);
+      expect((await send("get", path, owner)).status).toBe(403);
+    }
+    const original = global.fetch;
+    const currencies = await db.model("Country").distinct("currency");
+    const rates = Object.fromEntries(
+      currencies.map((code: string) => [code, code === "EGP" ? 50 : 1]),
+    );
+    global.fetch = jest
+      .fn<typeof global.fetch>()
+      .mockResolvedValue({
+        ok: true,
+        json: async () => ({ success: true, base: "USD", date: start, rates }),
+      } as Response);
+    try {
+      expect(
+        (await ok("post", "/admin/exchange-rates/refresh", users.admin)).body
+          .base,
+      ).toBe("USD");
+      expect((await ok("get", "/exchange-rates", owner)).body.rates.USD).toBe(
+        1,
+      );
+    } finally {
+      global.fetch = original;
+    }
+    const notification = (await ok("get", "/notifications", air)).body.items[0];
+    // Moderators need no prior notification, so create an explicit deterministic fixture.
+    const note =
+      notification ||
+      (await db
+        .model("Notification")
+        .create({
+          userId: oidUser(owner),
+          message: "Coverage notification",
+          key: "coverage-note",
+        }));
+    const recipient = notification ? air : owner;
+    await ok("patch", `/notifications/${note._id}/read`, recipient);
+    expect((await db.get("Notification", note._id)).readAt).toBeDefined();
+  });
+
+  test("airline profile, baggage, flight cabins, detail and provider booking exports work together", async () => {
+    await ok("patch", `/airlines/${carrier._id}`, air, {
+      name: "Coverage Airways Updated",
+    });
+    await ok("put", `/airlines/${carrier._id}/baggage-policy`, air, {
+      extraBagPrice: 20,
+      maxExtraBags: 2,
+    });
+    expect((await ok("get", `/airlines/${carrier._id}`)).body.name).toBe(
+      "Coverage Airways Updated",
+    );
+    scheduled = (
+      await ok("post", "/flights", air, {
+        airlineId: carrier._id,
+        flightNumber: "COVER100",
+        departureAirport: "CAI",
+        arrivalAirport: "DXB",
+        departureLocal: `${start}T10:00`,
+        arrivalLocal: `${start}T16:00`,
+      })
+    ).body;
+    await ok("patch", `/flights/${scheduled._id}`, air, {
+      departureLocal: `${start}T11:00`,
+    });
+    await ok("post", `/flights/${scheduled._id}/cabins`, air, {
+      category: "Economy",
+      capacity: 12,
+      price: 100,
+      freeBags: 1,
+      bagWeightKg: 23,
+    });
+    const detail = await ok("get", `/flights/${scheduled._id}`);
+    expect(detail.body.cabins[0].capacity).toBe(12);
+    await ok("get", `/flights/${scheduled._id}/bookings`, air);
+    const csv = await ok(
+      "get",
+      `/flights/${scheduled._id}/passengers/export`,
+      air,
+    );
+    expect(csv.headers["content-type"]).toMatch(/text\/csv/);
+    expect(
+      (await send("get", `/flights/${scheduled._id}/passengers/export`, host))
+        .status,
+    ).toBe(403);
+  });
+
+  test("hotel profile, policies and availability edits drive reservation views and safe room deletion", async () => {
+    await ok("patch", `/hotels/${lodging._id}`, host, {
+      description: "Updated description",
+    });
+    await ok("put", `/hotels/${lodging._id}/policies`, host, {
+      checkInTime: "14:00",
+      checkOutTime: "11:00",
+      tiers: [
+        { threshold: 0, refundPercent: 0 },
+        { threshold: 7, refundPercent: 80 },
+      ],
+    });
+    vacant = (
+      await ok("post", `/hotels/${lodging._id}/rooms`, host, {
+        number: "COV101",
+        type: "Double",
+        beds: 2,
+        occupancy: 3,
+        price: 75,
+      })
+    ).body;
+    const path = `/hotels/${lodging._id}/rooms/${vacant._id}/availability`;
+    await ok("post", path, host, {
+      kind: "availability",
+      ranges: [
+        { start, end: DateTime.fromISO(end).plus({ days: 10 }).toISODate() },
+      ],
+    });
+    await ok("patch", path, host, {
+      kind: "blocked",
+      ranges: [
+        {
+          start: end,
+          end: DateTime.fromISO(end).plus({ days: 1 }).toISODate(),
+        },
+      ],
+    });
+    const availability = await ok(
+      "get",
+      `/hotels/${lodging._id}/rooms/available?checkIn=${start}&checkOut=${end}`,
+    );
+    expect(availability.body.items.some((r: any) => r._id === vacant._id)).toBe(
+      true,
+    );
+    await ok("get", `/hotels/${lodging._id}/reservations`, host);
+    const unused = (
+      await ok("post", `/hotels/${lodging._id}/rooms`, host, {
+        number: "DELETE-ME",
+        type: "Single",
+        beds: 1,
+        occupancy: 1,
+        price: 40,
+      })
+    ).body;
+    await ok("delete", `/hotels/${lodging._id}/rooms/${unused._id}`, host, {
+      confirm: true,
+    });
+    expect(await db.model("Room").findById(unused._id)).toBeNull();
+  });
+
+  test("booking aliases, owned detail, policy views, seat maps and financial status views return usable records", async () => {
+    const preview = await ok(
+      "post",
+      "/flight-bookings",
+      owner,
+      flightDto(scheduled._id),
+    );
+    expect(preview.body.amount).toBe(100);
+    const held = await ok(
+      "post",
+      "/flight-bookings/hold",
+      owner,
+      flightDto(scheduled._id),
+    );
+    const id = held.body._id;
+    await ok("get", "/flight-bookings", owner);
+    expect((await ok("get", `/flight-bookings/${id}`, owner)).body._id).toBe(
+      id,
+    );
+    await ok("get", `/bookings/flight/${id}/policies`, owner);
+    const { payment } = await markPaid(id);
+    expect(
+      (await ok("get", `/payments/${payment.id}`, owner)).body.status,
+    ).toBe("Succeeded");
+    await ok("get", `/flight-bookings/${id}/seats`, owner);
+    await ok("get", `/flight-bookings/${id}/e-ticket`, owner);
+    const replacement = await db
+      .model("Flight")
+      .create({
+        airlineId: carrier._id,
+        flightNumber: "COVER101",
+        departureAirport: "CAI",
+        arrivalAirport: "DXB",
+        departureDate: start,
+        departureAt: DateTime.fromISO(start).plus({ hours: 12 }).toJSDate(),
+        arrivalAt: DateTime.fromISO(start).plus({ hours: 16 }).toJSDate(),
+        cabins: [
+          {
+            category: "Economy",
+            capacity: 5,
+            price: 80,
+            freeBags: 1,
+            bagWeightKg: 23,
+          },
+        ],
+      });
+    const change = await ok(
+      "patch",
+      `/flight-bookings/${id}/change-flight`,
+      owner,
+      { segments: [{ flightId: replacement.id, cabin: "Economy" }] },
+    );
+    expect(
+      (await ok("get", `/flight-changes/${change.body._id}`, owner)).body
+        .status,
+    ).toBe("Committed");
+    const refund = await db.model("Refund").findOne({ bookingId: id });
+    expect((await ok("get", `/refunds/${refund.id}`, owner)).body.amount).toBe(
+      20,
+    );
+    expect((await send("get", `/refunds/${refund.id}`, other)).status).toBe(
+      400,
+    );
+    const hotelHold = await ok("post", "/hotel-bookings", owner, {
+      hotelId: lodging._id,
+      checkIn: start,
+      checkOut: end,
+      rooms: [
+        {
+          roomId: vacant._id,
+          guests: [{ name: "Coverage Traveler", age: 30 }],
+        },
+      ],
+    });
+    await ok("get", "/hotel-bookings", owner);
+    expect(
+      (await ok("get", `/hotel-bookings/${hotelHold.body._id}`, owner)).body
+        ._id,
+    ).toBe(hotelHold.body._id);
+    await markPaid(hotelHold.body._id);
+    await ok(
+      "get",
+      `/hotel-bookings/${hotelHold.body._id}/cancellation-quote`,
+      owner,
+    );
+    const cancelled = await ok(
+      "post",
+      `/hotel-bookings/${hotelHold.body._id}/cancel`,
+      owner,
+      { confirm: true },
+    );
+    expect(cancelled.body.status).toBe("Cancelled");
+  });
+
+  test("itinerary child edit/delete operations recalculate budgets and delegated searches use the city group", async () => {
+    const trip = (
+      await ok("post", "/itineraries", owner, {
+        title: "Coverage trip",
+        countries: ["EG"],
+        startDate: start,
+      })
+    ).body;
+    const id = trip._id;
+    const added = await ok("post", `/itineraries/${id}/days`, owner, {
+      city: "cairo",
+    });
+    const dayId = added.body.days[0]._id;
+    await ok("patch", `/itineraries/${id}/days/${dayId}`, owner, {
+      notes: "Updated notes",
+    });
+    const activity = (
+      await ok("post", `/itineraries/${id}/days/${dayId}/activities`, owner, {
+        name: "Museum",
+        cost: 10,
+        currency: "USD",
+      })
+    ).body.days[0].activities[0];
+    await ok("patch", `/activities/${activity._id}`, owner, { cost: 20 });
+    const budget = (
+      await ok("post", `/itineraries/${id}/days/${dayId}/budgets`, owner, {
+        category: "Food",
+        amount: 5,
+        currency: "USD",
+      })
+    ).body.days[0].budgets[0];
+    await ok("patch", `/budgets/${budget._id}`, owner, { amount: 15 });
+    const transport = (
+      await ok("post", `/itineraries/${id}/transport-costs`, owner, {
+        mode: "Taxi",
+        fromCity: "cairo",
+        toCity: "cairo",
+        amount: 3,
+        currency: "USD",
+        dayId,
+      })
+    ).body.transportCosts[0];
+    await ok("patch", `/transport-costs/${transport._id}`, owner, {
+      amount: 4,
+    });
+    expect(
+      (await ok("get", `/itineraries/${id}/budget-summary`, owner)).body.total,
+    ).toBe(39);
+    await ok(
+      "get",
+      `/itineraries/${id}/hotels?firstDayId=${dayId}&guests=1&rooms=1`,
+      owner,
+    );
+    await ok("get", `/itineraries/${id}/flights?origin=DXB`, owner);
+    await ok("get", "/itineraries", owner);
+    await ok("patch", `/itineraries/${id}`, owner, { visibility: "Public" });
+    expect(
+      (await ok("get", "/itineraries/public/search?q=Coverage")).body.total,
+    ).toBeGreaterThan(0);
+    await ok("delete", `/activities/${activity._id}`, owner, { confirm: true });
+    await ok("delete", `/budgets/${budget._id}`, owner, { confirm: true });
+    await ok("delete", `/transport-costs/${transport._id}`, owner, {
+      confirm: true,
+    });
+    expect(
+      (await ok("get", `/itineraries/${id}/budget-summary`, owner)).body.total,
+    ).toBe(0);
+    await ok("delete", `/itineraries/${id}/days/${dayId}`, owner, {
+      confirm: true,
+    });
+    expect(
+      (await ok("get", `/itineraries/${id}`, owner)).body.days,
+    ).toHaveLength(0);
+  });
+
+  test("community discovery, own-comment changes, unlike, moderation and favourites preserve visibility and ownership", async () => {
+    const post = (
+      await ok("post", "/posts", owner, {
+        title: "Coverage blog",
+        body: "Cairo guide",
+        status: "Published",
+        tags: ["coverage"],
+      })
+    ).body;
+    await ok("get", "/posts/mine", owner);
+    const tagged = await ok("get", "/tags/coverage/posts");
+    expect(tagged.body.items.some((p: any) => p.id === post._id)).toBe(true);
+    await ok("get", `/authors/${owner.user.id}`);
+    const comment = (
+      await ok("post", `/posts/${post._id}/comments`, other, {
+        body: "Original",
+      })
+    ).body;
+    await ok("patch", `/comments/${comment._id}`, other, { body: "Edited" });
+    expect(
+      (
+        await send("delete", `/comments/${comment._id}`, owner, {
+          confirm: true,
+        })
+      ).status,
+    ).toBe(403);
+    await ok("delete", `/comments/${comment._id}`, other, { confirm: true });
+    await ok("post", `/posts/${post._id}/like`, other);
+    expect(
+      (await ok("delete", `/posts/${post._id}/like`, other)).body.likeCount,
+    ).toBe(0);
+    await ok("patch", `/admin/content/post/${post._id}`, users.admin, {
+      hidden: true,
+    });
+    expect((await send("get", `/posts/${post._id}`)).status).toBe(404);
+    await ok("patch", `/admin/content/post/${post._id}`, users.admin, {
+      hidden: false,
+    });
+    await ok("get", `/posts/${post._id}`);
+    await ok("post", "/favourites", owner, {
+      type: "hotel",
+      resourceId: lodging._id,
+    });
+    const favourite = await db
+      .model("Favourite")
+      .findOne({ userId: oidUser(owner), resourceId: lodging._id });
+    await ok("delete", `/favourites/${favourite._id}`, owner);
+    await ok("delete", `/posts/${post._id}`, owner, { confirm: true });
+    expect((await send("get", `/posts/${post._id}`)).status).toBe(404);
+  });
+
+  test("all parent media upload/delete routes enforce ownership and remove the parent reference", async () => {
+    const post = (
+      await ok("post", "/posts", owner, {
+        title: "Coverage image",
+        body: "Image",
+      })
+    ).body;
+    const png = PNG.sync.write(new PNG({ width: 2, height: 2 }));
+    for (const [path, user] of [
+      [`/posts/${post._id}/images`, owner],
+      [`/hotels/${lodging._id}/images`, host],
+      [`/airlines/${carrier._id}/logo`, air],
+    ] as const) {
+      const upload = await request(app.getHttpServer())
+        .post(`/api${path}`)
+        .set("Cookie", user.cookie)
+        .set("X-CSRF-Token", user.csrf)
+        .attach("file", png, {
+          filename: "coverage.png",
+          contentType: "image/png",
+        });
+      expect(upload.status).toBe(201);
+      expect(
+        (await send("delete", `${path}/${upload.body.id}`, other)).status,
+      ).toBe(403);
+      await ok("delete", `${path}/${upload.body.id}`, user);
+      expect((await send("get", `/media/${upload.body.id}`, user)).status).toBe(
+        404,
+      );
+    }
+  });
+  test("every protected operation rejects anonymous access, incorrect roles and missing CSRF", async () => {
+    const actors: Record<string, Login> = {
+      User: owner,
+      Admin: users.admin,
+      AirlineModerator: air,
+      HotelModerator: host,
+    };
+    const operations = coverageReport().operations;
+    for (const operation of operations.filter(
+      (o: any) => o.requiresAuthentication,
+    )) {
+      const method = operation.method.toLowerCase() as Parameters<
+        typeof send
+      >[0];
+      const path = operation.path
+        .replace(/^\/api/, "")
+        .replace(/\{[^}]+\}/g, "507f1f77bcf86cd799439011");
+      const anonymous = await send(
+        method,
+        path,
+        undefined,
+        method === "get" ? undefined : {},
+      ).set("X-API-Test-Context", "anonymous");
+      expect({ path, status: anonymous.status }).toEqual({ path, status: 401 });
+      const roles =
+        operation.access
+          ?.split(", ")
+          .filter((role: string) => role in actors) || [];
+      if (roles.length) {
+        const wrong = roles.includes("User") ? users.admin : owner;
+        const rejected = await send(
+          method,
+          path,
+          wrong,
+          method === "get" ? undefined : {},
+        ).set("X-API-Test-Context", "wrong-role");
+        expect({ path, status: rejected.status }).toEqual({
+          path,
+          status: 403,
+        });
+      }
+      if (method !== "get") {
+        const allowed = roles.length ? actors[roles[0]] : owner;
+        const rejected = await request(app.getHttpServer())
+          [method](`/api${path}`)
+          .set("Cookie", allowed.cookie)
+          .set("X-API-Test-Context", "missing-csrf")
+          .send({});
+        expect({ path, status: rejected.status }).toEqual({
+          path,
+          status: path === "/auth/refresh" ? 401 : 403,
+        });
+      }
+    }
+  });
+  test("every documented API operation has a successful HTTP workflow", () => {
+    const report = coverageReport();
+    expect(
+      report.operations
+        .filter((operation: any) => !operation.successfulResponse)
+        .map((operation: any) => `${operation.method} ${operation.path}`),
+    ).toEqual([]);
+    expect(report.exercisedOperations).toBe(report.totalOperations);
   });
 });

@@ -271,6 +271,46 @@ delivery and the sole student's own review remain pending.
 Review: Pending student review.
 ================================================
 
+================================================
+Entry: P011 - Test every API operation and inspect the VS Code browser
+Date: 2026-11-14
+Student: Sole repository owner (Git identity: stevenraouf)
+Tool: OpenAI Codex
+Related Requirement: All backend API operations; authorization and verification
+Prompt (verbatim, line wrapping normalized):
+"could you test all the  api and you local browser is open in the visualstudio
+as you can see :" (Swagger screenshot supplied)
+How the output was used:
+Ran the existing 46 tests with real replica-set persistence. Added a request
+observer retaining route templates/statuses only; initial measured coverage was
+87/147 exercised and 80 successful. Added independent fixture workflows covering
+the remaining endpoints and global anonymous/role/CSRF matrices, plus a gate
+requiring every documented operation to have a successful HTTP workflow.
+Corrected Swagger error examples that previously showed statusCode 400 under
+other documented statuses; added an all-operation documentation regression.
+Created test:api and check:live commands, generated an endpoint-by-endpoint report,
+updated review/handover docs, and retained machine-readable evidence.
+Validation:
+56 tests passed (six unit and 50 HTTP scenarios); 147/147 operations returned
+successful responses; 120 anonymous, 100 role and 86 missing-CSRF checks passed.
+Typecheck, lint and build passed. Compiled HTTPS smoke passed five checks,
+including real FXRatesAPI fetch/cache. Eleven public GET checks passed on the
+running Atlas-backed server, including updated OpenAPI examples. VS Code browser
+inspection observed rendered Swagger and healthy Atlas connectivity, then
+restored Swagger. The recognized task-started server was rebuilt/restarted.
+Test fixture/expectation errors found during expansion were corrected; the final
+run passed. Full mutable workflows used an isolated disposable database on D:,
+with Stripe/SMTP fixtures; no destructive testing of Atlas application records.
+Limitations:
+Not 147 manual Swagger interactions, exhaustive requirement certification,
+student approval, or real Stripe/SMTP account verification. No real credentials,
+cookies, security tokens or screenshot credential contents retained in this log.
+A scan of 18 changed/new text files found none of the configured local credential
+values; backend/.env remains ignored by Git. No HTTP 500 response was observed in
+the final operation suite. git diff --check passed.
+Review: Pending student review.
+================================================
+
 FUTURE ENTRY FORMAT (template, not a completed event)
 Date: YYYY-MM-DD
 Student: Your actual student identity

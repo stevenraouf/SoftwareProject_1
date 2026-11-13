@@ -244,6 +244,33 @@ export function openApi(app: INestApplication) {
           content: {
             "application/json": {
               schema: { $ref: "#/components/schemas/ApiError" },
+              example: {
+                statusCode: Number(code),
+                message: (
+                  {
+                    "400": "Validation failed",
+                    "401": "Authentication required",
+                    "403": "You do not have permission for this operation",
+                    "404": "Resource not found",
+                    "409":
+                      "The request conflicts with the current resource state",
+                    "500": "Internal server error",
+                    "503":
+                      "Required external service is unavailable or not configured",
+                  } as Record<string, string>
+                )[code],
+                ...(code === "400"
+                  ? {
+                      errors: [
+                        {
+                          field: "email",
+                          messages: ["email must be an email"],
+                        },
+                      ],
+                    }
+                  : {}),
+                timestamp: "2026-01-01T00:00:00.000Z",
+              },
             },
           },
         };

@@ -1,0 +1,59 @@
+{
+  "clientDate": "2026-11-14",
+  "transport": "HTTPS with explicit local certificate verification",
+  "target": "Running localhost backend connected to the user's configured Atlas database",
+  "outcome": "passed",
+  "checks": [
+    {
+      "path": "/api/health",
+      "status": 200,
+      "databaseConnected": true
+    },
+    {
+      "path": "/api/airports",
+      "status": 200
+    },
+    {
+      "path": "/api/countries",
+      "status": 200
+    },
+    {
+      "path": "/api/cities",
+      "status": 200
+    },
+    {
+      "path": "/api/attractions",
+      "status": 200
+    },
+    {
+      "path": "/api/currencies",
+      "status": 200
+    },
+    {
+      "path": "/api/posts",
+      "status": 200
+    },
+    {
+      "path": "/api/itineraries/public/search",
+      "status": 200
+    },
+    {
+      "path": "/api/docs",
+      "status": 200
+    },
+    {
+      "path": "/api/docs/swagger-ui-init.js",
+      "status": 200
+    },
+    {
+      "path": "/api/openapi.json",
+      "status": 200
+    }
+  ],
+  "externalServiceConfiguration": {
+    "stripe": false,
+    "webhook": false,
+    "smtp": false
+  },
+  "scope": "Public GET requests only; no credentials, cookies or response bodies retained. Does not repeat all 147 mutable workflows on Atlas."
+}

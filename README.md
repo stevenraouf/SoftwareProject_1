@@ -127,6 +127,15 @@ node --experimental-vm-modules node_modules/jest/bin/jest.js --runInBand --json 
 
 Jest's ESM support emits an experimental VM-modules notice on Node 22. Tests exercise the application with a real replica set. Live Atlas connection, index/seed and HTTPS authentication/startup evidence is recorded in [atlas-setup.json](docs/milestone-1/evidence/atlas-setup.json). Full Atlas booking/payment workflows, account-backed Stripe confirmation/refunds, and actual SMTP delivery remain pending; the real FXRatesAPI response was already checked through the backend. Read the verification record before treating the backend as ready for submission.
 
+For an operation-by-operation report, run `npm.cmd run test:api` from `backend`. It runs the suite, records completed HTTP responses for every OpenAPI operation, and regenerates [API_TEST_REPORT.md](docs/milestone-1/API_TEST_REPORT.md). The 14 November run passed 56 tests and successful workflows for all 147 operations, plus anonymous/role/CSRF matrices. The gate fails when a documented operation lacks a successful workflow. This is operation coverage, not exhaustive proof of every business rule. On this machine, the already installed test binary can be reused:
+
+```powershell
+$env:MONGOMS_SYSTEM_BINARY = (Resolve-Path 'node_modules/.cache/mongodb-memory-server/mongod-x64-win32-8.2.6.exe').Path
+npm.cmd run test:api
+```
+
+With the application running, `npm.cmd run check:live` checks 11 public GET requests over certificate-verified HTTPS against the local Atlas-backed application. It does not mutate application records or use administrator credentials. Full automated operation workflows use a disposable database; Stripe/SMTP adapters use fixtures.
+
 ## Repository workflow
 
 Use `feature/<requirement-id>-<description>` branches from `develop`. For future AI-assisted changes, update the prompt log, run relevant checks, and record your own human review before merging into `develop`; release to `main` after acceptance checks. The local repository has no GitHub remote. Create/connect your own repository and push genuine solo history. No earlier student approvals or additional contributors are fabricated. The source brief uses team-leader wording; the policy record preserves that fact without inventing a teammate or an instructor waiver.

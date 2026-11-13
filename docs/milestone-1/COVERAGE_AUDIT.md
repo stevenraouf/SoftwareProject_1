@@ -14,6 +14,8 @@ The complete local suite after correction contains **46 passing tests**: six uni
 
 A separate clean Git checkout then passed a fresh `npm ci` dependency install and the complete verification command (type checking, lint, all 46 tests, build). It reused the installed MongoDB executable as an external test prerequisite while creating a fresh disposable replica set. See `clean-checkout.json`. The updated compiled HTTPS smoke checks also passed.
 
+Update on 14 November 2026: [API_TEST_REPORT.md](API_TEST_REPORT.md) records 56 passing tests and successful HTTP workflows for all 147 documented operations, plus 120 anonymous/100 role/86 CSRF checks. The earlier 46-test result above is historical. Separate live Atlas public-GET checks and VS Code Swagger/health inspection passed. Stripe/SMTP adapter fixtures and one successful workflow per operation do not certify every input or requirement.
+
 ## Outstanding acceptance evidence
 
 - Atlas connection/indexes, repeatable official/admin seeds and HTTPS login/startup passed after the owner's local setup (see `evidence/atlas-setup.json`). Repeat the full booking/payment walkthrough against Atlas; automated concurrency evidence still uses the disposable replica set.
