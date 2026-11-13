@@ -304,6 +304,7 @@ define(
     policySnapshot: mixed,
     revision: Number,
     paymentId: Schema.Types.ObjectId,
+    policyAcceptedAt: Date,
   },
   [
     [

@@ -553,16 +553,61 @@ describe("Boundary, provider and integration adapter regressions", () => {
     expect((await db.get("Flight", original.id)).cabins[0].booked).toBe(1);
     expect((await db.get("Flight", replacement.id)).cabins[0].held).toBe(1);
     const b = await db.get("Booking", hold.body._id);
-    const p = await db.model("Payment").create({
-      bookingId: b._id,
-      userId: b.userId,
-      amount: 30,
-      currency: "USD",
-      purpose: "change",
-      changeId: new Types.ObjectId(change.body._id),
-      stripeId: "pi_change_fixture",
-      status: "Pending",
-    });
+    const stripe = new Stripe("sk_test_fixture_not_a_real_credential");
+    const configured = jest
+      .spyOn(payments, "configured")
+      .mockReturnValue(stripe);
+    jest
+      .spyOn(stripe.paymentIntents, "create")
+      .mockImplementation(
+        async (params: any) =>
+          ({
+            id: "pi_change_fixture",
+            status: "requires_payment_method",
+            client_secret: "fixture_secret",
+            metadata: params.metadata,
+          }) as any,
+      );
+    let p: any;
+    try {
+      expect(
+        (
+          await send(
+            "post",
+            `/flight-changes/${change.body._id}/payment`,
+            users.a,
+          )
+        ).status,
+      ).toBe(400);
+      expect(
+        (
+          await send(
+            "get",
+            `/flight-changes/${change.body._id}/policies`,
+            users.a,
+          )
+        ).status,
+      ).toBe(200);
+      expect(
+        (
+          await send(
+            "post",
+            `/flight-changes/${change.body._id}/accept-policies`,
+            users.a,
+            { confirm: true },
+          )
+        ).status,
+      ).toBe(201);
+      const created = await send(
+        "post",
+        `/flight-changes/${change.body._id}/payment`,
+        users.a,
+      );
+      expect(created.status).toBe(201);
+      p = await db.get("Payment", created.body.paymentId);
+    } finally {
+      configured.mockRestore();
+    }
     await payments.processEvent({
       id: "evt_change_fixture",
       type: "payment_intent.succeeded",
@@ -590,18 +635,16 @@ describe("Boundary, provider and integration adapter regressions", () => {
       { segments: [{ flightId: third.id, cabin: "Economy" }] },
     );
     expect(again.status).toBe(200);
-    const secondPayment = await db
-      .model("Payment")
-      .create({
-        bookingId: b._id,
-        userId: b.userId,
-        purpose: "change",
-        changeId: again.body._id,
-        amount: 30,
-        currency: "USD",
-        stripeId: "pi_change_again_fixture",
-        status: "Pending",
-      });
+    const secondPayment = await db.model("Payment").create({
+      bookingId: b._id,
+      userId: b.userId,
+      purpose: "change",
+      changeId: again.body._id,
+      amount: 30,
+      currency: "USD",
+      stripeId: "pi_change_again_fixture",
+      status: "Pending",
+    });
     await payments.processEvent({
       id: "evt_change_again_fixture",
       type: "payment_intent.succeeded",

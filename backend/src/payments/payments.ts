@@ -22,7 +22,7 @@ import Stripe from "stripe";
 import { randomBytes } from "node:crypto";
 import { Db, oid, same } from "../database.js";
 import { Actor, minor } from "../common.js";
-import { PaymentDto } from "../dto.js";
+import { ConfirmDto, PaymentDto } from "../dto.js";
 import { actorOf, Public, Roles } from "../auth/auth.js";
 import { BookingsService } from "../bookings/bookings.js";
 import { Inventory } from "../bookings/inventory.js";
@@ -99,6 +99,10 @@ export class PaymentsService {
         c.difference <= 0
       )
         throw new ConflictException("Flight change is not awaiting payment");
+      if (!c.policyAcceptedAt)
+        throw new BadRequestException(
+          "Accept the replacement provider policies before paying the fare difference",
+        );
       if (c.paymentId) return this.db.get("Payment", c.paymentId, session);
       const booking = await this.db.get("Booking", c.bookingId, session);
       const [p] = await this.db.model("Payment").create(
@@ -170,6 +174,31 @@ export class PaymentsService {
       currency: payment.currency,
       message:
         "Use Stripe.js/Elements to submit payment details directly to Stripe; confirmation occurs only through the signed webhook.",
+    };
+  }
+  async changeDetails(actor: Actor, id: string) {
+    const change = await this.db.get("FlightChange", id);
+    await this.bookings.own(actor, String(change.bookingId));
+    return change;
+  }
+  async acceptChangePolicies(actor: Actor, id: string) {
+    const change = await this.changeDetails(actor, id);
+    const updated = await this.db
+      .model("FlightChange")
+      .findOneAndUpdate(
+        {
+          _id: change._id,
+          status: "Pending Payment",
+          expiresAt: { $gt: new Date() },
+        },
+        { $set: { policyAcceptedAt: new Date() } },
+        { returnDocument: "after" },
+      );
+    if (!updated)
+      throw new ConflictException("Flight change hold is no longer active");
+    return {
+      acceptedAt: updated.policyAcceptedAt,
+      policies: updated.policySnapshot,
     };
   }
   async get(actor: Actor, id: string, retry = false) {
@@ -560,6 +589,33 @@ export class RefundsController {
 @Controller("flight-changes")
 export class FlightChangesController {
   constructor(readonly payments: PaymentsService) {}
+  @Get(":id")
+  @ApiOperation({
+    summary:
+      "FLT-27 [Bonus] Inspect own flight change and replacement policies",
+  })
+  get(@Req() r: Request, @Param("id") id: string) {
+    return this.payments.changeDetails(actorOf(r), id);
+  }
+  @Get(":id/policies")
+  @ApiOperation({
+    summary: "FLT-27 PAY-02 [Bonus] Read replacement flight policy snapshot",
+  })
+  async policies(@Req() r: Request, @Param("id") id: string) {
+    const c = await this.payments.changeDetails(actorOf(r), id);
+    return {
+      policies: c.policySnapshot,
+      acceptedAt: c.policyAcceptedAt ?? null,
+    };
+  }
+  @Post(":id/accept-policies")
+  @ApiOperation({
+    summary:
+      "FLT-27 PAY-02 [Bonus] Accept replacement policies before fare payment",
+  })
+  accept(@Req() r: Request, @Param("id") id: string, @Body() _dto: ConfirmDto) {
+    return this.payments.acceptChangePolicies(actorOf(r), id);
+  }
   @Post(":id/payment")
   @ApiOperation({
     summary:
