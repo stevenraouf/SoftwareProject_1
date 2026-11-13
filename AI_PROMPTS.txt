@@ -134,6 +134,34 @@ Evidence: AI_PROMPTS.txt; docs/milestone-1/AI_POLICY_AND_SOLO_SUBMISSION.md;
 docs/milestone-1/SOLO_REVIEW_AND_DISCUSSION_GUIDE.md; README.md.
 ================================================
 
+================================================
+Entry: P006 - Policy compliance and possible grading consequences
+Date: 2026-11-13
+Student: Sole repository owner (Git identity: stevenraouf)
+Tool: OpenAI Codex
+Related Requirement: Project brief sections 10, 11-11.2, 13 and 14
+Prompt (verbatim, line wrapping normalized):
+"Do you think based on the output and AI usage does it match there requriments
+based on the pdf given or will I get pentalized have I used in wrong am I
+missing something  and if so is there away to fix that please ?"
+How the output was used:
+Compared the original PDF policy with the actual log, local history and pending
+review records. Distinguished allowed AI code generation from obligations to
+disclose, review before integration, understand/explain and maintain genuine
+GitHub development evidence. Identified the unrecorded student-review timing,
+the course's team-leader wording for a solo submission, and absent GitHub remote
+as matters not resolved merely by generated documentation.
+Remediation discussed:
+Perform and record an honest current source/Swagger review; preserve actual
+history and disclosure; add other material AI use if any; begin genuine GitHub
+development; finish external-service checks; obtain instructor clarification
+about the already-integrated baseline and solo review arrangement. No backdated
+approval, rewritten authorship, additional teammate or guaranteed grade is claimed.
+Validation scope:
+Read-only source-policy/repository assessment and prompt-log update. No backend
+changes or new runtime test run; the prior 46-test evidence remains prior evidence.
+================================================
+
 FUTURE ENTRY FORMAT (template, not a completed event)
 Date: YYYY-MM-DD
 Student: Your actual student identity

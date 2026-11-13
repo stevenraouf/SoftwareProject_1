@@ -18,7 +18,7 @@ Section 11.2 requires review before integration. It does not explicitly require 
 | --- | --- | --- |
 | Allowed AI uses | Explanation, planning, code/tests, debugging and documentation are disclosed | Include any AI use outside this conversation as well |
 | 11.1: `AI_PROMPTS.txt` | Root log with dates, solo student identity, tool, requirements, prompts, use, corrections and evidence | Append future material prompts throughout development |
-| Multi-turn record | Five chronological entries distinguish verbatim prompts from summaries | Add omitted work from other conversations; it cannot be reconstructed without evidence |
+| Multi-turn record | Chronological entries distinguish verbatim prompts from summaries | Add omitted work from other conversations; it cannot be reconstructed without evidence |
 | 11.2(a): responsibility | Assigned explicitly to the sole student, including AI-generated work | Review the actual submitted version and accept responsibility yourself |
 | 11.2(b): understanding | Source-linked discussion/review guide provided | Work through the guide and demonstrate understanding; a document cannot establish it for you |
 | 11.2(c): review before integration | AI review/test evidence exists; future workflow requires student review before merge | Student review was not recorded before the existing local integration. Review the baseline and record the real date; do not backdate approval or claim historical timing was satisfied |
