@@ -12,6 +12,8 @@ The answer to “is everything required definitely covered?” is **not yet an u
 
 The complete local suite after correction contains **46 passing tests**: six unit and 40 HTTP/replica-set integration scenarios. Type checking, lint, and build also passed. The new regressions supplement the earlier suite rather than redefining success around the old implementation.
 
+A separate clean Git checkout then passed a fresh `npm ci` dependency install and the complete verification command (type checking, lint, all 46 tests, build). It reused the installed MongoDB executable as an external test prerequisite while creating a fresh disposable replica set. See `clean-checkout.json`. The updated compiled HTTPS smoke checks also passed.
+
 ## Outstanding acceptance evidence
 
 - Run against the intended MongoDB Atlas database with the owner's locally configured database user and network permissions.

@@ -13,7 +13,7 @@ This is an AI-assisted engineering self-review. No independent human approval, t
 | TypeScript | Passed | `npm.cmd run typecheck`; strict compiler configuration |
 | ESLint | Passed | `npm.cmd run lint`; unused-code and recommended TypeScript rules |
 | Compiled backend | Passed | `npm.cmd run build`; native ES modules on Node 22.14.0 |
-| Lockfile install resolution | Passed dry run | `npm.cmd ci --dry-run --ignore-scripts`; a fresh physical checkout/install was not performed |
+| Fresh checkout / install | Passed | `clean-checkout.json`; separate clone, fresh node_modules, npm ci, type checking, lint, 46 tests, and build |
 | Unit/integration suite | **46 passed, 0 failed**, two suites | `test-results.json`; six unit scenarios and 40 HTTP/replica-set scenarios |
 | Transaction behavior | Passed locally | Real disposable MongoDB 8.2.6 replica set; no mocked database for inventory checks |
 | Local TLS certificate | Generated successfully | Ignored `.certs/` files; self-signed localhost certificate |

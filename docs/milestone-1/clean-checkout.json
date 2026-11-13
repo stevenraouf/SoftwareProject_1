@@ -1,0 +1,27 @@
+{
+  "checkedAt": "2026-11-13T16:24:38.221473+00:00",
+  "sourceCommit": "dbcfadb",
+  "sourceBranch": "develop",
+  "checkout": "D:/Steven_Software_project_test_cache/clean-audit-687bd40b467441b2801aa06016fb21c1",
+  "method": "Separate git clone with --no-hardlinks; fresh node_modules installed from committed lockfile",
+  "node": "v22.14.0",
+  "commands": [
+    {
+      "command": "npm ci --ignore-scripts --no-audit",
+      "exitCode": 0
+    },
+    {
+      "command": "npm run verify",
+      "exitCode": 0
+    }
+  ],
+  "verification": [
+    "typecheck",
+    "lint",
+    "46 passing tests, 0 failures",
+    "build"
+  ],
+  "mongoPrerequisite": "Real MongoDB 8.2.6 executable reused through MONGOMS_SYSTEM_BINARY; separate disposable replica-set database, not mocked MongoDB and not Atlas",
+  "packageLockSha256": "38918850d6ff619bd45051d294c820f8b7d4222418390d897b67580698165b31",
+  "outcome": "passed"
+}
