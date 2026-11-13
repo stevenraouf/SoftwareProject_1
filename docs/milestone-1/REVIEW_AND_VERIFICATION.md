@@ -2,7 +2,7 @@
 
 ## Current acceptance state
 
-The backend has a passing local verification baseline. It is not an exhaustive acceptance certificate. A follow-up [coverage audit](COVERAGE_AUDIT.md) found and corrected additional conformance issues. **The submission release gate remains open**: Atlas connectivity, account-backed Stripe payments/refunds, actual SMTP delivery, and the sole student's own recorded review remain pending. Milestone 2 UI work is separate.
+The backend has a passing local verification baseline. It is not an exhaustive acceptance certificate. A follow-up [coverage audit](COVERAGE_AUDIT.md) found and corrected additional conformance issues. Atlas authentication and a read-only transaction passed on 13 November 2026. **The submission release gate remains open**: Atlas write/index/seed and application-start verification, account-backed Stripe payments/refunds, actual SMTP delivery, and the sole student's own recorded review remain pending. Milestone 2 UI work is separate.
 
 This is an AI-assisted engineering self-review. There is one human student/developer. No student approval, additional team member, GitHub publication or instructor acceptance is invented. The [policy record](AI_POLICY_AND_SOLO_SUBMISSION.md) distinguishes AI checks from the student's own review; a second teammate is not a prerequisite imposed by this repository.
 
@@ -16,6 +16,7 @@ This is an AI-assisted engineering self-review. There is one human student/devel
 | Fresh checkout / install | Passed | `clean-checkout.json`; separate clone, fresh node_modules, npm ci, type checking, lint, 46 tests, and build |
 | Unit/integration suite | **46 passed, 0 failed**, two suites | `test-results.json`; six unit scenarios and 40 HTTP/replica-set scenarios |
 | Transaction behavior | Passed locally | Real disposable MongoDB 8.2.6 replica set; no mocked database for inventory checks |
+| Live MongoDB Atlas connection | Passed, limited scope | 13 November 2026: `npm.cmd run check:atlas --prefix backend` exited 0; authentication/ping and a read-only snapshot transaction succeeded. Transaction was aborted; no data written. Does not establish write permissions, indexes, seed or application startup. |
 | Local TLS certificate | Generated successfully | Ignored `.certs/` files; self-signed localhost certificate |
 | Compiled HTTPS smoke | **Five checks passed** | `https-smoke.json`; actual HTTPS requests, Swagger HTML/JavaScript, secure cookies, CSRF and real FX fetch/cache |
 | Swagger/OpenAPI | Exported | 147 operations across 123 paths; source-derived role/access and requirement metadata |
@@ -66,7 +67,7 @@ The temporary-download cleanup attempt was rejected by automatic approval review
 
 | Dependency / decision | Required next evidence |
 | --- | --- |
-| MongoDB Atlas | Configure the user's project, database user and IP access; run `npm.cmd run check:atlas` from `backend`, then seed/start against the intended Atlas database. The checker alone does not verify writes or indexes. |
+| MongoDB Atlas | Authentication and read-only transaction passed. Configure local administrator credentials and JWT signing secret, then verify seeding, indexes and application startup against the intended Atlas database. The checker alone does not verify writes or indexes. |
 | Stripe test account | Run a real PaymentIntent through the signed listener, verify confirmation, expiry/cancellation, and a real test refund |
 | SMTP test inbox | Enable email bonuses with configured SMTP and observe verification/reset/invitation/notification delivery |
 | GitHub | Connect the user's repository and push genuine commits; CI has been authored but not run by GitHub |

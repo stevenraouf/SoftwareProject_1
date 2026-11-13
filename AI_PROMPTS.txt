@@ -205,6 +205,39 @@ unverified until the user configures their database credential locally.
 Review: Pending student review.
 ================================================
 
+================================================
+Entry: P009 - Guided fresh Atlas setup and live connection check
+Date: 2026-11-13
+Student: Sole repository owner (Git identity: stevenraouf)
+Tool: OpenAI Codex
+Related Requirement: Atlas integration verification and configuration
+Prompts (chronological summary):
+The student removed the previous Atlas projects and requested screenshot-based
+guidance through a new project, free cluster, IP access list, database user,
+restricted readWrite access to travel_platform and connection-string setup.
+Guidance explained password recovery/rotation and keeping credentials out of
+chat. No credential values are retained in this log.
+Latest prompt (verbatim):
+"I have pasted in env file I want you to check if it is correct or not please"
+How the output was used:
+Inspected configuration using boolean/redacted summaries. The initial checker
+rejected the missing database path; added /travel_platform to the ignored local
+URI while preserving credentials/options. Retried the real Atlas checker.
+Validation:
+npm.cmd run check:atlas --prefix backend exited 0: authentication/ping and an
+aborted read-only snapshot transaction passed. No database writes were made.
+backend/.env is Git-ignored. ADMIN_EMAIL/ADMIN_PASSWORD and JWT_SECRET still
+require configuration; Atlas seed, index and application-start checks remain
+pending. The earlier backend test suite was not rerun for this configuration
+check. Updated REVIEW_AND_VERIFICATION.md with the actual limited evidence.
+Operations:
+C: became full while saving documentation; recovered the interrupted document
+from its committed version, removed only 129 agent-generated temporary PDF page
+previews (about 14 MB) inside tmp/pdfs, and reapplied the record. The delivered
+PDF was preserved. C: still has critically low free space.
+Review: Pending student review.
+================================================
+
 FUTURE ENTRY FORMAT (template, not a completed event)
 Date: YYYY-MM-DD
 Student: Your actual student identity
