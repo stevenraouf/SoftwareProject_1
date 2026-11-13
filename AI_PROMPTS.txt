@@ -1,58 +1,146 @@
-================================================
-Date: 2026-11-13
-Student: Repository owner (solo developer)
-Tool: OpenAI Codex
-Related Requirements: All mandatory Milestone 1 requirements and workbook bonuses
-Prompt:
-Implement the Milestone 1 backend, review process, setup documentation,
-strategy/workflow, tests, and reverse-engineering Markdown according to
-the supplied requirements workbook and project description.
-How the output was used:
-AI-assisted requirements analysis, implementation, testing, and documentation.
-The repository owner must review and understand the submitted implementation.
-Actual verification evidence and remaining limitations are recorded in docs.
-No independent human review is claimed.
-================================================
+﻿AI USAGE AND MATERIAL PROMPT LOG
+Project: Travel Planning and Booking Platform - Software Project I
+Human student contributors: 1 (repository owner; solo developer)
+Recorded repository Git identity: stevenraouf (not a claim of a legal name/ID)
+AI tool: OpenAI Codex
+Policy source: project brief sections 11-11.2, page 13
+
+DISCLOSURE AND RECORD METHOD
+Substantial backend code, architecture, tests, debugging, review notes and
+technical documentation were generated or developed with AI assistance.
+AI use was not limited to spelling or formatting. The sole student remains
+responsible for the submitted code and must personally review and understand it.
+
+This chronological record covers material prompts visible in this conversation.
+Dates use the provided client date; individual times were not recorded.
+Verbatim excerpts and summaries are labeled. This is not a complete transcript
+or a log of other tools/conversations that were not supplied. The student must
+add those separately if applicable. No review, approval or contributor is invented.
 
 ================================================
+Entry: P001 - Initial analysis and planning
 Date: 2026-11-13
-Student: Repository owner (solo developer)
+Student: Sole repository owner (Git identity: stevenraouf)
 Tool: OpenAI Codex
-Related Requirements: Requirements analysis and milestone delivery
-Prompt:
-"I want to you to cover everything for milestone 1 everything that is needed
-please and I want you to give me the strategy, the plan the workflow I want
+Related Requirement: All Milestone 1 modules and documentation deliverables
+Prompt (verbatim, line wrapping normalized):
+"I want to you  to cover everything for milestone 1 everything that is needed
+please and I want you to give me the strategy , the plan the workflow I want
 you to cover as if it is reviewed by human not only an agent and at the end
-give me and md for a reverse engineering of everything you have done please"
+give me and md for a reverse enginereering of everything you have done please"
+Context: supplied project PDF and reviewed requirements workbook in Objectives/.
 How the output was used:
-Inspected both supplied documents and the empty workspace; identified the
-104 mandatory and 11 bonus requirements, the backend-only milestone boundary,
-and the 20 November deadline. The user clarified solo development, requested
-all backend/bonus/documentation deliverables, prioritized mandatory work,
-and requested external-service setup instructions. The user then explicitly
-asked to implement the complete accepted plan.
-
-Implementation assistance included native ESM compatibility, schema/index
-design, transaction-safe inventory, signed webhook handling, persisted retry
-jobs, module services/controllers/DTOs, real replica-set tests, HTTPS smoke
-checks, source traceability, and the documentation handover. Review findings,
-actual executed evidence, and external-account limitations are recorded in
-docs/milestone-1/REVIEW_AND_VERIFICATION.md. No private service credentials
-were provided or fabricated. Test fixtures use disposable local credentials.
+Read both sources and inspected the initially empty implementation workspace.
+Identified 104 mandatory and 11 bonus requirements, the backend-only Milestone 1
+boundary, Swagger evaluation, and the 20 November deadline. Prepared the strategy,
+implementation plan and reverse-engineering handover scope.
+Evidence: docs/requirements/requirements.json; docs/requirements/SOURCES.md;
+docs/milestone-1/STRATEGY_PLAN_WORKFLOW.md.
+Review status: AI-assisted analysis; no independent human review is asserted.
 ================================================
 
 ================================================
+Entry: P002 - Solo status, scope and priorities
 Date: 2026-11-13
-Student: Repository owner (solo developer)
+Student: Sole repository owner (Git identity: stevenraouf)
 Tool: OpenAI Codex
-Related Requirements: FLT-11, FLT-12, ACC-09, ACC-12, HTL-02, HTL-05, ITN-01, ITN-20
-Prompt:
-"you sure you have covered everything required ??"
+Related Requirement: Mandatory/bonus prioritization and development workflow
+Material responses (verbatim):
+"I am doing the project alone there is no team"
+"all them 1,2 and 3 as well please"
+Decision summary:
+The user requested the backend, all workbook bonuses and documentation, selected
+mandatory functionality first for the deadline, and requested service setup
+instructions. Short numbered answers were interpreted in their displayed
+multiple-choice context; they are not expanded into invented verbatim prompts.
 How the output was used:
-Re-audited specification coverage and reproduced gaps with failing regressions.
-Removed an unspecified nine-seat booking limit, centralized deactivated-author
-formatting, and fixed partial updates preserving omitted fields. Added null
-validation and updated the coverage audit, review evidence, and reverse guide.
-The new full suite passes 46 scenarios. External-account verification and
-independent human acceptance remain separate requirements.
+Planned solo development, mandatory-first acceptance and external-account setup.
+Kept Next.js frontend and cloud deployment outside Milestone 1.
+Evidence: README.md; docs/milestone-1/STRATEGY_PLAN_WORKFLOW.md.
+Review status: One human contributor; no fictitious team members or approvals.
 ================================================
+
+================================================
+Entry: P003 - Explicit implementation request
+Date: 2026-11-13
+Student: Sole repository owner (Git identity: stevenraouf)
+Tool: OpenAI Codex
+Related Requirement: ACC, FLT, HTL, PAY, ITN, BLG, GEN and BON modules
+Prompt (verbatim opening): "PLEASE IMPLEMENT THIS PLAN:"
+Prompt scope (summary; not a verbatim copy of the complete supplied plan):
+Build the accepted NestJS/Mongoose backend, authentication/authorization,
+provider inventory, atomic holds, Stripe test payments/refunds, itineraries and
+budgets, blog/moderation, supporting services, all 11 bonuses, Swagger, tests,
+setup, strategy/workflow, AI disclosure and reverse-engineering Markdown.
+How the output was used:
+AI generated/edited backend/src, DTOs, explicit schemas/indexes, seed integration,
+scripts, tests and documentation. AI designed transaction boundaries, snapshots,
+secure cookie sessions, CSRF, webhook verification/idempotency, compensation,
+persisted retry work, privacy checks and independent clones. AI also debugged
+ESM/dependency compatibility, storage behavior and local test-environment failures.
+Validation: initial implementation reached 43 passing tests, type checking,
+lint, build and HTTPS checks. A real public FXRatesAPI response was fetched.
+Atlas account access, actual Stripe payments/refunds and SMTP delivery were not
+claimed as verified through test fixtures or adapter mocks.
+Review/integration status:
+AI review and automated checks occurred; the assistant integrated code locally
+on develop. Student review before that integration was not recorded. This log
+does not claim that historical review timing was met. Student review is pending.
+Evidence: backend/src/; backend/test/; docs/api/openapi.json;
+docs/milestone-1/REVIEW_AND_VERIFICATION.md; REVERSE_ENGINEERING.md.
+================================================
+
+================================================
+Entry: P004 - Challenge to completeness and follow-up audit
+Date: 2026-11-13
+Student: Sole repository owner (Git identity: stevenraouf)
+Tool: OpenAI Codex
+Related Requirement: FLT-11/12, ACC-09/12, HTL-02/05, ITN-01/20
+Prompt (verbatim): "you sure you have covered everything required ??"
+How the output was used:
+Re-audited specification coverage and reproduced three gaps with failing tests:
+an unspecified nine-seat group limit, missing deactivated-reviewer labels in
+hotel details, and partial updates that could erase unrelated fields. Fixed
+these, preserved false/zero values and rejected invalid nulls. Updated coverage,
+review evidence and reverse engineering rather than claiming full acceptance.
+Validation: 46 tests, type checking, lint and build passed. A separate clean
+checkout passed a fresh dependency install and verification. HTTPS checks passed.
+Evidence: docs/milestone-1/COVERAGE_AUDIT.md; test-results.json;
+clean-checkout.json; https-smoke.json. Commits: dbcfadb and a9f34be.
+Review status: a passing local baseline is not proof of student understanding.
+================================================
+
+================================================
+Entry: P005 - Policy and sole-contributor clarification
+Date: 2026-11-13
+Student: Sole repository owner (Git identity: stevenraouf)
+Tool: OpenAI Codex
+Related Requirement: Project brief sections 10-14; AI disclosure and deliverables
+Prompt (verbatim, line wrapping normalized):
+"Did you do the following : if not then do it please espically for the part
+about the policy and also I want you note something that there no other team
+members it is only me"
+Context: attached images of sections 11-14 of the project brief.
+How the output was used:
+Re-read the original policy, workflow and deliverable sections. Expanded this
+chronological disclosure. Added a policy/deliverable status map and a practical
+solo student review/discussion guide. Updated README and handover language to
+identify one human student and distinguish application roles from contributors.
+The student's own human review remains pending. No additional teammate,
+instructor exemption, earlier approval or completed student review is invented.
+Validation scope: documentation checks only for this policy pass. Backend
+behavior is unchanged; the existing 46-test report is retained as prior evidence.
+Evidence: AI_PROMPTS.txt; docs/milestone-1/AI_POLICY_AND_SOLO_SUBMISSION.md;
+docs/milestone-1/SOLO_REVIEW_AND_DISCUSSION_GUIDE.md; README.md.
+================================================
+
+FUTURE ENTRY FORMAT (template, not a completed event)
+Date: YYYY-MM-DD
+Student: Your actual student identity
+Tool: AI tool actually used
+Related Requirement: Requirement IDs or policy section
+Prompt: Actual material prompt or clearly labeled chronological summary
+How the output was used: Files/decisions affected, changes made or output rejected
+Validation: Commands actually run and their results
+Review: Actual reviewer/date/evidence, or Pending student review
+Never put passwords, API secrets, connection strings or real access tokens here.

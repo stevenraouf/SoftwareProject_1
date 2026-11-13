@@ -2,6 +2,8 @@
 
 NestJS 12 / TypeScript backend for Software Project I, Milestone 1. The repository includes mandatory backend functionality, the 11 workbook bonus feature implementations, Swagger/OpenAPI, official reference seeds, automated tests, and an implementation handover.
 
+**Solo project:** the repository owner is the only human student/developer. Codex is an AI tool, not a team member. Substantial code, tests and documentation were AI-assisted; the disclosure is in [AI_PROMPTS.txt](AI_PROMPTS.txt). See the [policy and deliverable record](docs/milestone-1/AI_POLICY_AND_SOLO_SUBMISSION.md) and [your review/discussion guide](docs/milestone-1/SOLO_REVIEW_AND_DISCUSSION_GUIDE.md). Your own review and understanding remain your responsibility; no completed student review is claimed.
+
 The supplied workbook remains the business-rule authority. The frontend and its visual requirements belong to Milestone 2. See [strategy and workflow](docs/milestone-1/STRATEGY_PLAN_WORKFLOW.md), [verification record](docs/milestone-1/REVIEW_AND_VERIFICATION.md), [requirements matrix](docs/requirements/TRACEABILITY.md), and [reverse engineering](docs/milestone-1/REVERSE_ENGINEERING.md).
 
 The [follow-up coverage audit](docs/milestone-1/COVERAGE_AUDIT.md) records additional reproduced and fixed gaps. Passing local tests is not an unconditional claim of complete submission acceptance.
@@ -126,6 +128,6 @@ Jest's ESM support emits an experimental VM-modules notice on Node 22. Tests exe
 
 ## Repository workflow
 
-Use `feature/<requirement-id>-<description>` branches from `develop`; merge reviewed and tested work into `develop`, then release to `main`. The local repository has no configured GitHub remote. Create/connect your own repository and push genuine development commits. No historical contributions, team approvals, or independent human reviews have been fabricated. Keep `AI_PROMPTS.txt` current and ask the instructor how the team-leader review rule applies to your solo submission.
+Use `feature/<requirement-id>-<description>` branches from `develop`. For future AI-assisted changes, update the prompt log, run relevant checks, and record your own human review before merging into `develop`; release to `main` after acceptance checks. The local repository has no GitHub remote. Create/connect your own repository and push genuine solo history. No earlier student approvals or additional contributors are fabricated. The source brief uses team-leader wording; the policy record preserves that fact without inventing a teammate or an instructor waiver.
 
 The implemented application is integrated on `develop`. `main` retains the initial specification baseline until the outstanding account-backed release checks pass. Commits created during this session identify Codex as their author; they do not pretend to be historical student contributions.

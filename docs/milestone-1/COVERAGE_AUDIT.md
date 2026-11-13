@@ -20,7 +20,7 @@ A separate clean Git checkout then passed a fresh `npm ci` dependency install an
 - Exercise actual Stripe test-account confirmation, retry, timeout, cancellation, and refunds. Signed fixture events and adapter tests do not prove account integration.
 - Observe real SMTP test-inbox delivery for verification, password recovery, moderator invitations, and notifications.
 - Connect/push the GitHub repository and observe its CI run.
-- Complete a human Swagger walkthrough and obtain instructor guidance about solo review.
+- Complete your own human Swagger walkthrough and source review as the sole student; record the actual version, date and findings. No second team member is presumed.
 - Confirm the documented booking-state interpretation: provider cancellation invalidates pending holds as Expired, while GEN-11 explicitly associates expiration with hold timeout. The related requirements need a consistent interpretation; it is not silently counted as fully accepted.
 - Next.js pages, visual design, navigation, responsive states and other frontend-only criteria remain Milestone 2 work.
 

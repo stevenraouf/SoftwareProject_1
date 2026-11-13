@@ -2,6 +2,8 @@
 
 This document explains the implementation delivered in this repository, how to reconstruct its behavior, and where its verification stops. It does not assert that an independent human reviewed the code or that unconfigured external accounts were exercised.
 
+The repository owner is the sole human student/developer. Codex is an AI tool, not another member. The chronological [prompt log](../../AI_PROMPTS.txt), [policy record](AI_POLICY_AND_SOLO_SUBMISSION.md), and [solo discussion guide](SOLO_REVIEW_AND_DISCUSSION_GUIDE.md) disclose assistance and identify the student's pending review and understanding obligations. Application-role accounts do not represent student collaborators.
+
 ## 1. Reconstruct the project from its inputs
 
 The original workspace contained only the project PDF and requirements workbook in `Objectives/`. The PDF defines NestJS/MongoDB Atlas for Milestone 1, Next.js for Milestone 2, the endpoint expectations, Swagger evaluation, Git workflow, and AI disclosure. The workbook supplies 104 mandatory requirements and 11 bonuses.
@@ -168,4 +170,4 @@ The authoritative run evidence is `test-results.json`, `https-smoke.json`, and `
 
 This is not a claim of production deployment or complete load/security certification. High-volume search/analytics currently assemble candidates in memory, single-process authentication throttling is not a distributed limiter, retained sessions/media need a retention policy, and PDF exports should be checked with non-Latin user content before multilingual production use. Platform settlement supports the supplied two-decimal currencies; JPY remains supported for itinerary display. Do not change the platform currency after creating priced inventory.
 
-No GitHub remote, instructor acceptance, or independent human approval is fabricated. The mandatory milestone release gate stays open until account-backed external checks and the solo-review arrangement are resolved. The implementation, tests, documentation and source mapping provide the concrete material for that review.
+No GitHub remote, instructor acceptance or student approval is fabricated. The mandatory milestone release gate stays open until account-backed checks and the sole student's actual review are recorded. A second human teammate is not presumed. The implementation, tests, documentation and source mapping provide the material for the student's review.

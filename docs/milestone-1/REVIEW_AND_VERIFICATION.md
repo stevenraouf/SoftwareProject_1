@@ -2,9 +2,9 @@
 
 ## Current acceptance state
 
-The backend has a passing local verification baseline. It is not an exhaustive acceptance certificate. A follow-up [coverage audit](COVERAGE_AUDIT.md) found and corrected additional conformance issues. **The submission release gate remains open**: Atlas connectivity, account-backed Stripe payments/refunds, actual SMTP delivery, instructor guidance for solo review, and the Milestone 2 UI are not claimed complete.
+The backend has a passing local verification baseline. It is not an exhaustive acceptance certificate. A follow-up [coverage audit](COVERAGE_AUDIT.md) found and corrected additional conformance issues. **The submission release gate remains open**: Atlas connectivity, account-backed Stripe payments/refunds, actual SMTP delivery, and the sole student's own recorded review remain pending. Milestone 2 UI work is separate.
 
-This is an AI-assisted engineering self-review. No independent human approval, team contribution, GitHub publication, or instructor acceptance is represented by this document.
+This is an AI-assisted engineering self-review. There is one human student/developer. No student approval, additional team member, GitHub publication or instructor acceptance is invented. The [policy record](AI_POLICY_AND_SOLO_SUBMISSION.md) distinguishes AI checks from the student's own review; a second teammate is not a prerequisite imposed by this repository.
 
 ## Executed evidence
 
@@ -70,7 +70,7 @@ The temporary-download cleanup attempt was rejected by automatic approval review
 | Stripe test account | Run a real PaymentIntent through the signed listener, verify confirmation, expiry/cancellation, and a real test refund |
 | SMTP test inbox | Enable email bonuses with configured SMTP and observe verification/reset/invitation/notification delivery |
 | GitHub | Connect the user's repository and push genuine commits; CI has been authored but not run by GitHub |
-| Human / instructor review | Confirm how the team-leader review rule applies to a solo submission; no reviewer has been invented |
+| Sole student's human review | Review the actual source/version and perform the walkthrough using the solo discussion guide; record the real date/findings. No additional teammate or prior approval is invented |
 | Browser and frontend | A browser visual/accessibility review and all Next.js/UI requirements are still Milestone 2 work; HTTPS smoke is not browser interaction |
 
 ## Operational limits to retain in review
