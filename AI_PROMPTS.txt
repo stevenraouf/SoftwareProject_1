@@ -1,0 +1,42 @@
+================================================
+Date: 2026-11-13
+Student: Repository owner (solo developer)
+Tool: OpenAI Codex
+Related Requirements: All mandatory Milestone 1 requirements and workbook bonuses
+Prompt:
+Implement the Milestone 1 backend, review process, setup documentation,
+strategy/workflow, tests, and reverse-engineering Markdown according to
+the supplied requirements workbook and project description.
+How the output was used:
+AI-assisted requirements analysis, implementation, testing, and documentation.
+The repository owner must review and understand the submitted implementation.
+Actual verification evidence and remaining limitations are recorded in docs.
+No independent human review is claimed.
+================================================
+
+================================================
+Date: 2026-11-13
+Student: Repository owner (solo developer)
+Tool: OpenAI Codex
+Related Requirements: Requirements analysis and milestone delivery
+Prompt:
+"I want to you to cover everything for milestone 1 everything that is needed
+please and I want you to give me the strategy, the plan the workflow I want
+you to cover as if it is reviewed by human not only an agent and at the end
+give me and md for a reverse engineering of everything you have done please"
+How the output was used:
+Inspected both supplied documents and the empty workspace; identified the
+104 mandatory and 11 bonus requirements, the backend-only milestone boundary,
+and the 20 November deadline. The user clarified solo development, requested
+all backend/bonus/documentation deliverables, prioritized mandatory work,
+and requested external-service setup instructions. The user then explicitly
+asked to implement the complete accepted plan.
+
+Implementation assistance included native ESM compatibility, schema/index
+design, transaction-safe inventory, signed webhook handling, persisted retry
+jobs, module services/controllers/DTOs, real replica-set tests, HTTPS smoke
+checks, source traceability, and the documentation handover. Review findings,
+actual executed evidence, and external-account limitations are recorded in
+docs/milestone-1/REVIEW_AND_VERIFICATION.md. No private service credentials
+were provided or fabricated. Test fixtures use disposable local credentials.
+================================================
