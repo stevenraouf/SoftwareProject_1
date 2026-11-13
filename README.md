@@ -4,6 +4,8 @@ NestJS 12 / TypeScript backend for Software Project I, Milestone 1. The reposito
 
 The supplied workbook remains the business-rule authority. The frontend and its visual requirements belong to Milestone 2. See [strategy and workflow](docs/milestone-1/STRATEGY_PLAN_WORKFLOW.md), [verification record](docs/milestone-1/REVIEW_AND_VERIFICATION.md), [requirements matrix](docs/requirements/TRACEABILITY.md), and [reverse engineering](docs/milestone-1/REVERSE_ENGINEERING.md).
 
+The [follow-up coverage audit](docs/milestone-1/COVERAGE_AUDIT.md) records additional reproduced and fixed gaps. Passing local tests is not an unconditional claim of complete submission acceptance.
+
 ## Start on Windows
 
 Use a currently patched Node.js 22 release and npm. This implementation was checked with Node 22.14.0; `.nvmrc` selects the 22 line. Git, network access, and an Atlas account are required for the application. Tests use a disposable local MongoDB replica set rather than your Atlas database.

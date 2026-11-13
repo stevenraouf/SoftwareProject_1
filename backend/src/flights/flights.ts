@@ -25,6 +25,7 @@ import {
   money,
   pageNumber,
   paginated,
+  definedFields,
 } from "../common.js";
 import {
   AirlineDto,
@@ -82,7 +83,7 @@ export class FlightsService {
   async editAirline(actor: Actor, id: string, dto: PatchAirlineDto) {
     const p = await this.airline(id);
     manageProvider(actor, p);
-    Object.assign(p, dto);
+    Object.assign(p, definedFields(dto));
     return p.save();
   }
   async policy(actor: Actor, id: string, dto: CancellationPolicyDto) {
@@ -95,7 +96,7 @@ export class FlightsService {
   async baggage(actor: Actor, id: string, dto: BaggageDto) {
     const p = await this.airline(id);
     manageProvider(actor, p);
-    Object.assign(p, dto);
+    Object.assign(p, definedFields(dto));
     return p.save();
   }
   async instants(dto: any) {
@@ -277,7 +278,7 @@ export class FlightsService {
             "Capacity reduction would remove an assigned seat",
           );
       }
-      Object.assign(c, dto);
+      Object.assign(c, definedFields(dto));
       return f.save({ session });
     });
   }

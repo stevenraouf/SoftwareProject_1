@@ -24,6 +24,7 @@ import {
   pageNumber,
   paginated,
   today,
+  definedFields,
 } from "../common.js";
 import {
   AvailabilityDto,
@@ -74,8 +75,8 @@ export class HotelsService {
   async edit(actor: Actor, id: string, dto: PatchHotelDto) {
     const h = await this.hotel(id);
     manageProvider(actor, h);
-    await this.validateProfile({ ...h.toObject(), ...dto });
-    Object.assign(h, dto);
+    await this.validateProfile({ ...h.toObject(), ...definedFields(dto) });
+    Object.assign(h, definedFields(dto));
     return h.save();
   }
   async policy(actor: Actor, id: string, dto: HotelPolicyDto) {
@@ -124,7 +125,7 @@ export class HotelsService {
         throw new BadRequestException(
           "Room has a Confirmed reservation or active hold",
         );
-      Object.assign(room, dto);
+      Object.assign(room, definedFields(dto));
       return room.save({ session });
     });
   }
@@ -315,6 +316,12 @@ export class HotelsService {
       hotelId: hotel._id,
       hidden: false,
     });
+    reviews.items = await Promise.all(
+      reviews.items.map(async (review: any) => ({
+        ...review,
+        author: await this.ops.publicAuthor(review.userId),
+      })),
+    );
     return {
       ...hotel.toObject(),
       reviews,

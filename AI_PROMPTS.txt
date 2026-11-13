@@ -40,3 +40,19 @@ actual executed evidence, and external-account limitations are recorded in
 docs/milestone-1/REVIEW_AND_VERIFICATION.md. No private service credentials
 were provided or fabricated. Test fixtures use disposable local credentials.
 ================================================
+
+================================================
+Date: 2026-11-13
+Student: Repository owner (solo developer)
+Tool: OpenAI Codex
+Related Requirements: FLT-11, FLT-12, ACC-09, ACC-12, HTL-02, HTL-05, ITN-01, ITN-20
+Prompt:
+"you sure you have covered everything required ??"
+How the output was used:
+Re-audited specification coverage and reproduced gaps with failing regressions.
+Removed an unspecified nine-seat booking limit, centralized deactivated-author
+formatting, and fixed partial updates preserving omitted fields. Added null
+validation and updated the coverage audit, review evidence, and reverse guide.
+The new full suite passes 46 scenarios. External-account verification and
+independent human acceptance remain separate requirements.
+================================================

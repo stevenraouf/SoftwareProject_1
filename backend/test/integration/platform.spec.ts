@@ -281,6 +281,124 @@ afterAll(async () => {
 });
 
 describe("Boundary, provider and integration adapter regressions", () => {
+  test("requirements audit: partial updates preserve profile identity, room status and itinerary visibility", async () => {
+    const before = await send("get", "/users/me", users.a);
+    const profile = await send("patch", "/users/me", users.a, {
+      phone: "+201000000000",
+    });
+    expect(profile.status).toBe(200);
+    expect(profile.body.name).toBe(before.body.name);
+    expect(profile.body.preferredCurrency).toBe(before.body.preferredCurrency);
+    expect(
+      (await send("patch", "/users/me", users.a, { preferredCurrency: null }))
+        .status,
+    ).toBe(400);
+    const room = await send("post", `/hotels/${hotel._id}/rooms`, users.hotel, {
+      number: "AUDITPATCH",
+      type: "Single",
+      beds: 1,
+      occupancy: 1,
+      price: 60,
+    });
+    const edited = await send(
+      "patch",
+      `/hotels/${hotel._id}/rooms/${room.body._id}`,
+      users.hotel,
+      { price: 61 },
+    );
+    expect(edited.status).toBe(200);
+    expect(edited.body.active).toBe(true);
+    const itinerary = await send("post", "/itineraries", users.a, {
+      title: "Original title",
+      countries: ["EG"],
+      startDate: start,
+    });
+    await send("patch", `/itineraries/${itinerary.body._id}`, users.a, {
+      visibility: "Public",
+    });
+    const renamed = await send(
+      "patch",
+      `/itineraries/${itinerary.body._id}`,
+      users.a,
+      { title: "Renamed" },
+    );
+    expect(renamed.status).toBe(200);
+    expect(renamed.body.visibility).toBe("Public");
+  });
+  test("requirements audit: search and booking allow ten seated passengers when inventory permits", async () => {
+    const f = await makeFlight("GROUPTEN", 12);
+    const search = await send(
+      "get",
+      `/flights/search?departureAirport=CAI&arrivalAirport=DXB&departureDate=${start}&adults=10`,
+    );
+    expect(search.status).toBe(200);
+    expect(search.body.items.some((item: any) => item.flightId === f.id)).toBe(
+      true,
+    );
+    const dto = flightDto(f.id);
+    dto.passengers = Array.from({ length: 10 }, (_, i) => ({
+      fullName: `Traveler ${i + 1}`,
+      dateOfBirth: "1990-01-01",
+      identityNumber: `GROUP${i + 1}`,
+      type: "adult",
+      extraBags: 0,
+    }));
+    const hold = await send("post", "/flight-bookings/hold", users.a, dto);
+    expect(hold.status).toBe(201);
+    expect((await db.get("Flight", f.id)).cabins[0].held).toBe(10);
+  });
+  test("requirements audit: hotel detail and review list label a deactivated reviewer consistently", async () => {
+    await send(
+      "post",
+      "/auth/register",
+      undefined,
+      traveler("review-deactivate@example.test"),
+    );
+    const user = await login("review-deactivate@example.test");
+    const b = await db
+      .model("Booking")
+      .create({
+        type: "hotel",
+        userId: oidUser(user),
+        providerIds: [hotel._id],
+        status: "Completed",
+        amount: 100,
+        currency: "USD",
+        snapshot: { hotelId: hotel._id },
+        policySnapshot: {},
+        startsAt: new Date(Date.now() - 3 * 86400000),
+        endsAt: new Date(Date.now() - 86400000),
+      });
+    const review = await send("post", `/hotel-bookings/${b.id}/review`, user, {
+      rating: 5,
+      body: "Audit review",
+    });
+    expect(review.status).toBe(201);
+    try {
+      expect(
+        (await send("delete", "/users/me", user, { confirm: true })).status,
+      ).toBe(200);
+      const details = await send("get", `/hotels/${hotel._id}`);
+      const detailReview = details.body.reviews.items.find(
+        (r: any) => r._id === review.body._id,
+      );
+      expect(detailReview.author).toEqual(
+        expect.objectContaining({ id: null, name: "Deleted user" }),
+      );
+      const listed = await send("get", `/hotels/${hotel._id}/reviews`);
+      expect(
+        listed.body.items.find((r: any) => r._id === review.body._id).author
+          .name,
+      ).toBe("Deleted user");
+    } finally {
+      await send(
+        "delete",
+        `/admin/content/review/${review.body._id}`,
+        users.admin,
+        { confirm: true },
+      );
+    }
+  });
   test("flight/hotel search preserves filters, supports round trips and excludes unrated hotels", async () => {
     const flightQuery = `departureAirport=CAI&arrivalAirport=DXB&departureDate=${start}&adults=1&minPrice=100&maxPrice=100`;
     const search = await send("get", `/flights/search?${flightQuery}`);
@@ -557,17 +675,15 @@ describe("Boundary, provider and integration adapter regressions", () => {
     const configured = jest
       .spyOn(payments, "configured")
       .mockReturnValue(stripe);
-    jest
-      .spyOn(stripe.paymentIntents, "create")
-      .mockImplementation(
-        async (params: any) =>
-          ({
-            id: "pi_change_fixture",
-            status: "requires_payment_method",
-            client_secret: "fixture_secret",
-            metadata: params.metadata,
-          }) as any,
-      );
+    jest.spyOn(stripe.paymentIntents, "create").mockImplementation(
+      async (params: any) =>
+        ({
+          id: "pi_change_fixture",
+          status: "requires_payment_method",
+          client_secret: "fixture_secret",
+          metadata: params.metadata,
+        }) as any,
+    );
     let p: any;
     try {
       expect(

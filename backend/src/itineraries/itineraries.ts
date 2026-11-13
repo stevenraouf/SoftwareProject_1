@@ -27,6 +27,7 @@ import {
   money,
   pageNumber,
   paginated,
+  definedFields,
 } from "../common.js";
 import {
   ActivityDto,
@@ -95,7 +96,7 @@ export class ItinerariesService {
     if (dto.countries) await this.ops.countries(dto.countries);
     if (dto.startDate) dateOnly(dto.startDate);
     return this.mutate(actor, id, (doc) => {
-      Object.assign(doc, dto);
+      Object.assign(doc, definedFields(dto));
     });
   }
   async remove(actor: Actor, id: string) {
@@ -175,7 +176,7 @@ export class ItinerariesService {
     return this.mutate(actor, id, (doc) => {
       const day = doc.days.id(oid(dayId));
       if (!day) throw new NotFoundException("Day not found");
-      Object.assign(day, dto);
+      Object.assign(day, definedFields(dto));
     });
   }
   async deleteDay(actor: Actor, id: string, dayId: string) {
@@ -253,7 +254,7 @@ export class ItinerariesService {
           throw new BadRequestException(
             "Transport day must belong to this itinerary",
           );
-        Object.assign(child, dto);
+        Object.assign(child, definedFields(dto));
       }
     });
   }

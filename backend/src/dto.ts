@@ -12,7 +12,7 @@ import {
   IsInt,
   IsMongoId,
   IsNumber,
-  IsOptional,
+  ValidateIf,
   IsString,
   Matches,
   Max,
@@ -23,6 +23,10 @@ import {
 } from "class-validator";
 import { Type } from "class-transformer";
 
+function OptionalField() {
+  return ValidateIf((_object, value) => value !== undefined);
+}
+
 function Text(min = 1, max = 200, optional = false) {
   return applyDecorators(
     ApiProperty({
@@ -31,7 +35,7 @@ function Text(min = 1, max = 200, optional = false) {
       minLength: min,
       maxLength: max,
     }),
-    ...(optional ? [IsOptional()] : []),
+    ...(optional ? [OptionalField()] : []),
     IsString(),
     ...(min > 0
       ? [Matches(/\S/, { message: "must contain a non-whitespace character" })]
@@ -48,7 +52,7 @@ function Num(min = 0, max = 1e8, integer = false, optional = false) {
       minimum: min,
       maximum: max,
     }),
-    ...(optional ? [IsOptional()] : []),
+    ...(optional ? [OptionalField()] : []),
     Type(() => Number),
     ...(integer ? [IsInt()] : [IsNumber()]),
     Min(min),
@@ -62,14 +66,14 @@ function Id(optional = false) {
       required: !optional,
       example: "507f1f77bcf86cd799439011",
     }),
-    ...(optional ? [IsOptional()] : []),
+    ...(optional ? [OptionalField()] : []),
     IsMongoId(),
   );
 }
 function Choice(values: string[], optional = false) {
   return applyDecorators(
     ApiProperty({ enum: values, required: !optional }),
-    ...(optional ? [IsOptional()] : []),
+    ...(optional ? [OptionalField()] : []),
     IsEnum(Object.fromEntries(values.map((v) => [v, v]))),
   );
 }
@@ -94,7 +98,7 @@ function Currency(optional = false) {
 function ListStrings(max: number, optional = false, min = 0) {
   return applyDecorators(
     ApiProperty({ type: [String], required: !optional }),
-    ...(optional ? [IsOptional()] : []),
+    ...(optional ? [OptionalField()] : []),
     IsArray(),
     ArrayMinSize(min),
     ArrayMaxSize(max),
@@ -168,7 +172,9 @@ export class AirlineDto {
   @Text(1, 100) name!: string;
   @Text(2, 8) @Matches(/^[A-Z0-9]{2,8}$/) code!: string;
 }
-export class PatchAirlineDto extends PartialType(AirlineDto) {}
+export class PatchAirlineDto extends PartialType(AirlineDto, {
+  skipNullProperties: false,
+}) {}
 export class HotelDto {
   @Text(1, 150) name!: string;
   @Text(1, 300) address!: string;
@@ -179,7 +185,9 @@ export class HotelDto {
   @ListStrings(50) @MaxLength(100, { each: true }) amenities!: string[];
   @Text(1, 80) timezone!: string;
 }
-export class PatchHotelDto extends PartialType(HotelDto) {}
+export class PatchHotelDto extends PartialType(HotelDto, {
+  skipNullProperties: false,
+}) {}
 export class TierDto {
   @Num(0, 3650, true) threshold!: number;
   @Num(0, 100) refundPercent!: number;
@@ -210,7 +218,9 @@ export class FlightDto {
 export class CreateFlightDto extends FlightDto {
   @Id() airlineId!: string;
 }
-export class PatchFlightDto extends PartialType(FlightDto) {}
+export class PatchFlightDto extends PartialType(FlightDto, {
+  skipNullProperties: false,
+}) {}
 export const CABINS = ["Economy", "Premium Economy", "Business", "First"];
 export class CabinDto {
   @Choice(CABINS) category!: string;
@@ -219,15 +229,17 @@ export class CabinDto {
   @Num(0, 10, true) freeBags!: number;
   @Num(0.01, 100) bagWeightKg!: number;
 }
-export class PatchCabinDto extends PartialType(CabinDto) {}
+export class PatchCabinDto extends PartialType(CabinDto, {
+  skipNullProperties: false,
+}) {}
 export class FlightSearchDto extends PageDto {
   @Text(3, 3) departureAirport!: string;
   @Text(3, 3) arrivalAirport!: string;
   @DateField() departureDate!: string;
   @DateField(true) returnDate?: string;
-  @Num(1, 9, true, true) adults = 1;
-  @Num(0, 8, true, true) children = 0;
-  @Num(0, 9, true, true) infants = 0;
+  @Num(1, 1000, true, true) adults = 1;
+  @Num(0, 1000, true, true) children = 0;
+  @Num(0, 1000, true, true) infants = 0;
   @Choice(CABINS, true) cabin?: string;
   @Num(0, 1e8, false, true) minPrice?: number;
   @Num(0, 1e8, false, true) maxPrice?: number;
@@ -240,7 +252,7 @@ export class PassengerDto {
   @Choice(["adult", "child", "infant"]) type!: string;
   @Num(0, 20, true, true) extraBags = 0;
   @ApiProperty({ type: [Number], required: false })
-  @IsOptional()
+  @OptionalField()
   @IsArray()
   @ArrayMaxSize(20)
   @IsNumber({}, { each: true })
@@ -262,7 +274,7 @@ export class FlightBookingDto {
   @ApiProperty({ type: [PassengerDto] })
   @IsArray()
   @ArrayMinSize(1)
-  @ArrayMaxSize(18)
+  @ArrayMaxSize(2000)
   @ValidateNested({ each: true })
   @Type(() => PassengerDto)
   passengers!: PassengerDto[];
@@ -283,8 +295,13 @@ export class RoomDto {
   @Num(1, 50, true) occupancy!: number;
   @Num(0.01) price!: number;
 }
-export class PatchRoomDto extends PartialType(RoomDto) {
-  @ApiProperty({ required: false }) @IsOptional() @IsBoolean() active?: boolean;
+export class PatchRoomDto extends PartialType(RoomDto, {
+  skipNullProperties: false,
+}) {
+  @ApiProperty({ required: false })
+  @OptionalField()
+  @IsBoolean()
+  active?: boolean;
 }
 export class RangeDto {
   @DateField() start!: string;
@@ -314,7 +331,9 @@ export class StayQueryDto {
   @DateField() checkIn!: string;
   @DateField() checkOut!: string;
 }
-export class OptionalStayQueryDto extends PartialType(StayQueryDto) {}
+export class OptionalStayQueryDto extends PartialType(StayQueryDto, {
+  skipNullProperties: false,
+}) {}
 export class StayPageQueryDto extends StayQueryDto {
   @Num(1, 1e6, true, true) page = 1;
 }
@@ -353,7 +372,9 @@ export class ReviewDto {
   @Num(1, 5, true) rating!: number;
   @Text(0, 1000, true) body?: string;
 }
-export class PatchReviewDto extends PartialType(ReviewDto) {}
+export class PatchReviewDto extends PartialType(ReviewDto, {
+  skipNullProperties: false,
+}) {}
 export class ReplyDto {
   @Text(1, 1000) body!: string;
 }
@@ -362,14 +383,18 @@ export class ItineraryDto {
   @ListStrings(50, false, 1) countries!: string[];
   @DateField() startDate!: string;
 }
-export class PatchItineraryDto extends PartialType(ItineraryDto) {
+export class PatchItineraryDto extends PartialType(ItineraryDto, {
+  skipNullProperties: false,
+}) {
   @Choice(["Private", "Public"], true) visibility?: string;
 }
 export class DayDto {
   @Text(1, 80) city!: string;
   @Text(0, 10000, true) notes?: string;
 }
-export class PatchDayDto extends PartialType(DayDto) {}
+export class PatchDayDto extends PartialType(DayDto, {
+  skipNullProperties: false,
+}) {}
 export class ReorderDto {
   @ApiProperty({ type: [String] })
   @IsArray()
@@ -385,14 +410,18 @@ export class ActivityDto {
   @Num(0, 1e8, false, true) cost?: number;
   @Currency(true) currency?: string;
 }
-export class PatchActivityDto extends PartialType(ActivityDto) {}
+export class PatchActivityDto extends PartialType(ActivityDto, {
+  skipNullProperties: false,
+}) {}
 export class BudgetDto {
   @Choice(["Food", "Accommodation", "InCityTransport", "Activities"])
   category!: string;
   @Num() amount!: number;
   @Currency() currency!: string;
 }
-export class PatchBudgetDto extends PartialType(BudgetDto) {}
+export class PatchBudgetDto extends PartialType(BudgetDto, {
+  skipNullProperties: false,
+}) {}
 export class TransportDto {
   @Text(1, 100) mode!: string;
   @Text(1, 80) fromCity!: string;
@@ -401,7 +430,9 @@ export class TransportDto {
   @Currency() currency!: string;
   @Id() dayId!: string;
 }
-export class PatchTransportDto extends PartialType(TransportDto) {}
+export class PatchTransportDto extends PartialType(TransportDto, {
+  skipNullProperties: false,
+}) {}
 export class PublicItineraryQueryDto extends PageDto {
   @Text(0, 100, true) q?: string;
   @Text(1, 80, true) country?: string;
@@ -420,9 +451,9 @@ export class ItineraryFlightQueryDto extends PageDto {
   @Text(3, 3) origin!: string;
   @DateField(true) departureDate?: string;
   @DateField(true) returnDate?: string;
-  @Num(1, 9, true, true) adults = 1;
-  @Num(0, 8, true, true) children = 0;
-  @Num(0, 9, true, true) infants = 0;
+  @Num(1, 1000, true, true) adults = 1;
+  @Num(0, 1000, true, true) children = 0;
+  @Num(0, 1000, true, true) infants = 0;
 }
 export class BookingLinkDto {
   @Id() bookingId!: string;
@@ -437,7 +468,9 @@ export class PostDto {
   tags?: string[];
   @Choice(["Draft", "Published"], true) status?: string;
 }
-export class PatchPostDto extends PartialType(PostDto) {}
+export class PatchPostDto extends PartialType(PostDto, {
+  skipNullProperties: false,
+}) {}
 export class PostQueryDto extends PageDto {
   @Text(0, 100, true) q?: string;
   @Text(1, 30, true) tag?: string;
@@ -467,7 +500,7 @@ export class SeatSelectionDto {
   @Id() flightId!: string;
   @ApiProperty({ type: [String] })
   @IsArray()
-  @ArrayMaxSize(18)
+  @ArrayMaxSize(1000)
   @IsString({ each: true })
   @MaxLength(10, { each: true })
   labels!: string[];

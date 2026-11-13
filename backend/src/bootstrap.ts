@@ -12,6 +12,7 @@ import { Request, Response, NextFunction } from "express";
 import { AppModule } from "./app.module.js";
 import { ApiErrors } from "./common.js";
 import { Db } from "./database.js";
+import type { NestExpressApplication } from "@nestjs/platform-express";
 
 export function configureApp(app: INestApplication) {
   app.setGlobalPrefix("api");
@@ -342,11 +343,12 @@ export async function createApp(
     process.env.JWT_SECRET.includes("REPLACE")
   )
     throw new Error("Set JWT_SECRET to at least 32 random characters");
-  const app = await NestFactory.create(AppModule, {
+  const app = await NestFactory.create<NestExpressApplication>(AppModule, {
     ...options,
     rawBody: true,
     bodyParser: true,
   });
+  app.useBodyParser("json", { limit: "1mb" });
   configureApp(app);
   const document = openApi(app);
   await app.init();

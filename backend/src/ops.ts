@@ -11,6 +11,14 @@ import { Actor, dateOnly, token } from "./common.js";
 @Injectable()
 export class Ops {
   constructor(readonly db: Db) {}
+  async publicAuthor(id: any) {
+    const user = await this.db.get("User", id);
+    return {
+      id: user.status === "Deactivated" ? null : user.id,
+      name: user.status === "Deactivated" ? "Deleted user" : user.name,
+      joinDate: user.createdAt,
+    };
+  }
   async currency(code: string) {
     if (!(await this.db.model("Country").exists({ currency: code })))
       throw new BadRequestException("Unsupported currency");

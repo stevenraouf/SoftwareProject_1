@@ -160,6 +160,8 @@ For a new feature: define DTOs, add explicit schema/index changes, enforce servi
 
 ## 11. Evidence and limits
 
+A follow-up coverage audit corrected an unspecified nine-seat group limit, inconsistent deactivated-reviewer labeling in hotel details, and partial-update handling that could erase omitted fields. Partial writes now copy only defined fields, preserve false/zero values, and reject invalid nulls. See `COVERAGE_AUDIT.md` for reproduced failures and outstanding acceptance evidence.
+
 The authoritative run evidence is `test-results.json`, `https-smoke.json`, and `REVIEW_AND_VERIFICATION.md`. It distinguishes actual local execution from adapter fixtures. Real Stripe account payments/refunds, SMTP delivery and Atlas connectivity still require the repository owner's locally configured accounts. The FXRatesAPI public response was checked through the backend. HTTPS smoke checks inspect HTML/JavaScript and protocol behavior; they are not a browser visual review.
 
 This is not a claim of production deployment or complete load/security certification. High-volume search/analytics currently assemble candidates in memory, single-process authentication throttling is not a distributed limiter, retained sessions/media need a retention policy, and PDF exports should be checked with non-Latin user content before multilingual production use. Platform settlement supports the supplied two-decimal currencies; JPY remains supported for itinerary display. Do not change the platform currency after creating priced inventory.

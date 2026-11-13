@@ -16,7 +16,13 @@ import {
 import { ApiCookieAuth, ApiOperation, ApiTags } from "@nestjs/swagger";
 import { Request } from "express";
 import { Db, oid, same } from "../database.js";
-import { Actor, escapeRegex, pageNumber, paginated } from "../common.js";
+import {
+  Actor,
+  escapeRegex,
+  pageNumber,
+  paginated,
+  definedFields,
+} from "../common.js";
 import {
   AttachItineraryDto,
   CommentDto,
@@ -34,6 +40,7 @@ import { actorOf, Public, Roles } from "../auth/auth.js";
 import { BookingsService } from "../bookings/bookings.js";
 import { ItinerariesService } from "../itineraries/itineraries.js";
 import { manageProvider } from "../flights/flights.js";
+import { Ops } from "../ops.js";
 
 @Injectable()
 export class CommunityService {
@@ -41,14 +48,10 @@ export class CommunityService {
     readonly db: Db,
     readonly bookings: BookingsService,
     readonly itineraries: ItinerariesService,
+    readonly ops: Ops,
   ) {}
   async publicAuthor(id: any) {
-    const u = await this.db.get("User", id);
-    return {
-      id: u.status === "Deactivated" ? null : u.id,
-      name: u.status === "Deactivated" ? "Deleted user" : u.name,
-      joinDate: u.createdAt,
-    };
+    return this.ops.publicAuthor(id);
   }
   async postAccess(actor: Actor | undefined, id: string) {
     const p = await this.db.get("Post", id);
@@ -73,7 +76,7 @@ export class CommunityService {
   }
   async edit(actor: Actor, id: string, dto: PatchPostDto) {
     const p = await this.postOwn(actor, id);
-    Object.assign(p, dto);
+    Object.assign(p, definedFields(dto));
     return p.save();
   }
   async removePost(actor: Actor, id: string) {
@@ -354,7 +357,7 @@ export class CommunityService {
       if (!same(review.userId, actor.id))
         throw new ForbiddenException("Review belongs to another user");
       if (dto) {
-        Object.assign(review, dto);
+        Object.assign(review, definedFields(dto));
         await review.save({ session });
       } else await review.deleteOne({ session });
       await this.ratings(review.hotelId, session);

@@ -54,13 +54,9 @@ export class Inventory {
     let seats = 0;
     const counts: Record<string, number> = { adult: 0, child: 0, infant: 0 };
     for (const p of dto.passengers) counts[p.type]++;
-    if (
-      counts.adult < 1 ||
-      counts.infant > counts.adult ||
-      counts.adult + counts.child > 9
-    )
+    if (counts.adult < 1 || counts.infant > counts.adult)
       throw new BadRequestException(
-        "At least one adult, at most one infant per adult, and at most 9 seated passengers are required",
+        "At least one adult and at most one infant per adult are required",
       );
     seats = counts.adult + counts.child;
     for (const selected of dto.segments) {

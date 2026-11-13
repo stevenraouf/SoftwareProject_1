@@ -20,6 +20,11 @@ export interface Actor {
   emailVerified: boolean;
 }
 export const now = () => new Date();
+export function definedFields<T extends object>(value: T): Partial<T> {
+  return Object.fromEntries(
+    Object.entries(value).filter(([, field]) => field !== undefined),
+  ) as Partial<T>;
+}
 export const hash = (s: string) => createHash("sha256").update(s).digest("hex");
 export const token = () => randomBytes(32).toString("hex");
 export const escapeRegex = (s: string) =>

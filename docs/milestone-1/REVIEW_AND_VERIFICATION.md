@@ -2,7 +2,7 @@
 
 ## Current acceptance state
 
-The backend implementation and local verification are complete for this development pass. **The submission release gate remains open**: Atlas connectivity, account-backed Stripe payments/refunds, actual SMTP delivery, instructor guidance for solo review, and the Milestone 2 UI are not claimed complete.
+The backend has a passing local verification baseline. It is not an exhaustive acceptance certificate. A follow-up [coverage audit](COVERAGE_AUDIT.md) found and corrected additional conformance issues. **The submission release gate remains open**: Atlas connectivity, account-backed Stripe payments/refunds, actual SMTP delivery, instructor guidance for solo review, and the Milestone 2 UI are not claimed complete.
 
 This is an AI-assisted engineering self-review. No independent human approval, team contribution, GitHub publication, or instructor acceptance is represented by this document.
 
@@ -14,7 +14,7 @@ This is an AI-assisted engineering self-review. No independent human approval, t
 | ESLint | Passed | `npm.cmd run lint`; unused-code and recommended TypeScript rules |
 | Compiled backend | Passed | `npm.cmd run build`; native ES modules on Node 22.14.0 |
 | Lockfile install resolution | Passed dry run | `npm.cmd ci --dry-run --ignore-scripts`; a fresh physical checkout/install was not performed |
-| Unit/integration suite | **43 passed, 0 failed**, two suites | `test-results.json`; six unit scenarios and 37 HTTP/replica-set scenarios |
+| Unit/integration suite | **46 passed, 0 failed**, two suites | `test-results.json`; six unit scenarios and 40 HTTP/replica-set scenarios |
 | Transaction behavior | Passed locally | Real disposable MongoDB 8.2.6 replica set; no mocked database for inventory checks |
 | Local TLS certificate | Generated successfully | Ignored `.certs/` files; self-signed localhost certificate |
 | Compiled HTTPS smoke | **Five checks passed** | `https-smoke.json`; actual HTTPS requests, Swagger HTML/JavaScript, secure cookies, CSRF and real FX fetch/cache |
@@ -44,6 +44,8 @@ Machine-readable reports are authoritative if counts change after a later run. R
 | Capacity reduction could remove a selected seat even when booked-count limits passed | Minor | Reject reductions excluding assigned labels |
 | A payment uniqueness key could prevent a second paid flight change on the same booking | Major | Include change ID in payment uniqueness and permit only one active change per booking; repeated paid-change regression added |
 | Fare-difference payment needed a separate acceptance record for replacement provider policies | Major | Added replacement-policy read/accept APIs and enforced the timestamp before creating the change payment; HTTP regression added |
+| Unspecified nine-seat group limit and inconsistent partial updates | Major | Removed the nine-seat cap, preserved omitted patch fields and rejected invalid null input; follow-up regressions pass |
+| Hotel-detail reviews lacked deactivated-author labels | Major | Applied shared author formatting consistently; follow-up regression passes |
 | Stripe SDK changed its allowed-payment-method parameter | Compatibility | Updated to the installed SDK's documented type surface; adapter/HTTP signature tests pass |
 | Development glob/minimatch advisories | Dependency | Pinned patched overrides and reran the suite; low-severity Jest/deepmerge findings remain documented |
 
