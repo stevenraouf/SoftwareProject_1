@@ -182,6 +182,29 @@ document conversion, not a new backend test run or completed student review.
 Evidence: output/pdf/MILESTONE_1_HANDBOOK.pdf; scripts/export_handbook.py.
 ================================================
 
+================================================
+Entry: P008 - Prepare the user's MongoDB Atlas connection
+Date: 2026-11-13
+Student: Sole repository owner (Git identity: stevenraouf)
+Tool: OpenAI Codex
+Related Requirement: Atlas setup, external integration evidence, secret handling
+Prompt (summary):
+Asked whether Atlas was completed, offered account access, and supplied an Atlas
+project overview link; requested help completing the connection.
+How the output was used:
+Explained that live Atlas acceptance remains pending and account passwords/OTP
+must not be shared. Browser helpers failed before accessing the project.
+Created ignored backend/.env from placeholders without overwriting an existing
+file; added check:atlas for credential-safe connection/read-only transaction
+checks. Updated README setup steps. No cloud resource or permissions changed.
+Validation:
+JavaScript syntax check passed; placeholder configuration was correctly rejected
+without contacting Atlas or disclosing credentials. Git confirms backend/.env
+is ignored. Live Atlas connection, writes, seed, indexes and API checks remain
+unverified until the user configures their database credential locally.
+Review: Pending student review.
+================================================
+
 FUTURE ENTRY FORMAT (template, not a completed event)
 Date: YYYY-MM-DD
 Student: Your actual student identity

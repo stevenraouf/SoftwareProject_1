@@ -49,7 +49,8 @@ Use `npm.cmd` in PowerShell: the `npm.ps1` wrapper on this machine handled forwa
 2. Create a database user with access to the application database; use credentials different from your Atlas login.
 3. Add your current development IP address to the project's network access list.
 4. Copy the Node.js driver connection string into `MONGODB_URI`. Include a database name, such as `travel_platform`. URL-encode special characters in the password.
-5. Run `npm.cmd run seed`, then inspect `/api/health`. Never use an application database for destructive test runs.
+5. From `backend`, run `npm.cmd run check:atlas`. It checks authentication and an aborted read-only transaction without printing credentials or changing data. It does not establish write permissions or replace the seed/start verification.
+6. Set your local `ADMIN_EMAIL` and `ADMIN_PASSWORD`, run `npm.cmd run seed`, then start the backend and inspect `/api/health`. Never use an application database for destructive test runs.
 
 The project uses one shared application database even though development is solo. Local integration tests start a separate replica set and never reuse `MONGODB_URI` from your environment file. Official reference JSON preserves all four datasets and identifiers, including attractions. See [Atlas connection documentation](https://www.mongodb.com/docs/atlas/connect-to-database-deployment/).
 

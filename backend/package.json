@@ -18,6 +18,7 @@
     "seed": "npm run build && node dist/seed.js",
     "seed:demo": "npm run build && node dist/seed.js --demo",
     "certs": "node scripts/certs.mjs",
+    "check:atlas": "node scripts/check-atlas.mjs",
     "openapi": "npm run build && node dist/openapi.js",
     "verify": "npm run typecheck && npm run lint && npm test && npm run build"
   },

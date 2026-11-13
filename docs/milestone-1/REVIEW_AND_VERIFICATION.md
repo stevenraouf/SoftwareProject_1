@@ -66,7 +66,7 @@ The temporary-download cleanup attempt was rejected by automatic approval review
 
 | Dependency / decision | Required next evidence |
 | --- | --- |
-| MongoDB Atlas | Configure the user's project, database user and IP access; seed/start against the intended Atlas database |
+| MongoDB Atlas | Configure the user's project, database user and IP access; run `npm.cmd run check:atlas` from `backend`, then seed/start against the intended Atlas database. The checker alone does not verify writes or indexes. |
 | Stripe test account | Run a real PaymentIntent through the signed listener, verify confirmation, expiry/cancellation, and a real test refund |
 | SMTP test inbox | Enable email bonuses with configured SMTP and observe verification/reset/invitation/notification delivery |
 | GitHub | Connect the user's repository and push genuine commits; CI has been authored but not run by GitHub |
