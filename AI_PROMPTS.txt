@@ -162,6 +162,26 @@ Read-only source-policy/repository assessment and prompt-log update. No backend
 changes or new runtime test run; the prior 46-test evidence remains prior evidence.
 ================================================
 
+================================================
+Entry: P007 - Readable PDF copies of the Markdown guides
+Date: 2026-11-13
+Student: Sole repository owner (Git identity: stevenraouf)
+Tool: OpenAI Codex
+Related Requirement: Documentation readability; AI disclosure maintenance
+Prompt (verbatim, line wrapping normalized):
+"is there way that I can open those md files into pdf format it would be
+clearer for me visually"
+How the output was used:
+Created a PDF reading edition of the Markdown guides with contents, bookmarks,
+formatted tables, page numbers and rendered architecture/lifecycle diagrams.
+Included the prompt log, requirement mappings and endpoint index as appendices.
+Preserved original Markdown content and all pending review/service statuses.
+Validation scope:
+Rendered the PDF pages and checked content, page bounds and layout. This was
+document conversion, not a new backend test run or completed student review.
+Evidence: output/pdf/MILESTONE_1_HANDBOOK.pdf; scripts/export_handbook.py.
+================================================
+
 FUTURE ENTRY FORMAT (template, not a completed event)
 Date: YYYY-MM-DD
 Student: Your actual student identity
