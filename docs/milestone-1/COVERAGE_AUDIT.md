@@ -16,7 +16,7 @@ A separate clean Git checkout then passed a fresh `npm ci` dependency install an
 
 ## Outstanding acceptance evidence
 
-- Run against the intended MongoDB Atlas database with the owner's locally configured database user and network permissions.
+- Atlas connection/indexes, repeatable official/admin seeds and HTTPS login/startup passed after the owner's local setup (see `evidence/atlas-setup.json`). Repeat the full booking/payment walkthrough against Atlas; automated concurrency evidence still uses the disposable replica set.
 - Exercise actual Stripe test-account confirmation, retry, timeout, cancellation, and refunds. Signed fixture events and adapter tests do not prove account integration.
 - Observe real SMTP test-inbox delivery for verification, password recovery, moderator invitations, and notifications.
 - Connect/push the GitHub repository and observe its CI run.

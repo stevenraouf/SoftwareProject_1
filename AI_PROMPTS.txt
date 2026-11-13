@@ -238,6 +238,39 @@ PDF was preserved. C: still has critically low free space.
 Review: Pending student review.
 ================================================
 
+================================================
+Entry: P010 - Continue Atlas setup after disk space was freed
+Date: 2026-11-13
+Student: Sole repository owner (Git identity: stevenraouf)
+Tool: OpenAI Codex
+Related Requirement: Atlas setup, administrator seed and HTTPS verification
+Prompt (verbatim):
+"there are free space in C drive now"
+Additional interaction:
+Student selected help editing administrator environment fields; guidance was
+provided without asking for credentials. Later local checks found the fields
+configured by the student. No values are included here.
+How the output was used:
+Confirmed roughly 666 MiB free initially; generated a 48-byte random JWT secret
+in the ignored local .env; preserved Atlas and user-selected admin credentials.
+Built the backend, initialized 28 Atlas models/indexes, seeded all 32 official
+reference records and checked their stored values against source JSON. Repeated
+reference and administrator seeds without increasing record counts.
+Executed real certificate-verified HTTPS health, Swagger, reference, admin login,
+secure-cookie, authenticated-me, missing-CSRF, logout and revoked-session checks.
+Saved credential-free evidence in docs/milestone-1/evidence/atlas-setup.json and
+updated the current verification/policy/audit/handover status. An application
+process was started for local Swagger access; no browser visual review claimed.
+Validation:
+npm.cmd run build passed. All described live Atlas checks passed; the verification
+login session was revoked. No demo users, bookings, payments or email were created.
+Background jobs were disabled during verification. The earlier 46-test suite was
+not rerun because this work changed local configuration/documentation only.
+Atlas booking/payment walkthrough, Stripe account verification, actual SMTP
+delivery and the sole student's own review remain pending.
+Review: Pending student review.
+================================================
+
 FUTURE ENTRY FORMAT (template, not a completed event)
 Date: YYYY-MM-DD
 Student: Your actual student identity

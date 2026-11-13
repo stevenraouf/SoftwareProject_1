@@ -125,7 +125,7 @@ The test creates a uniquely named child directory under that root and removes on
 node --experimental-vm-modules node_modules/jest/bin/jest.js --runInBand --json --outputFile=../docs/milestone-1/test-results.json
 ```
 
-Jest's ESM support emits an experimental VM-modules notice on Node 22. Tests exercise the application with a real replica set. Provider adapters still need real Atlas, Stripe, FXRatesAPI, and SMTP verification with your locally configured accounts. Read the verification record before treating the backend as ready for submission.
+Jest's ESM support emits an experimental VM-modules notice on Node 22. Tests exercise the application with a real replica set. Live Atlas connection, index/seed and HTTPS authentication/startup evidence is recorded in [atlas-setup.json](docs/milestone-1/evidence/atlas-setup.json). Full Atlas booking/payment workflows, account-backed Stripe confirmation/refunds, and actual SMTP delivery remain pending; the real FXRatesAPI response was already checked through the backend. Read the verification record before treating the backend as ready for submission.
 
 ## Repository workflow
 

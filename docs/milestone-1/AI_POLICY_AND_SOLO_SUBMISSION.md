@@ -53,7 +53,7 @@ Cloud deployment is optional and outside this backend milestone. Next.js belongs
 | Deliverable | Evidence | Acceptance state |
 | --- | --- | --- |
 | NestJS backend | `backend/src/`, package/lockfile, build scripts | Implemented; 46 representative tests pass; acceptance limits in coverage audit |
-| Atlas integration | `MONGODB_URI`, schemas/indexes, seeds, setup guide | Intended real Atlas account connection unverified |
+| Atlas integration | `MONGODB_URI`, schemas/indexes, seeds, setup guide; `evidence/atlas-setup.json` | Live connection, indexes, reference/admin seeds and HTTPS login/startup checked; full Atlas booking/payment walkthrough pending |
 | Swagger API | `/api/docs`, `/api/openapi.json`, `docs/api/` | Generated/exercised locally; student's walkthrough pending |
 | README | Root setup guide | Present; clean-install/build/test evidence exists |
 | Prompt log | Root `AI_PROMPTS.txt` | Updated for the visible conversation |

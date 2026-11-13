@@ -1,0 +1,67 @@
+{
+  "clientDate": "2026-11-13",
+  "targetDatabase": "travel_platform",
+  "build": "passed",
+  "indexesVerified": {
+    "User": 2,
+    "Session": 2,
+    "Country": 2,
+    "City": 2,
+    "Airport": 2,
+    "Attraction": 2,
+    "Provider": 2,
+    "Flight": 3,
+    "Room": 2,
+    "RoomNight": 3,
+    "Booking": 4,
+    "Payment": 3,
+    "Refund": 3,
+    "StripeEvent": 2,
+    "Outbox": 3,
+    "FlightChange": 2,
+    "Seat": 3,
+    "Itinerary": 2,
+    "ExchangeRate": 2,
+    "Post": 2,
+    "Comment": 2,
+    "Like": 2,
+    "Review": 2,
+    "Report": 2,
+    "Notification": 3,
+    "Audit": 2,
+    "Media": 1,
+    "Favourite": 2
+  },
+  "referenceCounts": {
+    "countries": 8,
+    "cities": 8,
+    "airports": 8,
+    "attractions": 8
+  },
+  "referenceValuesPreserved": true,
+  "repeatedSeedCountsUnchanged": true,
+  "https": {
+    "healthStatus": 200,
+    "databaseConnected": true,
+    "swaggerStatus": 200,
+    "countriesStatus": 200,
+    "countryPageCount": 8,
+    "certificateVerified": true
+  },
+  "adminSeed": "passed; user-chosen local credentials, salted hash, repeated seed without duplicate",
+  "scope": "Official reference data and one user-configured administrator seeded. A verification session was created and revoked. No demo users, bookings, payments or email created; jobs disabled during checks.",
+  "authentication": {
+    "loginStatus": 201,
+    "meStatus": 200,
+    "role": "Admin",
+    "accessAndRefreshCookiesSecureHttpOnly": true,
+    "missingCsrfStatus": 403,
+    "logoutStatus": 201,
+    "revokedSessionStatus": 401
+  },
+  "localServer": {
+    "url": "https://localhost:3443/api/docs",
+    "healthStatus": 200,
+    "swaggerStatus": 200
+  }
+}
