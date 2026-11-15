@@ -8,5 +8,6 @@ coverage/
 .certs/
 backend/storage/
 backend/.test-data/
+backend/.local/
 tmp/
 .DS_Store

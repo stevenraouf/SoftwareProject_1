@@ -311,6 +311,47 @@ the final operation suite. git diff --check passed.
 Review: Pending student review.
 ================================================
 
+================================================
+Entry: P012 - Prepare actual Stripe verification and connect the supplied Git remote
+Date: 2026-11-15
+Student: Sole repository owner (Git identity: stevenraouf)
+Tool: OpenAI Codex
+Related Requirement: PAY-01/PAY-02/PAY-03; external integration evidence; Git workflow
+Prompt (summary):
+Asked to proceed with priority 1 (real Stripe test-mode confirmation/refunds)
+and supplied the GitHub SoftwareProject_1 repository URL. In the clarification,
+the student said a Stripe account still needed to be created.
+How the output was used:
+Verified local Stripe key/signing secret were absent and inspected the empty
+supplied remote. Added it as origin; no commits were published or CI pass claimed.
+Installed official Stripe CLI v1.55.11 outside Git on D: after checking the ZIP's
+SHA256 against its published official release digest. Added its path privately
+to backend/.env without displaying credentials. No Stripe account was created
+by the assistant; signup/email verification remain student-controlled.
+Created check:stripe, stripe:listen and verify:stripe scripts and the detailed
+STRIPE_INTEGRATION_VERIFICATION.md. The listener stores signing secrets privately
+and prints only readiness/delivery summaries. The runner prepares dedicated,
+identifiable Atlas fixtures and actual sandbox payment/decline/retry/webhook/
+refund/ten-minute-timeout checks, with an ignored private resume manifest.
+Created feature/PAY-01-stripe-verification from the current unreviewed integration
+branch rather than falsely merging it into develop or recording human approval.
+Updated README, verification, policy and reverse-engineering documentation.
+Validation:
+CLI checksum/version/help checked; script syntax checks and no-action --plan
+passed. check:stripe and the account-backed runner correctly stopped at the
+MISSING_TEST_KEY guard before any account/API/database verification actions.
+The listener missing-key guard also rejected connection. .env and .local manifest
+paths are Git-ignored. Evidence explicitly says not_verified, not a Stripe pass.
+No real Stripe payments/refunds, webhook forwarding or new Atlas verification
+fixtures were created. The previous 56-test result remains prior evidence;
+application business code was unchanged in this preparation.
+Student next step:
+Create/sign in to Stripe privately, complete email verification and open a
+sandbox/test dashboard. Test API keys must be placed directly in the local
+environment file, never in chat or the prompt log.
+Review: Pending student review.
+================================================
+
 FUTURE ENTRY FORMAT (template, not a completed event)
 Date: YYYY-MM-DD
 Student: Your actual student identity

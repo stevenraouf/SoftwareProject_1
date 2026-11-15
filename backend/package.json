@@ -21,6 +21,9 @@
     "certs": "node scripts/certs.mjs",
     "check:atlas": "node scripts/check-atlas.mjs",
     "check:live": "node scripts/check-live-api.mjs",
+    "check:stripe": "node scripts/check-stripe.mjs",
+    "stripe:listen": "node scripts/stripe-listen.mjs",
+    "verify:stripe": "npm run build && node scripts/verify-stripe.mjs",
     "openapi": "npm run build && node dist/openapi.js",
     "verify": "npm run typecheck && npm run lint && npm test && npm run build"
   },

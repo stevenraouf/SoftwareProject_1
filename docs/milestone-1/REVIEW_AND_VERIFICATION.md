@@ -79,9 +79,9 @@ The first 46-test run passed but measured only 87 exercised operations (80 with 
 | Dependency / decision | Required next evidence |
 | --- | --- |
 | MongoDB Atlas | Connection, index/reference/admin seed and HTTPS authentication/startup checks passed. Full booking concurrency and payment scenarios retain the disposable-replica-set evidence until repeated on Atlas with the external payment account configured. |
-| Stripe test account | Run a real PaymentIntent through the signed listener, verify confirmation, expiry/cancellation, and a real test refund |
+| Stripe test account | CLI/listener and account-backed verification runner prepared on 15 November; missing student-configured test key. See `STRIPE_INTEGRATION_VERIFICATION.md` and `evidence/stripe-readiness.json`. No real Stripe integration pass claimed. |
 | SMTP test inbox | Enable email bonuses with configured SMTP and observe verification/reset/invitation/notification delivery |
-| GitHub | Connect the user's repository and push genuine commits; CI has been authored but not run by GitHub |
+| GitHub | `origin` connected to the supplied SoftwareProject_1 repository; inspected empty on 15 November. Genuine commit publication and an actual GitHub CI run remain pending. |
 | Sole student's human review | Review the actual source/version and perform the walkthrough using the solo discussion guide; record the real date/findings. No additional teammate or prior approval is invented |
 | Browser and frontend | Swagger rendering and public live-health navigation were checked in VS Code. Full browser workflow/accessibility review and all Next.js/UI requirements remain separate; automated HTTPS workflows are not 147 manual UI interactions. |
 

@@ -58,6 +58,8 @@ Keep `PLATFORM_CURRENCY=USD` unless you deliberately configure another supported
 
 ### Stripe test mode
 
+The account-backed [Stripe verification guide](docs/milestone-1/STRIPE_INTEGRATION_VERIFICATION.md) provides the private-key setup and prepared listener/verification commands. As of 15 November, this is prepared but unverified until the student configures a sandbox account. From `backend`, `npm.cmd run check:stripe` checks sandbox authentication; `npm.cmd run stripe:listen` stores the webhook signing secret privately; after backend restart, `npm.cmd run verify:stripe` exercises real sandbox payments/refunds and the actual hold deadline. `node scripts/verify-stripe.mjs --plan` previews the steps without external changes.
+
 1. Create or open your Stripe test environment. Add the **test** secret key to `STRIPE_SECRET_KEY`; live keys are rejected at startup.
 2. Install Stripe CLI and authenticate it in your own terminal.
 3. Forward events to your local HTTPS backend:
@@ -138,6 +140,6 @@ With the application running, `npm.cmd run check:live` checks 11 public GET requ
 
 ## Repository workflow
 
-Use `feature/<requirement-id>-<description>` branches from `develop`. For future AI-assisted changes, update the prompt log, run relevant checks, and record your own human review before merging into `develop`; release to `main` after acceptance checks. The local repository has no GitHub remote. Create/connect your own repository and push genuine solo history. No earlier student approvals or additional contributors are fabricated. The source brief uses team-leader wording; the policy record preserves that fact without inventing a teammate or an instructor waiver.
+Use `feature/<requirement-id>-<description>` branches from `develop`. For future AI-assisted changes, update the prompt log, run relevant checks, and record your own human review before merging into `develop`; release to `main` after acceptance checks. `origin` is now configured to the student's supplied `https://github.com/stevenraouf/SoftwareProject_1.git`; the remote was empty when inspected on 15 November. Publication and GitHub CI have not yet been verified. Push genuine solo history when publishing. No earlier student approvals or additional contributors are fabricated. The source brief uses team-leader wording; the policy record preserves that fact without inventing a teammate or an instructor waiver.
 
 The implemented application is integrated on `develop`. `main` retains the initial specification baseline until the outstanding account-backed release checks pass. Commits created during this session identify Codex as their author; they do not pretend to be historical student contributions.

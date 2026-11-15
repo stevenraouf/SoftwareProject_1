@@ -1,0 +1,10 @@
+{
+  "clientDate": "2026-11-15",
+  "outcome": "not_verified",
+  "testModeOnly": true,
+  "fixtureScope": "Dedicated identifiable records in the user's travel_platform database; real Stripe sandbox objects; no direct processEvent calls or locally fabricated webhooks.",
+  "checks": [],
+  "cases": {},
+  "failedStage": "configuration",
+  "reason": "MISSING_TEST_KEY"
+}
