@@ -394,6 +394,36 @@ pending. Backend/listener remain running for the student's demonstration.
 Review: Pending student review.
 ================================================
 
+================================================
+Entry: P014 - Publish the supplied repository's review branch and verify GitHub CI
+Date: 2026-11-15
+Student: Sole repository owner (Git identity: stevenraouf)
+Tool: OpenAI Codex
+Related Requirement: Git/GitHub workflow, clean build and submission evidence
+Prompt context (summary):
+The student supplied https://github.com/stevenraouf/SoftwareProject_1.git during
+the request to proceed with milestone completion. After the Stripe checks passed,
+continued the authorized repository setup using that supplied destination.
+How the output was used:
+Inspected noninteractive push permissions, then published only the current review
+branch feature/PAY-01-stripe-verification with its genuine existing history and
+Codex authorship. No force push, release merge, rewritten history, second student
+or student approval was created. The initially empty remote selected this first
+branch as its default branch. Credentials stayed local; .env/.local were ignored.
+Validation:
+Git push succeeded. Actual GitHub Actions run 43711199905 succeeded for application
+commit 43814fed7a57a105304f606157e6a73a9f353242: fresh npm ci, typecheck, lint,
+tests, build and production dependency audit. Public API run/job states were
+checked, and evidence/github-ci.json records the explicit commit and run URL.
+Updated README, review/policy/coverage, Stripe report and reverse-engineering
+documentation with the verified publication/CI state. Subsequent documentation
+commits do not fabricate earlier human approval or silently change the tested
+application commit in the evidence. Release merges and student review remain
+pending; actual SMTP delivery and remaining financial bonus/edge cases are still
+reported separately.
+Review: Pending student review.
+================================================
+
 FUTURE ENTRY FORMAT (template, not a completed event)
 Date: YYYY-MM-DD
 Student: Your actual student identity

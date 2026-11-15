@@ -1,0 +1,37 @@
+{
+  "clientDate": "2026-11-15",
+  "repository": "https://github.com/stevenraouf/SoftwareProject_1",
+  "branch": "feature/PAY-01-stripe-verification",
+  "applicationCommit": "43814fed7a57a105304f606157e6a73a9f353242",
+  "runId": 43711199905,
+  "url": "https://github.com/stevenraouf/SoftwareProject_1/actions/runs/43711199905",
+  "status": "completed",
+  "conclusion": "success",
+  "checks": [
+    {
+      "name": "Run npm ci",
+      "conclusion": "success"
+    },
+    {
+      "name": "Run npm run typecheck",
+      "conclusion": "success"
+    },
+    {
+      "name": "Run npm run lint",
+      "conclusion": "success"
+    },
+    {
+      "name": "Run npm test",
+      "conclusion": "success"
+    },
+    {
+      "name": "Run npm run build",
+      "conclusion": "success"
+    },
+    {
+      "name": "Run npm audit --omit=dev",
+      "conclusion": "success"
+    }
+  ],
+  "scope": "Actual GitHub-hosted workflow on the published review branch. Real Atlas/Stripe/SMTP credentials are not required by the CI fixture suite. Release merges and student approval remain pending."
+}
