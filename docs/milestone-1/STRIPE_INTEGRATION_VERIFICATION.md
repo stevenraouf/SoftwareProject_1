@@ -1,6 +1,6 @@
 # Stripe account-backed verification
 
-Status on 15 November 2026: **prepared, not externally verified**. The student's Stripe account is being created. No sandbox secret key or listener signing secret is configured yet. The existing payment tests use fixtures and are not proof of Stripe account integration.
+Status on 15 November 2026: **the full account-backed run passed**. The student created the sandbox and supplied the test key through the ignored local environment file. Real Stripe API authentication, signed-webhook flight/hotel confirmation, decline/retry, tier/provider refunds and the unshortened ten-minute hold expiry passed against Atlas. See [STRIPE_VERIFICATION_REPORT.md](STRIPE_VERIFICATION_REPORT.md) and `evidence/stripe-account-verification.json`. Earlier fixture tests remain separate evidence for additional edge cases.
 
 ## Setup
 

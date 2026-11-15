@@ -12,7 +12,7 @@ The automated suite uses an isolated, disposable MongoDB 8.2.6 replica set on D:
 
 The VS Code browser was inspected: Swagger rendered and the live Atlas-backed health endpoint returned database=true. The 147 functional operation workflows were executed through HTTP automation, not by clicking every operation in Swagger. Read-only live-service checks are recorded separately in evidence/live-api-readonly.json when available.
 
-A successful workflow for each operation does not establish exhaustive input, ownership, concurrency, or requirement coverage. The suite also tests representative business failures, ownership, privacy, contention, payment races and restart recovery. The sole student's review and real Stripe/SMTP verification remain pending.
+A successful workflow for each operation does not establish exhaustive input, ownership, concurrency, or requirement coverage. The suite also tests representative business failures, ownership, privacy, contention, payment races and restart recovery. A separate real Stripe sandbox payment/refund/expiry run passed on 2026-11-15; see evidence/stripe-account-verification.json. Actual SMTP delivery and the sole student's review remain pending.
 
 ## Reproduce
 

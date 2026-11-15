@@ -352,6 +352,48 @@ environment file, never in chat or the prompt log.
 Review: Pending student review.
 ================================================
 
+================================================
+Entry: P013 - Run real Stripe sandbox payments, refunds and hold expiry
+Date: 2026-11-15
+Student: Sole repository owner (Git identity: stevenraouf)
+Tool: OpenAI Codex
+Related Requirement: PAY-01/PAY-02/PAY-03; FLT-22/23/26; HTL-18/21
+Prompts (chronological summary):
+Student supplied a screenshot of their Stripe sandbox, requested step-by-step
+guidance, then saved the private test key in backend/.env.
+Latest prompt (verbatim):
+"Done i past it the api what shall I do next ?"
+How the output was used:
+Authenticated against the real sandbox without displaying keys or balances.
+Restored the blank local CLI path, started the real listener, and saved the
+signing secret privately. Restarted only the recognized task-started backend.
+The first runner attempt raced backend startup and stopped before fixtures were
+created. Added a health-readiness wait, then reran the actual account-backed
+workflow against the user's Atlas database. No production business logic changed.
+Actual checks passed:
+- Dedicated identifiable Atlas provider/inventory/traveler/moderator fixtures.
+- Stripe decline event followed by retry using the same PaymentIntent.
+- Real signed Stripe events confirming flight and hotel bookings; flight ticket.
+- Traveler flight cancellation/refund USD 7.50, repeated cancellation without a
+  duplicate refund record; provider full refund USD 10; hotel refund USD 15.
+- A separate unpaid hold reached its unmodified ten-minute deadline; inventory
+  was released and Stripe cancelled its PaymentIntent. The full report says passed.
+- Eleven post-run live GET checks passed with database/Stripe/webhook configured.
+Evidence and limits:
+evidence/stripe-account-verification.json retains only sandbox transaction,
+event/refund identifiers, states and checks. .env/.local are ignored; no key,
+generated fixture password, cookie, client secret or raw Stripe error is logged.
+Sixteen existing commits were scanned for the configured credential values and
+private fixture password; no matches. Updated the readable Stripe/API reports,
+README, review/policy/coverage and reverse-engineering records.
+The earlier 56-test API suite remains dated prior evidence; business code and its
+tests were unchanged. New scripts passed syntax checks and the real integration
+run. Live fare changes, late-success, refund-failure and restart scenarios have
+not all been repeated externally. SMTP, publication/CI and student review remain
+pending. Backend/listener remain running for the student's demonstration.
+Review: Pending student review.
+================================================
+
 FUTURE ENTRY FORMAT (template, not a completed event)
 Date: YYYY-MM-DD
 Student: Your actual student identity

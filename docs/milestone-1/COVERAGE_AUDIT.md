@@ -18,8 +18,8 @@ Update on 14 November 2026: [API_TEST_REPORT.md](API_TEST_REPORT.md) records 56 
 
 ## Outstanding acceptance evidence
 
-- Atlas connection/indexes, repeatable official/admin seeds and HTTPS login/startup passed after the owner's local setup (see `evidence/atlas-setup.json`). Repeat the full booking/payment walkthrough against Atlas; automated concurrency evidence still uses the disposable replica set.
-- Exercise actual Stripe test-account confirmation, retry, timeout, cancellation, and refunds. Signed fixture events and adapter tests do not prove account integration.
+- Atlas connection/indexes, repeatable official/admin seeds and HTTPS login/startup passed after the owner's local setup (see `evidence/atlas-setup.json`). Core account-backed flight/hotel payment, decline/retry, provider/traveler refunds and real timeout/cancellation passed on 15 November (see `STRIPE_VERIFICATION_REPORT.md`). Exhaustive concurrency and additional financial edge cases still use the disposable replica set.
+- Account-backed Stripe fare changes, late-success compensation, refund failure and restart scenarios have not all been repeated externally; retain their representative fixture evidence and the explicit acceptance limits.
 - Observe real SMTP test-inbox delivery for verification, password recovery, moderator invitations, and notifications.
 - Connect/push the GitHub repository and observe its CI run.
 - Complete your own human Swagger walkthrough and source review as the sole student; record the actual version, date and findings. No second team member is presumed.

@@ -1,10 +1,15 @@
-import { readFileSync, writeFileSync } from "node:fs";
+import { readFileSync, writeFileSync, existsSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 
 const root = new URL("../../", import.meta.url);
 const read = (path) => JSON.parse(readFileSync(new URL(path, root), "utf8"));
 const coverage = read("docs/milestone-1/evidence/api-route-coverage.json");
 const tests = read("docs/milestone-1/evidence/api-test-results.json");
+const stripeEvidence = "docs/milestone-1/evidence/stripe-account-verification.json";
+const stripe = existsSync(new URL(stripeEvidence, root)) ? read(stripeEvidence) : undefined;
+const externalStatus = stripe?.outcome === "passed"
+  ? `A separate real Stripe sandbox payment/refund/expiry run passed on ${stripe.clientDate}; see evidence/stripe-account-verification.json. Actual SMTP delivery and the sole student's review remain pending.`
+  : "Separate real Stripe/SMTP verification and the sole student's review remain pending.";
 const checks = (context) => coverage.operations.filter((o) => o.authorizationChecks[context] !== undefined).length;
 const lines = [
   "# API test report", "",
@@ -17,7 +22,7 @@ const lines = [
   "## Test scope", "",
   "The automated suite uses an isolated, disposable MongoDB 8.2.6 replica set on D:. It does not execute destructive workflows against the Atlas application database. Stripe PaymentIntents/refunds/webhooks and SMTP use fixtures or adapter mocks; these are not proof of real account integration. FX success/outage fixtures test the API contract; the separate HTTPS smoke check exercises the real public FX service.", "",
   "The VS Code browser was inspected: Swagger rendered and the live Atlas-backed health endpoint returned database=true. The 147 functional operation workflows were executed through HTTP automation, not by clicking every operation in Swagger. Read-only live-service checks are recorded separately in evidence/live-api-readonly.json when available.", "",
-  "A successful workflow for each operation does not establish exhaustive input, ownership, concurrency, or requirement coverage. The suite also tests representative business failures, ownership, privacy, contention, payment races and restart recovery. The sole student's review and real Stripe/SMTP verification remain pending.", "",
+  "A successful workflow for each operation does not establish exhaustive input, ownership, concurrency, or requirement coverage. The suite also tests representative business failures, ownership, privacy, contention, payment races and restart recovery. " + externalStatus, "",
   "## Reproduce", "",
   "From backend, run npm.cmd run test:api. See README for TEST_TMP_DIR and the MongoDB executable prerequisite on this Windows machine. Run npm.cmd run typecheck, npm.cmd run lint and npm.cmd run build separately. The operation-coverage gate fails if a newly documented operation has no successful HTTP workflow.", "",
   "## Operation evidence", "",

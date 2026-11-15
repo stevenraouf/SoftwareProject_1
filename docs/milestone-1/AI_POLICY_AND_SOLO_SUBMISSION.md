@@ -43,7 +43,7 @@ Mandatory completion has priority. Bonus code already exists in the baseline whi
 | ITN-27: booking links | Owner checks, costs counted once, clone regression | Demonstration with account-backed bookings |
 | ITN-28: PDF export | Endpoint/local HTTP check | Inspect layout and relevant user text |
 | BLG-13: itinerary attachment | Attachment/privacy regression | Student demonstration |
-| BON-01: analytics | Gross/refund/net regression | Representative actual test payments |
+| BON-01: analytics | Gross/refund/net regression; actual core sandbox payments/refunds now exist | Student demonstration and reconciliation of dashboard totals |
 | BON-02: favourites | User-scoped saving regression | Student demonstration |
 
 Cloud deployment is optional and outside this backend milestone. Next.js belongs to Milestone 2. Local demonstration still requires the specified Atlas database and external services.

@@ -4,7 +4,7 @@ import Stripe from "stripe";
 
 const env = parse(readFileSync(new URL("../.env", import.meta.url), "utf8"));
 const evidence = {
-  clientDate: "2026-11-15",
+  clientDate: process.env.VERIFICATION_CLIENT_DATE || new Intl.DateTimeFormat("en-CA", { timeZone: "Africa/Cairo" }).format(new Date()),
   outcome: "not_verified",
   testKeyConfigured: env.STRIPE_SECRET_KEY?.startsWith("sk_test_") || false,
   webhookSecretConfigured:

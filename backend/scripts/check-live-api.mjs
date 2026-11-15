@@ -45,7 +45,7 @@ try {
     checks.push({ path, status: response.status });
   }
   const report = {
-    clientDate: "2026-11-14", transport: "HTTPS with explicit local certificate verification",
+    clientDate: process.env.VERIFICATION_CLIENT_DATE || new Intl.DateTimeFormat("en-CA", { timeZone: "Africa/Cairo" }).format(new Date()), transport: "HTTPS with explicit local certificate verification",
     target: "Running localhost backend connected to the user's configured Atlas database",
     outcome: "passed", checks,
     externalServiceConfiguration: { stripe: dependencies.stripeConfigured, webhook: dependencies.webhookConfigured, smtp: dependencies.smtpConfigured },

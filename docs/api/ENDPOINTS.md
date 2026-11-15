@@ -2,7 +2,7 @@
 
 147 operations across 123 paths. This index is derived from the exported OpenAPI document.
 
-The [14 November API test report](../milestone-1/API_TEST_REPORT.md) records successful HTTP workflows for all 147 operations and the separate permission checks. External Stripe/SMTP account verification remains pending.
+The [14 November API test report](../milestone-1/API_TEST_REPORT.md) records successful HTTP workflows for all 147 operations and the separate permission checks. A separate [15 November Stripe account-backed run](../milestone-1/STRIPE_VERIFICATION_REPORT.md) passed core payments/refunds/expiry against Atlas. Actual SMTP delivery and additional financial edge-case account checks remain pending.
 
 | Method | Path | Requirements | Access |
 | --- | --- | --- | --- |

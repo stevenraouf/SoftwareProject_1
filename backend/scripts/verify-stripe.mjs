@@ -40,7 +40,7 @@ let app,
   state,
   stage = "configuration";
 const report = {
-  clientDate: "2026-11-15",
+  clientDate: process.env.VERIFICATION_CLIENT_DATE || new Intl.DateTimeFormat("en-CA", { timeZone: "Africa/Cairo" }).format(new Date()),
   outcome: "not_verified",
   testModeOnly: true,
   fixtureScope:
@@ -167,7 +167,14 @@ try {
   );
   ca = readFileSync(resolve(backend, env.TLS_CERT_PATH));
   port = Number(env.PORT || 3443);
-  const health = (await api("GET", "/health")).json;
+  const health = await until("BACKEND_STARTUP", async () => {
+    try {
+      const response = await call("GET", "/health");
+      return response.status === 200 ? response.json : undefined;
+    } catch {
+      return undefined;
+    }
+  });
   requireCheck(
     health.database && health.stripeConfigured && health.webhookConfigured,
     "RESTART_BACKEND_WITH_STRIPE_SETTINGS",

@@ -2,7 +2,7 @@
 
 ## Current acceptance state
 
-The backend has a passing local verification baseline. It is not an exhaustive acceptance certificate. A follow-up [coverage audit](COVERAGE_AUDIT.md) found and corrected additional conformance issues. Atlas connection, index initialization, repeatable reference/administrator seeding and HTTPS startup/login checks passed on 13 November 2026; see [Atlas setup evidence](evidence/atlas-setup.json). **The submission release gate remains open**: account-backed Stripe payments/refunds, actual SMTP delivery, and the sole student's own recorded review remain pending. The full booking/payment workflows have not been repeated against Atlas. Milestone 2 UI work is separate.
+The backend has a passing local verification baseline. It is not an exhaustive acceptance certificate. A follow-up [coverage audit](COVERAGE_AUDIT.md) found and corrected additional conformance issues. Atlas connection, index initialization, repeatable reference/administrator seeding and HTTPS startup/login checks passed on 13 November 2026; see [Atlas setup evidence](evidence/atlas-setup.json). The full core Stripe sandbox/Atlas verification passed on 15 November: decline/retry, actual signed events, flight/hotel confirmation, tier/provider refunds, and real ten-minute hold expiry/cancellation. **The submission release gate remains open**: GitHub publication/CI, actual SMTP delivery for bonuses, the sole student's own recorded review and final acceptance checks remain pending. Additional edge cases/fare changes retain their local fixture evidence until repeated externally. Milestone 2 UI work is separate.
 
 This is an AI-assisted engineering self-review. There is one human student/developer. No student approval, additional team member, GitHub publication or instructor acceptance is invented. The [policy record](AI_POLICY_AND_SOLO_SUBMISSION.md) distinguishes AI checks from the student's own review; a second teammate is not a prerequisite imposed by this repository.
 
@@ -26,6 +26,7 @@ On 14 November 2026, the API audit expanded the suite from 46 to 56 passing test
 | Atlas HTTPS/authentication | Passed | Certificate-verified loopback HTTPS: health/countries/Swagger 200; admin login 201; secure HttpOnly access/refresh cookies; authenticated me 200; missing-CSRF mutation rejected 403; logout 201; revoked session rejected 401. Verification session revoked; no bookings/payments/email created. |
 | Local TLS certificate | Generated successfully | Ignored `.certs/` files; self-signed localhost certificate |
 | Compiled HTTPS smoke | **Five checks passed** | `https-smoke.json`; actual HTTPS requests, Swagger HTML/JavaScript, secure cookies, CSRF and real FX fetch/cache |
+| Account-backed Stripe sandbox and Atlas | **Full core run passed, 15 November** | `evidence/stripe-account-verification.json`: real declined payment/retry, real signed-event IDs, flight/hotel confirmation, $7.50 traveler flight refund, $10 full provider refund, $15 hotel refund, actual ten-minute unpaid hold expiry, Stripe cancellation and released inventory. No mock or locally fabricated webhook in this run. |
 | Swagger/OpenAPI | Exported | 147 operations across 123 paths; source-derived role/access and requirement metadata |
 | Source traceability | Generated | All 115 workbook rows; 104 mandatory and 11 bonuses; source text preserved |
 | Official seed | Passed locally and repeated | Eight airports, attractions, cities and countries; unique identifiers preserved |
@@ -78,8 +79,8 @@ The first 46-test run passed but measured only 87 exercised operations (80 with 
 
 | Dependency / decision | Required next evidence |
 | --- | --- |
-| MongoDB Atlas | Connection, index/reference/admin seed and HTTPS authentication/startup checks passed. Full booking concurrency and payment scenarios retain the disposable-replica-set evidence until repeated on Atlas with the external payment account configured. |
-| Stripe test account | CLI/listener and account-backed verification runner prepared on 15 November; missing student-configured test key. See `STRIPE_INTEGRATION_VERIFICATION.md` and `evidence/stripe-readiness.json`. No real Stripe integration pass claimed. |
+| MongoDB Atlas | Connection, index/reference/admin seed, HTTPS authentication and core real Stripe booking/refund/expiry checks passed. Exhaustive concurrency and all financial edge cases still rely on disposable-replica-set scenarios. |
+| Stripe test account | Full core sandbox verification passed on 15 November. Account-backed fare differences, late-success compensation, refund failure and restart scenarios have not all been repeated externally; their fixture tests remain separate evidence. See `STRIPE_VERIFICATION_REPORT.md`. |
 | SMTP test inbox | Enable email bonuses with configured SMTP and observe verification/reset/invitation/notification delivery |
 | GitHub | `origin` connected to the supplied SoftwareProject_1 repository; inspected empty on 15 November. Genuine commit publication and an actual GitHub CI run remain pending. |
 | Sole student's human review | Review the actual source/version and perform the walkthrough using the solo discussion guide; record the real date/findings. No additional teammate or prior approval is invented |
