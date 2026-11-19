@@ -1,0 +1,10 @@
+{
+  "clientDate": "2026-11-19",
+  "url": "https://github.com/stevenraouf/SoftwareProject_1/pull/1",
+  "number": 1,
+  "draft": true,
+  "base": "develop",
+  "head": "feature/PAY-01-stripe-verification",
+  "humanApproval": "pending",
+  "scope": "Reviewable changes only; no merge or release approval was performed."
+}

@@ -1,37 +1,67 @@
 {
-  "clientDate": "2026-11-15",
-  "repository": "https://github.com/stevenraouf/SoftwareProject_1",
-  "branch": "feature/PAY-01-stripe-verification",
-  "applicationCommit": "43814fed7a57a105304f606157e6a73a9f353242",
-  "runId": 43711199905,
-  "url": "https://github.com/stevenraouf/SoftwareProject_1/actions/runs/43711199905",
-  "status": "completed",
-  "conclusion": "success",
-  "checks": [
-    {
-      "name": "Run npm ci",
-      "conclusion": "success"
-    },
-    {
-      "name": "Run npm run typecheck",
-      "conclusion": "success"
-    },
-    {
-      "name": "Run npm run lint",
-      "conclusion": "success"
-    },
-    {
-      "name": "Run npm test",
-      "conclusion": "success"
-    },
-    {
-      "name": "Run npm run build",
-      "conclusion": "success"
-    },
-    {
-      "name": "Run npm audit --omit=dev",
-      "conclusion": "success"
-    }
-  ],
-  "scope": "Actual GitHub-hosted workflow on the published review branch. Real Atlas/Stripe/SMTP credentials are not required by the CI fixture suite. Release merges and student approval remain pending."
+    "clientDate":  "2026-11-19",
+    "outcome":  "passed",
+    "repository":  "https://github.com/stevenraouf/SoftwareProject_1",
+    "branch":  "feature/PAY-01-stripe-verification",
+    "commit":  "1ac0130c483cc4b6dbdd1f5f95d35d6806d4becc",
+    "runId":  44598887393,
+    "runUrl":  "https://github.com/stevenraouf/SoftwareProject_1/actions/runs/44598887393",
+    "node":  "22.23.5",
+    "jobs":  [
+                 {
+                     "name":  "verify",
+                     "conclusion":  "success",
+                     "steps":  [
+                                   {
+                                       "name":  "Set up job",
+                                       "conclusion":  "success"
+                                   },
+                                   {
+                                       "name":  "Run actions/checkout@v4",
+                                       "conclusion":  "success"
+                                   },
+                                   {
+                                       "name":  "Run actions/setup-node@v4",
+                                       "conclusion":  "success"
+                                   },
+                                   {
+                                       "name":  "Run npm ci",
+                                       "conclusion":  "success"
+                                   },
+                                   {
+                                       "name":  "Run npm run typecheck",
+                                       "conclusion":  "success"
+                                   },
+                                   {
+                                       "name":  "Run npm run lint",
+                                       "conclusion":  "success"
+                                   },
+                                   {
+                                       "name":  "Run npm test",
+                                       "conclusion":  "success"
+                                   },
+                                   {
+                                       "name":  "Run npm run build",
+                                       "conclusion":  "success"
+                                   },
+                                   {
+                                       "name":  "Run npm audit --omit=dev",
+                                       "conclusion":  "success"
+                                   },
+                                   {
+                                       "name":  "Post Run actions/setup-node@v4",
+                                       "conclusion":  "success"
+                                   },
+                                   {
+                                       "name":  "Post Run actions/checkout@v4",
+                                       "conclusion":  "success"
+                                   },
+                                   {
+                                       "name":  "Complete job",
+                                       "conclusion":  "success"
+                                   }
+                               ]
+                 }
+             ],
+    "scope":  "Actual GitHub-hosted fresh npm ci, typecheck, lint, tests, build and production audit for the explicit application commit. Later documentation-only commits do not silently relabel that tested code commit. Student approval and release merges remain pending."
 }

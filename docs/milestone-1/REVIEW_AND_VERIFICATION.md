@@ -20,6 +20,8 @@ Important findings corrected: unpaid provider-invalidated holds now stay Pending
 
 The student reported their own review is not complete and is unsure whether earlier disclosed passwords were rotated. Both remain actual student actions in [submission readiness](SUBMISSION_READINESS.md); no approval, waiver or historical review date is invented.
 
+Application commit `1ac0130` was published and [GitHub-hosted run 44598887393](https://github.com/stevenraouf/SoftwareProject_1/actions/runs/44598887393) passed fresh installation, typecheck, lint, tests, build and production audit on pinned Node 22.23.5. Existing `main`/`develop` histories are now published, with [draft PR 1](https://github.com/stevenraouf/SoftwareProject_1/pull/1) left open for the sole student's review. No release merge was performed. Later handover-only commits retain the explicit application-commit scope in `evidence/github-ci.json`.
+
 ### Local startup correction on 19 November 2026
 
 Windows last booted on 19 November at 19:04 Africa/Cairo, after the prior server run. No application process or listener on port 3443 remained, explaining `ERR_CONNECTION_REFUSED`. Atlas authentication and an aborted read-only transaction still passed. Added `START_SWAGGER.cmd`, `npm.cmd run start:local` and the VS Code **Start Travel API (Swagger)** task. The shared launcher resolves the backend directory, checks configuration/certificates, builds before a cold start and reuses an already healthy server. It reports an unrelated occupied port without killing that service.
@@ -51,7 +53,7 @@ The coverage observer previously hardcoded the 14 November date. It now records 
 | Local TLS certificate | Generated successfully | Ignored `.certs/` files; self-signed localhost certificate |
 | Compiled HTTPS smoke | **Five checks passed** | `https-smoke.json`; actual HTTPS requests, Swagger HTML/JavaScript, secure cookies, CSRF and real FX fetch/cache |
 | Account-backed Stripe sandbox and Atlas | **Full core run repeated, 19 November** | `evidence/stripe-account-verification.json`: real declined payment/retry, real signed-event IDs, flight/hotel confirmation, $7.50 traveler flight refund, $10 full provider refund, $15 hotel refund, actual ten-minute unpaid hold expiry, Stripe cancellation and released inventory. No mock or locally fabricated webhook in this run. |
-| GitHub publication and CI | **Passed for application commit 43814fe** | Published genuine review-branch history; GitHub-hosted fresh npm ci, typecheck, lint, tests, build and production audit all passed. `evidence/github-ci.json` records the commit/run URL. Documentation-only follow-ups retain that explicit application-commit scope. |
+| GitHub publication and CI | **Passed for application commit 1ac0130** | Published genuine review-branch history; GitHub-hosted fresh npm ci, typecheck, lint, tests, build and production audit all passed. `evidence/github-ci.json` records the commit/run URL. Documentation-only follow-ups retain that explicit application-commit scope. |
 | Swagger/OpenAPI | Exported | 147 operations across 123 paths; source-derived role/access and requirement metadata |
 | Source traceability | Generated | All 115 workbook rows; 104 mandatory and 11 bonuses; source text preserved |
 | Official seed | Passed locally and repeated | Eight airports, attractions, cities and countries; unique identifiers preserved |
@@ -105,9 +107,9 @@ The first 46-test run passed but measured only 87 exercised operations (80 with 
 | Dependency / decision | Required next evidence |
 | --- | --- |
 | MongoDB Atlas | Connection, index/reference/admin seed, HTTPS authentication and core real Stripe booking/refund/expiry checks passed. Exhaustive concurrency and all financial edge cases still rely on disposable-replica-set scenarios. |
-| Stripe test account | Full core sandbox verification passed on 15 November. Account-backed fare differences, late-success compensation, refund failure and restart scenarios have not all been repeated externally; their fixture tests remain separate evidence. See `STRIPE_VERIFICATION_REPORT.md`. |
+| Stripe test account | Full core sandbox verification repeated successfully on 19 November. Actual higher/lower-fare Stripe changes also passed. Additional late-success, refund-failure and restart permutations retain representative fixture evidence. See `STRIPE_VERIFICATION_REPORT.md`. |
 | SMTP test inbox | Actual local SMTP test-inbox delivery passed 19 November; personal/internet mailbox delivery was not tested |
-| GitHub | Review branch published; actual CI passed for application commit `43814fe`. Release merges await the student's recorded review; no approval is invented. |
+| GitHub | Review branch published; actual CI passed for application commit `1ac0130` on 19 November. Release merges await the student's recorded review; no approval is invented. |
 | Sole student's human review | Review the actual source/version and perform the walkthrough using the solo discussion guide; record the real date/findings. No additional teammate or prior approval is invented |
 | Browser and frontend | Swagger rendering and public live-health navigation were checked in VS Code. Full browser workflow/accessibility review and all Next.js/UI requirements remain separate; automated HTTPS workflows are not 147 manual UI interactions. |
 

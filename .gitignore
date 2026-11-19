@@ -11,4 +11,6 @@ backend/.test-data/
 backend/.local/
 tmp/
 output/submission/
+__pycache__/
+*.py[cod]
 .DS_Store

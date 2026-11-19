@@ -23,6 +23,7 @@ The backend, API documentation, requirements register, setup instructions, promp
 | Real Stripe core workflows | New 19 November run passed decline/retry, real signed-event flight/hotel confirmation, traveler/provider refunds and the actual ten-minute hold expiry/cancellation |
 | All 11 bonuses | Additional Atlas/Stripe/SMTP verification passed; see the bonus report for exact scope |
 | Dependency audit | Both production-only and full installed-dependency audit reported **0 vulnerabilities** on this run |
+| GitHub publication and CI | Application commit `1ac0130c483cc4b6dbdd1f5f95d35d6806d4becc` was pushed; [GitHub Actions run 44598887393](https://github.com/stevenraouf/SoftwareProject_1/actions/runs/44598887393) passed fresh install, compiler/lint/tests/build and production audit |
 | Requirement sources | All 115 requirement texts match the supplied workbook; cached reference records match the official remote workbook |
 | Source/privacy checks | No missing mapped source paths, broken local Markdown links or configured secret-value matches in the submission source; private environment, certificates and runtime directories remain ignored |
 
@@ -75,3 +76,5 @@ The current private local setup enables email bonuses. Newly registered traveler
 Human reviewer: **sole student; pending actual entry**.
 
 Review date, reviewed version, findings and final acceptance: **pending student entry**.
+
+The review branch is `feature/PAY-01-stripe-verification`. Existing genuine `develop` and `main` histories were published without merging the audit changes. [Draft pull request 1](https://github.com/stevenraouf/SoftwareProject_1/pull/1) provides a concrete review target into `develop`; no reviewer, approval or release was invented. Review the final submitted version, including any later documentation-only handover commit, and retain the explicit tested application commit above.

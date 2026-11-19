@@ -57,7 +57,7 @@ Cloud deployment is optional and outside this backend milestone. Next.js belongs
 | Swagger API | `/api/docs`, `/api/openapi.json`, `docs/api/` | Generated/exercised locally; student's walkthrough pending |
 | README | Root setup guide | Present; clean-install/build/test evidence exists |
 | Prompt log | Root `AI_PROMPTS.txt` | Updated for the visible conversation |
-| Git/GitHub history | Genuine review-branch history published; Codex authorship retained; GitHub CI passed for application commit 43814fe | Sole-student review and release merges pending; no fictitious contribution split or approval |
+| Git/GitHub history | Genuine review-branch history published; Codex authorship retained; GitHub CI passed for audited application commit 1ac0130 | Sole-student review and release merges pending; no fictitious contribution split or approval |
 
 ## Important notes: section 14
 

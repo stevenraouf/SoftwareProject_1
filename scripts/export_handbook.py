@@ -39,6 +39,7 @@ PALE = colors.HexColor('#F2F6F8')
 RULE = colors.HexColor('#D8E2E7')
 
 SOURCES = [
+    ('00', 'Submission readiness and final actions', 'docs/milestone-1/SUBMISSION_READINESS.md'),
     ('01', 'AI policy and solo submission', 'docs/milestone-1/AI_POLICY_AND_SOLO_SUBMISSION.md'),
     ('02', 'Your review and discussion guide', 'docs/milestone-1/SOLO_REVIEW_AND_DISCUSSION_GUIDE.md'),
     ('03', 'Strategy, plan and workflow', 'docs/milestone-1/STRATEGY_PLAN_WORKFLOW.md'),
@@ -50,6 +51,7 @@ SOURCES = [
     ('09', 'API test report', 'docs/milestone-1/API_TEST_REPORT.md'),
     ('10', 'Real Stripe verification results', 'docs/milestone-1/STRIPE_VERIFICATION_REPORT.md'),
     ('11', 'Stripe integration and reproduction', 'docs/milestone-1/STRIPE_INTEGRATION_VERIFICATION.md'),
+    ('12', 'Live verification of all 11 bonuses', 'docs/milestone-1/BONUS_VERIFICATION.md'),
     ('A', 'AI prompt log', 'AI_PROMPTS.txt'),
     ('B', 'Requirements traceability', 'docs/requirements/TRACEABILITY.md'),
     ('C', 'API endpoint index', 'docs/api/ENDPOINTS.md'),
@@ -244,7 +246,7 @@ def lifecycle():
     arrow(d, [(312, 145), (384, 145)])
     arrow(d, [(60, 120), (60, 50)])
     arrow(d, [(252, 120), (252, 50)])
-    for x, y, text in [(115, 203, 'Atomic hold'), (156, 188, 'Verified payment'), (348, 188, 'Travel complete'), (88, 87, 'Timeout /'), (88, 75, 'invalidation'), (325, 86, 'Eligible cancellation')]:
+    for x, y, text in [(115, 203, 'Atomic hold'), (156, 188, 'Verified payment'), (348, 188, 'Travel complete'), (88, 81, 'Hold timeout'), (325, 86, 'Eligible cancellation')]:
         d.add(String(x, y, text, fontName='Body', fontSize=9, fillColor=MUTED, textAnchor='middle'))
     return d
 
@@ -307,7 +309,7 @@ def parse_markdown(source, key, st):
                 if 'flowchart LR' in graph:
                     story += [architecture(), Paragraph('Architecture diagram rendered from the original Mermaid relationships.', st['caption'])]
                 elif 'stateDiagram-v2' in graph:
-                    story += [lifecycle(), Paragraph('Booking lifecycle rendered from the source. The documented pending-hold interpretation is retained.', st['caption'])]
+                    story += [lifecycle(), Paragraph('Only the original hold timeout enters Expired. Earlier invalidation releases inventory and blocks payment while the booking remains Pending Payment.', st['caption'])]
                 else: story.append(code_paragraph(block, st))
             else: story.append(code_paragraph(block, st))
             i += 1; continue
@@ -360,7 +362,7 @@ def main():
     OUT.mkdir(parents=True, exist_ok=True)
     QA.mkdir(parents=True, exist_ok=True)
     st = styles()
-    story = [Spacer(1, 58), Paragraph('MILESTONE 1', st['h3']), Paragraph('Project<br/>handbook', st['coverTitle']), Paragraph('Travel Planning and Booking Platform<br/>Implementation blueprint and technical handover', st['coverSub']), HRFlowable(width=82, thickness=3, color=TEAL, hAlign='LEFT', spaceAfter=21), Paragraph(revision.strftime('%d %B %Y').lstrip('0'), st['body']), Spacer(1, 12), Paragraph('<b>Start with chapter 03</b> for the strategy, plan and workflow, then <b>chapter 08</b> for the actual implementation, architecture diagrams, database, authentication and booking lifecycle.', st['body']), Spacer(1, 12), Paragraph('This edition includes the latest API, Atlas, real Stripe sandbox and GitHub CI evidence. Student review, release sign-off, SMTP delivery and other recorded acceptance limits remain pending. Codex is an AI tool; there is one human student/developer.', st['body']), Spacer(1, 12), Paragraph('Use the clickable contents or PDF bookmarks to navigate. Original Markdown files remain the editable source; source-code links point to the local workspace.', st['body']), PageBreak(), Paragraph('Contents', st['chapter'])]
+    story = [Spacer(1, 58), Paragraph('MILESTONE 1', st['h3']), Paragraph('Project<br/>handbook', st['coverTitle']), Paragraph('Travel Planning and Booking Platform<br/>Implementation blueprint and technical handover', st['coverSub']), HRFlowable(width=82, thickness=3, color=TEAL, hAlign='LEFT', spaceAfter=21), Paragraph(revision.strftime('%d %B %Y').lstrip('0'), st['body']), Spacer(1, 12), Paragraph('<b>Start with chapter 00</b> for submission readiness and your remaining actions, <b>chapter 03</b> for the strategy and workflow, and <b>chapter 08</b> for the actual implementation, diagrams, database and booking lifecycle.', st['body']), Spacer(1, 12), Paragraph('This edition includes the current API, Atlas, real Stripe sandbox, SMTP test-inbox and all 11 bonus verification results. Student review, credential-rotation confirmation and release approval remain pending. Codex is an AI tool; there is one human student/developer.', st['body']), Spacer(1, 12), Paragraph('Use the clickable contents or PDF bookmarks to navigate. Original Markdown files remain the editable source; source-code links point to the local workspace.', st['body']), PageBreak(), Paragraph('Contents', st['chapter'])]
     toc = TableOfContents()
     toc.levelStyles = [ParagraphStyle('TOC0', fontName='Body-Bold', fontSize=11, leading=15.5, textColor=NAVY, leftIndent=0, firstLineIndent=0, spaceBefore=11), ParagraphStyle('TOC1', fontName='Body', fontSize=9.6, leading=13.2, textColor=INK, leftIndent=14, firstLineIndent=0, spaceBefore=3)]
     story += [toc]
