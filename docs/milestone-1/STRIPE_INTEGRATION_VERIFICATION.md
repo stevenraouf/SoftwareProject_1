@@ -1,6 +1,6 @@
 # Stripe account-backed verification
 
-Status on 15 November 2026: **the full account-backed run passed**. The student created the sandbox and supplied the test key through the ignored local environment file. Real Stripe API authentication, signed-webhook flight/hotel confirmation, decline/retry, tier/provider refunds and the unshortened ten-minute hold expiry passed against Atlas. See [STRIPE_VERIFICATION_REPORT.md](STRIPE_VERIFICATION_REPORT.md) and `evidence/stripe-account-verification.json`. Earlier fixture tests remain separate evidence for additional edge cases.
+Status on 19 November 2026: **the full account-backed run passed**. The student created the sandbox and supplied the test key through the ignored local environment file. Real Stripe API authentication, signed-webhook flight/hotel confirmation, decline/retry, tier/provider refunds and the unshortened ten-minute hold expiry passed against Atlas. See [STRIPE_VERIFICATION_REPORT.md](STRIPE_VERIFICATION_REPORT.md) and `evidence/stripe-account-verification.json`. Earlier fixture tests remain separate evidence for additional edge cases.
 
 ## Setup
 
@@ -10,7 +10,7 @@ Status on 15 November 2026: **the full account-backed run passed**. The student 
 4. From `backend`, run `npm.cmd run check:stripe`. This makes a read-only sandbox authentication request and prints no balance or credentials. It does not establish payment/refund/webhook correctness.
 5. Run `npm.cmd run stripe:listen` in a separate terminal. It passes the test key through the child process environment rather than command-line arguments, forwards the six required snapshot event types to the loopback HTTPS backend, and saves the signing secret directly into the ignored environment file. Arbitrary CLI lines, event bodies, keys and client secrets are not printed by the wrapper. Keep the listener running. The webhook signing secret is distinct from the API key. [Stripe local webhook forwarding](https://docs.stripe.com/webhooks#test-locally-without-a-registered-url)
 6. Restart the backend so it reads both Stripe settings. Keep background jobs enabled for refund and expiration processing. The CLI's `--skip-verify` applies only to its forwarding request to the self-signed **localhost** endpoint; the API verification runner checks the actual local certificate explicitly.
-7. Keep email bonuses disabled during this dedicated payment verification: the synthetic traveler address is not an actual inbox. SMTP/account-backed bonus testing is a separate task.
+7. With the local Mailpit development profile enabled, the runner observes its synthetic traveler's actual verification email and consumes the link before booking. With email bonuses disabled, this gate does not apply. A different SMTP provider requires private manual verification; do not bypass the account gate. Additional bonus cases are documented in [BONUS_VERIFICATION.md](BONUS_VERIFICATION.md).
 
 ## Review and run
 
@@ -24,7 +24,7 @@ node scripts/verify-stripe.mjs --plan
 Run the account-backed checks:
 
 ```powershell
-npm.cmd run verify:stripe
+npm.cmd run verify:stripe -- --new-run
 ```
 
 The runner creates identifiable verification-only users/providers/flights/one room in `travel_platform`. Fixture providers/inventory and the fixture moderator are seeded directly through the application's schemas; the traveler registers through HTTP. They are synthetic system actors, not teammates. Every hold/payment/policy acceptance/cancellation goes through the running HTTP API. Payment confirmation uses Stripe's actual sandbox API with `pm_card_visa` and the decline test method; card numbers never pass through the backend. [Stripe test PaymentMethods](https://docs.stripe.com/testing#test-code)

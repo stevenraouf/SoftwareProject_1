@@ -1,0 +1,6 @@
+{
+  "clientDate": "2026-11-19",
+  "historicalTextBlobsScanned": 190,
+  "highConfidenceCredentialPatternHits": [],
+  "scope": "Pattern scan of committed text blobs; supplements current configured-value and ignored-path scans. Not a guarantee that every possible secret format is detected."
+}

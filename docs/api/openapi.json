@@ -997,6 +997,147 @@
       }
     },
     "/api/auth/reset-password": {
+      "get": {
+        "operationId": "AuthController_resetForm",
+        "parameters": [
+          {
+            "name": "token",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          },
+          "400": {
+            "description": "See common API error; operation-specific message explains the rejected rule",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                },
+                "example": {
+                  "statusCode": 400,
+                  "message": "Validation failed",
+                  "errors": [
+                    {
+                      "field": "email",
+                      "messages": [
+                        "email must be an email"
+                      ]
+                    }
+                  ],
+                  "timestamp": "2026-01-01T00:00:00.000Z"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "See common API error; operation-specific message explains the rejected rule",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                },
+                "example": {
+                  "statusCode": 401,
+                  "message": "Authentication required",
+                  "timestamp": "2026-01-01T00:00:00.000Z"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "See common API error; operation-specific message explains the rejected rule",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                },
+                "example": {
+                  "statusCode": 403,
+                  "message": "You do not have permission for this operation",
+                  "timestamp": "2026-01-01T00:00:00.000Z"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "See common API error; operation-specific message explains the rejected rule",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                },
+                "example": {
+                  "statusCode": 404,
+                  "message": "Resource not found",
+                  "timestamp": "2026-01-01T00:00:00.000Z"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "See common API error; operation-specific message explains the rejected rule",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                },
+                "example": {
+                  "statusCode": 409,
+                  "message": "The request conflicts with the current resource state",
+                  "timestamp": "2026-01-01T00:00:00.000Z"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Unexpected server error (details withheld)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                },
+                "example": {
+                  "statusCode": 500,
+                  "message": "Internal server error",
+                  "timestamp": "2026-01-01T00:00:00.000Z"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "See common API error; operation-specific message explains the rejected rule",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                },
+                "example": {
+                  "statusCode": 503,
+                  "message": "Required external service is unavailable or not configured",
+                  "timestamp": "2026-01-01T00:00:00.000Z"
+                }
+              }
+            }
+          }
+        },
+        "security": [],
+        "summary": "ACC-07 [Bonus] Open the single-use password reset form",
+        "tags": [
+          "Authentication"
+        ],
+        "x-access": "Public (authentication optional)",
+        "description": "Access: Public (authentication optional). Ownership and provider assignment are enforced in services.",
+        "x-requirements": [
+          "ACC-07"
+        ]
+      },
       "post": {
         "operationId": "AuthController_reset",
         "parameters": [],
@@ -1143,7 +1284,16 @@
     "/api/auth/verify-email": {
       "get": {
         "operationId": "AuthController_verify",
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "token",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": ""

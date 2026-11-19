@@ -424,6 +424,210 @@ reported separately.
 Review: Pending student review.
 ================================================
 
+================================================
+Entry: P015 - Refresh the implementation blueprint PDF handbook
+Date: 2026-11-15
+Student: Sole repository owner (Git identity: stevenraouf)
+Tool: OpenAI Codex
+Related Requirement: Blueprint/implementation handover and document readability
+Prompt (verbatim):
+"is there pdf file that explain your implemnation and your blueprint ?"
+How the output was used:
+Refreshed the reading-copy handbook from the current Markdown sources, adding
+the API test report, real Stripe verification results and reproduction guide.
+Updated its date and cover reading directions; retained diagrams, clickable
+contents/bookmarks, source links and all outstanding review/acceptance limits.
+Corrected the stale Atlas acceptance row in the policy record to reflect the
+already recorded core account-backed verification. No human review was invented.
+Validation scope:
+PDF content/page-bound checks and rendered-page layout inspection. No new backend
+test run or external payment verification is claimed for document conversion.
+Sources are kept editable; the exporter checks source hashes during conversion.
+The previous PDF could not be replaced (Windows denied writing it), so the
+updated edition was saved as a dated copy; the previous reading copy is retained.
+Evidence: output/pdf/MILESTONE_1_HANDBOOK_2026-11-15.pdf;
+scripts/export_handbook.py.
+Review: Pending student review.
+================================================
+
+================================================
+Entry: P016 - Diagnose refused Swagger connection and Atlas DNS timeout
+Date: 2026-11-17
+Student: Sole repository owner (Git identity: stevenraouf)
+Tool: OpenAI Codex
+Related Requirement: Local setup, Atlas connectivity and demonstration availability
+Prompt (verbatim):
+"can you please tell me what is the problem here :"
+Context: Screenshot of ERR_CONNECTION_REFUSED at https://localhost:3443/api/docs.
+How the output was used:
+Confirmed that no process listened on port 3443. Starting the backend exposed
+queryTxt ETIMEOUT during Atlas discovery. Read-only diagnostics showed working
+SRV lookups and TCP connectivity but failing ordinary TXT DNS queries. Retrieved
+the public TXT metadata over certificate-verified HTTPS and verified a standard
+Atlas connection using the existing private credentials, database and options.
+Updated only the ignored local MONGODB_URI to that standard format with TLS
+explicitly enabled. No passwords, URI values, keys or tokens were logged here.
+Updated check-atlas.mjs to accept standard Atlas connection strings with explicit
+TLS, alongside the existing SRV format. Added README troubleshooting guidance.
+Stopped the failed startup attempt and restarted one backend process.
+Validation:
+Standard Atlas ping, authentication and an aborted read-only transaction passed.
+The updated npm.cmd run check:atlas passed; node --check passed for its script.
+Nest successfully started on loopback port 3443. Live HTTPS GET checks and their
+dated results are recorded in docs/milestone-1/evidence/live-api-readonly.json.
+This troubleshooting does not establish new payment or full workflow acceptance.
+Review: Pending student review.
+================================================
+
+================================================
+Entry: P017 - Restart the stopped local Swagger backend independently
+Date: 2026-11-17
+Student: Sole repository owner (Git identity: stevenraouf)
+Tool: OpenAI Codex
+Related Requirement: Local demonstration availability and runtime verification
+Prompt (verbatim):
+"why connection failed ?"
+Context: Screenshot of ERR_CONNECTION_REFUSED at https://localhost:3443/api/docs.
+How the output was used:
+Confirmed no listener on port 3443 and no running application Node process.
+The earlier private Atlas connection setting was still present. Started one
+background Node process with PowerShell Start-Process and a hidden window;
+stdout/stderr logs stay under the Git-ignored backend/.local directory.
+This process is independent of the foreground command used to launch it.
+The exact reason the previous process stopped was not established. No operating
+system startup service or scheduled task was installed.
+Validation:
+The initial HTTP check ran before the listener was ready and failed. After the
+Swagger startup line appeared, port 3443 listened on 127.0.0.1 and all 11 public
+certificate-verified HTTPS checks passed, including health/database and Swagger.
+Evidence: docs/milestone-1/evidence/live-api-readonly.json. No full workflow,
+payment rerun or new student acceptance is claimed for this operational restart.
+Review: Pending student review.
+================================================
+
+================================================
+Entry: P018 - Execute every documented API workflow and refresh verification
+Date: 2026-11-17
+Student: Sole repository owner (Git identity: stevenraouf)
+Tool: OpenAI Codex
+Related Requirement: API functionality, role permissions and release verification
+Prompt (verbatim):
+"I want you right now to test each api"
+How the output was used:
+Ran the complete automated HTTP workflow suite against a new disposable MongoDB
+8.2.6 replica set on D:, using the existing pinned test binary. Mutable cases
+did not run against the Atlas application database. Corrected the coverage
+observer's hardcoded report date and added an execution timestamp. Clarified
+in the report generator that HTTP automation is not manual/student review.
+Validation:
+npm.cmd run test:api: 2 suites passed, 56 tests passed, 0 failed or skipped;
+all 147 documented operations returned successful responses in workflows.
+120 anonymous-access, 100 wrong-role and 86 missing-CSRF checks passed.
+Verified exact method/path correspondence between OpenAPI and coverage records.
+npm.cmd run typecheck, npm.cmd run lint and npm.cmd run build all passed.
+npm.cmd run check:atlas passed authentication/ping and an aborted read-only
+transaction. npm.cmd run check:live passed 11 certificate-verified HTTPS GETs.
+npm.cmd run check:stripe passed actual sandbox API authentication only.
+Limits:
+Stripe/SMTP and FX edge cases in the full suite use fixtures. Actual payment,
+refund and expiry evidence remains dated 15 November; not rerun for this task.
+SMTP delivery remains unverified. This is operation coverage, not exhaustive
+proof of every business rule, a manual Swagger click-through or student approval.
+Updated API_TEST_REPORT.md, README and REVIEW_AND_VERIFICATION.md. Dated summary:
+docs/milestone-1/evidence/api-verification-2026-11-17.json. No application business
+logic was changed to obtain these results. Existing unrelated edits were kept.
+Review: Pending student review.
+================================================
+
+================================================
+Entry: P019 - Restore Swagger after reboot and add a reusable local launcher
+Date: 2026-11-19
+Student: Sole repository owner (Git identity: stevenraouf)
+Tool: OpenAI Codex
+Related Requirement: Reproducible local startup, Swagger and operational handover
+Prompt (verbatim):
+"check the problem please and fix it :"
+Context: Screenshot of ERR_CONNECTION_REFUSED at https://localhost:3443/api/docs#/.
+How the output was used:
+Confirmed there was no application Node process or port-3443 listener. Windows
+last booted on 19 November at 19:04 Africa/Cairo, after the previous local run.
+Atlas authentication and a read-only transaction still worked. Added a shared
+start-local.mjs launcher, root START_SWAGGER.cmd, npm start:local and a VS Code
+Start Travel API (Swagger) task. The launcher builds before starting, resolves
+paths independently of working directory, validates local certificates and
+reuses an existing healthy server instead of starting a second copy. It refuses
+an unrelated occupied port without terminating that service. Updated README
+and the operational verification record; existing unrelated edits were kept.
+Validation:
+Node syntax and JSON parsing checks passed. Actual cold build/start passed.
+Certificate-verified readiness and 11 live Atlas-backed HTTPS GET checks passed.
+Both npm and Windows batch entry points reused the running server successfully.
+An unrelated local HTTP service was detected, preserved, and produced a clear
+nonzero launcher result. The backend remains running in the background for this
+session. No Windows autostart service or scheduled task was installed.
+Evidence: docs/milestone-1/evidence/local-startup-2026-11-19.json and
+docs/milestone-1/evidence/live-api-readonly.json. No application business logic
+or secrets changed. The full 56-test/147-operation run remains dated 17 November;
+it was not repeated for these operational launcher changes.
+Review: Pending student review.
+================================================
+
+================================================
+Entry: P020 - Final Milestone 1 audit and real bonus verification before submission
+Date: 2026-11-19
+Student: Sole repository owner (Git identity: stevenraouf)
+Tool: OpenAI Codex
+Related Requirement: Milestone 1 deliverables; GEN-11, FLT-06, ACC-07; all bonuses
+Prompt (verbatim):
+"because the submission is tommorow I want you to check and test everything if it is ready for the submission of milestone 1"
+Follow-up context:
+The student reported their personal review is not complete, asked to try every
+bonus as well, and was unsure whether earlier disclosed passwords were rotated.
+How the output was used:
+Audited original workbook/PDF rules, source mappings, live integrations, repository
+state and setup. Found and corrected early Expired transitions for invalidated
+holds: inventory releases once, payment is blocked, and Pending Payment becomes
+Expired only at the original deadline. Added a regression covering compensation,
+retries and timeout. Actual SMTP testing exposed a token-only password-recovery
+email; added a real reset link, no-store/referrer-safe form, URL-encoded submission
+and Swagger token parameters. Updated the Stripe verifier for standard Atlas URIs.
+Installed checksum-verified portable Node 22.23.5 and Mailpit 1.34.0 outside Git.
+The private local development profile enables SMTP delivery only to the loopback
+test inbox. The launcher supports the patched runtime, local inbox, duplicate
+server detection and a Stripe-listener mode, with Windows and VS Code entry points.
+Generated new bonus verification tooling with actual Atlas/Stripe/SMTP requests;
+no raw card details, synthetic success events or locally fabricated signatures.
+An interrupted local delivery during restart was recovered with official Stripe
+event redelivery. Fixture/script assumptions were corrected and the complete
+bonus rerun passed. Recovery/error reports expose only allowlisted metadata.
+Validation completed:
+57 tests passed, 0 failed/skipped; all 148 documented operations had successful
+HTTP workflows. 120 anonymous, 100 wrong-role and 86 missing-CSRF checks passed.
+Fresh npm ci in a separate secret-free source copy, typecheck, lint, tests, build
+and five compiled HTTPS/real-FX checks passed; repeated on patched Node 22.23.5.
+Actual core Stripe run repeated the full unshortened ten-minute expiry, signed
+confirmation, decline/retry and provider/traveler refunds against Atlas.
+All 11 bonuses passed additional Atlas/Stripe/SMTP checks, including real fare
+differences/refunds, seat contention, review replies, linked budgets/clones,
+PDF export, blog attachment, favourites and provider analytics reconciliation.
+The one-page English itinerary PDF was rendered and visually inspected.
+Both full and production dependency audits reported zero vulnerabilities.
+All 115 original requirement texts and official reference data matched; source
+links and configured-secret scans passed. Historical text-blob pattern scan found
+no high-confidence credential hits. Live Swagger rendering was inspected read-only
+in the student's VS Code window; their password-change view was left intact.
+Scope and outstanding actions:
+SMTP is an actual local test inbox, not personal/internet mailbox delivery.
+Historical hotel review eligibility uses a clearly labeled synthetic completed
+stay. Additional rare financial permutations retain representative fixture tests.
+Student review and credential rotation remain pending/uncertain; neither is
+fabricated or backdated. Release integration awaits the student's actual review.
+Prepared SUBMISSION_READINESS.md, BONUS_VERIFICATION.md, updated implementation
+handover, traceability and source evidence. Publication and handbook QA results
+are recorded below when completed; no pending action is claimed as an approval.
+Review: Pending student review.
+================================================
+
 FUTURE ENTRY FORMAT (template, not a completed event)
 Date: YYYY-MM-DD
 Student: Your actual student identity

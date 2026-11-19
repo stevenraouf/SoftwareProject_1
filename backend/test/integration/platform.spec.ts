@@ -1512,6 +1512,76 @@ describe("Inventory transactions and payment races", () => {
     expect(refunds).toHaveLength(1);
     expect(refunds[0].amount).toBe(100);
   });
+  test("provider invalidation releases an unpaid hold once and only expires it at its deadline", async () => {
+    const f = await makeFlight("INVALID-HOLD", 2);
+    const hold = await send(
+      "post",
+      "/flight-bookings/hold",
+      users.a,
+      flightDto(f.id),
+    );
+    expect(hold.status).toBe(201);
+    const deadline = +new Date(hold.body.holdExpiresAt);
+    expect(
+      (
+        await send("post", `/flights/${f.id}/cancel`, users.air, {
+          confirm: true,
+        })
+      ).status,
+    ).toBe(201);
+    let b = await db.get("Booking", hold.body._id);
+    expect(b.status).toBe("Pending Payment");
+    expect(+b.holdExpiresAt).toBe(deadline);
+    expect(b.holdInvalidatedAt).toBeTruthy();
+    expect((await db.get("Flight", f.id)).cabins[0].held).toBe(0);
+    expect(
+      (
+        await send(
+          "post",
+          `/bookings/flight/${b.id}/accept-policies`,
+          users.a,
+          { confirm: true },
+        )
+      ).status,
+    ).toBe(400);
+    const stripe = new Stripe("sk_test_fixture_not_a_real_credential");
+    const configured = jest
+      .spyOn(payments, "configured")
+      .mockReturnValue(stripe);
+    try {
+      expect(
+        (
+          await send("post", "/payments", users.a, {
+            type: "flight",
+            bookingId: b.id,
+          })
+        ).status,
+      ).toBe(409);
+    } finally {
+      configured.mockRestore();
+    }
+    await send("post", `/flights/${f.id}/cancel`, users.air, { confirm: true });
+    await inventory.expireDue();
+    expect((await db.get("Booking", b.id)).status).toBe("Pending Payment");
+    const { event } = await markPaid(b.id);
+    await payments.processEvent(event);
+    b = await db.get("Booking", b.id);
+    expect(b.status).toBe("Pending Payment");
+    expect((await db.get("Flight", f.id)).cabins[0].held).toBe(0);
+    const refunds = await db.model("Refund").find({ bookingId: b._id });
+    expect(refunds).toHaveLength(1);
+    expect(refunds[0].amount).toBe(100);
+    await db
+      .model("Booking")
+      .updateOne(
+        { _id: b._id },
+        { $set: { holdExpiresAt: new Date(Date.now() - 1000) } },
+      );
+    await inventory.expireDue();
+    await inventory.expireDue();
+    expect((await db.get("Booking", b.id)).status).toBe("Expired");
+    expect((await db.get("Flight", f.id)).cabins[0].held).toBe(0);
+  });
   test("wrong amount rolls back; provider cancellation releases inventory and refunds in full", async () => {
     const f = await makeFlight("CANCEL", 2);
     const hold = await send(
@@ -1903,12 +1973,29 @@ describe("Itineraries, privacy, community and bonuses", () => {
         email: "missing@example.test",
       });
     expect(found.body).toEqual(missing.body);
+    const firstMail = await db
+      .model("Outbox")
+      .findOne({
+        kind: "email",
+        "payload.to": "b@example.test",
+        "payload.subject": "Reset your password",
+      })
+      .sort({ createdAt: -1 });
+    const firstRaw = firstMail.payload.text.match(/token=([a-f0-9]{64})/)[1];
+    const form = await send("get", `/auth/reset-password?token=${firstRaw}`);
+    expect(form.status).toBe(200);
+    expect(form.text).toContain('name="newPassword"');
+    expect(form.headers["cache-control"]).toBe("no-store");
+    expect(form.headers["referrer-policy"]).toBe("no-referrer");
     const old = await db.model("User").findById(users.b.user.id);
     await send("post", "/auth/forgot-password", undefined, {
       email: "b@example.test",
     });
     const newer = await db.model("User").findById(users.b.user.id);
     expect(old.resetHash).not.toBe(newer.resetHash);
+    expect(
+      (await send("get", `/auth/reset-password?token=${firstRaw}`)).status,
+    ).toBe(400);
     const raw = "a".repeat(64);
     await db.model("User").updateOne(
       { _id: newer._id },
@@ -2050,12 +2137,10 @@ describe("Complete operation workflows on independent fixtures", () => {
     const rates = Object.fromEntries(
       currencies.map((code: string) => [code, code === "EGP" ? 50 : 1]),
     );
-    global.fetch = jest
-      .fn<typeof global.fetch>()
-      .mockResolvedValue({
-        ok: true,
-        json: async () => ({ success: true, base: "USD", date: start, rates }),
-      } as Response);
+    global.fetch = jest.fn<typeof global.fetch>().mockResolvedValue({
+      ok: true,
+      json: async () => ({ success: true, base: "USD", date: start, rates }),
+    } as Response);
     try {
       expect(
         (await ok("post", "/admin/exchange-rates/refresh", users.admin)).body
@@ -2071,13 +2156,11 @@ describe("Complete operation workflows on independent fixtures", () => {
     // Moderators need no prior notification, so create an explicit deterministic fixture.
     const note =
       notification ||
-      (await db
-        .model("Notification")
-        .create({
-          userId: oidUser(owner),
-          message: "Coverage notification",
-          key: "coverage-note",
-        }));
+      (await db.model("Notification").create({
+        userId: oidUser(owner),
+        message: "Coverage notification",
+        key: "coverage-note",
+      }));
     const recipient = notification ? air : owner;
     await ok("patch", `/notifications/${note._id}/read`, recipient);
     expect((await db.get("Notification", note._id)).readAt).toBeDefined();
@@ -2215,26 +2298,24 @@ describe("Complete operation workflows on independent fixtures", () => {
     ).toBe("Succeeded");
     await ok("get", `/flight-bookings/${id}/seats`, owner);
     await ok("get", `/flight-bookings/${id}/e-ticket`, owner);
-    const replacement = await db
-      .model("Flight")
-      .create({
-        airlineId: carrier._id,
-        flightNumber: "COVER101",
-        departureAirport: "CAI",
-        arrivalAirport: "DXB",
-        departureDate: start,
-        departureAt: DateTime.fromISO(start).plus({ hours: 12 }).toJSDate(),
-        arrivalAt: DateTime.fromISO(start).plus({ hours: 16 }).toJSDate(),
-        cabins: [
-          {
-            category: "Economy",
-            capacity: 5,
-            price: 80,
-            freeBags: 1,
-            bagWeightKg: 23,
-          },
-        ],
-      });
+    const replacement = await db.model("Flight").create({
+      airlineId: carrier._id,
+      flightNumber: "COVER101",
+      departureAirport: "CAI",
+      arrivalAirport: "DXB",
+      departureDate: start,
+      departureAt: DateTime.fromISO(start).plus({ hours: 12 }).toJSDate(),
+      arrivalAt: DateTime.fromISO(start).plus({ hours: 16 }).toJSDate(),
+      cabins: [
+        {
+          category: "Economy",
+          capacity: 5,
+          price: 80,
+          freeBags: 1,
+          bagWeightKg: 23,
+        },
+      ],
+    });
     const change = await ok(
       "patch",
       `/flight-bookings/${id}/change-flight`,

@@ -1,0 +1,28 @@
+{
+  "clientDate": "2026-11-19",
+  "outcome": "passed",
+  "cause": "The computer rebooted after the previous local backend run; no application process or port-3443 listener was present.",
+  "observedLastBootUtc": "2026-11-19T17:04:03.500Z",
+  "changes": [
+    "START_SWAGGER.cmd launcher",
+    "backend/scripts/start-local.mjs with build and existing-server detection",
+    "npm run start:local",
+    "VS Code Start Travel API (Swagger) task",
+    "README startup guidance"
+  ],
+  "checks": {
+    "atlasReadOnlyTransaction": "passed",
+    "launcherSyntax": "passed",
+    "buildAndColdStart": "passed",
+    "certificateVerifiedHealth": "passed",
+    "npmLauncherExistingServerReuse": "passed",
+    "windowsBatchExistingServerReuse": "passed",
+    "unrelatedPortConflictHandling": "passed; unrelated service preserved",
+    "liveHttpsGetChecks": 11
+  },
+  "scope": "Operational launcher changes; no application business logic or secrets changed. The 56-test/147-operation suite remains evidence from 17 November and was not repeated today.",
+  "operation": "Application restarted in the background for this session. User can run the launcher or VS Code task after a reboot. No Windows autostart service installed.",
+  "evidence": [
+    "live-api-readonly.json"
+  ]
+}

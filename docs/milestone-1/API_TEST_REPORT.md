@@ -1,18 +1,18 @@
 # API test report
 
-Checked on 2026-11-14 (Africa/Cairo client date).
+Checked on 2026-11-19 (Africa/Cairo client date).
 
-56/56 automated tests passed; 0 failed. 147/147 documented operations were exercised; 147 returned a successful HTTP response in a functional workflow.
+57/57 automated tests passed; 0 failed. 148/148 documented operations were exercised; 148 returned a successful HTTP response in a functional workflow.
 
 120 anonymous-access checks, 100 incorrect-role checks, and 86 missing-CSRF checks were performed. The refresh endpoint rejects missing CSRF as 401; other protected writes reject it as 403.
 
 ## Test scope
 
-The automated suite uses an isolated, disposable MongoDB 8.2.6 replica set on D:. It does not execute destructive workflows against the Atlas application database. Stripe PaymentIntents/refunds/webhooks and SMTP use fixtures or adapter mocks; these are not proof of real account integration. FX success/outage fixtures test the API contract; the separate HTTPS smoke check exercises the real public FX service.
+The automated suite uses an isolated, disposable MongoDB 8.2.6 replica set. It does not execute destructive workflows against the Atlas application database. Stripe PaymentIntents/refunds/webhooks and SMTP use fixtures or adapter mocks; these are not proof of real account integration. FX success/outage fixtures test the API contract; the separate HTTPS smoke check exercises the real public FX service.
 
-The VS Code browser was inspected: Swagger rendered and the live Atlas-backed health endpoint returned database=true. The 147 functional operation workflows were executed through HTTP automation, not by clicking every operation in Swagger. Read-only live-service checks are recorded separately in evidence/live-api-readonly.json when available.
+The 148 functional operation workflows were executed through HTTP automation. This run does not constitute a manual click-through in Swagger or the student's own review. Earlier VS Code browser inspection is documented separately in REVIEW_AND_VERIFICATION.md. Read-only live-service checks are recorded separately in evidence/live-api-readonly.json when available.
 
-A successful workflow for each operation does not establish exhaustive input, ownership, concurrency, or requirement coverage. The suite also tests representative business failures, ownership, privacy, contention, payment races and restart recovery. A separate real Stripe sandbox payment/refund/expiry run passed on 2026-11-15; see evidence/stripe-account-verification.json. Actual SMTP delivery and the sole student's review remain pending.
+A successful workflow for each operation does not establish exhaustive input, ownership, concurrency, or requirement coverage. The suite also tests representative business failures, ownership, privacy, contention, payment races and restart recovery. A separate real Stripe sandbox payment/refund/expiry run passed on 2026-11-19; see evidence/stripe-account-verification.json. All 11 additional live bonus cases passed on 2026-11-19, including actual SMTP delivery to a local development test inbox. Personal/internet mailbox delivery was not tested. The sole student's own review remains pending.
 
 ## Reproduce
 
@@ -31,6 +31,7 @@ Successful codes and expected access denials are observations from this run. Emp
 | GET | `/api/auth/me` | 200 | 401 | - | - |
 | PATCH | `/api/auth/change-password` | 200 | 401 | - | 403 |
 | POST | `/api/auth/forgot-password` | 201 | - | - | - |
+| GET | `/api/auth/reset-password` | 200 | - | - | - |
 | POST | `/api/auth/reset-password` | 201 | - | - | - |
 | GET | `/api/auth/verify-email` | 200 | - | - | - |
 | GET | `/api/users/me` | 200 | 401 | - | - |

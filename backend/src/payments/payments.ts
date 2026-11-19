@@ -61,6 +61,7 @@ export class PaymentsService {
       if (
         b.type !== dto.type ||
         b.status !== "Pending Payment" ||
+        b.holdInvalidatedAt ||
         b.holdExpiresAt <= new Date()
       )
         throw new ConflictException("Booking hold is not active");
@@ -157,6 +158,7 @@ export class PaymentsService {
     if (
       payment.purpose === "booking"
         ? booking.status !== "Pending Payment" ||
+          booking.holdInvalidatedAt ||
           booking.holdExpiresAt <= new Date()
         : change.status !== "Pending Payment" || change.expiresAt <= new Date()
     ) {
@@ -183,17 +185,15 @@ export class PaymentsService {
   }
   async acceptChangePolicies(actor: Actor, id: string) {
     const change = await this.changeDetails(actor, id);
-    const updated = await this.db
-      .model("FlightChange")
-      .findOneAndUpdate(
-        {
-          _id: change._id,
-          status: "Pending Payment",
-          expiresAt: { $gt: new Date() },
-        },
-        { $set: { policyAcceptedAt: new Date() } },
-        { returnDocument: "after" },
-      );
+    const updated = await this.db.model("FlightChange").findOneAndUpdate(
+      {
+        _id: change._id,
+        status: "Pending Payment",
+        expiresAt: { $gt: new Date() },
+      },
+      { $set: { policyAcceptedAt: new Date() } },
+      { returnDocument: "after" },
+    );
     if (!updated)
       throw new ConflictException("Flight change hold is no longer active");
     return {
@@ -323,7 +323,9 @@ export class PaymentsService {
                 await this.inventory.expireChange(change, session);
             } else {
               fulfill =
-                b.status === "Pending Payment" && b.holdExpiresAt > new Date();
+                b.status === "Pending Payment" &&
+                !b.holdInvalidatedAt &&
+                b.holdExpiresAt > new Date();
               if (!activeUser) fulfill = false;
               if (fulfill && b.type === "flight") {
                 for (const s of b.snapshot.segments) {
@@ -360,15 +362,15 @@ export class PaymentsService {
                   session,
                 );
               } else if (b.status === "Pending Payment") {
-                b.status = "Expired";
-                await b.save({ session });
-                await this.inventory.release(
-                  b.snapshot,
-                  b.type,
-                  b._id,
-                  true,
+                await this.inventory.invalidateHold(
+                  b,
+                  "Payment could not be fulfilled",
                   session,
                 );
+                if (b.holdExpiresAt <= new Date()) {
+                  b.status = "Expired";
+                  await b.save({ session });
+                }
               }
             }
             if (!fulfill)

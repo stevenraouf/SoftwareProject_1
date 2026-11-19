@@ -18,12 +18,14 @@ Update on 14 November 2026: [API_TEST_REPORT.md](API_TEST_REPORT.md) records 56 
 
 ## Outstanding acceptance evidence
 
+Release-audit update, 19 November: 57 tests and all 148 operations passed, including the GEN-11 correction and actual reset link/form. A fresh install on Node 22.23.5 and all 11 live bonus cases passed. Read the current [submission verdict](SUBMISSION_READINESS.md); earlier dated counts below are retained as history.
+
 - Atlas connection/indexes, repeatable official/admin seeds and HTTPS login/startup passed after the owner's local setup (see `evidence/atlas-setup.json`). Core account-backed flight/hotel payment, decline/retry, provider/traveler refunds and real timeout/cancellation passed on 15 November (see `STRIPE_VERIFICATION_REPORT.md`). Exhaustive concurrency and additional financial edge cases still use the disposable replica set.
 - Account-backed Stripe fare changes, late-success compensation, refund failure and restart scenarios have not all been repeated externally; retain their representative fixture evidence and the explicit acceptance limits.
-- Observe real SMTP test-inbox delivery for verification, password recovery, moderator invitations, and notifications.
+- Completed 19 November: actual SMTP test-inbox delivery, higher/lower-fare Stripe changes and all 11 bonus cases passed; see [BONUS_VERIFICATION.md](BONUS_VERIFICATION.md). The inbox is local development infrastructure; personal/internet delivery remains outside that evidence.
 - Review-branch publication and GitHub CI passed on 15 November for application commit `43814fe`; release merges await the student's review. See `evidence/github-ci.json`.
 - Complete your own human Swagger walkthrough and source review as the sole student; record the actual version, date and findings. No second team member is presumed.
-- Confirm the documented booking-state interpretation: provider cancellation invalidates pending holds as Expired, while GEN-11 explicitly associates expiration with hold timeout. The related requirements need a consistent interpretation; it is not silently counted as fully accepted.
+- Resolved 19 November: invalidated pending holds release inventory immediately, record the reason, block payment and retain Pending Payment until the original deadline. Only timeout changes the booking to Expired. A regression covers double-release prevention and late-payment compensation, reconciling FLT-06 with GEN-11.
 - Next.js pages, visual design, navigation, responsive states and other frontend-only criteria remain Milestone 2 work.
 
 ## Limits of this audit

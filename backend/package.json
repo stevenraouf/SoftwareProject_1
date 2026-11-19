@@ -9,6 +9,7 @@
   "scripts": {
     "build": "tsc -p tsconfig.build.json",
     "start": "node dist/main.js",
+    "start:local": "node scripts/start-local.mjs",
     "start:dev": "node scripts/dev.mjs",
     "typecheck": "tsc --noEmit",
     "lint": "eslint src test",
@@ -24,6 +25,7 @@
     "check:stripe": "node scripts/check-stripe.mjs",
     "stripe:listen": "node scripts/stripe-listen.mjs",
     "verify:stripe": "npm run build && node scripts/verify-stripe.mjs",
+    "verify:bonuses": "npm run build && node scripts/verify-bonuses.mjs",
     "openapi": "npm run build && node dist/openapi.js",
     "verify": "npm run typecheck && npm run lint && npm test && npm run build"
   },

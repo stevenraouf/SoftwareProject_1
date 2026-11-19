@@ -1,5 +1,5 @@
 {
-  "clientDate": "2026-11-15",
+  "clientDate": "2026-11-19",
   "outcome": "passed",
   "testModeOnly": true,
   "fixtureScope": "Dedicated identifiable records in the user's travel_platform database; real Stripe sandbox objects; no direct processEvent calls or locally fabricated webhooks.",
@@ -15,29 +15,29 @@
   ],
   "cases": {
     "travelerFlightRefund": {
-      "stripePaymentIntent": "pi_3Uc1lE9cblnqr6uS1f2gxED1",
-      "signedEvent": "evt_3Uc1lE9cblnqr6uS168wCxy0",
-      "refundId": "re_3Uc1lE9cblnqr6uS1GvTiTpW",
+      "stripePaymentIntent": "pi_3UdaKx9cblnqr6uS1NSVwel4",
+      "signedEvent": "evt_3UdaKx9cblnqr6uS1sISai0m",
+      "refundId": "re_3UdaKx9cblnqr6uS1jZqzBuZ",
       "amountMinor": 750,
       "bookingStatus": "Cancelled",
       "declineAndRetry": true
     },
     "providerCancellation": {
-      "stripePaymentIntent": "pi_3Uc1lb9cblnqr6uS1lwXgkcn",
-      "signedEvent": "evt_3Uc1lb9cblnqr6uS10s2qnld",
-      "refundId": "re_3Uc1lb9cblnqr6uS11kRZx87",
+      "stripePaymentIntent": "pi_3UdaLV9cblnqr6uS0BZhrdTl",
+      "signedEvent": "evt_3UdaLV9cblnqr6uS0ur1vr6I",
+      "refundId": "re_3UdaLV9cblnqr6uS0ggWr13z",
       "amountMinor": 1000,
       "bookingStatus": "Cancelled"
     },
     "hotelRefund": {
-      "stripePaymentIntent": "pi_3Uc1lu9cblnqr6uS0THl6a0s",
-      "signedEvent": "evt_3Uc1lu9cblnqr6uS0K2GAUGN",
-      "refundId": "re_3Uc1lu9cblnqr6uS0Tqx0SZb",
+      "stripePaymentIntent": "pi_3UdaLw9cblnqr6uS0DeeuoB3",
+      "signedEvent": "evt_3UdaLw9cblnqr6uS0mytg8r3",
+      "refundId": "re_3UdaLw9cblnqr6uS08b7P62N",
       "amountMinor": 1500,
       "bookingStatus": "Cancelled"
     },
     "holdExpiry": {
-      "stripePaymentIntent": "pi_3Uc1l89cblnqr6uS0QwwirS5",
+      "stripePaymentIntent": "pi_3UdaKm9cblnqr6uS1UwP1yBr",
       "bookingStatus": "Expired",
       "stripeStatus": "canceled",
       "inventoryReleased": true

@@ -40,7 +40,12 @@ export function apiCoverage(document: any, server: Server) {
       ),
     }));
     return {
-      clientDate: "2026-11-14",
+      clientDate:
+        process.env.VERIFICATION_CLIENT_DATE ||
+        new Intl.DateTimeFormat("en-CA", {
+          timeZone: "Africa/Cairo",
+        }).format(new Date()),
+      executedAt: new Date().toISOString(),
       database:
         "Isolated disposable MongoDB 8.2.6 replica set, not the Atlas application database",
       externalServices:

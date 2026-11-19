@@ -161,6 +161,7 @@ export class BookingsService {
     if (
       b.type !== type ||
       b.status !== "Pending Payment" ||
+      b.holdInvalidatedAt ||
       b.holdExpiresAt <= new Date()
     )
       throw new BadRequestException("Booking hold is not active");
@@ -168,6 +169,7 @@ export class BookingsService {
       {
         _id: b._id,
         status: "Pending Payment",
+        holdInvalidatedAt: { $exists: false },
         holdExpiresAt: { $gt: new Date() },
       },
       { $set: { policyAcceptedAt: new Date() } },

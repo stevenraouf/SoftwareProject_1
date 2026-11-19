@@ -1,6 +1,6 @@
 # Real Stripe verification report
 
-Full core run **passed** on 2026-11-15 (Africa/Cairo client date). This used the student's real Stripe sandbox account and Atlas application database. Sandbox transactions did not move real funds.
+Full core run **passed again** on 2026-11-19 (Africa/Cairo client date). This used the student's real Stripe sandbox account and Atlas application database. Sandbox transactions did not move real funds.
 
 | Scenario | Verified result |
 | --- | --- |
@@ -21,6 +21,6 @@ The synthetic verification fixtures are retained for inspection in travel_platfo
 
 The first launch reached the verifier before backend startup finished and stopped without creating fixtures. A readiness wait fixed this runner timing issue. The blank local CLI path was also restored. No production payment business rule was changed to obtain a pass.
 
-Limits: this does not externally repeat every edge case. Account-backed fare changes, late-success compensation, refund-failure and restart scenarios retain their existing fixture evidence until separately exercised. SMTP delivery, final requirement acceptance, release merges and the student's own review remain pending. The review branch was also published and GitHub CI passed for application commit `43814fe`; see [github-ci.json](evidence/github-ci.json).
+Limits: this does not externally repeat every edge case. Actual higher/lower-fare changes and SMTP test-inbox delivery passed the separate 19 November [bonus verification](BONUS_VERIFICATION.md). Additional late-success compensation, refund-failure and restart permutations retain representative fixture evidence. Final requirement acceptance, release merges and the student's own review remain pending. The review branch was also published and GitHub CI passed for application commit `43814fe`; see [github-ci.json](evidence/github-ci.json).
 
 For setup/reproduction, see [STRIPE_INTEGRATION_VERIFICATION.md](STRIPE_INTEGRATION_VERIFICATION.md). Keep the backend and local Stripe listener running for webhook-based demonstrations.

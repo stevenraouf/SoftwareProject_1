@@ -1,9 +1,12 @@
 """Render the project's Markdown guides as one navigable PDF reading copy.
 
-Run with a Python environment containing reportlab. The original Markdown and
+Run: python scripts/export_handbook.py --date YYYY-MM-DD
+Use a Python environment containing reportlab. The original Markdown and
 review status fields are preserved. Generated pages use embedded system fonts.
 """
 from pathlib import Path
+import argparse
+from datetime import date
 import hashlib
 import html
 import json
@@ -44,6 +47,9 @@ SOURCES = [
     ('06', 'Review and verification evidence', 'docs/milestone-1/REVIEW_AND_VERIFICATION.md'),
     ('07', 'Follow-up coverage audit', 'docs/milestone-1/COVERAGE_AUDIT.md'),
     ('08', 'Reverse engineering and handover', 'docs/milestone-1/REVERSE_ENGINEERING.md'),
+    ('09', 'API test report', 'docs/milestone-1/API_TEST_REPORT.md'),
+    ('10', 'Real Stripe verification results', 'docs/milestone-1/STRIPE_VERIFICATION_REPORT.md'),
+    ('11', 'Stripe integration and reproduction', 'docs/milestone-1/STRIPE_INTEGRATION_VERIFICATION.md'),
     ('A', 'AI prompt log', 'AI_PROMPTS.txt'),
     ('B', 'Requirements traceability', 'docs/requirements/TRACEABILITY.md'),
     ('C', 'API endpoint index', 'docs/api/ENDPOINTS.md'),
@@ -256,6 +262,8 @@ def widths_for(headers):
         if headers[0].lower() == 'method': values = [0.12, 0.45, 0.18, 0.25]
         elif headers[0].lower() == 'id': values = [0.12, 0.14, 0.35, 0.39]
         elif 'target' in headers[0].lower(): values = [0.18, 0.36, 0.46] if count == 3 else values
+    elif count == 6 and headers[0].lower() == 'method':
+        values = [0.12, 0.40, 0.12, 0.12, 0.12, 0.12]
     else:
         values = [1 / count] * count
     return [WIDTH * n for n in values]
@@ -263,11 +271,12 @@ def widths_for(headers):
 
 def table(rows, source, st):
     headers = rows[0]
-    data = [[Paragraph(inline(cell, source), st['th'] if r == 0 else st['cell']) for cell in row] for r, row in enumerate(rows)]
+    horizontal_padding = 4 if len(headers) == 6 and headers[0].lower() == 'method' else 8
+    data = [[Paragraph(inline('No login' if r == 0 and cell == 'Anonymous' else cell, source), st['th'] if r == 0 else st['cell']) for cell in row] for r, row in enumerate(rows)]
     t = LongTable(data, colWidths=widths_for(headers), repeatRows=1, hAlign='LEFT', splitByRow=1, splitInRow=0, spaceBefore=4, spaceAfter=12)
     t.setStyle(TableStyle([
         ('BACKGROUND', (0, 0), (-1, 0), NAVY), ('VALIGN', (0, 0), (-1, -1), 'TOP'),
-        ('LEFTPADDING', (0, 0), (-1, -1), 8), ('RIGHTPADDING', (0, 0), (-1, -1), 8),
+        ('LEFTPADDING', (0, 0), (-1, -1), horizontal_padding), ('RIGHTPADDING', (0, 0), (-1, -1), horizontal_padding),
         ('TOPPADDING', (0, 0), (-1, -1), 6), ('BOTTOMPADDING', (0, 0), (-1, -1), 6),
         ('ROWBACKGROUNDS', (0, 1), (-1, -1), [colors.white, PALE]),
         ('LINEBELOW', (0, 0), (-1, 0), 0.8, NAVY),
@@ -344,11 +353,14 @@ def parse_log(source, st):
 
 
 def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--date', required=True, help='Reading-copy revision date YYYY-MM-DD')
+    revision = date.fromisoformat(parser.parse_args().date)
     register_fonts()
     OUT.mkdir(parents=True, exist_ok=True)
     QA.mkdir(parents=True, exist_ok=True)
     st = styles()
-    story = [Spacer(1, 78), Paragraph('MILESTONE 1', st['h3']), Paragraph('Project<br/>handbook', st['coverTitle']), Paragraph('Travel Planning and Booking Platform<br/>Solo developer reading copy', st['coverSub']), HRFlowable(width=82, thickness=3, color=TEAL, hAlign='LEFT', spaceAfter=21), Paragraph('13 November 2026', st['body']), Spacer(1, 15), Paragraph('A readable PDF edition of the project guides, review records, technical handover and reference appendices.', st['body']), Spacer(1, 18), Paragraph('<b>Review status is unchanged.</b> Pending student review, service checks and other limitations remain pending in this reading copy. Codex is an AI tool; there is one human student/developer.', st['body']), Spacer(1, 12), Paragraph('Use the contents links or the PDF bookmark panel to navigate. Original Markdown files remain the editable source; source-code links point to the local workspace.', st['body']), PageBreak(), Paragraph('Contents', st['chapter'])]
+    story = [Spacer(1, 58), Paragraph('MILESTONE 1', st['h3']), Paragraph('Project<br/>handbook', st['coverTitle']), Paragraph('Travel Planning and Booking Platform<br/>Implementation blueprint and technical handover', st['coverSub']), HRFlowable(width=82, thickness=3, color=TEAL, hAlign='LEFT', spaceAfter=21), Paragraph(revision.strftime('%d %B %Y').lstrip('0'), st['body']), Spacer(1, 12), Paragraph('<b>Start with chapter 03</b> for the strategy, plan and workflow, then <b>chapter 08</b> for the actual implementation, architecture diagrams, database, authentication and booking lifecycle.', st['body']), Spacer(1, 12), Paragraph('This edition includes the latest API, Atlas, real Stripe sandbox and GitHub CI evidence. Student review, release sign-off, SMTP delivery and other recorded acceptance limits remain pending. Codex is an AI tool; there is one human student/developer.', st['body']), Spacer(1, 12), Paragraph('Use the clickable contents or PDF bookmarks to navigate. Original Markdown files remain the editable source; source-code links point to the local workspace.', st['body']), PageBreak(), Paragraph('Contents', st['chapter'])]
     toc = TableOfContents()
     toc.levelStyles = [ParagraphStyle('TOC0', fontName='Body-Bold', fontSize=11, leading=15.5, textColor=NAVY, leftIndent=0, firstLineIndent=0, spaceBefore=11), ParagraphStyle('TOC1', fontName='Body', fontSize=9.6, leading=13.2, textColor=INK, leftIndent=14, firstLineIndent=0, spaceBefore=3)]
     story += [toc]
@@ -359,12 +371,12 @@ def main():
         key = f'part-{number}'
         story += [PageBreak(), heading(f'{number}  {title}', st['chapter'], key, 0, name), Paragraph(html.escape(name), st['source']), HRFlowable(width='100%', color=TEAL, thickness=1, spaceAfter=12)]
         story += parse_log(source, st) if source.suffix == '.txt' else parse_markdown(source, key, st)
-    path = OUT / 'MILESTONE_1_HANDBOOK.pdf'
+    path = OUT / f'MILESTONE_1_HANDBOOK_{revision.isoformat()}.pdf'
     doc = Handbook(path)
     doc.multiBuild(story)
     for name, digest in hashes.items():
         assert hashlib.sha256((ROOT / name).read_bytes()).hexdigest() == digest
-    result = {'pdf': str(path), 'chapters': len(SOURCES), 'pages': doc.page, 'sectionStarts': doc.section_starts, 'originalSourcesUnchanged': True}
+    result = {'pdf': str(path), 'revisionDate': revision.isoformat(), 'chapters': len(SOURCES), 'pages': doc.page, 'sectionStarts': doc.section_starts, 'originalSourcesUnchanged': True}
     (QA / 'conversion-report.json').write_text(json.dumps(result, indent=2), encoding='utf-8')
     print(json.dumps(result))
 

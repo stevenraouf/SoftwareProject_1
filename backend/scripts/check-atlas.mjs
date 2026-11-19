@@ -10,12 +10,26 @@ let session;
 try {
   let parsed;
   try {
-    parsed = new URL(uri);
+    const parts = /^(mongodb\+srv|mongodb):\/\/([^/]+)(\/.*)$/.exec(uri);
+    if (!parts) throw new Error("CONFIG");
+    const separator = parts[2].lastIndexOf("@");
+    if (separator < 1) throw new Error("CONFIG");
+    const credentials = parts[2].slice(0, separator);
+    const hosts = parts[2].slice(separator + 1).split(",");
+    const endpoints = hosts.map((host) => new URL(`mongodb://${host}/`));
+    if (endpoints.some((host) => !host.hostname.endsWith(".mongodb.net")))
+      throw new Error("CONFIG");
+    if (parts[1] === "mongodb+srv" && (hosts.length !== 1 || endpoints[0].port))
+      throw new Error("CONFIG");
+    parsed = new URL(`${parts[1]}://${credentials}@${hosts[0]}${parts[3]}`);
+    if (parts[1] === "mongodb" &&
+        parsed.searchParams.get("tls") !== "true" &&
+        parsed.searchParams.get("ssl") !== "true") throw new Error("CONFIG");
   } catch {
     throw new Error("CONFIG");
   }
   if (
-    parsed.protocol !== "mongodb+srv:" ||
+    !["mongodb+srv:", "mongodb:"].includes(parsed.protocol) ||
     !parsed.hostname.endsWith(".mongodb.net") ||
     !parsed.username || !parsed.password ||
     /<|>/.test(uri) ||
@@ -52,7 +66,7 @@ try {
   const code = error?.code;
   const message = error?.message;
   const reason = message === "CONFIG"
-    ? "Set a complete Atlas mongodb+srv URI in backend/.env; replace all placeholders. Do not send it in chat."
+    ? "Set a complete Atlas URI in backend/.env; use mongodb+srv or a standard mongodb URI with TLS enabled. Replace all placeholders; do not send credentials in chat."
     : message === "DATABASE"
       ? "Include the application database in the URI path, for example /travel_platform before the query string."
       : message === "TRANSACTIONS"

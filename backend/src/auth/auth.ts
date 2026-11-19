@@ -16,7 +16,13 @@ import {
   UnauthorizedException,
 } from "@nestjs/common";
 import { Reflector } from "@nestjs/core";
-import { ApiCookieAuth, ApiOperation, ApiTags } from "@nestjs/swagger";
+import {
+  ApiCookieAuth,
+  ApiOperation,
+  ApiTags,
+  ApiQuery,
+  ApiProduces,
+} from "@nestjs/swagger";
 import { Request, Response } from "express";
 import jwt from "jsonwebtoken";
 import {
@@ -322,12 +328,33 @@ export class AuthService {
       await this.ops.enqueue(`reset:${hash(raw)}`, "email", {
         to: user.email,
         subject: "Reset your password",
-        text: `Use this single-use token in POST /api/auth/reset-password within 30 minutes: ${raw}`,
+        text: `Reset your password using this single-use link within 30 minutes: ${process.env.APP_ORIGIN || "https://localhost:3443"}/api/auth/reset-password?token=${raw}`,
       });
     }
     return {
       message: "If the account is eligible, a reset email will be sent.",
     };
+  }
+  async resetForm(raw: string, res: Response) {
+    if (process.env.ENABLE_EMAIL_BONUS !== "true")
+      throw new BadRequestException("Email bonus is disabled");
+    if (
+      !/^[a-f0-9]{64}$/.test(raw || "") ||
+      !(await this.db
+        .model("User")
+        .exists({
+          resetHash: hash(raw),
+          resetExpires: { $gt: new Date() },
+          status: "Active",
+        }))
+    )
+      throw new BadRequestException("Reset link is invalid or expired");
+    res.set({ "Cache-Control": "no-store", "Referrer-Policy": "no-referrer" });
+    return res
+      .type("html")
+      .send(
+        `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Reset your password</title></head><body><main><h1>Reset your password</h1><p>Choose a password of 8 to 128 characters containing a letter and a number.</p><form method="post" action="/api/auth/reset-password"><input type="hidden" name="token" value="${raw}"><label for="new-password">New password</label> <input id="new-password" name="newPassword" type="password" autocomplete="new-password" minlength="8" maxlength="128" required> <button type="submit">Reset password</button></form></main></body></html>`,
+      );
   }
   async reset(dto: ResetPasswordDto) {
     if (process.env.ENABLE_EMAIL_BONUS !== "true")
@@ -509,6 +536,16 @@ export class AuthController {
     return this.auth.forgot(dto);
   }
   @Public()
+  @Get("reset-password")
+  @ApiOperation({
+    summary: "ACC-07 [Bonus] Open the single-use password reset form",
+  })
+  @ApiProduces("text/html")
+  @ApiQuery({ name: "token", required: true, type: String })
+  resetForm(@Req() req: Request, @Res() res: Response) {
+    return this.auth.resetForm(String(req.query.token || ""), res);
+  }
+  @Public()
   @Post("reset-password")
   @ApiOperation({ summary: "ACC-07 [Bonus] Consume a single-use reset token" })
   reset(@Body() dto: ResetPasswordDto) {
@@ -516,6 +553,7 @@ export class AuthController {
   }
   @Public()
   @Get("verify-email")
+  @ApiQuery({ name: "token", required: true, type: String })
   @ApiOperation({
     summary: "ACC-02 [Bonus] Verify email using a single-use link",
   })

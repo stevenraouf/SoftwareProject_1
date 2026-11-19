@@ -1,0 +1,25 @@
+{
+  "clientDate": "2026-11-19",
+  "outcome": "passed",
+  "method": "Fresh source copy with no node_modules, certificates or application secrets copied; npm ci succeeded; new localhost certificates were generated only in the temporary copy.",
+  "node": "v22.23.5",
+  "install": "npm ci --no-fund (MongoDB postinstall download disabled; an existing pinned test binary was supplied)",
+  "checks": {
+    "typecheck": "passed",
+    "lint": "passed",
+    "unitAndHttpTests": 57,
+    "failedTests": 0,
+    "skippedTests": 0,
+    "successfulApiOperations": 148,
+    "build": "passed",
+    "compiledHttpsAndRealFxChecks": 5
+  },
+  "runtimeDownload": {
+    "url": "https://nodejs.org/dist/v22.23.5/node-v22.23.5-win-x64.zip",
+    "sha256": "4a191082e9706866830379d577d2cc8a50c776fcd9436a8d061b063ed0d9a0e3",
+    "source": "Official SHASUMS256.txt; digest verified before execution"
+  },
+  "applicationAndTestSourceHashesMatch": true,
+  "applicationAndTestSourceFiles": 25,
+  "limits": "Uses a real disposable MongoDB replica set and fixture Stripe/SMTP adapters. Verification/launcher scripts are exercised separately against the live development services. This is not a student review."
+}

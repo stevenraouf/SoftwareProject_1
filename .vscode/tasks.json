@@ -1,0 +1,36 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Start Stripe test webhooks",
+      "type": "process",
+      "command": "node",
+      "args": [
+        "${workspaceFolder}/backend/scripts/start-local.mjs",
+        "--stripe"
+      ],
+      "options": { "cwd": "${workspaceFolder}/backend" },
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "clear": false
+      },
+      "runOptions": { "instanceLimit": 1 },
+      "problemMatcher": []
+    },
+    {
+      "label": "Start Travel API (Swagger)",
+      "type": "process",
+      "command": "node",
+      "args": ["${workspaceFolder}/backend/scripts/start-local.mjs"],
+      "options": { "cwd": "${workspaceFolder}/backend" },
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "clear": false
+      },
+      "runOptions": { "instanceLimit": 1 },
+      "problemMatcher": []
+    }
+  ]
+}

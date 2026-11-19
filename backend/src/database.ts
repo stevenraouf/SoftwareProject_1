@@ -200,6 +200,8 @@ define(
     },
     reference: String,
     holdExpiresAt: Date,
+    holdInvalidatedAt: Date,
+    holdInvalidationReason: String,
     startsAt: Date,
     endsAt: Date,
     amount: { type: Number, required: true },

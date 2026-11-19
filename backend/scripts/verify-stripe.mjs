@@ -40,7 +40,11 @@ let app,
   state,
   stage = "configuration";
 const report = {
-  clientDate: process.env.VERIFICATION_CLIENT_DATE || new Intl.DateTimeFormat("en-CA", { timeZone: "Africa/Cairo" }).format(new Date()),
+  clientDate:
+    process.env.VERIFICATION_CLIENT_DATE ||
+    new Intl.DateTimeFormat("en-CA", { timeZone: "Africa/Cairo" }).format(
+      new Date(),
+    ),
   outcome: "not_verified",
   testModeOnly: true,
   fixtureScope:
@@ -157,8 +161,11 @@ try {
     env.STRIPE_WEBHOOK_SECRET?.startsWith("whsec_"),
     "MISSING_LISTENER_SECRET",
   );
+  const databaseName = env.MONGODB_URI?.match(
+    /^mongodb(?:\+srv)?:\/\/[^/]+\/([^?]+)(?:\?|$)/,
+  )?.[1];
   requireCheck(
-    new URL(env.MONGODB_URI).pathname === "/travel_platform",
+    databaseName && decodeURIComponent(databaseName) === "travel_platform",
     "UNEXPECTED_DATABASE",
   );
   requireCheck(
@@ -178,10 +185,6 @@ try {
   requireCheck(
     health.database && health.stripeConfigured && health.webhookConfigured,
     "RESTART_BACKEND_WITH_STRIPE_SETTINGS",
-  );
-  requireCheck(
-    !health.emailBonusEnabled,
-    "VERIFICATION_FIXTURES_REQUIRE_EMAIL_BONUS_DISABLED",
   );
   const stripe = new Stripe(env.STRIPE_SECRET_KEY, {
     timeout: 15000,
@@ -212,10 +215,15 @@ try {
   }
   if (state.complete && state.report?.outcome === "passed") {
     writeFileSync(reportPath, JSON.stringify(state.report, null, 2) + "\n");
-    console.log("Restored the previously completed run's report; no scenarios repeated. Use --new-run for another verification.");
+    console.log(
+      "Restored the previously completed run's report; no scenarios repeated. Use --new-run for another verification.",
+    );
     process.exit(0);
   }
-  requireCheck(!state.complete, "ALREADY_COMPLETED_USE_NEW_RUN_FOR_ANOTHER_VERIFICATION");
+  requireCheck(
+    !state.complete,
+    "ALREADY_COMPLETED_USE_NEW_RUN_FOR_ANOTHER_VERIFICATION",
+  );
   process.env.ENABLE_JOBS = "false"; // Only this inspector's context; the running server processes its jobs.
   const { createApp } = await import("../dist/bootstrap.js");
   const { Db } = await import("../dist/database.js");
@@ -324,6 +332,35 @@ try {
     moderator = await login(modEmail);
   const user = await db.model("User").findOne({ email });
   requireCheck(user && user.role === "User", "FIXTURE_TRAVELER_NOT_FOUND");
+  if (health.emailBonusEnabled && !user.emailVerified) {
+    requireCheck(
+      env.SMTP_TEST_INBOX === "mailpit",
+      "VERIFY_FIXTURE_EMAIL_IN_CONFIGURED_TEST_INBOX",
+    );
+    const verification = await until("FIXTURE_EMAIL_DELIVERY", async () => {
+      const inbox = `http://127.0.0.1:${Number(env.MAILPIT_HTTP_PORT || 8025)}`;
+      const index = await (
+        await fetch(`${inbox}/api/v1/messages?limit=200`)
+      ).json();
+      const item = index.messages?.find(
+        (message) =>
+          message.Subject === "Verify your email" &&
+          message.To?.some((to) => to.Address === email),
+      );
+      if (!item) return;
+      const message = await (
+        await fetch(`${inbox}/api/v1/message/${item.ID}`)
+      ).json();
+      return message.Text.match(/token=([a-f0-9]{64})/)?.[1];
+    });
+    await api(
+      "GET",
+      `/auth/verify-email?token=${verification}`,
+      undefined,
+      undefined,
+      200,
+    );
+  }
   passed(stages[1]);
   async function hold(key, type = "flight") {
     state.cases[key] ||= {};

@@ -34,14 +34,14 @@ Mandatory completion has priority. Bonus code already exists in the baseline whi
 
 | Bonus | Implementation/evidence | Remaining acceptance |
 | --- | --- | --- |
-| ACC-02: verification | Link/gate regression | Actual SMTP delivery |
-| ACC-07: password recovery | Expiry/supersession/single-use regression | Actual SMTP delivery and user exercise |
-| GEN-01-B: mail notifications | Persisted queue and retry tests | Actual inbox delivery |
-| FLT-27: flight changes | Atomic replacement, payment/refund and policy tests | Account-backed Stripe scenarios |
+| ACC-02: verification | Link/gate regression and actual SMTP link delivery passed 19 November | Student demonstration |
+| ACC-07: password recovery | Actual SMTP reset links/form submission, supersession and single use passed; expiry regression passes | Student demonstration |
+| GEN-01-B: mail notifications | Actual SMTP invitation and notification delivery passed to local test inbox | Student demonstration; personal/internet delivery not tested |
+| FLT-27: flight changes | Actual higher-fare payment/lower-fare refund passed on 19 November | Student demonstration; additional permutations retain fixture evidence |
 | FLT-28: seat selection | Maps/uniqueness regression | Student demonstration |
 | HTL-26: review reply | Provider checks/regression | Student demonstration |
 | ITN-27: booking links | Owner checks, costs counted once, clone regression | Demonstration with account-backed bookings |
-| ITN-28: PDF export | Endpoint/local HTTP check | Inspect layout and relevant user text |
+| ITN-28: PDF export | Actual one-page export rendered and inspected; content and USD 28 total checked | Student demonstration; multilingual export layout not comprehensively checked |
 | BLG-13: itinerary attachment | Attachment/privacy regression | Student demonstration |
 | BON-01: analytics | Gross/refund/net regression; actual core sandbox payments/refunds now exist | Student demonstration and reconciliation of dashboard totals |
 | BON-02: favourites | User-scoped saving regression | Student demonstration |
@@ -52,8 +52,8 @@ Cloud deployment is optional and outside this backend milestone. Next.js belongs
 
 | Deliverable | Evidence | Acceptance state |
 | --- | --- | --- |
-| NestJS backend | `backend/src/`, package/lockfile, build scripts | Implemented; latest API run has 56 tests and 147 successful operation workflows; representative scope/limits in API report and coverage audit |
-| Atlas integration | `MONGODB_URI`, schemas/indexes, seeds, setup guide; `evidence/atlas-setup.json` | Live connection, indexes, reference/admin seeds and HTTPS login/startup checked; full Atlas booking/payment walkthrough pending |
+| NestJS backend | `backend/src/`, package/lockfile, build scripts | Implemented; latest API run has 57 tests and 148 successful operation workflows; representative scope/limits in API report and coverage audit |
+| Atlas integration | `MONGODB_URI`, schemas/indexes, seeds, setup guide; `evidence/atlas-setup.json`, `evidence/stripe-account-verification.json` | Live connection/indexes/seeds, HTTPS authentication and core account-backed Stripe/Atlas payment/refund/expiry run checked; student's walkthrough and additional edge cases pending |
 | Swagger API | `/api/docs`, `/api/openapi.json`, `docs/api/` | Generated/exercised locally; student's walkthrough pending |
 | README | Root setup guide | Present; clean-install/build/test evidence exists |
 | Prompt log | Root `AI_PROMPTS.txt` | Updated for the visible conversation |
@@ -81,4 +81,4 @@ Complete these after doing the review. They are honest pending fields, not a req
 
 ## Checks performed for this documentation pass
 
-Verified five structured prompt entries, mappings for the policy/deliverable sections, and local Markdown links (zero broken links). A targeted scan found no real-looking credential candidates in the text files checked; local environment/TLS paths remain ignored. The original PDF/workbook are unchanged. Backend source is unchanged, so the earlier 46-test result is retained as prior evidence rather than being presented as a new run. This is a documentation check, not a complete security audit or student approval.
+The chronological prompt log and source-linked policy records are maintained for this conversation. The 19 November release audit verifies 57 tests, all 148 operations, current source/traceability links, actual core Stripe flows and all 11 bonuses with explicit limits. The original PDF/workbook remain unchanged. The student reported their personal review is not complete and credential rotation is uncertain; those items remain pending. These are AI-executed checks, not student approval.

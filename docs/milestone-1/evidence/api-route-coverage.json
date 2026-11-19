@@ -1,10 +1,11 @@
 {
-  "clientDate": "2026-11-14",
+  "clientDate": "2026-11-19",
+  "executedAt": "2026-11-19T18:55:13.629Z",
   "database": "Isolated disposable MongoDB 8.2.6 replica set, not the Atlas application database",
   "externalServices": "Stripe and SMTP adapters use test fixtures; account-backed integration remains separate",
-  "totalOperations": 147,
-  "exercisedOperations": 147,
-  "successfulOperations": 147,
+  "totalOperations": 148,
+  "exercisedOperations": 148,
+  "successfulOperations": 148,
   "operations": [
     {
       "method": "POST",
@@ -107,6 +108,20 @@
       "requiresAuthentication": false,
       "statuses": {
         "201": 3
+      },
+      "authorizationChecks": {},
+      "exercised": true,
+      "successfulResponse": true
+    },
+    {
+      "method": "GET",
+      "path": "/api/auth/reset-password",
+      "operationId": "AuthController_resetForm",
+      "access": "Public (authentication optional)",
+      "requiresAuthentication": false,
+      "statuses": {
+        "200": 1,
+        "400": 1
       },
       "authorizationChecks": {},
       "exercised": true,
@@ -357,7 +372,7 @@
       "access": "AirlineModerator",
       "requiresAuthentication": true,
       "statuses": {
-        "201": 2,
+        "201": 4,
         "401": 1,
         "403": 2
       },
@@ -718,7 +733,7 @@
       "access": "User",
       "requiresAuthentication": true,
       "statuses": {
-        "201": 15,
+        "201": 16,
         "400": 1,
         "401": 1,
         "403": 3,
@@ -981,6 +996,7 @@
       "requiresAuthentication": true,
       "statuses": {
         "201": 1,
+        "400": 1,
         "401": 1,
         "403": 2
       },
@@ -1003,6 +1019,7 @@
         "400": 1,
         "401": 1,
         "403": 2,
+        "409": 1,
         "503": 1
       },
       "authorizationChecks": {
