@@ -1,0 +1,14 @@
+{
+  "clientDate": "2026-11-19",
+  "outcome": "passed",
+  "pages": 90,
+  "chapters": 17,
+  "missingRequirementIds": [],
+  "replacementGlyphs": 0,
+  "pageBoundsIssues": [],
+  "visualInspection": "All 90 pages inspected via rendered contact sheets; changed/current policy, setup, review and implementation pages rerendered; the actual bonus PDF was separately inspected.",
+  "sha256": "a10f1dca25d906cc345159f1dc2b9cdfbcd1bdd8c4f90025fd5d4ca53eaaf2db",
+  "configuredSecretsChecked": 6,
+  "secretValueMatches": [],
+  "studentApproval": "pending"
+}

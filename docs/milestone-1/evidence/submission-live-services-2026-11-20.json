@@ -1,0 +1,34 @@
+{
+  "clientDate": "2026-11-20",
+  "sourceCommit": "b5be49d4256a4826c0db139b8f0fc193ce182e16",
+  "actor": "Assistant-executed read-only service checks",
+  "checks": [
+    {
+      "name": "atlas",
+      "check": "Atlas authentication and aborted read-only transaction",
+      "status": "passed"
+    },
+    {
+      "name": "stripe",
+      "check": "Actual Stripe sandbox authentication",
+      "status": "passed",
+      "webhookSecretConfigured": true
+    },
+    {
+      "name": "smtp",
+      "check": "Local Mailpit SMTP handshake and inbox availability",
+      "status": "passed",
+      "scope": "Connection only; historical actual delivery evidence remains separate"
+    },
+    {
+      "name": "https",
+      "check": "Certificate-verified public HTTPS, Swagger and deployed OpenAPI",
+      "status": "passed",
+      "requests": 11,
+      "documentedOperations": 148
+    }
+  ],
+  "outcome": "passed",
+  "credentialRotation": "Unconfirmed by student; connectivity is not evidence of rotation",
+  "privacy": "No credentials, balances, cookies or response bodies retained"
+}

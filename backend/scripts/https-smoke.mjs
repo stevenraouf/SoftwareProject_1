@@ -32,11 +32,12 @@ try {
     binary: { version: "8.2.6" },
   });
   process.env.MONGODB_URI = repl.getUri("https_smoke");
+  const certificate = await readFile("../.certs/localhost.pem");
   ({ app } = await createApp({
     logger: false,
     httpsOptions: {
       key: await readFile("../.certs/localhost-key.pem"),
-      cert: await readFile("../.certs/localhost.pem"),
+      cert: certificate,
     },
   }));
   await seedReference(app.get(Db));
@@ -47,11 +48,12 @@ try {
     return new Promise((resolveResult, reject) => {
       const req = https.request(
         {
-          hostname: "127.0.0.1",
+          hostname: "localhost",
+          family: 4,
           port: 3444,
           path: `/api${path}`,
           method,
-          rejectUnauthorized: false,
+          ca: certificate,
           headers: {
             ...(raw
               ? {
@@ -155,7 +157,7 @@ try {
     checkedAt: new Date().toISOString(),
     node: process.version,
     database: "Disposable MongoDB 8.2.6 replica set, not Atlas",
-    transport: "HTTPS with generated localhost certificate",
+    transport: "HTTPS with explicit verification of the generated localhost certificate",
     outcome: "passed",
     checks: steps,
     browserUiInteraction:

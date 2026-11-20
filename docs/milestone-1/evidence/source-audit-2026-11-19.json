@@ -1,0 +1,24 @@
+{
+  "clientDate": "2026-11-19",
+  "workbookRows": 115,
+  "mandatory": 104,
+  "bonuses": 11,
+  "sourceTextMatchesOriginal": true,
+  "missingImplementationPaths": [],
+  "brokenLocalMarkdownLinks": [],
+  "configuredSecretValuesChecked": 5,
+  "configuredSecretMatchesInSubmissionSource": [],
+  "unsafeSecretPathsInGitHistory": [],
+  "officialReferenceData": "identical_to_official_source",
+  "referenceCounts": {
+    "airports": 8,
+    "attractions": 8,
+    "cities": 8,
+    "countries": 8
+  },
+  "sourceHashes": {
+    "Final_ SP1_Reviewed_Requirements.xlsx": "883d0b36f024a8ddd6b7978e711158c27443cdb993ab400ca3df3560c9464fa2",
+    "GIU_2617_70_35615_2026-11-03T10_05_28.pdf": "be97dd0731e67f1eebecce20e0b7bbf5f480f4e36592ff123decfda0585fb869"
+  },
+  "limits": "Source/traceability/privacy checks do not certify every business acceptance criterion or constitute student review."
+}

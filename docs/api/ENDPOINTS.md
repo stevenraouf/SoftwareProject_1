@@ -1,6 +1,6 @@
 # API endpoint coverage
 
-147 operations across 123 paths. This index is derived from the exported OpenAPI document.
+148 operations across 123 paths. This index is derived from the exported OpenAPI document.
 
 | Method | Path | Requirements | Access |
 | --- | --- | --- | --- |
@@ -11,6 +11,7 @@
 | GET | `/api/auth/me` | ACC-04, ACC-19 | Any authenticated account |
 | PATCH | `/api/auth/change-password` | ACC-08 | Any authenticated account |
 | POST | `/api/auth/forgot-password` | ACC-07 | Public (authentication optional) |
+| GET | `/api/auth/reset-password` | ACC-07 | Public (authentication optional) |
 | POST | `/api/auth/reset-password` | ACC-07 | Public (authentication optional) |
 | GET | `/api/auth/verify-email` | ACC-02 | Public (authentication optional) |
 | GET | `/api/users/me` | ACC-11 | Any authenticated account |

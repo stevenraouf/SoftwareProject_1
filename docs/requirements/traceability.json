@@ -2113,7 +2113,7 @@
       "backend/src/payments/payments.ts"
     ],
     "status": "Backend implemented; acceptance evidence requires review",
-    "notes": "Booking transitions and scheduled completion/expiry implemented. Provider cancellation invalidates pending holds as Expired.",
+    "notes": "Booking transitions and scheduled completion/expiry implemented. Invalidated holds release inventory once and remain Pending Payment until the original timeout; payment is blocked and late success refunded. GEN-11 regression passes.",
     "verification": "backend/test/integration/platform.spec.ts; backend/test/unit/rules.spec.ts; docs/milestone-1/REVIEW_AND_VERIFICATION.md"
   },
   {
@@ -2349,6 +2349,7 @@
     "classification": "Bonus",
     "endpoints": [
       "POST /api/auth/forgot-password",
+      "GET /api/auth/reset-password",
       "POST /api/auth/reset-password"
     ],
     "implementation": [
@@ -2377,7 +2378,7 @@
       "backend/src/jobs.ts"
     ],
     "status": "Backend implemented; acceptance evidence requires review",
-    "notes": "Email queue/retry implemented; SMTP account delivery not configured or verified.",
+    "notes": "Email queue/retry and actual SMTP delivery to the local development inbox passed on 19 November; see BONUS_VERIFICATION.md. Personal/internet mailbox delivery was not tested.",
     "verification": "backend/test/integration/platform.spec.ts; backend/test/unit/rules.spec.ts; docs/milestone-1/REVIEW_AND_VERIFICATION.md"
   },
   {

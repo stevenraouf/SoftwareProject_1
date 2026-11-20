@@ -1,0 +1,46 @@
+{
+  "clientDate": "2026-11-19",
+  "outcome": "passed",
+  "testModeOnly": true,
+  "fixtureScope": "Dedicated identifiable records in the user's travel_platform database; real Stripe sandbox objects; no direct processEvent calls or locally fabricated webhooks.",
+  "checks": [
+    "sandbox authentication",
+    "dedicated Atlas verification fixtures",
+    "declined payment and retry",
+    "signed-webhook flight confirmation",
+    "tier-based traveler refund",
+    "provider cancellation and full refund",
+    "hotel confirmation and refund",
+    "real ten-minute hold expiry and Stripe cancellation"
+  ],
+  "cases": {
+    "travelerFlightRefund": {
+      "stripePaymentIntent": "pi_3UdaKx9cblnqr6uS1NSVwel4",
+      "signedEvent": "evt_3UdaKx9cblnqr6uS1sISai0m",
+      "refundId": "re_3UdaKx9cblnqr6uS1jZqzBuZ",
+      "amountMinor": 750,
+      "bookingStatus": "Cancelled",
+      "declineAndRetry": true
+    },
+    "providerCancellation": {
+      "stripePaymentIntent": "pi_3UdaLV9cblnqr6uS0BZhrdTl",
+      "signedEvent": "evt_3UdaLV9cblnqr6uS0ur1vr6I",
+      "refundId": "re_3UdaLV9cblnqr6uS0ggWr13z",
+      "amountMinor": 1000,
+      "bookingStatus": "Cancelled"
+    },
+    "hotelRefund": {
+      "stripePaymentIntent": "pi_3UdaLw9cblnqr6uS0DeeuoB3",
+      "signedEvent": "evt_3UdaLw9cblnqr6uS0mytg8r3",
+      "refundId": "re_3UdaLw9cblnqr6uS08b7P62N",
+      "amountMinor": 1500,
+      "bookingStatus": "Cancelled"
+    },
+    "holdExpiry": {
+      "stripePaymentIntent": "pi_3UdaKm9cblnqr6uS1UwP1yBr",
+      "bookingStatus": "Expired",
+      "stripeStatus": "canceled",
+      "inventoryReleased": true
+    }
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "clientDate": "2026-11-17",
+  "outcome": "authentication_passed",
+  "testKeyConfigured": true,
+  "webhookSecretConfigured": true,
+  "externalAuthentication": true,
+  "scope": "Read-only Stripe sandbox API authentication. Does not verify booking payment, webhook delivery or refunds."
+}

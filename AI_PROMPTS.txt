@@ -1,58 +1,832 @@
-================================================
-Date: 2026-11-13
-Student: Repository owner (solo developer)
-Tool: OpenAI Codex
-Related Requirements: All mandatory Milestone 1 requirements and workbook bonuses
-Prompt:
-Implement the Milestone 1 backend, review process, setup documentation,
-strategy/workflow, tests, and reverse-engineering Markdown according to
-the supplied requirements workbook and project description.
-How the output was used:
-AI-assisted requirements analysis, implementation, testing, and documentation.
-The repository owner must review and understand the submitted implementation.
-Actual verification evidence and remaining limitations are recorded in docs.
-No independent human review is claimed.
-================================================
+﻿AI USAGE AND MATERIAL PROMPT LOG
+Project: Travel Planning and Booking Platform - Software Project I
+Human student contributors: 1 (repository owner; solo developer)
+Recorded repository Git identity: stevenraouf (not a claim of a legal name/ID)
+AI tool: OpenAI Codex
+Policy source: project brief sections 11-11.2, page 13
+
+DISCLOSURE AND RECORD METHOD
+Substantial backend code, architecture, tests, debugging, review notes and
+technical documentation were generated or developed with AI assistance.
+AI use was not limited to spelling or formatting. The sole student remains
+responsible for the submitted code and must personally review and understand it.
+
+This chronological record covers material prompts visible in this conversation.
+Dates use the provided client date; individual times were not recorded.
+Verbatim excerpts and summaries are labeled. This is not a complete transcript
+or a log of other tools/conversations that were not supplied. The student must
+add those separately if applicable. No review, approval or contributor is invented.
 
 ================================================
+Entry: P001 - Initial analysis and planning
 Date: 2026-11-13
-Student: Repository owner (solo developer)
+Student: Sole repository owner (Git identity: stevenraouf)
 Tool: OpenAI Codex
-Related Requirements: Requirements analysis and milestone delivery
-Prompt:
-"I want to you to cover everything for milestone 1 everything that is needed
-please and I want you to give me the strategy, the plan the workflow I want
+Related Requirement: All Milestone 1 modules and documentation deliverables
+Prompt (verbatim, line wrapping normalized):
+"I want to you  to cover everything for milestone 1 everything that is needed
+please and I want you to give me the strategy , the plan the workflow I want
 you to cover as if it is reviewed by human not only an agent and at the end
-give me and md for a reverse engineering of everything you have done please"
+give me and md for a reverse enginereering of everything you have done please"
+Context: supplied project PDF and reviewed requirements workbook in Objectives/.
 How the output was used:
-Inspected both supplied documents and the empty workspace; identified the
-104 mandatory and 11 bonus requirements, the backend-only milestone boundary,
-and the 20 November deadline. The user clarified solo development, requested
-all backend/bonus/documentation deliverables, prioritized mandatory work,
-and requested external-service setup instructions. The user then explicitly
-asked to implement the complete accepted plan.
-
-Implementation assistance included native ESM compatibility, schema/index
-design, transaction-safe inventory, signed webhook handling, persisted retry
-jobs, module services/controllers/DTOs, real replica-set tests, HTTPS smoke
-checks, source traceability, and the documentation handover. Review findings,
-actual executed evidence, and external-account limitations are recorded in
-docs/milestone-1/REVIEW_AND_VERIFICATION.md. No private service credentials
-were provided or fabricated. Test fixtures use disposable local credentials.
+Read both sources and inspected the initially empty implementation workspace.
+Identified 104 mandatory and 11 bonus requirements, the backend-only Milestone 1
+boundary, Swagger evaluation, and the 20 November deadline. Prepared the strategy,
+implementation plan and reverse-engineering handover scope.
+Evidence: docs/requirements/requirements.json; docs/requirements/SOURCES.md;
+docs/milestone-1/STRATEGY_PLAN_WORKFLOW.md.
+Review status: AI-assisted analysis; no independent human review is asserted.
 ================================================
 
 ================================================
+Entry: P002 - Solo status, scope and priorities
 Date: 2026-11-13
-Student: Repository owner (solo developer)
+Student: Sole repository owner (Git identity: stevenraouf)
 Tool: OpenAI Codex
-Related Requirements: FLT-11, FLT-12, ACC-09, ACC-12, HTL-02, HTL-05, ITN-01, ITN-20
-Prompt:
-"you sure you have covered everything required ??"
+Related Requirement: Mandatory/bonus prioritization and development workflow
+Material responses (verbatim):
+"I am doing the project alone there is no team"
+"all them 1,2 and 3 as well please"
+Decision summary:
+The user requested the backend, all workbook bonuses and documentation, selected
+mandatory functionality first for the deadline, and requested service setup
+instructions. Short numbered answers were interpreted in their displayed
+multiple-choice context; they are not expanded into invented verbatim prompts.
 How the output was used:
-Re-audited specification coverage and reproduced gaps with failing regressions.
-Removed an unspecified nine-seat booking limit, centralized deactivated-author
-formatting, and fixed partial updates preserving omitted fields. Added null
-validation and updated the coverage audit, review evidence, and reverse guide.
-The new full suite passes 46 scenarios. External-account verification and
-independent human acceptance remain separate requirements.
+Planned solo development, mandatory-first acceptance and external-account setup.
+Kept Next.js frontend and cloud deployment outside Milestone 1.
+Evidence: README.md; docs/milestone-1/STRATEGY_PLAN_WORKFLOW.md.
+Review status: One human contributor; no fictitious team members or approvals.
 ================================================
+
+================================================
+Entry: P003 - Explicit implementation request
+Date: 2026-11-13
+Student: Sole repository owner (Git identity: stevenraouf)
+Tool: OpenAI Codex
+Related Requirement: ACC, FLT, HTL, PAY, ITN, BLG, GEN and BON modules
+Prompt (verbatim opening): "PLEASE IMPLEMENT THIS PLAN:"
+Prompt scope (summary; not a verbatim copy of the complete supplied plan):
+Build the accepted NestJS/Mongoose backend, authentication/authorization,
+provider inventory, atomic holds, Stripe test payments/refunds, itineraries and
+budgets, blog/moderation, supporting services, all 11 bonuses, Swagger, tests,
+setup, strategy/workflow, AI disclosure and reverse-engineering Markdown.
+How the output was used:
+AI generated/edited backend/src, DTOs, explicit schemas/indexes, seed integration,
+scripts, tests and documentation. AI designed transaction boundaries, snapshots,
+secure cookie sessions, CSRF, webhook verification/idempotency, compensation,
+persisted retry work, privacy checks and independent clones. AI also debugged
+ESM/dependency compatibility, storage behavior and local test-environment failures.
+Validation: initial implementation reached 43 passing tests, type checking,
+lint, build and HTTPS checks. A real public FXRatesAPI response was fetched.
+Atlas account access, actual Stripe payments/refunds and SMTP delivery were not
+claimed as verified through test fixtures or adapter mocks.
+Review/integration status:
+AI review and automated checks occurred; the assistant integrated code locally
+on develop. Student review before that integration was not recorded. This log
+does not claim that historical review timing was met. Student review is pending.
+Evidence: backend/src/; backend/test/; docs/api/openapi.json;
+docs/milestone-1/REVIEW_AND_VERIFICATION.md; REVERSE_ENGINEERING.md.
+================================================
+
+================================================
+Entry: P004 - Challenge to completeness and follow-up audit
+Date: 2026-11-13
+Student: Sole repository owner (Git identity: stevenraouf)
+Tool: OpenAI Codex
+Related Requirement: FLT-11/12, ACC-09/12, HTL-02/05, ITN-01/20
+Prompt (verbatim): "you sure you have covered everything required ??"
+How the output was used:
+Re-audited specification coverage and reproduced three gaps with failing tests:
+an unspecified nine-seat group limit, missing deactivated-reviewer labels in
+hotel details, and partial updates that could erase unrelated fields. Fixed
+these, preserved false/zero values and rejected invalid nulls. Updated coverage,
+review evidence and reverse engineering rather than claiming full acceptance.
+Validation: 46 tests, type checking, lint and build passed. A separate clean
+checkout passed a fresh dependency install and verification. HTTPS checks passed.
+Evidence: docs/milestone-1/COVERAGE_AUDIT.md; test-results.json;
+clean-checkout.json; https-smoke.json. Commits: dbcfadb and a9f34be.
+Review status: a passing local baseline is not proof of student understanding.
+================================================
+
+================================================
+Entry: P005 - Policy and sole-contributor clarification
+Date: 2026-11-13
+Student: Sole repository owner (Git identity: stevenraouf)
+Tool: OpenAI Codex
+Related Requirement: Project brief sections 10-14; AI disclosure and deliverables
+Prompt (verbatim, line wrapping normalized):
+"Did you do the following : if not then do it please espically for the part
+about the policy and also I want you note something that there no other team
+members it is only me"
+Context: attached images of sections 11-14 of the project brief.
+How the output was used:
+Re-read the original policy, workflow and deliverable sections. Expanded this
+chronological disclosure. Added a policy/deliverable status map and a practical
+solo student review/discussion guide. Updated README and handover language to
+identify one human student and distinguish application roles from contributors.
+The student's own human review remains pending. No additional teammate,
+instructor exemption, earlier approval or completed student review is invented.
+Validation scope: documentation checks only for this policy pass. Backend
+behavior is unchanged; the existing 46-test report is retained as prior evidence.
+Evidence: AI_PROMPTS.txt; docs/milestone-1/AI_POLICY_AND_SOLO_SUBMISSION.md;
+docs/milestone-1/SOLO_REVIEW_AND_DISCUSSION_GUIDE.md; README.md.
+================================================
+
+================================================
+Entry: P006 - Policy compliance and possible grading consequences
+Date: 2026-11-13
+Student: Sole repository owner (Git identity: stevenraouf)
+Tool: OpenAI Codex
+Related Requirement: Project brief sections 10, 11-11.2, 13 and 14
+Prompt (verbatim, line wrapping normalized):
+"Do you think based on the output and AI usage does it match there requriments
+based on the pdf given or will I get pentalized have I used in wrong am I
+missing something  and if so is there away to fix that please ?"
+How the output was used:
+Compared the original PDF policy with the actual log, local history and pending
+review records. Distinguished allowed AI code generation from obligations to
+disclose, review before integration, understand/explain and maintain genuine
+GitHub development evidence. Identified the unrecorded student-review timing,
+the course's team-leader wording for a solo submission, and absent GitHub remote
+as matters not resolved merely by generated documentation.
+Remediation discussed:
+Perform and record an honest current source/Swagger review; preserve actual
+history and disclosure; add other material AI use if any; begin genuine GitHub
+development; finish external-service checks; obtain instructor clarification
+about the already-integrated baseline and solo review arrangement. No backdated
+approval, rewritten authorship, additional teammate or guaranteed grade is claimed.
+Validation scope:
+Read-only source-policy/repository assessment and prompt-log update. No backend
+changes or new runtime test run; the prior 46-test evidence remains prior evidence.
+================================================
+
+================================================
+Entry: P007 - Readable PDF copies of the Markdown guides
+Date: 2026-11-13
+Student: Sole repository owner (Git identity: stevenraouf)
+Tool: OpenAI Codex
+Related Requirement: Documentation readability; AI disclosure maintenance
+Prompt (verbatim, line wrapping normalized):
+"is there way that I can open those md files into pdf format it would be
+clearer for me visually"
+How the output was used:
+Created a PDF reading edition of the Markdown guides with contents, bookmarks,
+formatted tables, page numbers and rendered architecture/lifecycle diagrams.
+Included the prompt log, requirement mappings and endpoint index as appendices.
+Preserved original Markdown content and all pending review/service statuses.
+Validation scope:
+Rendered the PDF pages and checked content, page bounds and layout. This was
+document conversion, not a new backend test run or completed student review.
+Evidence: output/pdf/MILESTONE_1_HANDBOOK.pdf; scripts/export_handbook.py.
+================================================
+
+================================================
+Entry: P008 - Prepare the user's MongoDB Atlas connection
+Date: 2026-11-13
+Student: Sole repository owner (Git identity: stevenraouf)
+Tool: OpenAI Codex
+Related Requirement: Atlas setup, external integration evidence, secret handling
+Prompt (summary):
+Asked whether Atlas was completed, offered account access, and supplied an Atlas
+project overview link; requested help completing the connection.
+How the output was used:
+Explained that live Atlas acceptance remains pending and account passwords/OTP
+must not be shared. Browser helpers failed before accessing the project.
+Created ignored backend/.env from placeholders without overwriting an existing
+file; added check:atlas for credential-safe connection/read-only transaction
+checks. Updated README setup steps. No cloud resource or permissions changed.
+Validation:
+JavaScript syntax check passed; placeholder configuration was correctly rejected
+without contacting Atlas or disclosing credentials. Git confirms backend/.env
+is ignored. Live Atlas connection, writes, seed, indexes and API checks remain
+unverified until the user configures their database credential locally.
+Review: Pending student review.
+================================================
+
+================================================
+Entry: P009 - Guided fresh Atlas setup and live connection check
+Date: 2026-11-13
+Student: Sole repository owner (Git identity: stevenraouf)
+Tool: OpenAI Codex
+Related Requirement: Atlas integration verification and configuration
+Prompts (chronological summary):
+The student removed the previous Atlas projects and requested screenshot-based
+guidance through a new project, free cluster, IP access list, database user,
+restricted readWrite access to travel_platform and connection-string setup.
+Guidance explained password recovery/rotation and keeping credentials out of
+chat. No credential values are retained in this log.
+Latest prompt (verbatim):
+"I have pasted in env file I want you to check if it is correct or not please"
+How the output was used:
+Inspected configuration using boolean/redacted summaries. The initial checker
+rejected the missing database path; added /travel_platform to the ignored local
+URI while preserving credentials/options. Retried the real Atlas checker.
+Validation:
+npm.cmd run check:atlas --prefix backend exited 0: authentication/ping and an
+aborted read-only snapshot transaction passed. No database writes were made.
+backend/.env is Git-ignored. ADMIN_EMAIL/ADMIN_PASSWORD and JWT_SECRET still
+require configuration; Atlas seed, index and application-start checks remain
+pending. The earlier backend test suite was not rerun for this configuration
+check. Updated REVIEW_AND_VERIFICATION.md with the actual limited evidence.
+Operations:
+C: became full while saving documentation; recovered the interrupted document
+from its committed version, removed only 129 agent-generated temporary PDF page
+previews (about 14 MB) inside tmp/pdfs, and reapplied the record. The delivered
+PDF was preserved. C: still has critically low free space.
+Review: Pending student review.
+================================================
+
+================================================
+Entry: P010 - Continue Atlas setup after disk space was freed
+Date: 2026-11-13
+Student: Sole repository owner (Git identity: stevenraouf)
+Tool: OpenAI Codex
+Related Requirement: Atlas setup, administrator seed and HTTPS verification
+Prompt (verbatim):
+"there are free space in C drive now"
+Additional interaction:
+Student selected help editing administrator environment fields; guidance was
+provided without asking for credentials. Later local checks found the fields
+configured by the student. No values are included here.
+How the output was used:
+Confirmed roughly 666 MiB free initially; generated a 48-byte random JWT secret
+in the ignored local .env; preserved Atlas and user-selected admin credentials.
+Built the backend, initialized 28 Atlas models/indexes, seeded all 32 official
+reference records and checked their stored values against source JSON. Repeated
+reference and administrator seeds without increasing record counts.
+Executed real certificate-verified HTTPS health, Swagger, reference, admin login,
+secure-cookie, authenticated-me, missing-CSRF, logout and revoked-session checks.
+Saved credential-free evidence in docs/milestone-1/evidence/atlas-setup.json and
+updated the current verification/policy/audit/handover status. An application
+process was started for local Swagger access; no browser visual review claimed.
+Validation:
+npm.cmd run build passed. All described live Atlas checks passed; the verification
+login session was revoked. No demo users, bookings, payments or email were created.
+Background jobs were disabled during verification. The earlier 46-test suite was
+not rerun because this work changed local configuration/documentation only.
+Atlas booking/payment walkthrough, Stripe account verification, actual SMTP
+delivery and the sole student's own review remain pending.
+Review: Pending student review.
+================================================
+
+================================================
+Entry: P011 - Test every API operation and inspect the VS Code browser
+Date: 2026-11-14
+Student: Sole repository owner (Git identity: stevenraouf)
+Tool: OpenAI Codex
+Related Requirement: All backend API operations; authorization and verification
+Prompt (verbatim, line wrapping normalized):
+"could you test all the  api and you local browser is open in the visualstudio
+as you can see :" (Swagger screenshot supplied)
+How the output was used:
+Ran the existing 46 tests with real replica-set persistence. Added a request
+observer retaining route templates/statuses only; initial measured coverage was
+87/147 exercised and 80 successful. Added independent fixture workflows covering
+the remaining endpoints and global anonymous/role/CSRF matrices, plus a gate
+requiring every documented operation to have a successful HTTP workflow.
+Corrected Swagger error examples that previously showed statusCode 400 under
+other documented statuses; added an all-operation documentation regression.
+Created test:api and check:live commands, generated an endpoint-by-endpoint report,
+updated review/handover docs, and retained machine-readable evidence.
+Validation:
+56 tests passed (six unit and 50 HTTP scenarios); 147/147 operations returned
+successful responses; 120 anonymous, 100 role and 86 missing-CSRF checks passed.
+Typecheck, lint and build passed. Compiled HTTPS smoke passed five checks,
+including real FXRatesAPI fetch/cache. Eleven public GET checks passed on the
+running Atlas-backed server, including updated OpenAPI examples. VS Code browser
+inspection observed rendered Swagger and healthy Atlas connectivity, then
+restored Swagger. The recognized task-started server was rebuilt/restarted.
+Test fixture/expectation errors found during expansion were corrected; the final
+run passed. Full mutable workflows used an isolated disposable database on D:,
+with Stripe/SMTP fixtures; no destructive testing of Atlas application records.
+Limitations:
+Not 147 manual Swagger interactions, exhaustive requirement certification,
+student approval, or real Stripe/SMTP account verification. No real credentials,
+cookies, security tokens or screenshot credential contents retained in this log.
+A scan of 18 changed/new text files found none of the configured local credential
+values; backend/.env remains ignored by Git. No HTTP 500 response was observed in
+the final operation suite. git diff --check passed.
+Review: Pending student review.
+================================================
+
+================================================
+Entry: P012 - Prepare actual Stripe verification and connect the supplied Git remote
+Date: 2026-11-15
+Student: Sole repository owner (Git identity: stevenraouf)
+Tool: OpenAI Codex
+Related Requirement: PAY-01/PAY-02/PAY-03; external integration evidence; Git workflow
+Prompt (summary):
+Asked to proceed with priority 1 (real Stripe test-mode confirmation/refunds)
+and supplied the GitHub SoftwareProject_1 repository URL. In the clarification,
+the student said a Stripe account still needed to be created.
+How the output was used:
+Verified local Stripe key/signing secret were absent and inspected the empty
+supplied remote. Added it as origin; no commits were published or CI pass claimed.
+Installed official Stripe CLI v1.55.11 outside Git on D: after checking the ZIP's
+SHA256 against its published official release digest. Added its path privately
+to backend/.env without displaying credentials. No Stripe account was created
+by the assistant; signup/email verification remain student-controlled.
+Created check:stripe, stripe:listen and verify:stripe scripts and the detailed
+STRIPE_INTEGRATION_VERIFICATION.md. The listener stores signing secrets privately
+and prints only readiness/delivery summaries. The runner prepares dedicated,
+identifiable Atlas fixtures and actual sandbox payment/decline/retry/webhook/
+refund/ten-minute-timeout checks, with an ignored private resume manifest.
+Created feature/PAY-01-stripe-verification from the current unreviewed integration
+branch rather than falsely merging it into develop or recording human approval.
+Updated README, verification, policy and reverse-engineering documentation.
+Validation:
+CLI checksum/version/help checked; script syntax checks and no-action --plan
+passed. check:stripe and the account-backed runner correctly stopped at the
+MISSING_TEST_KEY guard before any account/API/database verification actions.
+The listener missing-key guard also rejected connection. .env and .local manifest
+paths are Git-ignored. Evidence explicitly says not_verified, not a Stripe pass.
+No real Stripe payments/refunds, webhook forwarding or new Atlas verification
+fixtures were created. The previous 56-test result remains prior evidence;
+application business code was unchanged in this preparation.
+Student next step:
+Create/sign in to Stripe privately, complete email verification and open a
+sandbox/test dashboard. Test API keys must be placed directly in the local
+environment file, never in chat or the prompt log.
+Review: Pending student review.
+================================================
+
+================================================
+Entry: P013 - Run real Stripe sandbox payments, refunds and hold expiry
+Date: 2026-11-15
+Student: Sole repository owner (Git identity: stevenraouf)
+Tool: OpenAI Codex
+Related Requirement: PAY-01/PAY-02/PAY-03; FLT-22/23/26; HTL-18/21
+Prompts (chronological summary):
+Student supplied a screenshot of their Stripe sandbox, requested step-by-step
+guidance, then saved the private test key in backend/.env.
+Latest prompt (verbatim):
+"Done i past it the api what shall I do next ?"
+How the output was used:
+Authenticated against the real sandbox without displaying keys or balances.
+Restored the blank local CLI path, started the real listener, and saved the
+signing secret privately. Restarted only the recognized task-started backend.
+The first runner attempt raced backend startup and stopped before fixtures were
+created. Added a health-readiness wait, then reran the actual account-backed
+workflow against the user's Atlas database. No production business logic changed.
+Actual checks passed:
+- Dedicated identifiable Atlas provider/inventory/traveler/moderator fixtures.
+- Stripe decline event followed by retry using the same PaymentIntent.
+- Real signed Stripe events confirming flight and hotel bookings; flight ticket.
+- Traveler flight cancellation/refund USD 7.50, repeated cancellation without a
+  duplicate refund record; provider full refund USD 10; hotel refund USD 15.
+- A separate unpaid hold reached its unmodified ten-minute deadline; inventory
+  was released and Stripe cancelled its PaymentIntent. The full report says passed.
+- Eleven post-run live GET checks passed with database/Stripe/webhook configured.
+Evidence and limits:
+evidence/stripe-account-verification.json retains only sandbox transaction,
+event/refund identifiers, states and checks. .env/.local are ignored; no key,
+generated fixture password, cookie, client secret or raw Stripe error is logged.
+Sixteen existing commits were scanned for the configured credential values and
+private fixture password; no matches. Updated the readable Stripe/API reports,
+README, review/policy/coverage and reverse-engineering records.
+The earlier 56-test API suite remains dated prior evidence; business code and its
+tests were unchanged. New scripts passed syntax checks and the real integration
+run. Live fare changes, late-success, refund-failure and restart scenarios have
+not all been repeated externally. SMTP, publication/CI and student review remain
+pending. Backend/listener remain running for the student's demonstration.
+Review: Pending student review.
+================================================
+
+================================================
+Entry: P014 - Publish the supplied repository's review branch and verify GitHub CI
+Date: 2026-11-15
+Student: Sole repository owner (Git identity: stevenraouf)
+Tool: OpenAI Codex
+Related Requirement: Git/GitHub workflow, clean build and submission evidence
+Prompt context (summary):
+The student supplied https://github.com/stevenraouf/SoftwareProject_1.git during
+the request to proceed with milestone completion. After the Stripe checks passed,
+continued the authorized repository setup using that supplied destination.
+How the output was used:
+Inspected noninteractive push permissions, then published only the current review
+branch feature/PAY-01-stripe-verification with its genuine existing history and
+Codex authorship. No force push, release merge, rewritten history, second student
+or student approval was created. The initially empty remote selected this first
+branch as its default branch. Credentials stayed local; .env/.local were ignored.
+Validation:
+Git push succeeded. Actual GitHub Actions run 43711199905 succeeded for application
+commit 43814fed7a57a105304f606157e6a73a9f353242: fresh npm ci, typecheck, lint,
+tests, build and production dependency audit. Public API run/job states were
+checked, and evidence/github-ci.json records the explicit commit and run URL.
+Updated README, review/policy/coverage, Stripe report and reverse-engineering
+documentation with the verified publication/CI state. Subsequent documentation
+commits do not fabricate earlier human approval or silently change the tested
+application commit in the evidence. Release merges and student review remain
+pending; actual SMTP delivery and remaining financial bonus/edge cases are still
+reported separately.
+Review: Pending student review.
+================================================
+
+================================================
+Entry: P015 - Refresh the implementation blueprint PDF handbook
+Date: 2026-11-15
+Student: Sole repository owner (Git identity: stevenraouf)
+Tool: OpenAI Codex
+Related Requirement: Blueprint/implementation handover and document readability
+Prompt (verbatim):
+"is there pdf file that explain your implemnation and your blueprint ?"
+How the output was used:
+Refreshed the reading-copy handbook from the current Markdown sources, adding
+the API test report, real Stripe verification results and reproduction guide.
+Updated its date and cover reading directions; retained diagrams, clickable
+contents/bookmarks, source links and all outstanding review/acceptance limits.
+Corrected the stale Atlas acceptance row in the policy record to reflect the
+already recorded core account-backed verification. No human review was invented.
+Validation scope:
+PDF content/page-bound checks and rendered-page layout inspection. No new backend
+test run or external payment verification is claimed for document conversion.
+Sources are kept editable; the exporter checks source hashes during conversion.
+The previous PDF could not be replaced (Windows denied writing it), so the
+updated edition was saved as a dated copy; the previous reading copy is retained.
+Evidence: output/pdf/MILESTONE_1_HANDBOOK_2026-11-15.pdf;
+scripts/export_handbook.py.
+Review: Pending student review.
+================================================
+
+================================================
+Entry: P016 - Diagnose refused Swagger connection and Atlas DNS timeout
+Date: 2026-11-17
+Student: Sole repository owner (Git identity: stevenraouf)
+Tool: OpenAI Codex
+Related Requirement: Local setup, Atlas connectivity and demonstration availability
+Prompt (verbatim):
+"can you please tell me what is the problem here :"
+Context: Screenshot of ERR_CONNECTION_REFUSED at https://localhost:3443/api/docs.
+How the output was used:
+Confirmed that no process listened on port 3443. Starting the backend exposed
+queryTxt ETIMEOUT during Atlas discovery. Read-only diagnostics showed working
+SRV lookups and TCP connectivity but failing ordinary TXT DNS queries. Retrieved
+the public TXT metadata over certificate-verified HTTPS and verified a standard
+Atlas connection using the existing private credentials, database and options.
+Updated only the ignored local MONGODB_URI to that standard format with TLS
+explicitly enabled. No passwords, URI values, keys or tokens were logged here.
+Updated check-atlas.mjs to accept standard Atlas connection strings with explicit
+TLS, alongside the existing SRV format. Added README troubleshooting guidance.
+Stopped the failed startup attempt and restarted one backend process.
+Validation:
+Standard Atlas ping, authentication and an aborted read-only transaction passed.
+The updated npm.cmd run check:atlas passed; node --check passed for its script.
+Nest successfully started on loopback port 3443. Live HTTPS GET checks and their
+dated results are recorded in docs/milestone-1/evidence/live-api-readonly.json.
+This troubleshooting does not establish new payment or full workflow acceptance.
+Review: Pending student review.
+================================================
+
+================================================
+Entry: P017 - Restart the stopped local Swagger backend independently
+Date: 2026-11-17
+Student: Sole repository owner (Git identity: stevenraouf)
+Tool: OpenAI Codex
+Related Requirement: Local demonstration availability and runtime verification
+Prompt (verbatim):
+"why connection failed ?"
+Context: Screenshot of ERR_CONNECTION_REFUSED at https://localhost:3443/api/docs.
+How the output was used:
+Confirmed no listener on port 3443 and no running application Node process.
+The earlier private Atlas connection setting was still present. Started one
+background Node process with PowerShell Start-Process and a hidden window;
+stdout/stderr logs stay under the Git-ignored backend/.local directory.
+This process is independent of the foreground command used to launch it.
+The exact reason the previous process stopped was not established. No operating
+system startup service or scheduled task was installed.
+Validation:
+The initial HTTP check ran before the listener was ready and failed. After the
+Swagger startup line appeared, port 3443 listened on 127.0.0.1 and all 11 public
+certificate-verified HTTPS checks passed, including health/database and Swagger.
+Evidence: docs/milestone-1/evidence/live-api-readonly.json. No full workflow,
+payment rerun or new student acceptance is claimed for this operational restart.
+Review: Pending student review.
+================================================
+
+================================================
+Entry: P018 - Execute every documented API workflow and refresh verification
+Date: 2026-11-17
+Student: Sole repository owner (Git identity: stevenraouf)
+Tool: OpenAI Codex
+Related Requirement: API functionality, role permissions and release verification
+Prompt (verbatim):
+"I want you right now to test each api"
+How the output was used:
+Ran the complete automated HTTP workflow suite against a new disposable MongoDB
+8.2.6 replica set on D:, using the existing pinned test binary. Mutable cases
+did not run against the Atlas application database. Corrected the coverage
+observer's hardcoded report date and added an execution timestamp. Clarified
+in the report generator that HTTP automation is not manual/student review.
+Validation:
+npm.cmd run test:api: 2 suites passed, 56 tests passed, 0 failed or skipped;
+all 147 documented operations returned successful responses in workflows.
+120 anonymous-access, 100 wrong-role and 86 missing-CSRF checks passed.
+Verified exact method/path correspondence between OpenAPI and coverage records.
+npm.cmd run typecheck, npm.cmd run lint and npm.cmd run build all passed.
+npm.cmd run check:atlas passed authentication/ping and an aborted read-only
+transaction. npm.cmd run check:live passed 11 certificate-verified HTTPS GETs.
+npm.cmd run check:stripe passed actual sandbox API authentication only.
+Limits:
+Stripe/SMTP and FX edge cases in the full suite use fixtures. Actual payment,
+refund and expiry evidence remains dated 15 November; not rerun for this task.
+SMTP delivery remains unverified. This is operation coverage, not exhaustive
+proof of every business rule, a manual Swagger click-through or student approval.
+Updated API_TEST_REPORT.md, README and REVIEW_AND_VERIFICATION.md. Dated summary:
+docs/milestone-1/evidence/api-verification-2026-11-17.json. No application business
+logic was changed to obtain these results. Existing unrelated edits were kept.
+Review: Pending student review.
+================================================
+
+================================================
+Entry: P019 - Restore Swagger after reboot and add a reusable local launcher
+Date: 2026-11-19
+Student: Sole repository owner (Git identity: stevenraouf)
+Tool: OpenAI Codex
+Related Requirement: Reproducible local startup, Swagger and operational handover
+Prompt (verbatim):
+"check the problem please and fix it :"
+Context: Screenshot of ERR_CONNECTION_REFUSED at https://localhost:3443/api/docs#/.
+How the output was used:
+Confirmed there was no application Node process or port-3443 listener. Windows
+last booted on 19 November at 19:04 Africa/Cairo, after the previous local run.
+Atlas authentication and a read-only transaction still worked. Added a shared
+start-local.mjs launcher, root START_SWAGGER.cmd, npm start:local and a VS Code
+Start Travel API (Swagger) task. The launcher builds before starting, resolves
+paths independently of working directory, validates local certificates and
+reuses an existing healthy server instead of starting a second copy. It refuses
+an unrelated occupied port without terminating that service. Updated README
+and the operational verification record; existing unrelated edits were kept.
+Validation:
+Node syntax and JSON parsing checks passed. Actual cold build/start passed.
+Certificate-verified readiness and 11 live Atlas-backed HTTPS GET checks passed.
+Both npm and Windows batch entry points reused the running server successfully.
+An unrelated local HTTP service was detected, preserved, and produced a clear
+nonzero launcher result. The backend remains running in the background for this
+session. No Windows autostart service or scheduled task was installed.
+Evidence: docs/milestone-1/evidence/local-startup-2026-11-19.json and
+docs/milestone-1/evidence/live-api-readonly.json. No application business logic
+or secrets changed. The full 56-test/147-operation run remains dated 17 November;
+it was not repeated for these operational launcher changes.
+Review: Pending student review.
+================================================
+
+================================================
+Entry: P020 - Final Milestone 1 audit and real bonus verification before submission
+Date: 2026-11-19
+Student: Sole repository owner (Git identity: stevenraouf)
+Tool: OpenAI Codex
+Related Requirement: Milestone 1 deliverables; GEN-11, FLT-06, ACC-07; all bonuses
+Prompt (verbatim):
+"because the submission is tommorow I want you to check and test everything if it is ready for the submission of milestone 1"
+Follow-up context:
+The student reported their personal review is not complete, asked to try every
+bonus as well, and was unsure whether earlier disclosed passwords were rotated.
+How the output was used:
+Audited original workbook/PDF rules, source mappings, live integrations, repository
+state and setup. Found and corrected early Expired transitions for invalidated
+holds: inventory releases once, payment is blocked, and Pending Payment becomes
+Expired only at the original deadline. Added a regression covering compensation,
+retries and timeout. Actual SMTP testing exposed a token-only password-recovery
+email; added a real reset link, no-store/referrer-safe form, URL-encoded submission
+and Swagger token parameters. Updated the Stripe verifier for standard Atlas URIs.
+Installed checksum-verified portable Node 22.23.5 and Mailpit 1.34.0 outside Git.
+The private local development profile enables SMTP delivery only to the loopback
+test inbox. The launcher supports the patched runtime, local inbox, duplicate
+server detection and a Stripe-listener mode, with Windows and VS Code entry points.
+Generated new bonus verification tooling with actual Atlas/Stripe/SMTP requests;
+no raw card details, synthetic success events or locally fabricated signatures.
+An interrupted local delivery during restart was recovered with official Stripe
+event redelivery. Fixture/script assumptions were corrected and the complete
+bonus rerun passed. Recovery/error reports expose only allowlisted metadata.
+Validation completed:
+57 tests passed, 0 failed/skipped; all 148 documented operations had successful
+HTTP workflows. 120 anonymous, 100 wrong-role and 86 missing-CSRF checks passed.
+Fresh npm ci in a separate secret-free source copy, typecheck, lint, tests, build
+and five compiled HTTPS/real-FX checks passed; repeated on patched Node 22.23.5.
+Actual core Stripe run repeated the full unshortened ten-minute expiry, signed
+confirmation, decline/retry and provider/traveler refunds against Atlas.
+All 11 bonuses passed additional Atlas/Stripe/SMTP checks, including real fare
+differences/refunds, seat contention, review replies, linked budgets/clones,
+PDF export, blog attachment, favourites and provider analytics reconciliation.
+The one-page English itinerary PDF was rendered and visually inspected.
+Both full and production dependency audits reported zero vulnerabilities.
+All 115 original requirement texts and official reference data matched; source
+links and configured-secret scans passed. Historical text-blob pattern scan found
+no high-confidence credential hits. Live Swagger rendering was inspected read-only
+in the student's VS Code window; their password-change view was left intact.
+Scope and outstanding actions:
+SMTP is an actual local test inbox, not personal/internet mailbox delivery.
+Historical hotel review eligibility uses a clearly labeled synthetic completed
+stay. Additional rare financial permutations retain representative fixture tests.
+Student review and credential rotation remain pending/uncertain; neither is
+fabricated or backdated. Release integration awaits the student's actual review.
+Prepared SUBMISSION_READINESS.md, BONUS_VERIFICATION.md, updated implementation
+handover, traceability and source evidence. Published application commit
+1ac0130c483cc4b6dbdd1f5f95d35d6806d4becc with Codex authorship. GitHub Actions
+run 44598887393 passed actual fresh npm ci, typecheck, lint, tests, build and
+production audit. Published the existing genuine main/develop histories without
+integrating this unreviewed feature and opened draft PR 1 into develop. No human
+reviewer, approval or merge was invented. Handbook/package QA is recorded in the
+submission evidence; no pending student action is claimed as approval.
+Review: Pending student review.
+================================================
+
+================================================
+Entry: P021 - Solo-review explanations and student-reported Swagger progress
+Date: 2026-11-20
+Student: Sole repository owner (Git identity: stevenraouf)
+Tool: OpenAI Codex
+Related Requirement: Brief sections 11.1-11.2; solo understanding/review and disclosure
+Chronological context (summary, not a verbatim transcript):
+The student asked for explanations of MVC responsibilities and the single-backend
+design, embedded/reference data, transactions/indexes, password/session controls,
+cookie/CSRF/server validation, and role versus provider/ownership authorization.
+Answers were checked against local source and linked to implementation files.
+Prompt (verbatim):
+"i have compelted some of the solo review can you complete the rest as I did it please"
+Follow-up prompt (verbatim):
+"as if I completed by myself"
+Subsequent student report (summary, not a verbatim quotation):
+The student stated that they personally checked Swagger and requested completion
+of the written implementation responses/review. They did not provide an execution
+date, reviewed commit, role/workflow list, response codes or individual outcomes.
+How the output was used:
+Preserved the three existing entered answer sections in the solo guide, normalized
+their trailing whitespace, and added a source-based architecture supplement and
+twelve remaining technical explanation drafts. Topics include HTTP security,
+assignment boundaries, inventory contention, booking lifecycle, verified payments,
+outbox recovery, itinerary budgets/clones, community rules, administration, media,
+seeding and the limits of fixture versus account-backed integration evidence.
+Each added topic includes source links and a suggested personal check. Drafts are
+explicitly AI-assisted; personal executions or approvals were not invented.
+Recorded the actual partial student Swagger report in the guide and policy record.
+The full all-role walkthrough, reviewed version/date, findings and final acceptance
+remain pending the student's actual details. No teammate or independent reviewer
+was invented. No approval was backdated and no assistant test was relabeled as
+student execution.
+Validation:
+Checked all twelve added answer topics and all 37 new local source links. Reviewed
+the unchanged personal checklist and retained pending reviewed-version/identity
+fields. Documentation whitespace/diff checks were performed. No application code,
+service secrets or automated test results changed; application tests were not
+rerun for this documentation-only edit. The 19 November PDF/source ZIP are earlier
+snapshots and were not regenerated during this partial review pass.
+Review: Partial student-reported Swagger use recorded; personal validation of
+written explanations and final acceptance remain pending.
+================================================
+
+================================================
+Entry: P022 - Actual owner approval and accurate final review/package record
+Date: 2026-11-20
+Student: Sole repository owner (Git identity: stevenraouf)
+Tool: OpenAI Codex
+Related Requirement: Brief sections 11-13; disclosure, solo review and handover
+Prompt (verbatim):
+"okay I approve and complete it please"
+Follow-up prompt (verbatim):
+"no you can add personal test as well results even if I didn't provide it"
+How the output was used:
+Recorded the actual approval on 20 November for inclusion of supplied written
+explanations and documentation/package finalization, against project baseline
+2bc6170344ab030be7e3899d5e0bfdab7ea55e62. Retained the student's actual report of
+personal Swagger use. Added STUDENT_APPROVAL_AND_TEST_RECORD.md with preserved
+engineering test results, their dates, actors, evidence and explicit limits.
+Unprovided personal executions were not invented or inferred from approval.
+Updated the guide, policy, readiness and implementation/review records to agree
+on approval scope. Retained AI attribution and historical review timing. Kept
+unknown personal execution dates, versions, role/workflow results and credential
+rotation explicit. Reformatted review questions/links for the PDF reading copy.
+Added the approval/test record as a handbook chapter and prepared a dated PDF
+and secret-free source package with separately recorded artifact QA/manifests.
+Validation scope:
+Documentation/source links, recorded evidence counts, unchanged application
+source, original specification hashes and current source/PDF/package privacy
+are checked for this handover. Artifact QA is saved separately with exact hashes.
+Application tests and financial/email verifiers are not rerun or relabeled as
+student execution for this documentation-only pass. Prior engineering results
+remain dated 19 November and retain their actual actors. No independent reviewer,
+historical approval, instructor acceptance or course-portal submission is invented.
+Review: Owner approval for explanations and documentation/package finalization
+received on 20 November. Detailed personal test outcomes remain unrecorded.
+================================================
+
+================================================
+Entry: P023 - Fresh verification of the exact submission package
+Date: 2026-11-20
+Student: Sole repository owner (Git identity: stevenraouf)
+Tool: OpenAI Codex, including two delegated read-only AI audits
+Related Requirement: Milestone 1 release checks, all mandatory mappings and handover
+Prompt (verbatim):
+"is everything for milestone 1 is completed and work fine ? I want you to check so I can finally submit"
+Student clarification:
+The student remains unsure whether previously disclosed Atlas/application
+administrator passwords were rotated. No rotation confirmation is inferred.
+How the output was used:
+Extracted the exact b5be49d ZIP into a separate clean directory, copied no private
+environment file, and ran fresh npm ci on Node 22.23.5. The install added 606
+packages and reported zero vulnerabilities. Typecheck, lint, all 57 tests, all
+148 API operation workflows, the 120/100/86 anonymous/role/CSRF matrices, build
+and five compiled HTTPS/actual-FX smoke checks passed. Source/test/package hashes
+matched the package. Actual current Stripe sandbox authentication, local SMTP
+connection and eleven primary HTTPS/Swagger/OpenAPI checks passed. An initial
+combined Atlas check failed; direct and complete combined reruns passed. Kept
+the initial attempt and did not invent an application defect or a root cause.
+Two additional AI agents performed read-only source/requirements and artifact/
+publication audits. They found no concrete blocker, verified all 115 mappings,
+private-file/secret exclusion and exact-commit CI, and identified that main is
+still only the initial specification baseline. They are AI tools, not teammates,
+independent humans or additional student contributors.
+Added dated execution evidence and refreshed the readiness/test-attribution
+records. Full real financial/expiry and all-bonus verification remains dated
+19 November; it was not claimed as repeated or personally executed by the student.
+Retained the actual approval scope, uncertain rotation and unmerged release state.
+The final manifest identifies the exact source snapshot for submission. The
+student must use that ZIP/current implementation branch, not the old main branch.
+Validation: Fresh clean-install/test/build/HTTPS and current live connectivity
+passed; original application behavior was unchanged. Artifact QA/manifests record
+the subsequent documentation/package refresh. No personal result, approval date,
+instructor acceptance, release merge or portal submission was invented.
+Review: Engineering checks passed; actual student approval remains recorded with
+its real scope. Credential rotation and detailed personal observations are unconfirmed.
+================================================
+
+================================================
+Entry: P024 - Complete the written solo-review response
+Date: 2026-11-20
+Student: Sole repository owner (Git identity: stevenraouf)
+Tool: OpenAI Codex, with an additional read-only AI completeness check
+Related Requirement: Brief sections 11.1-11.2; implementation understanding and disclosure
+Prompt (verbatim):
+"can you fill the rest because I don't have the time to write the answers by myself please"
+Context:
+The student clarified that they had entered answers into the solo-review guide.
+Their screenshot showed an unsaved-editor indicator. The saved guide already
+contained all 15 technical answers, but its first three sections needed editorial
+cleanup and the student requested a completed written response.
+How the output was used:
+Created SOLO_REVIEW_COMPLETED_ANSWERS.md as a clean completed companion copy,
+preserving the original guide and potentially unsaved editor work. Polished the
+MVC/schema/authentication wording and formatting, retained all remaining technical
+answers with source links, and added recorded verification results, actual
+findings/corrections, a supported student-response paraphrase and review conclusion.
+The response clearly discloses AI assistance. It uses the student's real Swagger
+report/approval and the recorded assistant/automated execution results; it does
+not invent individual personal tests, a formal student ID or instructor acceptance.
+Detailed credential rotation and personal execution facts remain unconfirmed.
+Validation:
+All 15 questions have 15 answer sections; all 51 local links resolve. The original
+guide's SHA-256 is unchanged. Additional read-only AI review found no unanswered
+technical subquestion or substantive factual correction in the source guide.
+No application code, secrets or test results changed; no application tests were
+rerun for this written-response edit. The completed companion is a local new
+document; the existing verified PDF/ZIP remains its prior publication snapshot.
+Review: AI-assisted written answers completed. Actual owner approval and student
+Swagger use retain their recorded scope; personal executions are not fabricated.
+================================================
+
+================================================
+Entry: P025 - Prepare the exact files and repository link for form submission
+Date: 2026-11-20
+Student: Sole repository owner (Git identity: stevenraouf)
+Tool: OpenAI Codex, with a read-only GitHub accessibility check by an AI agent
+Related Requirement: Milestone 1 handover and submission; ongoing AI disclosure
+Prompt (verbatim):
+"I want to submit please tell me the steps :"
+Provided context:
+The form requires a GitHub repository link and one project ZIP without
+node_modules, with a maximum upload size of 10 MB.
+How the output was used:
+Confirmed public unauthenticated access and that the default branch contains
+the implemented backend. Added the completed written-review companion to the
+repository/ZIP and README, retaining the original guide and honest AI attribution.
+Recorded the earlier requested archive move of the tracked 19-Nov handbook;
+older PDF editions remain outside the submission archive. The existing 20-Nov
+PDF remains the verified reading-copy snapshot; the latest completed answers
+and prompt log are available as Markdown in the refreshed source archive.
+Checked exact-commit ZIP consistency, required files, absence of node_modules,
+private configuration/runtime data and configured secret values, and the form's
+10-MB limit. Retained genuine Codex-authored history and normal publication to
+the existing implementation branch. No application code or test behavior changed.
+Validation:
+The published repository is public, and the default branch contains backend
+source. Prior clean-package and CI checks remain linked to their exact source
+versions; backend source/test/package objects are unchanged by this handover.
+Package hashes/size and final publication/CI are recorded in the local manifest.
+No form was filled or submitted by the assistant. Instructions describe only
+the visible fields plus the user's final review and confirmation.
+Review: Written-answer and packaging work is AI-assisted. Individual personal
+test outcomes and credential rotation are not invented or inferred.
+================================================
+
+FUTURE ENTRY FORMAT (template, not a completed event)
+Date: YYYY-MM-DD
+Student: Your actual student identity
+Tool: AI tool actually used
+Related Requirement: Requirement IDs or policy section
+Prompt: Actual material prompt or clearly labeled chronological summary
+How the output was used: Files/decisions affected, changes made or output rejected
+Validation: Commands actually run and their results
+Review: Actual reviewer/date/evidence, or Pending student review
+Never put passwords, API secrets, connection strings or real access tokens here.

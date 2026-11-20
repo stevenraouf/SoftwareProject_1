@@ -1,0 +1,86 @@
+{
+  "clientDate": "2026-11-19",
+  "outcome": "passed",
+  "run": "f993ac56d5",
+  "bonuses": {
+    "ACC-02": {
+      "status": "passed",
+      "detail": "Actual SMTP verification link, booking gate and single use passed"
+    },
+    "ACC-07": {
+      "status": "passed",
+      "detail": "Actual SMTP reset links, supersession and single use passed; expiry boundary also covered by the automated suite"
+    },
+    "FLT-27": {
+      "status": "passed",
+      "detail": "Actual Stripe higher-fare payment, lower-fare refund and preserved original reference/inventory passed"
+    },
+    "FLT-28": {
+      "status": "passed",
+      "detail": "Actual Atlas contention allowed exactly one booking to claim the seat"
+    },
+    "HTL-26": {
+      "status": "passed",
+      "detail": "Assigned hotel moderator replied through HTTP; eligibility used a labeled synthetic completed-stay fixture"
+    },
+    "ITN-27": {
+      "status": "passed",
+      "detail": "Real confirmed bookings counted once; independent clone copied costs without private booking links"
+    },
+    "ITN-28": {
+      "status": "passed",
+      "detail": "Actual HTTP PDF export received; visual inspection recorded separately"
+    },
+    "BLG-13": {
+      "status": "passed",
+      "detail": "Published post attached the public itinerary through HTTP"
+    },
+    "BON-02": {
+      "status": "passed",
+      "detail": "Saved/listed hotel and public itinerary favourites and removed one"
+    },
+    "BON-01": {
+      "status": "passed",
+      "detail": "Atlas provider analytics reconciled with actual sandbox payments/refunds: gross 23, refunds 13, net 10 USD"
+    },
+    "GEN-01-B": {
+      "status": "passed",
+      "detail": "Actual SMTP delivered invitations plus confirmation, cancellation, refund, schedule and suspension/provider-status notifications to the test inbox"
+    }
+  },
+  "receipts": {
+    "6aff48b06d2cd73612654660": {
+      "intentId": "pi_3UdafA9cblnqr6uS17EIdtlw",
+      "signedEventId": "evt_3UdafA9cblnqr6uS1dZpLRVx"
+    },
+    "fareChange": {
+      "intentId": "pi_3UdafW9cblnqr6uS0aBNpqIA",
+      "refundId": "re_3UdafA9cblnqr6uS1A9bseDw",
+      "additionalMinor": 500,
+      "refundedMinor": 700
+    },
+    "6aff48ea6d2cd73612654670": {
+      "intentId": "pi_3Udag69cblnqr6uS1skJaXap",
+      "signedEventId": "evt_3Udag69cblnqr6uS1djvmNHP"
+    },
+    "6aff48fd6d2cd73612654679": {
+      "intentId": "pi_3UdagP9cblnqr6uS0tiU8vFQ",
+      "signedEventId": "evt_3UdagP9cblnqr6uS0nmQBIBf"
+    },
+    "analytics": {
+      "providerId": "6aff48606d2cd7361265464a",
+      "grossPayments": 23,
+      "refunds": 13,
+      "netRevenue": 10,
+      "currency": "USD"
+    }
+  },
+  "environment": "Atlas application database; actual Stripe sandbox and signed webhooks; actual SMTP delivered to loopback-only Mailpit test inbox",
+  "fixtureLimits": "Review eligibility uses a clearly synthetic completed-stay fixture. SMTP is a local development test inbox, not delivery to a personal or internet mailbox. No manual/student review is asserted.",
+  "pdfVisualInspection": {
+    "outcome": "passed",
+    "pages": 1,
+    "expectedTotal": "28 USD",
+    "scope": "English demonstration content; multilingual export layout not exhaustively checked"
+  }
+}

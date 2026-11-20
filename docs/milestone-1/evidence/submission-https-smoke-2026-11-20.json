@@ -1,0 +1,15 @@
+{
+  "checkedAt": "2026-11-20T20:04:04.145Z",
+  "node": "v22.23.5",
+  "database": "Disposable MongoDB 8.2.6 replica set, not Atlas",
+  "transport": "HTTPS with explicit verification of the generated localhost certificate",
+  "outcome": "passed",
+  "checks": [
+    "Compiled NestJS Swagger page served over HTTPS",
+    "Swagger CSRF interceptor is self-contained in served JavaScript",
+    "Real HTTPS login sets secure httpOnly cookies and authenticated /auth/me works",
+    "CSRF enforcement rejects missing header and permits matching header over HTTPS",
+    "Real FXRatesAPI response fetched and cached through backend (rate date 2026-11-19)"
+  ],
+  "browserUiInteraction": "Not performed; HTML and Swagger JavaScript inspected through HTTPS responses"
+}

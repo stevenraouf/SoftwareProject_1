@@ -1,0 +1,14 @@
+{
+  "clientDate": "2026-11-19",
+  "outcome": "passed",
+  "target": "Actual port-3443 development API with Atlas, local SMTP test inbox and patched Node runtime",
+  "checks": [
+    "Registration",
+    "Actual SMTP link with primary application URL",
+    "Single-use verification",
+    "Login and verified current account",
+    "Logout and revoked session rejection"
+  ],
+  "transport": "Explicit localhost certificate verification; SMTP delivered only to loopback Mailpit",
+  "privacy": "No generated passwords, email bodies, cookies or tokens retained in public evidence"
+}

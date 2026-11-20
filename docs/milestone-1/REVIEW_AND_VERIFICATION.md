@@ -2,28 +2,74 @@
 
 ## Current acceptance state
 
-The backend has a passing local verification baseline. It is not an exhaustive acceptance certificate. A follow-up [coverage audit](COVERAGE_AUDIT.md) found and corrected additional conformance issues. **The submission release gate remains open**: Atlas connectivity, account-backed Stripe payments/refunds, actual SMTP delivery, instructor guidance for solo review, and the Milestone 2 UI are not claimed complete.
+The 19 November release audit passed 57 tests, all 148 API operation workflows, clean installation/build checks on Node 22.23.5, actual core Stripe/Atlas payment/refund/ten-minute-expiry checks and all 11 live bonus checks. Actual SMTP delivery uses a local development test inbox. On 20 November the sole student reported personal Swagger use and explicitly approved including the supplied explanations and completing the documentation/package. See [the approval/test record](STUDENT_APPROVAL_AND_TEST_RECORD.md), [submission readiness](SUBMISSION_READINESS.md) and [bonus evidence](BONUS_VERIFICATION.md). Individual personal executions and credential rotation remain unconfirmed; release merges and course acceptance are not asserted. Milestone 2 UI work is separate.
 
-This is an AI-assisted engineering self-review. No independent human approval, team contribution, GitHub publication, or instructor acceptance is represented by this document.
+This is an AI-assisted engineering self-review. There is one human student/developer. No student approval, additional team member, GitHub publication or instructor acceptance is invented. The [policy record](AI_POLICY_AND_SOLO_SUBMISSION.md) distinguishes AI checks from the student's own review; a second teammate is not a prerequisite imposed by this repository.
+
+On 14 November 2026, the API audit expanded the suite from 46 to 56 passing tests and measured successful HTTP workflows for all 147 documented operations. The global permission matrix passed 120 anonymous, 100 wrong-role and 86 missing-CSRF checks. See [the API test report](API_TEST_REPORT.md). These workflows use an isolated real replica set and fixture Stripe/SMTP adapters; the live Atlas application was checked separately with 11 public GET requests. Operation coverage is not exhaustive requirement acceptance.
 
 ## Executed evidence
+
+### Fresh submission-package verification on 20 November 2026
+
+The exact `b5be49d` source ZIP was extracted into a separate directory with no private environment file. Fresh `npm ci` installed 606 packages and reported zero vulnerabilities. Typecheck, lint, the complete 57-test suite and 148-operation coverage, build and five compiled HTTPS/real-FX smoke checks passed on Node 22.23.5. Current source/test files and package/lockfile hashes matched that clean extraction.
+
+The running primary API passed eleven certificate-verified public requests, including Swagger and OpenAPI consistency. Actual Stripe sandbox authentication and the loopback SMTP/inbox connection passed. A first combined Atlas probe failed; direct authentication/aborted-transaction and combined reruns passed. Both attempts are retained without inventing a root cause. Full live financial/bonus evidence remains dated 19 November. Two additional AI read-only audits checked core rules and package/publication consistency and found no concrete release-blocking defect. See [the dated check record](evidence/pre-submission-check-2026-11-20.json). These results are assistant/automated executions; the student's personal results are not fabricated.
+
+### Owner approval and documentation finalization on 20 November 2026
+
+The student's actual approval message and reported Swagger use are recorded with their scope in [STUDENT_APPROVAL_AND_TEST_RECORD.md](STUDENT_APPROVAL_AND_TEST_RECORD.md). The guide includes the retained entered answers, twelve additional AI-assisted technical explanations, source references and suggested checks. Recorded engineering results are added as assistant/automated evidence; they are not relabeled as personal student execution. No new application behavior or test pass is inferred from this documentation-only update. The final PDF/package QA is recorded separately with the source revision and artifact hashes.
+
+### Final submission audit on 19 November 2026
+
+The complete suite now passes **57 tests and 148/148 operation workflows**, including a new GEN-11 regression and the usable emailed password-reset form. A new, secret-free source copy passed fresh dependency installation, compiler/lint/tests/build and compiled HTTPS/FX checks. These checks passed again on patched **Node 22.23.5** with explicit local-certificate verification; see [clean-install evidence](evidence/clean-install-2026-11-19.json).
+
+The real core Stripe/Atlas verifier completed a fresh, unshortened ten-minute expiry run successfully. The additional [bonus verifier](BONUS_VERIFICATION.md) passed all 11 workbook bonuses using actual Atlas, Stripe sandbox objects and SMTP delivery to a local test inbox. The exported one-page itinerary PDF was rendered and visually inspected. The original workbook/PDF are unchanged, reference JSON matches the official remote workbook, and source/privacy checks passed. The current local launcher uses the patched runtime and enables the loopback-only SMTP test-inbox profile.
+
+Important findings corrected: unpaid provider-invalidated holds now stay Pending Payment until their original deadline while releasing inventory once; the recovery email now has a working single-use link/form; both token query fields are documented in Swagger; the Stripe verifier handles standard Atlas URIs. A local forwarding interruption was recovered through official Stripe event redelivery, and the successful bonus rerun is recorded. No local success signature/event was fabricated. Additional rare external-service permutations remain representative fixture tests, not an exhaustive external certification.
+
+The student reported their own review is not complete and is unsure whether earlier disclosed passwords were rotated. Both remain actual student actions in [submission readiness](SUBMISSION_READINESS.md); no approval, waiver or historical review date is invented.
+
+Application commit `1ac0130` was published and [GitHub-hosted run 44598887393](https://github.com/stevenraouf/SoftwareProject_1/actions/runs/44598887393) passed fresh installation, typecheck, lint, tests, build and production audit on pinned Node 22.23.5. Existing `main`/`develop` histories are now published, with [draft PR 1](https://github.com/stevenraouf/SoftwareProject_1/pull/1) left open for the sole student's review. No release merge was performed. Later handover-only commits retain the explicit application-commit scope in `evidence/github-ci.json`.
+
+### Local startup correction on 19 November 2026
+
+Windows last booted on 19 November at 19:04 Africa/Cairo, after the prior server run. No application process or listener on port 3443 remained, explaining `ERR_CONNECTION_REFUSED`. Atlas authentication and an aborted read-only transaction still passed. Added `START_SWAGGER.cmd`, `npm.cmd run start:local` and the VS Code **Start Travel API (Swagger)** task. The shared launcher resolves the backend directory, checks configuration/certificates, builds before a cold start and reuses an already healthy server. It reports an unrelated occupied port without killing that service.
+
+Cold build/start, certificate-verified health, both npm/batch reuse paths, unrelated-port handling and all **11 live HTTPS GET checks** passed. The application was restarted in the background. After a Windows reboot, the student can run the launcher or VS Code task; no automatic Windows service was installed. See [startup evidence](evidence/local-startup-2026-11-19.json). Application business logic and secrets were unchanged; the complete 56-test/147-operation rerun remains dated 17 November.
+
+### API rerun on 17 November 2026
+
+At the student's request, reran `npm.cmd run test:api` against a disposable real MongoDB 8.2.6 replica set on D:. Both suites passed: **56 tests, 0 failures, 0 skipped tests**, with successful HTTP workflows for **147/147 documented operations**. The permission matrix passed **120 anonymous**, **100 incorrect-role**, and **86 missing-CSRF** checks. The coverage list exactly matches the generated OpenAPI method/path list.
+
+`npm.cmd run typecheck`, `npm.cmd run lint`, and `npm.cmd run build` passed. Separate checks passed for Atlas authentication/ping/an aborted read-only transaction, all **11 live certificate-verified HTTPS GET checks**, and real Stripe sandbox API authentication. The payment/refund/ten-minute-expiry run was not repeated; its evidence remains dated 15 November. The complete workflow suite uses Stripe/SMTP fixtures, and actual SMTP delivery remains unverified. This rerun does not constitute a manual Swagger click-through or the sole student's approval.
+
+The coverage observer previously hardcoded the 14 November date. It now records the supplied client date (or the Africa/Cairo date) and execution timestamp. The report generator also identifies automated HTTP testing explicitly. No application business logic was changed for this rerun. See [dated rerun evidence](evidence/api-verification-2026-11-17.json) and the regenerated [operation-by-operation API report](API_TEST_REPORT.md).
 
 | Check | Result | Evidence / limits |
 | --- | --- | --- |
 | TypeScript | Passed | `npm.cmd run typecheck`; strict compiler configuration |
 | ESLint | Passed | `npm.cmd run lint`; unused-code and recommended TypeScript rules |
-| Compiled backend | Passed | `npm.cmd run build`; native ES modules on Node 22.14.0 |
+| Compiled backend | Passed | `npm.cmd run build`; native ES modules on Node 22.23.5 |
 | Fresh checkout / install | Passed | `clean-checkout.json`; separate clone, fresh node_modules, npm ci, type checking, lint, 46 tests, and build |
-| Unit/integration suite | **46 passed, 0 failed**, two suites | `test-results.json`; six unit scenarios and 40 HTTP/replica-set scenarios |
+| Unit/integration suite | **57 passed, 0 failed**, two suites | Latest: `evidence/api-test-results.json`; six unit and 51 HTTP/replica-set scenarios. `test-results.json` preserves the earlier 46-test baseline. |
+| Complete API operation coverage | **148/148 successful workflows** | `evidence/api-route-coverage.json`, observed from completed HTTP requests; gate rejects an untested documented operation. 120 anonymous/100 incorrect-role/86 missing-CSRF checks passed. |
+| Running Atlas-backed API | **11 public GET checks passed** | `evidence/live-api-readonly.json`; verified local TLS certificate, health/database connectivity, four reference lists, currencies, posts/public itinerary search, Swagger assets and response-specific OpenAPI examples. No credentials, cookies or body data retained. |
+| VS Code browser inspection | Passed, limited scope | Swagger rendered in the user's VS Code browser; navigated to public health and observed database=true, then restored Swagger. This did not click through all 147 operations or constitute the student's review. |
 | Transaction behavior | Passed locally | Real disposable MongoDB 8.2.6 replica set; no mocked database for inventory checks |
+| Live MongoDB Atlas connection | Passed, limited scope | 13 November 2026: `npm.cmd run check:atlas --prefix backend` exited 0; authentication/ping and a read-only snapshot transaction succeeded. Transaction was aborted; no data written. Does not establish write permissions, indexes, seed or application startup. |
+| Atlas application setup | Passed, limited scope | `evidence/atlas-setup.json`: fresh build, 28 models/indexes initialized; 8 each of official countries/cities/airports/attractions preserved; reference and user-configured administrator seeds repeated without duplicate records. Compiled `createApp`, `seedReference` and `seedAdmin` were exercised directly. |
+| Atlas HTTPS/authentication | Passed | Certificate-verified loopback HTTPS: health/countries/Swagger 200; admin login 201; secure HttpOnly access/refresh cookies; authenticated me 200; missing-CSRF mutation rejected 403; logout 201; revoked session rejected 401. Verification session revoked; no bookings/payments/email created. |
 | Local TLS certificate | Generated successfully | Ignored `.certs/` files; self-signed localhost certificate |
 | Compiled HTTPS smoke | **Five checks passed** | `https-smoke.json`; actual HTTPS requests, Swagger HTML/JavaScript, secure cookies, CSRF and real FX fetch/cache |
+| Account-backed Stripe sandbox and Atlas | **Full core run repeated, 19 November** | `evidence/stripe-account-verification.json`: real declined payment/retry, real signed-event IDs, flight/hotel confirmation, $7.50 traveler flight refund, $10 full provider refund, $15 hotel refund, actual ten-minute unpaid hold expiry, Stripe cancellation and released inventory. No mock or locally fabricated webhook in this run. |
+| GitHub publication and CI | **Passed for application commit 1ac0130** | Published genuine review-branch history; GitHub-hosted fresh npm ci, typecheck, lint, tests, build and production audit all passed. `evidence/github-ci.json` records the commit/run URL. Documentation-only follow-ups retain that explicit application-commit scope. |
 | Swagger/OpenAPI | Exported | 147 operations across 123 paths; source-derived role/access and requirement metadata |
 | Source traceability | Generated | All 115 workbook rows; 104 mandatory and 11 bonuses; source text preserved |
 | Official seed | Passed locally and repeated | Eight airports, attractions, cities and countries; unique identifiers preserved |
 | Real FXRatesAPI | Passed | Backend fetched/cached the service's actual response; observed rate date recorded in HTTPS report |
 | Production dependency audit | See JSON evidence | `production-dependency-audit.json`; expected zero reported production advisories at this verification |
-| Development dependency audit | Low-severity findings remain | `dependency-audit.json`; deepmerge in the Jest toolchain has no nonbreaking patched upgrade offered by npm |
+| Development dependency audit | **Zero reported vulnerabilities on 19 November** | Fresh `npm audit --json`; see `dependency-audit.json`. Earlier low-severity results remain historical evidence rather than the current registry result. |
 
 Machine-readable reports are authoritative if counts change after a later run. Re-run the documented commands after changing the source. Tests are representative acceptance scenarios, not proof that every possible input or deployment has been covered.
 
@@ -51,6 +97,10 @@ Machine-readable reports are authoritative if counts change after a later run. R
 
 The temporary-download cleanup attempt was rejected by automatic approval review. That file was left untouched. Tests instead used an explicitly scoped disposable database on D:; the rejection did not prevent verification.
 
+The 14 November API audit also corrected Swagger's error examples, which previously showed statusCode 400 under every error status. Response-specific examples now match 400/401/403/404/409/500/503. A regression covers every operation; the rebuilt/restarted server's live OpenAPI check confirms the correction.
+
+The first 46-test run passed but measured only 87 exercised operations (80 with successful responses). New workflows filled the gaps. Initial expanded-test failures exposed incorrect test assumptions/fixtures (incomplete FX payload, treating flight preview as a saved hold, expecting database rather than API list identifiers, missing delete confirmation); these fixtures were corrected. Refresh deliberately returns 401 for invalid/missing CSRF combined with refresh credentials, whereas ordinary protected mutations return 403. The final 56-test run passed. No independent human approval is inferred.
+
 ## Coverage performed
 
 - Authentication validation, uniqueness, secure cookie attributes, role/CSRF enforcement, lockout, idle expiry, rotation, logout, suspension and temporary-password restrictions.
@@ -66,12 +116,12 @@ The temporary-download cleanup attempt was rejected by automatic approval review
 
 | Dependency / decision | Required next evidence |
 | --- | --- |
-| MongoDB Atlas | Configure the user's project, database user and IP access; seed/start against the intended Atlas database |
-| Stripe test account | Run a real PaymentIntent through the signed listener, verify confirmation, expiry/cancellation, and a real test refund |
-| SMTP test inbox | Enable email bonuses with configured SMTP and observe verification/reset/invitation/notification delivery |
-| GitHub | Connect the user's repository and push genuine commits; CI has been authored but not run by GitHub |
-| Human / instructor review | Confirm how the team-leader review rule applies to a solo submission; no reviewer has been invented |
-| Browser and frontend | A browser visual/accessibility review and all Next.js/UI requirements are still Milestone 2 work; HTTPS smoke is not browser interaction |
+| MongoDB Atlas | Connection, index/reference/admin seed, HTTPS authentication and core real Stripe booking/refund/expiry checks passed. Exhaustive concurrency and all financial edge cases still rely on disposable-replica-set scenarios. |
+| Stripe test account | Full core sandbox verification repeated successfully on 19 November. Actual higher/lower-fare Stripe changes also passed. Additional late-success, refund-failure and restart permutations retain representative fixture evidence. See `STRIPE_VERIFICATION_REPORT.md`. |
+| SMTP test inbox | Actual local SMTP test-inbox delivery passed 19 November; personal/internet mailbox delivery was not tested |
+| GitHub | Review branch published; actual CI passed for application commit `1ac0130` on 19 November. Release merges await the student's recorded review; no approval is invented. |
+| Sole student's human review | Review the actual source/version and perform the walkthrough using the solo discussion guide; record the real date/findings. No additional teammate or prior approval is invented |
+| Browser and frontend | Swagger rendering and public live-health navigation were checked in VS Code. Full browser workflow/accessibility review and all Next.js/UI requirements remain separate; automated HTTPS workflows are not 147 manual UI interactions. |
 
 ## Operational limits to retain in review
 

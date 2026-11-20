@@ -501,6 +501,30 @@ export class Inventory {
         session,
       );
   }
+  async invalidateHold(booking: any, reason: string, session: ClientSession) {
+    if (booking.status !== "Pending Payment" || booking.holdInvalidatedAt)
+      return;
+    // Release unusable inventory immediately without inventing a lifecycle
+    // transition. GEN-11 permits Expired only at the original hold deadline.
+    booking.holdInvalidatedAt = new Date();
+    booking.holdInvalidationReason = reason;
+    booking.revision += 1;
+    await booking.save({ session });
+    await this.release(
+      booking.snapshot,
+      booking.type,
+      booking._id,
+      true,
+      session,
+    );
+    if (booking.paymentId)
+      await this.ops.enqueue(
+        `cancel-payment:${booking.paymentId}`,
+        "cancel-payment",
+        { paymentId: String(booking.paymentId) },
+        session,
+      );
+  }
   async expireDue() {
     const time = new Date();
     const bookings = await this.db
@@ -520,7 +544,8 @@ export class Inventory {
           { session },
         );
         if (!b) return;
-        await this.release(b.snapshot, b.type, b._id, true, session);
+        if (!b.holdInvalidatedAt)
+          await this.release(b.snapshot, b.type, b._id, true, session);
         if (b.paymentId)
           await this.ops.enqueue(
             `cancel-payment:${b.paymentId}`,

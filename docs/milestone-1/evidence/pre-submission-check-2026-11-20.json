@@ -1,0 +1,62 @@
+{
+  "clientDate": "2026-11-20",
+  "outcome": "engineering checks passed; student actions remain",
+  "actor": "Assistant-executed verification and two additional AI read-only audits; not personal student execution",
+  "testedSubmissionCommit": "b5be49d4256a4826c0db139b8f0fc193ce182e16",
+  "method": "Fresh extraction of the exact source ZIP into a separate directory; no backend/.env copied; fresh npm ci on Node 22.23.5; real disposable MongoDB 8.2.6 replica set",
+  "sourceFilesAndLockfileMatched": 26,
+  "checks": {
+    "freshInstall": "passed: 606 packages installed, 0 reported vulnerabilities",
+    "typecheck": "passed",
+    "lint": "passed",
+    "unitAndHttpTests": 57,
+    "failedTests": 0,
+    "skippedTests": 0,
+    "successfulApiOperations": 148,
+    "anonymousChecks": 120,
+    "wrongRoleChecks": 100,
+    "missingCsrfChecks": 86,
+    "build": "passed",
+    "compiledHttpsAndActualFxChecks": 5,
+    "actualAtlasAuthenticationAndAbortedTransaction": "passed",
+    "actualStripeSandboxAuthentication": "passed",
+    "localSmtpHandshakeAndInbox": "passed",
+    "primaryCertificateVerifiedHttpsChecks": 11
+  },
+  "retryRecord": "Initial combined Atlas probe failed; direct rerun and the complete combined rerun passed. Initial attempt retained. No application defect or root cause was established.",
+  "additionalAiAudits": {
+    "requirementsAndCoreRules": "No concrete blocker found in targeted source review; 115 mappings and paths checked",
+    "artifactAndPublication": "ZIP/Git objects, specification hashes, secret exclusion, PDF and exact-commit GitHub CI passed"
+  },
+  "currentCiRuns": [
+    44806053769,
+    44806040895
+  ],
+  "priorLiveFinancialAndBonusEvidence": {
+    "date": "2026-11-19",
+    "corePaymentsAndRefunds": "passed",
+    "actualTenMinuteExpiry": "passed",
+    "bonusesVerified": 11,
+    "smtp": "Actual delivery to local Mailpit only",
+    "repeatedToday": false
+  },
+  "evidence": [
+    "submission-test-results-2026-11-20.json",
+    "submission-route-coverage-2026-11-20.json",
+    "submission-https-smoke-2026-11-20.json",
+    "submission-live-services-2026-11-20.json",
+    "submission-live-services-attempt1-2026-11-20.json"
+  ],
+  "releaseState": {
+    "branch": "feature/PAY-01-stripe-verification",
+    "defaultBranchContainsImplementation": true,
+    "draftPr": 1,
+    "developOlderBaseline": true,
+    "mainInitialSpecificationOnly": true,
+    "releaseMerged": false,
+    "portalSubmitted": false
+  },
+  "credentialRotation": "Student still unsure on 20 November; not confirmed by connectivity",
+  "ownerApproval": "Recorded 20 November for supplied explanations/documentation finalization; detailed personal test results not invented",
+  "submissionInstruction": "Use the exact verified ZIP/current feature version; do not identify main as the implemented backend. Rotate previously shared credentials privately before final use/submission."
+}

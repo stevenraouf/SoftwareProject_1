@@ -309,22 +309,11 @@ export class FlightsService {
             session,
           );
         else {
-          b.status = "Expired";
-          await b.save({ session });
-          await this.inventory.release(
-            b.snapshot,
-            "flight",
-            b._id,
-            true,
+          await this.inventory.invalidateHold(
+            b,
+            "Provider cancelled flight",
             session,
           );
-          if (b.paymentId)
-            await this.ops.enqueue(
-              `cancel-payment:${b.paymentId}`,
-              "cancel-payment",
-              { paymentId: String(b.paymentId) },
-              session,
-            );
         }
       }
       const changes = await this.db
