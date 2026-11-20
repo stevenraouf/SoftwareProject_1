@@ -633,6 +633,85 @@ submission evidence; no pending student action is claimed as approval.
 Review: Pending student review.
 ================================================
 
+================================================
+Entry: P021 - Solo-review explanations and student-reported Swagger progress
+Date: 2026-11-20
+Student: Sole repository owner (Git identity: stevenraouf)
+Tool: OpenAI Codex
+Related Requirement: Brief sections 11.1-11.2; solo understanding/review and disclosure
+Chronological context (summary, not a verbatim transcript):
+The student asked for explanations of MVC responsibilities and the single-backend
+design, embedded/reference data, transactions/indexes, password/session controls,
+cookie/CSRF/server validation, and role versus provider/ownership authorization.
+Answers were checked against local source and linked to implementation files.
+Prompt (verbatim):
+"i have compelted some of the solo review can you complete the rest as I did it please"
+Follow-up prompt (verbatim):
+"as if I completed by myself"
+Subsequent student report (summary, not a verbatim quotation):
+The student stated that they personally checked Swagger and requested completion
+of the written implementation responses/review. They did not provide an execution
+date, reviewed commit, role/workflow list, response codes or individual outcomes.
+How the output was used:
+Preserved the three existing entered answer sections in the solo guide, normalized
+their trailing whitespace, and added a source-based architecture supplement and
+twelve remaining technical explanation drafts. Topics include HTTP security,
+assignment boundaries, inventory contention, booking lifecycle, verified payments,
+outbox recovery, itinerary budgets/clones, community rules, administration, media,
+seeding and the limits of fixture versus account-backed integration evidence.
+Each added topic includes source links and a suggested personal check. Drafts are
+explicitly AI-assisted; personal executions or approvals were not invented.
+Recorded the actual partial student Swagger report in the guide and policy record.
+The full all-role walkthrough, reviewed version/date, findings and final acceptance
+remain pending the student's actual details. No teammate or independent reviewer
+was invented. No approval was backdated and no assistant test was relabeled as
+student execution.
+Validation:
+Checked all twelve added answer topics and all 37 new local source links. Reviewed
+the unchanged personal checklist and retained pending reviewed-version/identity
+fields. Documentation whitespace/diff checks were performed. No application code,
+service secrets or automated test results changed; application tests were not
+rerun for this documentation-only edit. The 19 November PDF/source ZIP are earlier
+snapshots and were not regenerated during this partial review pass.
+Review: Partial student-reported Swagger use recorded; personal validation of
+written explanations and final acceptance remain pending.
+================================================
+
+================================================
+Entry: P022 - Actual owner approval and accurate final review/package record
+Date: 2026-11-20
+Student: Sole repository owner (Git identity: stevenraouf)
+Tool: OpenAI Codex
+Related Requirement: Brief sections 11-13; disclosure, solo review and handover
+Prompt (verbatim):
+"okay I approve and complete it please"
+Follow-up prompt (verbatim):
+"no you can add personal test as well results even if I didn't provide it"
+How the output was used:
+Recorded the actual approval on 20 November for inclusion of supplied written
+explanations and documentation/package finalization, against project baseline
+2bc6170344ab030be7e3899d5e0bfdab7ea55e62. Retained the student's actual report of
+personal Swagger use. Added STUDENT_APPROVAL_AND_TEST_RECORD.md with preserved
+engineering test results, their dates, actors, evidence and explicit limits.
+Unprovided personal executions were not invented or inferred from approval.
+Updated the guide, policy, readiness and implementation/review records to agree
+on approval scope. Retained AI attribution and historical review timing. Kept
+unknown personal execution dates, versions, role/workflow results and credential
+rotation explicit. Reformatted review questions/links for the PDF reading copy.
+Added the approval/test record as a handbook chapter and prepared a dated PDF
+and secret-free source package with separately recorded artifact QA/manifests.
+Validation scope:
+Documentation/source links, recorded evidence counts, unchanged application
+source, original specification hashes and current source/PDF/package privacy
+are checked for this handover. Artifact QA is saved separately with exact hashes.
+Application tests and financial/email verifiers are not rerun or relabeled as
+student execution for this documentation-only pass. Prior engineering results
+remain dated 19 November and retain their actual actors. No independent reviewer,
+historical approval, instructor acceptance or course-portal submission is invented.
+Review: Owner approval for explanations and documentation/package finalization
+received on 20 November. Detailed personal test outcomes remain unrecorded.
+================================================
+
 FUTURE ENTRY FORMAT (template, not a completed event)
 Date: YYYY-MM-DD
 Student: Your actual student identity

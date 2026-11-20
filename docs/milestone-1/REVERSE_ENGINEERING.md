@@ -2,7 +2,7 @@
 
 This document explains the implementation delivered in this repository, how to reconstruct its behavior, and where its verification stops. It does not assert that an independent human reviewed the code or that unconfigured external accounts were exercised.
 
-The repository owner is the sole human student/developer. Codex is an AI tool, not another member. The chronological [prompt log](../../AI_PROMPTS.txt), [policy record](AI_POLICY_AND_SOLO_SUBMISSION.md), and [solo discussion guide](SOLO_REVIEW_AND_DISCUSSION_GUIDE.md) disclose assistance and identify the student's pending review and understanding obligations. Application-role accounts do not represent student collaborators.
+The repository owner is the sole human student/developer. Codex is an AI tool, not another member. The chronological [prompt log](../../AI_PROMPTS.txt), [policy record](AI_POLICY_AND_SOLO_SUBMISSION.md), [solo discussion guide](SOLO_REVIEW_AND_DISCUSSION_GUIDE.md) and [approval/test record](STUDENT_APPROVAL_AND_TEST_RECORD.md) disclose assistance and distinguish the owner's 20 November approval and reported Swagger use from assistant/automated execution. Detailed personal outcomes and understanding are not inferred from generated explanations. Application-role accounts do not represent student collaborators.
 
 ## 1. Reconstruct the project from its inputs
 
@@ -164,7 +164,7 @@ For a new feature: define DTOs, add explicit schema/index changes, enforce servi
 
 ## 11. Evidence and limits
 
-The final 19 November audit is summarized in `SUBMISSION_READINESS.md`: 57 tests, 148 operations, a fresh dependency installation, patched Node 22.23.5, verified HTTPS/FX, a new full real Stripe run and all 11 live bonuses. `BONUS_VERIFICATION.md` identifies actual SMTP test-inbox delivery, live fare differences, seat contention and financial reconciliation. Source, configuration and ordinary deployment are still separate from the sole student's pending review and unconfirmed credential rotation. The local launcher supports `NODE_RUNTIME_PATH` and an explicitly selected loopback Mailpit profile; neither installs a Windows startup service.
+The final 19 November audit is summarized in `SUBMISSION_READINESS.md`: 57 tests, 148 operations, a fresh dependency installation, patched Node 22.23.5, verified HTTPS/FX, a new full real Stripe run and all 11 live bonuses. `BONUS_VERIFICATION.md` identifies actual SMTP test-inbox delivery, live fare differences, seat contention and financial reconciliation. Owner approval for the supplied explanations and documentation/package finalization was received on 20 November; exact personal test outcomes and credential rotation remain unconfirmed. The local launcher supports `NODE_RUNTIME_PATH` and an explicitly selected loopback Mailpit profile; neither installs a Windows startup service.
 
 A follow-up coverage audit corrected an unspecified nine-seat group limit, inconsistent deactivated-reviewer labeling in hotel details, and partial-update handling that could erase omitted fields. Partial writes now copy only defined fields, preserve false/zero values, and reject invalid nulls. See `COVERAGE_AUDIT.md` for reproduced failures and outstanding acceptance evidence.
 

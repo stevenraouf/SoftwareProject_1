@@ -1,10 +1,10 @@
 # Milestone 1 submission readiness
 
-Checked on **19 November 2026**, for the planned **20 November 2026** submission.
+Engineering checks completed on **19 November 2026**; owner approval and handover updated on **20 November 2026**, Africa/Cairo.
 
 ## Verdict
 
-**Engineering verification passed. Student sign-off remains pending.** The sole student reported that their personal source review and Swagger walkthrough are not complete. Password rotation after earlier disclosure is also unconfirmed. These cannot truthfully be marked complete by an AI assistant.
+**Engineering verification passed. Owner approval for the supplied explanations and documentation/package finalization is recorded on 20 November.** The sole student reports personally checking Swagger. Specific personal execution dates, versions, roles and outcomes were not supplied; the recorded engineering results remain attributed to their actual assistant/automated executions. Password rotation after earlier disclosure remains unconfirmed. See the [approval and test record](STUDENT_APPROVAL_AND_TEST_RECORD.md).
 
 The backend, API documentation, requirements register, setup instructions, prompt log and reverse-engineering handover are present. All 104 mandatory workbook rows and 11 bonus rows are mapped. GEN-14 through GEN-17 are frontend-only Milestone 2 items; other UI portions are identified separately from their implemented backend support.
 
@@ -39,9 +39,11 @@ The workflow tests use fixture Stripe/SMTP adapters for repeatable edge cases. S
 
 ## Actions required from the sole student
 
+- [x] Approve inclusion of the supplied written explanations and documentation/package finalization: explicit user approval received 20 November 2026.
+- [x] Report personal Swagger use: the student confirmed this in the conversation; individual outcomes were not supplied.
 - [ ] Review the actual source and the material AI contributions. Work through [the solo review guide](SOLO_REVIEW_AND_DISCUSSION_GUIDE.md) and answer its questions in your own words.
 - [ ] Perform the [Swagger walkthrough](../api/SWAGGER_WALKTHROUGH.md) for guest, traveler, administrator, airline moderator and hotel moderator. Record actual results and any failures.
-- [ ] Enter your real reviewed commit/version, review date and findings in the policy record and solo guide. Do not backdate approval. Earlier review-before-integration timing cannot be established retrospectively; retain the honest disclosure and clarify course-specific solo review wording with the instructor if needed.
+- [ ] Add the exact version/date and findings from personal execution if available. Approval is recorded today against baseline `2bc6170344ab030be7e3899d5e0bfdab7ea55e62`; it does not establish historical pre-integration review timing. Retain honest disclosure and clarify course-specific solo wording with the instructor if needed.
 - [ ] Privately rotate the Atlas database password and application administrator password if you cannot confirm they were replaced after being shared. Never put replacements in chat, screenshots, Git or this checklist.
 - [ ] Check the course submission portal's required format, repository link and deadline. No submission portal action has been performed by the assistant.
 - [ ] Merge/release only after your actual review, then ensure the submitted branch/version is the one you reviewed. Genuine Codex authorship is preserved.
@@ -73,8 +75,8 @@ The current private local setup enables email bonuses. Newly registered traveler
 - [Source audit](evidence/source-audit-2026-11-19.json)
 - [Live bonus receipts](evidence/bonus-verification-2026-11-19.json)
 
-Human reviewer: **sole student; pending actual entry**.
+Human owner: **sole repository owner, Git identity `stevenraouf`**; formal student name/ID not supplied.
 
-Review date, reviewed version, findings and final acceptance: **pending student entry**.
+Owner approval: **20 November 2026**, for inclusion of the supplied explanations and documentation/package finalization. Personal Swagger use is reported; exact personal test outcomes remain unrecorded. [Approval and result attribution](STUDENT_APPROVAL_AND_TEST_RECORD.md) preserves this distinction.
 
-The review branch is `feature/PAY-01-stripe-verification`. Existing genuine `develop` and `main` histories were published without merging the audit changes. [Draft pull request 1](https://github.com/stevenraouf/SoftwareProject_1/pull/1) provides a concrete review target into `develop`; no reviewer, approval or release was invented. Review the final submitted version, including any later documentation-only handover commit, and retain the explicit tested application commit above.
+The review branch is `feature/PAY-01-stripe-verification`. Existing genuine `develop` and `main` histories were published without merging the audit changes. [Draft pull request 1](https://github.com/stevenraouf/SoftwareProject_1/pull/1) provides a concrete integration target. The final package manifest identifies the exact packaged documentation revision. Documentation approval does not invent an independent source review, detailed personal executions, release merge or portal submission; the explicit tested application commit above remains unchanged.

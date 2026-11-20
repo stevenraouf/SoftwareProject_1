@@ -2,13 +2,17 @@
 
 ## Current acceptance state
 
-The 19 November release audit passed 57 tests, all 148 API operation workflows, clean installation/build checks on Node 22.23.5, actual core Stripe/Atlas payment/refund/ten-minute-expiry checks and all 11 live bonus checks. Actual SMTP delivery uses a local development test inbox. See [submission readiness](SUBMISSION_READINESS.md) and [bonus evidence](BONUS_VERIFICATION.md). **The release gate remains open:** the sole student reported that personal review is not complete and earlier credential rotation is uncertain. Release merges and course acceptance remain pending. No exhaustive acceptance certificate or student approval is inferred. Milestone 2 UI work is separate.
+The 19 November release audit passed 57 tests, all 148 API operation workflows, clean installation/build checks on Node 22.23.5, actual core Stripe/Atlas payment/refund/ten-minute-expiry checks and all 11 live bonus checks. Actual SMTP delivery uses a local development test inbox. On 20 November the sole student reported personal Swagger use and explicitly approved including the supplied explanations and completing the documentation/package. See [the approval/test record](STUDENT_APPROVAL_AND_TEST_RECORD.md), [submission readiness](SUBMISSION_READINESS.md) and [bonus evidence](BONUS_VERIFICATION.md). Individual personal executions and credential rotation remain unconfirmed; release merges and course acceptance are not asserted. Milestone 2 UI work is separate.
 
 This is an AI-assisted engineering self-review. There is one human student/developer. No student approval, additional team member, GitHub publication or instructor acceptance is invented. The [policy record](AI_POLICY_AND_SOLO_SUBMISSION.md) distinguishes AI checks from the student's own review; a second teammate is not a prerequisite imposed by this repository.
 
 On 14 November 2026, the API audit expanded the suite from 46 to 56 passing tests and measured successful HTTP workflows for all 147 documented operations. The global permission matrix passed 120 anonymous, 100 wrong-role and 86 missing-CSRF checks. See [the API test report](API_TEST_REPORT.md). These workflows use an isolated real replica set and fixture Stripe/SMTP adapters; the live Atlas application was checked separately with 11 public GET requests. Operation coverage is not exhaustive requirement acceptance.
 
 ## Executed evidence
+
+### Owner approval and documentation finalization on 20 November 2026
+
+The student's actual approval message and reported Swagger use are recorded with their scope in [STUDENT_APPROVAL_AND_TEST_RECORD.md](STUDENT_APPROVAL_AND_TEST_RECORD.md). The guide includes the retained entered answers, twelve additional AI-assisted technical explanations, source references and suggested checks. Recorded engineering results are added as assistant/automated evidence; they are not relabeled as personal student execution. No new application behavior or test pass is inferred from this documentation-only update. The final PDF/package QA is recorded separately with the source revision and artifact hashes.
 
 ### Final submission audit on 19 November 2026
 
