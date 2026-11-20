@@ -10,6 +10,12 @@ On 14 November 2026, the API audit expanded the suite from 46 to 56 passing test
 
 ## Executed evidence
 
+### Fresh submission-package verification on 20 November 2026
+
+The exact `b5be49d` source ZIP was extracted into a separate directory with no private environment file. Fresh `npm ci` installed 606 packages and reported zero vulnerabilities. Typecheck, lint, the complete 57-test suite and 148-operation coverage, build and five compiled HTTPS/real-FX smoke checks passed on Node 22.23.5. Current source/test files and package/lockfile hashes matched that clean extraction.
+
+The running primary API passed eleven certificate-verified public requests, including Swagger and OpenAPI consistency. Actual Stripe sandbox authentication and the loopback SMTP/inbox connection passed. A first combined Atlas probe failed; direct authentication/aborted-transaction and combined reruns passed. Both attempts are retained without inventing a root cause. Full live financial/bonus evidence remains dated 19 November. Two additional AI read-only audits checked core rules and package/publication consistency and found no concrete release-blocking defect. See [the dated check record](evidence/pre-submission-check-2026-11-20.json). These results are assistant/automated executions; the student's personal results are not fabricated.
+
 ### Owner approval and documentation finalization on 20 November 2026
 
 The student's actual approval message and reported Swagger use are recorded with their scope in [STUDENT_APPROVAL_AND_TEST_RECORD.md](STUDENT_APPROVAL_AND_TEST_RECORD.md). The guide includes the retained entered answers, twelve additional AI-assisted technical explanations, source references and suggested checks. Recorded engineering results are added as assistant/automated evidence; they are not relabeled as personal student execution. No new application behavior or test pass is inferred from this documentation-only update. The final PDF/package QA is recorded separately with the source revision and artifact hashes.

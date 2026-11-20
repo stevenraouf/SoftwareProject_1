@@ -712,6 +712,46 @@ Review: Owner approval for explanations and documentation/package finalization
 received on 20 November. Detailed personal test outcomes remain unrecorded.
 ================================================
 
+================================================
+Entry: P023 - Fresh verification of the exact submission package
+Date: 2026-11-20
+Student: Sole repository owner (Git identity: stevenraouf)
+Tool: OpenAI Codex, including two delegated read-only AI audits
+Related Requirement: Milestone 1 release checks, all mandatory mappings and handover
+Prompt (verbatim):
+"is everything for milestone 1 is completed and work fine ? I want you to check so I can finally submit"
+Student clarification:
+The student remains unsure whether previously disclosed Atlas/application
+administrator passwords were rotated. No rotation confirmation is inferred.
+How the output was used:
+Extracted the exact b5be49d ZIP into a separate clean directory, copied no private
+environment file, and ran fresh npm ci on Node 22.23.5. The install added 606
+packages and reported zero vulnerabilities. Typecheck, lint, all 57 tests, all
+148 API operation workflows, the 120/100/86 anonymous/role/CSRF matrices, build
+and five compiled HTTPS/actual-FX smoke checks passed. Source/test/package hashes
+matched the package. Actual current Stripe sandbox authentication, local SMTP
+connection and eleven primary HTTPS/Swagger/OpenAPI checks passed. An initial
+combined Atlas check failed; direct and complete combined reruns passed. Kept
+the initial attempt and did not invent an application defect or a root cause.
+Two additional AI agents performed read-only source/requirements and artifact/
+publication audits. They found no concrete blocker, verified all 115 mappings,
+private-file/secret exclusion and exact-commit CI, and identified that main is
+still only the initial specification baseline. They are AI tools, not teammates,
+independent humans or additional student contributors.
+Added dated execution evidence and refreshed the readiness/test-attribution
+records. Full real financial/expiry and all-bonus verification remains dated
+19 November; it was not claimed as repeated or personally executed by the student.
+Retained the actual approval scope, uncertain rotation and unmerged release state.
+The final manifest identifies the exact source snapshot for submission. The
+student must use that ZIP/current implementation branch, not the old main branch.
+Validation: Fresh clean-install/test/build/HTTPS and current live connectivity
+passed; original application behavior was unchanged. Artifact QA/manifests record
+the subsequent documentation/package refresh. No personal result, approval date,
+instructor acceptance, release merge or portal submission was invented.
+Review: Engineering checks passed; actual student approval remains recorded with
+its real scope. Credential rotation and detailed personal observations are unconfirmed.
+================================================
+
 FUTURE ENTRY FORMAT (template, not a completed event)
 Date: YYYY-MM-DD
 Student: Your actual student identity

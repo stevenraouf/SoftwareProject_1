@@ -35,6 +35,8 @@ The results below come from preserved engineering evidence dated **19 November 2
 
 The [review guide](SOLO_REVIEW_AND_DISCUSSION_GUIDE.md) supplies explanations, source references and suggested checks. It is not a substitute for a record of personal execution. Any new student result should include the actual version, role/workflow, observed response, date and relevant findings, without credentials.
 
+On 20 November, the assistant repeated the clean installation, typecheck, lint, all 57 tests/148 API workflows, build, compiled HTTPS/FX smoke and current service-connectivity checks. Those fresh results are in the [pre-submission check](evidence/pre-submission-check-2026-11-20.json). They remain assistant/automated executions, not additional personal student test results. Two delegated read-only audits were additional AI checks, not other human team members.
+
 ## Scope and unresolved facts
 
 - SMTP evidence establishes delivery to a loopback Mailpit inbox, not a personal/internet mailbox.

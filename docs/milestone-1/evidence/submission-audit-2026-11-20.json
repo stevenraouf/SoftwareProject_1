@@ -23,10 +23,10 @@
   },
   "handbook": {
     "evidence": "handbook-qa-2026-11-20.json",
-    "pages": 104,
+    "pages": 105,
     "chapters": 18,
     "outcome": "passed",
-    "sha256": "d88119bd56b53c12484103e521b4065b2f76af799cab0e9e4a0bd9ca9b1771bc"
+    "sha256": "7379f3104a54dc012075fd12317b10e2285af6e24372b0f54e8df4d5e1b6b107"
   },
   "localSourceLinksChecked": 107,
   "originalSpecificationsUnchanged": true,
@@ -38,5 +38,7 @@
     "Complete release integration and course portal submission using the reviewed package version"
   ],
   "releaseMerged": false,
-  "portalSubmitted": false
+  "portalSubmitted": false,
+  "freshSubmissionCheck": "pre-submission-check-2026-11-20.json",
+  "freshCheckDate": "2026-11-20"
 }

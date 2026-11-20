@@ -8,6 +8,16 @@ Engineering checks completed on **19 November 2026**; owner approval and handove
 
 The backend, API documentation, requirements register, setup instructions, prompt log and reverse-engineering handover are present. All 104 mandatory workbook rows and 11 bonus rows are mapped. GEN-14 through GEN-17 are frontend-only Milestone 2 items; other UI portions are identified separately from their implemented backend support.
 
+## Fresh submission check on 20 November
+
+A fresh extraction of the exact verified ZIP at `b5be49d` passed a new dependency installation, type checking, lint, all **57 tests**, **148/148** successful API workflows, build and five compiled HTTPS/actual-FX checks on Node 22.23.5. No application secrets were copied into the clean test installation. The 120 anonymous, 100 wrong-role and 86 missing-CSRF checks passed again.
+
+Current Atlas authentication/aborted transaction, actual Stripe sandbox authentication, local SMTP connectivity and eleven certificate-verified public HTTPS/Swagger checks passed. An initial combined Atlas probe failed; a direct check and a complete combined rerun passed. The initial attempt is retained, and no application defect or specific root cause is inferred. The full real payment/refund/ten-minute-expiry and all-bonus runs remain dated 19 November; they were not relabeled as new runs or personal student execution.
+
+Two additional AI audits found no concrete source/package blocker. They verified requirements/implementation paths, core authorization/inventory/payment rules, archive-to-Git consistency, original source hashes, private-file/secret exclusions, the handbook and successful CI for the explicit packaged commit. These are AI checks, not independent human review. See [the fresh verification record](evidence/pre-submission-check-2026-11-20.json).
+
+**Submission version:** use the verified source ZIP or the current `feature/PAY-01-stripe-verification` version identified in its manifest. The repository default branch contains the implementation; `develop` is older and `main` still contains the initial specification baseline. Draft PR 1 remains unmerged. Do not give `main` as the completed backend. Password rotation remains unconfirmed after the student's latest response; follow the private steps below before final use/submission.
+
 ## Verification performed
 
 | Check | Result and scope |

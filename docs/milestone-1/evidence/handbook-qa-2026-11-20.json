@@ -2,10 +2,10 @@
   "clientDate": "2026-11-20",
   "outcome": "passed",
   "pdf": "output/pdf/MILESTONE_1_HANDBOOK_2026-11-20.pdf",
-  "sha256": "d88119bd56b53c12484103e521b4065b2f76af799cab0e9e4a0bd9ca9b1771bc",
-  "pages": 104,
+  "sha256": "7379f3104a54dc012075fd12317b10e2285af6e24372b0f54e8df4d5e1b6b107",
+  "pages": 105,
   "chapters": 18,
-  "renderedPages": 104,
+  "renderedPages": 105,
   "contactSheets": [
     "tmp/pdfs/final-2026-11-20/contact-1.jpg",
     "tmp/pdfs/final-2026-11-20/contact-2.jpg",
@@ -18,7 +18,7 @@
   "missingRequirementIds": [],
   "replacementGlyphs": 0,
   "pageBoundsIssues": [],
-  "localLinksChecked": 107,
+  "localLinksChecked": 110,
   "configuredSecretValuesChecked": 6,
   "configuredSecretMatches": [],
   "applicationTestAndLockfileUnchanged": true,
@@ -34,5 +34,7 @@
   "credentialRotation": "unconfirmed",
   "releaseMerged": false,
   "portalSubmitted": false,
-  "visualInspection": "All 104 rendered pages inspected in seven contact sheets; the new approval/test page was also inspected at full size. No overlap, clipping or unreadable layout found."
+  "freshCleanPackageTestDate": "2026-11-20",
+  "freshCleanPackageEvidence": "pre-submission-check-2026-11-20.json",
+  "visualInspection": "Additional AI read-only visual QA inspected all 105 pages through seven contact sheets and full-size pages 6, 41 and 85. No clipping, overlap, broken tables or footer collision found. This is not independent human review."
 }
