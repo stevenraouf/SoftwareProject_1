@@ -752,6 +752,74 @@ Review: Engineering checks passed; actual student approval remains recorded with
 its real scope. Credential rotation and detailed personal observations are unconfirmed.
 ================================================
 
+================================================
+Entry: P024 - Complete the written solo-review response
+Date: 2026-11-20
+Student: Sole repository owner (Git identity: stevenraouf)
+Tool: OpenAI Codex, with an additional read-only AI completeness check
+Related Requirement: Brief sections 11.1-11.2; implementation understanding and disclosure
+Prompt (verbatim):
+"can you fill the rest because I don't have the time to write the answers by myself please"
+Context:
+The student clarified that they had entered answers into the solo-review guide.
+Their screenshot showed an unsaved-editor indicator. The saved guide already
+contained all 15 technical answers, but its first three sections needed editorial
+cleanup and the student requested a completed written response.
+How the output was used:
+Created SOLO_REVIEW_COMPLETED_ANSWERS.md as a clean completed companion copy,
+preserving the original guide and potentially unsaved editor work. Polished the
+MVC/schema/authentication wording and formatting, retained all remaining technical
+answers with source links, and added recorded verification results, actual
+findings/corrections, a supported student-response paraphrase and review conclusion.
+The response clearly discloses AI assistance. It uses the student's real Swagger
+report/approval and the recorded assistant/automated execution results; it does
+not invent individual personal tests, a formal student ID or instructor acceptance.
+Detailed credential rotation and personal execution facts remain unconfirmed.
+Validation:
+All 15 questions have 15 answer sections; all 51 local links resolve. The original
+guide's SHA-256 is unchanged. Additional read-only AI review found no unanswered
+technical subquestion or substantive factual correction in the source guide.
+No application code, secrets or test results changed; no application tests were
+rerun for this written-response edit. The completed companion is a local new
+document; the existing verified PDF/ZIP remains its prior publication snapshot.
+Review: AI-assisted written answers completed. Actual owner approval and student
+Swagger use retain their recorded scope; personal executions are not fabricated.
+================================================
+
+================================================
+Entry: P025 - Prepare the exact files and repository link for form submission
+Date: 2026-11-20
+Student: Sole repository owner (Git identity: stevenraouf)
+Tool: OpenAI Codex, with a read-only GitHub accessibility check by an AI agent
+Related Requirement: Milestone 1 handover and submission; ongoing AI disclosure
+Prompt (verbatim):
+"I want to submit please tell me the steps :"
+Provided context:
+The form requires a GitHub repository link and one project ZIP without
+node_modules, with a maximum upload size of 10 MB.
+How the output was used:
+Confirmed public unauthenticated access and that the default branch contains
+the implemented backend. Added the completed written-review companion to the
+repository/ZIP and README, retaining the original guide and honest AI attribution.
+Recorded the earlier requested archive move of the tracked 19-Nov handbook;
+older PDF editions remain outside the submission archive. The existing 20-Nov
+PDF remains the verified reading-copy snapshot; the latest completed answers
+and prompt log are available as Markdown in the refreshed source archive.
+Checked exact-commit ZIP consistency, required files, absence of node_modules,
+private configuration/runtime data and configured secret values, and the form's
+10-MB limit. Retained genuine Codex-authored history and normal publication to
+the existing implementation branch. No application code or test behavior changed.
+Validation:
+The published repository is public, and the default branch contains backend
+source. Prior clean-package and CI checks remain linked to their exact source
+versions; backend source/test/package objects are unchanged by this handover.
+Package hashes/size and final publication/CI are recorded in the local manifest.
+No form was filled or submitted by the assistant. Instructions describe only
+the visible fields plus the user's final review and confirmation.
+Review: Written-answer and packaging work is AI-assisted. Individual personal
+test outcomes and credential rotation are not invented or inferred.
+================================================
+
 FUTURE ENTRY FORMAT (template, not a completed event)
 Date: YYYY-MM-DD
 Student: Your actual student identity

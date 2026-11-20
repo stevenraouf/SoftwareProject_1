@@ -4,6 +4,8 @@ NestJS 12 / TypeScript backend for Software Project I, Milestone 1. The reposito
 
 **Solo project:** the repository owner is the only human student/developer. Codex is an AI tool, not a team member. Substantial code, tests and documentation were AI-assisted; the disclosure is in [AI_PROMPTS.txt](AI_PROMPTS.txt). See the [policy and deliverable record](docs/milestone-1/AI_POLICY_AND_SOLO_SUBMISSION.md) and [your review/discussion guide](docs/milestone-1/SOLO_REVIEW_AND_DISCUSSION_GUIDE.md). Your own review and understanding remain your responsibility; no completed student review is claimed.
 
+The [completed written review answers](docs/milestone-1/SOLO_REVIEW_COMPLETED_ANSWERS.md) provide all fifteen technical explanations, actual verification results and the recorded review summary. This clean companion preserves the original editable guide and accurately distinguishes AI-assisted writing, automated evidence and student-reported Swagger use. The source ZIP includes this companion separately from the existing PDF reading copy.
+
 The supplied workbook remains the business-rule authority. The frontend and its visual requirements belong to Milestone 2. See [strategy and workflow](docs/milestone-1/STRATEGY_PLAN_WORKFLOW.md), [verification record](docs/milestone-1/REVIEW_AND_VERIFICATION.md), [requirements matrix](docs/requirements/TRACEABILITY.md), and [reverse engineering](docs/milestone-1/REVERSE_ENGINEERING.md).
 
 The [follow-up coverage audit](docs/milestone-1/COVERAGE_AUDIT.md) records additional reproduced and fixed gaps. Passing local tests is not an unconditional claim of complete submission acceptance.
