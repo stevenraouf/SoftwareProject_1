@@ -86,6 +86,11 @@ export class FlightsService {
     Object.assign(p, definedFields(dto));
     return p.save();
   }
+  async flightDirectory(actor: Actor, id: string, page: number) {
+    const airline = await this.airline(id);
+    manageProvider(actor, airline);
+    return paginated(this.db.model("Flight"), { airlineId: airline._id }, page, { departureAt: -1, _id: 1 });
+  }
   async policy(actor: Actor, id: string, dto: CancellationPolicyDto) {
     const p = await this.airline(id);
     manageProvider(actor, p);
@@ -529,6 +534,12 @@ export class AirlinesController {
   @ApiOperation({ summary: "FLT-01 View airline profile" })
   get(@Param("id") id: string) {
     return this.flights.airline(id);
+  }
+  @Get(":id/flights")
+  @Roles("AirlineModerator")
+  @ApiOperation({ summary: "FLT-03 FLT-05 List the assigned airline's flight inventory" })
+  directory(@Req() r: Request, @Param("id") id: string, @Query() q: PageDto) {
+    return this.flights.flightDirectory(actorOf(r), id, q.page);
   }
   @Patch(":id")
   @Roles("AirlineModerator")

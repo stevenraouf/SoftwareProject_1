@@ -279,9 +279,10 @@ beforeAll(async () => {
 }, 180000);
 afterAll(async () => {
   if (coverageReport) {
-    await mkdir(resolve("../docs/milestone-1/evidence"), { recursive: true });
+    const evidenceDir = resolve(process.env.TEST_EVIDENCE_DIR || "../docs/milestone-1/evidence");
+    await mkdir(evidenceDir, { recursive: true });
     await writeFile(
-      resolve("../docs/milestone-1/evidence/api-route-coverage.json"),
+      resolve(evidenceDir,"api-route-coverage.json"),
       JSON.stringify(coverageReport(), null, 2),
     );
   }
@@ -896,6 +897,7 @@ describe("Boundary, provider and integration adapter regressions", () => {
       const mail = await db
         .model("Outbox")
         .findOne({ key: `verify:${r.body.id}` });
+      expect(new URL(mail.payload.text).pathname).toEqual(process.env.WEB_APP_ORIGIN ? "/verify-email" : "/api/auth/verify-email");
       const raw = mail.payload.text.split("token=")[1];
       expect(
         (await send("get", `/auth/verify-email?token=${raw}`)).status,
@@ -1680,11 +1682,15 @@ describe("Itineraries, privacy, community and bonuses", () => {
       city: "cairo",
     });
     const second = r.body.days[1]._id;
-    await send("post", `/itineraries/${id}/days/${first}/activities`, users.a, {
+    const activity = await send("post", `/itineraries/${id}/days/${first}/activities`, users.a, {
       name: "Museum",
+      time: "09:30",
       cost: 10,
       currency: "USD",
     });
+    const activityPath = `/activities/${activity.body.days[0].activities[0]._id}`;
+    expect((await send("patch", activityPath, users.a, { time: "25:10" })).status).toBe(400);
+    expect((await send("patch", activityPath, users.a, { time: "" })).body.days[0].activities[0].time).toBe("");
     await send("post", `/itineraries/${id}/days/${first}/budgets`, users.a, {
       category: "Food",
       amount: 500,
@@ -1742,6 +1748,9 @@ describe("Itineraries, privacy, community and bonuses", () => {
     expect(
       (await send("post", `/posts/${id}/like`, users.b)).body.likeCount,
     ).toBe(1);
+    expect((await send("get", `/posts/${id}`, users.b)).body.likedByMe).toBe(true);
+    expect((await send("get", `/posts/${id}`, users.a)).body.likedByMe).toBe(false);
+    expect((await send("get", `/posts/${id}`)).body.likedByMe).toBe(false);
     r = await send("post", `/posts/${id}/comments`, users.b, {
       body: "Helpful!",
     });
@@ -1928,6 +1937,10 @@ describe("Itineraries, privacy, community and bonuses", () => {
         })
       ).status,
     ).toBe(409);
+    const otherMap = await send("get", `/flight-bookings/${b.body._id}/seats`, users.b);
+    expect(otherMap.body[0].seats.find((seat: any) => seat.label === "1A")).toEqual({
+      label: "1A", available: false, selected: false,
+    });
     const original = await db.get("Booking", a.body._id);
     const newer = await makeFlight("CHEAPER", 4, 1);
     newer.cabins[0].price = 80;
@@ -1981,6 +1994,8 @@ describe("Itineraries, privacy, community and bonuses", () => {
         "payload.subject": "Reset your password",
       })
       .sort({ createdAt: -1 });
+    const resetLink = new URL(firstMail.payload.text.split(" ").at(-1));
+    expect(resetLink.pathname).toEqual(process.env.WEB_APP_ORIGIN ? "/reset" : "/api/auth/reset-password");
     const firstRaw = firstMail.payload.text.match(/token=([a-f0-9]{64})/)[1];
     const form = await send("get", `/auth/reset-password?token=${firstRaw}`);
     expect(form.status).toBe(200);
@@ -2110,6 +2125,23 @@ describe("Complete operation workflows on independent fixtures", () => {
     }
     air = await login("coverage-air@example.test");
     host = await login("coverage-host@example.test");
+  });
+
+  test("staff inventory directories enforce role and provider scope", async () => {
+    const providers = await ok("get", "/admin/providers", users.admin);
+    expect(providers.body.pageSize).toBe(10);
+    expect((await send("get", "/admin/providers", air)).status).toBe(403);
+    for (const [base, resource, assigned, foreign, moderator] of [
+      ["airlines", "flights", carrier._id, airline._id, air],
+      ["hotels", "rooms", lodging._id, hotel._id, host],
+    ] as const) {
+      const path = `/${base}/${assigned}/${resource}`;
+      const directory = await ok("get", path, moderator);
+      expect(directory.body.items).toEqual([]);
+      expect(directory.body.pageSize).toBe(10);
+      expect((await send("get", path, owner)).status).toBe(403);
+      expect((await send("get", `/${base}/${foreign}/${resource}`, moderator)).status).toBe(403);
+    }
   });
 
   test("reference lists, current account and administrative views return their documented data", async () => {
@@ -2296,7 +2328,15 @@ describe("Complete operation workflows on independent fixtures", () => {
     expect(
       (await ok("get", `/payments/${payment.id}`, owner)).body.status,
     ).toBe("Succeeded");
-    await ok("get", `/flight-bookings/${id}/seats`, owner);
+    await ok("patch", `/flight-bookings/${id}/seat`, owner, {
+      flightId: scheduled._id,
+      labels: ["1B"],
+    });
+    const seatMap = (await ok("get", `/flight-bookings/${id}/seats`, owner)).body[0].seats;
+    expect(seatMap.find((seat: any) => seat.label === "1B")).toMatchObject({
+      selected: true, passengerIndex: 0,
+    });
+    expect(seatMap.filter((seat: any) => !seat.selected).every((seat: any) => seat.passengerIndex === undefined)).toBe(true);
     await ok("get", `/flight-bookings/${id}/e-ticket`, owner);
     const replacement = await db.model("Flight").create({
       airlineId: carrier._id,

@@ -93,6 +93,11 @@ export class HotelsService {
     manageProvider(actor, h);
     return this.db.model("Room").create({ ...dto, hotelId: h._id });
   }
+  async roomDirectory(actor: Actor, hotelId: string, page: number) {
+    const hotel = await this.hotel(hotelId);
+    manageProvider(actor, hotel);
+    return paginated(this.db.model("Room"), { hotelId: hotel._id }, page, { number: 1, _id: 1 });
+  }
   async managedRoom(
     actor: Actor,
     hotelId: string,
@@ -441,6 +446,12 @@ export class HotelsController {
   @ApiOperation({ summary: "HTL-01 Edit assigned hotel profile" })
   edit(@Req() r: Request, @Param("id") id: string, @Body() d: PatchHotelDto) {
     return this.hotels.edit(actorOf(r), id, d);
+  }
+  @Get(":id/rooms")
+  @Roles("HotelModerator")
+  @ApiOperation({ summary: "HTL-03 HTL-05 List the assigned hotel's active and inactive rooms" })
+  directory(@Req() r: Request, @Param("id") id: string, @Query() q: PageDto) {
+    return this.hotels.roomDirectory(actorOf(r), id, q.page);
   }
   @Post(":id/rooms")
   @Roles("HotelModerator")

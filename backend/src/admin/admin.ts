@@ -377,6 +377,11 @@ export class AdminController {
   accounts(@Query() q: AccountQueryDto) {
     return this.admin.accounts(q);
   }
+  @Get("providers")
+  @ApiOperation({ summary: "ACC-13 ACC-15 List providers for assignment and status management" })
+  providers(@Query() q: PageDto) {
+    return paginated(this.admin.db.model("Provider"), {}, q.page, { name: 1, _id: 1 });
+  }
   @Post("users/:id/reset-password")
   @ApiOperation({ summary: "ACC-07a Set a temporary password" })
   reset(

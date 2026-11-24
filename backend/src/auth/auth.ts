@@ -60,6 +60,19 @@ export async function passwordMatches(password: string, encoded: string) {
 export const Public = () => SetMetadata("public", true);
 export const Roles = (...roles: string[]) => SetMetadata("roles", roles);
 export const actorOf = (req: Request) => (req as any).actor as Actor;
+export function accountEmailLink(
+  action: "verify-email" | "reset-password",
+  token: string,
+  webOrigin = process.env.WEB_APP_ORIGIN,
+  apiOrigin = process.env.APP_ORIGIN || "https://localhost:3443",
+) {
+  const path = webOrigin
+    ? action === "verify-email" ? "/verify-email" : "/reset"
+    : "/api/auth/" + action;
+  const link = new URL(path, webOrigin || apiOrigin);
+  link.searchParams.set("token", token);
+  return link.toString();
+}
 export function safeUser(user: any) {
   return {
     id: String(user._id),
@@ -102,7 +115,7 @@ export class AuthService {
       await this.ops.enqueue(`verify:${user.id}`, "email", {
         to: user.email,
         subject: "Verify your email",
-        text: `${process.env.APP_ORIGIN}/api/auth/verify-email?token=${raw}`,
+        text: accountEmailLink("verify-email", raw),
       });
     }
     return safeUser(user);
@@ -328,7 +341,7 @@ export class AuthService {
       await this.ops.enqueue(`reset:${hash(raw)}`, "email", {
         to: user.email,
         subject: "Reset your password",
-        text: `Reset your password using this single-use link within 30 minutes: ${process.env.APP_ORIGIN || "https://localhost:3443"}/api/auth/reset-password?token=${raw}`,
+        text: `Reset your password using this single-use link within 30 minutes: ${accountEmailLink("reset-password", raw)}`,
       });
     }
     return {

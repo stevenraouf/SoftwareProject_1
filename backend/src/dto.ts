@@ -406,7 +406,10 @@ export class ReorderDto {
 export class ActivityDto {
   @Text(1, 150) name!: string;
   @Text(0, 10000, true) description?: string;
-  @Text(5, 5, true) @Matches(/^([01]\d|2[0-3]):[0-5]\d$/) time?: string;
+  // An empty value clears the time when an activity becomes unscheduled.
+  @Text(0, 5, true)
+  @Matches(/^(?:([01]\d|2[0-3]):[0-5]\d)?$/, { message: "Use HH:mm or leave time empty" })
+  time?: string;
   @Num(0, 1e8, false, true) cost?: number;
   @Currency(true) currency?: string;
 }

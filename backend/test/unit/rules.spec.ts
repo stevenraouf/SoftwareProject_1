@@ -8,11 +8,24 @@ import {
   overlaps,
   refundPercent,
 } from "../../src/common.js";
-import { passwordHash, passwordMatches } from "../../src/auth/auth.js";
+import { accountEmailLink, passwordHash, passwordMatches } from "../../src/auth/auth.js";
 import { validateImage } from "../../src/media/media.js";
 import { PNG } from "pngjs";
 
 describe("Business rules and safe primitives", () => {
+  test.each([
+    ["verify-email", "https://aeris.example.test", "/verify-email"],
+    ["reset-password", "https://aeris.example.test/", "/reset"],
+    ["verify-email", "", "/api/auth/verify-email"],
+    ["reset-password", "", "/api/auth/reset-password"],
+  ] as const)("builds the %s email action for its configured origin", (action, web, path) => {
+    const apiOrigin="https://api.example.test";
+    const link = new URL(accountEmailLink(action, "test-token", web, apiOrigin));
+    expect(link.origin).toBe(web ? new URL(web).origin : apiOrigin);
+    expect(link.pathname).toBe(path);
+    expect(link.searchParams.get("token")).toBe("test-token");
+  });
+
   test("hotel dates use a half-open range, including leap days", () => {
     expect(nights("2028-02-28", "2028-03-01")).toEqual([
       "2028-02-28",

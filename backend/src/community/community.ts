@@ -103,13 +103,16 @@ export class CommunityService {
       { createdAt: 1 },
     );
     const author = await this.publicAuthor(p.userId);
-    const likeCount = await this.db
-      .model("Like")
-      .countDocuments({ postId: p._id });
+    const likes = this.db.model("Like");
+    const [likeCount, ownLike] = await Promise.all([
+      likes.countDocuments({ postId: p._id }),
+      actor ? likes.exists({ postId: p._id, userId: oid(actor.id) }) : null,
+    ]);
     return {
       ...p.toObject(),
       author,
       likeCount,
+      likedByMe: Boolean(ownLike),
       comments: {
         ...comments,
         items: await Promise.all(

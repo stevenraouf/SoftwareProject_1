@@ -2304,6 +2304,164 @@
         ]
       }
     },
+    "/api/airlines/{id}/flights": {
+      "get": {
+        "operationId": "AirlinesController_directory",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "minimum": 1,
+              "maximum": 1000000,
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          },
+          "400": {
+            "description": "See common API error; operation-specific message explains the rejected rule",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                },
+                "example": {
+                  "statusCode": 400,
+                  "message": "Validation failed",
+                  "errors": [
+                    {
+                      "field": "email",
+                      "messages": [
+                        "email must be an email"
+                      ]
+                    }
+                  ],
+                  "timestamp": "2026-01-01T00:00:00.000Z"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "See common API error; operation-specific message explains the rejected rule",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                },
+                "example": {
+                  "statusCode": 401,
+                  "message": "Authentication required",
+                  "timestamp": "2026-01-01T00:00:00.000Z"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "See common API error; operation-specific message explains the rejected rule",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                },
+                "example": {
+                  "statusCode": 403,
+                  "message": "You do not have permission for this operation",
+                  "timestamp": "2026-01-01T00:00:00.000Z"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "See common API error; operation-specific message explains the rejected rule",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                },
+                "example": {
+                  "statusCode": 404,
+                  "message": "Resource not found",
+                  "timestamp": "2026-01-01T00:00:00.000Z"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "See common API error; operation-specific message explains the rejected rule",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                },
+                "example": {
+                  "statusCode": 409,
+                  "message": "The request conflicts with the current resource state",
+                  "timestamp": "2026-01-01T00:00:00.000Z"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Unexpected server error (details withheld)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                },
+                "example": {
+                  "statusCode": 500,
+                  "message": "Internal server error",
+                  "timestamp": "2026-01-01T00:00:00.000Z"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "See common API error; operation-specific message explains the rejected rule",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                },
+                "example": {
+                  "statusCode": 503,
+                  "message": "Required external service is unavailable or not configured",
+                  "timestamp": "2026-01-01T00:00:00.000Z"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "cookie": []
+          }
+        ],
+        "summary": "FLT-03 FLT-05 List the assigned airline's flight inventory",
+        "tags": [
+          "Airlines"
+        ],
+        "x-access": "AirlineModerator",
+        "description": "Access: AirlineModerator. Ownership and provider assignment are enforced in services.",
+        "x-requirements": [
+          "FLT-03",
+          "FLT-05"
+        ]
+      }
+    },
     "/api/airlines/{id}/cancellation-policy": {
       "put": {
         "operationId": "AirlinesController_policy",
@@ -4834,6 +4992,162 @@
       }
     },
     "/api/hotels/{id}/rooms": {
+      "get": {
+        "operationId": "HotelsController_directory",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "minimum": 1,
+              "maximum": 1000000,
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          },
+          "400": {
+            "description": "See common API error; operation-specific message explains the rejected rule",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                },
+                "example": {
+                  "statusCode": 400,
+                  "message": "Validation failed",
+                  "errors": [
+                    {
+                      "field": "email",
+                      "messages": [
+                        "email must be an email"
+                      ]
+                    }
+                  ],
+                  "timestamp": "2026-01-01T00:00:00.000Z"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "See common API error; operation-specific message explains the rejected rule",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                },
+                "example": {
+                  "statusCode": 401,
+                  "message": "Authentication required",
+                  "timestamp": "2026-01-01T00:00:00.000Z"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "See common API error; operation-specific message explains the rejected rule",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                },
+                "example": {
+                  "statusCode": 403,
+                  "message": "You do not have permission for this operation",
+                  "timestamp": "2026-01-01T00:00:00.000Z"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "See common API error; operation-specific message explains the rejected rule",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                },
+                "example": {
+                  "statusCode": 404,
+                  "message": "Resource not found",
+                  "timestamp": "2026-01-01T00:00:00.000Z"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "See common API error; operation-specific message explains the rejected rule",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                },
+                "example": {
+                  "statusCode": 409,
+                  "message": "The request conflicts with the current resource state",
+                  "timestamp": "2026-01-01T00:00:00.000Z"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Unexpected server error (details withheld)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                },
+                "example": {
+                  "statusCode": 500,
+                  "message": "Internal server error",
+                  "timestamp": "2026-01-01T00:00:00.000Z"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "See common API error; operation-specific message explains the rejected rule",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                },
+                "example": {
+                  "statusCode": 503,
+                  "message": "Required external service is unavailable or not configured",
+                  "timestamp": "2026-01-01T00:00:00.000Z"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "cookie": []
+          }
+        ],
+        "summary": "HTL-03 HTL-05 List the assigned hotel's active and inactive rooms",
+        "tags": [
+          "Hotels and rooms"
+        ],
+        "x-access": "HotelModerator",
+        "description": "Access: HotelModerator. Ownership and provider assignment are enforced in services.",
+        "x-requirements": [
+          "HTL-03",
+          "HTL-05"
+        ]
+      },
       "post": {
         "operationId": "HotelsController_room",
         "parameters": [
@@ -18018,6 +18332,156 @@
         ]
       }
     },
+    "/api/admin/providers": {
+      "get": {
+        "operationId": "AdminController_providers",
+        "parameters": [
+          {
+            "name": "page",
+            "required": false,
+            "in": "query",
+            "schema": {
+              "minimum": 1,
+              "maximum": 1000000,
+              "type": "number"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          },
+          "400": {
+            "description": "See common API error; operation-specific message explains the rejected rule",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                },
+                "example": {
+                  "statusCode": 400,
+                  "message": "Validation failed",
+                  "errors": [
+                    {
+                      "field": "email",
+                      "messages": [
+                        "email must be an email"
+                      ]
+                    }
+                  ],
+                  "timestamp": "2026-01-01T00:00:00.000Z"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "See common API error; operation-specific message explains the rejected rule",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                },
+                "example": {
+                  "statusCode": 401,
+                  "message": "Authentication required",
+                  "timestamp": "2026-01-01T00:00:00.000Z"
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "See common API error; operation-specific message explains the rejected rule",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                },
+                "example": {
+                  "statusCode": 403,
+                  "message": "You do not have permission for this operation",
+                  "timestamp": "2026-01-01T00:00:00.000Z"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "See common API error; operation-specific message explains the rejected rule",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                },
+                "example": {
+                  "statusCode": 404,
+                  "message": "Resource not found",
+                  "timestamp": "2026-01-01T00:00:00.000Z"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "See common API error; operation-specific message explains the rejected rule",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                },
+                "example": {
+                  "statusCode": 409,
+                  "message": "The request conflicts with the current resource state",
+                  "timestamp": "2026-01-01T00:00:00.000Z"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Unexpected server error (details withheld)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                },
+                "example": {
+                  "statusCode": 500,
+                  "message": "Internal server error",
+                  "timestamp": "2026-01-01T00:00:00.000Z"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "See common API error; operation-specific message explains the rejected rule",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                },
+                "example": {
+                  "statusCode": 503,
+                  "message": "Required external service is unavailable or not configured",
+                  "timestamp": "2026-01-01T00:00:00.000Z"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "cookie": []
+          }
+        ],
+        "summary": "ACC-13 ACC-15 List providers for assignment and status management",
+        "tags": [
+          "Administration"
+        ],
+        "x-access": "Admin",
+        "description": "Access: Admin. Ownership and provider assignment are enforced in services.",
+        "x-requirements": [
+          "ACC-13",
+          "ACC-15"
+        ]
+      }
+    },
     "/api/admin/users/{id}/reset-password": {
       "post": {
         "operationId": "AdminController_reset",
@@ -24208,7 +24672,7 @@
           },
           "time": {
             "type": "string",
-            "minLength": 5,
+            "minLength": 0,
             "maxLength": 5
           },
           "cost": {
@@ -24329,7 +24793,7 @@
           },
           "time": {
             "type": "string",
-            "minLength": 5,
+            "minLength": 0,
             "maxLength": 5
           },
           "cost": {

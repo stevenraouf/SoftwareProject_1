@@ -144,7 +144,12 @@ export class BookingsService {
       .model("Refund")
       .find({ bookingId: b._id })
       .lean();
-    return { ...b.toObject(), refunds };
+    const pendingChange = b.type === "flight" && b.status === "Confirmed"
+      ? await this.db.model("FlightChange").findOne({
+          bookingId: b._id, status: "Pending Payment", expiresAt: { $gt: new Date() },
+        }).select("_id").lean()
+      : null;
+    return { ...b.toObject(), refunds, ...(pendingChange ? { pendingChangeId: pendingChange._id } : {}) };
   }
   async policies(actor: Actor, type: string, id: string) {
     const b = await this.own(actor, id);
@@ -277,7 +282,8 @@ export class BookingsService {
       .text(`Status: ${b.status}`)
       .text(`Total: ${b.amount.toFixed(2)} ${b.currency}`)
       .moveDown();
-    for (const s of b.snapshot.segments)
+    const seats = await this.db.model("Seat").find({ bookingId: b._id }).lean();
+    for (const s of b.snapshot.segments) {
       pdf
         .text(`${s.airlineName} ${s.flightNumber} - ${s.cabin}`)
         .text(`${s.departureAirport} -> ${s.arrivalAirport}`)
@@ -290,8 +296,13 @@ export class BookingsService {
             .toISO()}`,
         )
         .moveDown();
-    for (const p of b.snapshot.passengers)
-      pdf.text(`${p.fullName} (${p.type}) - extra bags: ${p.extraBags}`);
+      b.snapshot.passengers.forEach((p: any, i: number) => {
+        const seat = seats.find((a: any) => same(a.flightId, s.flightId) && a.passengerIndex === i);
+        const assignment = p.type === "infant" ? "Adult's lap" : seat?.label || "Unassigned";
+        pdf.text(`${p.fullName} (${p.type}) - Seat: ${assignment} - Extra bags: ${p.extraBags}`);
+      });
+      pdf.moveDown();
+    }
     pdf.end();
   }
   async change(actor: Actor, id: string, dto: FlightChangeDto) {
@@ -452,6 +463,7 @@ export class BookingsService {
   }
   async seatMap(actor: Actor, id: string) {
     const b = await this.own(actor, id);
+    if (b.type !== "flight") throw new BadRequestException("Wrong booking type");
     const maps = [];
     for (const s of b.snapshot.segments) {
       const f = await this.db.get("Flight", s.flightId);
@@ -466,10 +478,12 @@ export class BookingsService {
         seats: Array.from({ length: c.capacity }, (_, i) => {
           const label = `${Math.floor(i / 6) + 1}${"ABCDEF"[i % 6]}`;
           const seat = occupied.find((x: any) => x.label === label);
+          const selected = !!seat && same(seat.bookingId, b._id);
           return {
             label,
-            available: !seat || same(seat.bookingId, b._id),
-            selected: !!seat && same(seat.bookingId, b._id),
+            available: !seat || selected,
+            selected,
+            ...(selected ? { passengerIndex: seat.passengerIndex } : {}),
           };
         }),
       });

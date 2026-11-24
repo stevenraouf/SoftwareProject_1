@@ -1,6 +1,6 @@
 # API endpoint coverage
 
-148 operations across 123 paths. This index is derived from the exported OpenAPI document.
+151 operations across 125 paths. This index is derived from the exported OpenAPI document.
 
 | Method | Path | Requirements | Access |
 | --- | --- | --- | --- |
@@ -19,6 +19,7 @@
 | DELETE | `/api/users/me` | ACC-12 | Any authenticated account |
 | POST | `/api/airlines` | FLT-01 | Admin |
 | GET | `/api/airlines/{id}` | FLT-01 | Public (authentication optional) |
+| GET | `/api/airlines/{id}/flights` | FLT-03, FLT-05 | AirlineModerator |
 | PATCH | `/api/airlines/{id}` | FLT-01 | AirlineModerator |
 | PUT | `/api/airlines/{id}/cancellation-policy` | FLT-09 | AirlineModerator |
 | PUT | `/api/airlines/{id}/baggage-policy` | FLT-08 | AirlineModerator |
@@ -35,6 +36,7 @@
 | GET | `/api/hotels/search` | HTL-11, HTL-12 | Public (authentication optional) |
 | GET | `/api/hotels/{id}` | HTL-02 | Public (authentication optional) |
 | PATCH | `/api/hotels/{id}` | HTL-01 | HotelModerator |
+| GET | `/api/hotels/{id}/rooms` | HTL-03, HTL-05 | HotelModerator |
 | POST | `/api/hotels/{id}/rooms` | HTL-03 | HotelModerator |
 | PATCH | `/api/hotels/{id}/rooms/{roomId}` | HTL-05, HTL-06 | HotelModerator |
 | DELETE | `/api/hotels/{id}/rooms/{roomId}` | HTL-06 | HotelModerator |
@@ -116,6 +118,7 @@
 | GET | `/api/hotels/{id}/reviews` | HTL-24 | Public (authentication optional) |
 | POST | `/api/reviews/{id}/reply` | HTL-26 | HotelModerator |
 | POST | `/api/reports` | GEN-09 | User |
+| GET | `/api/admin/providers` | ACC-13, ACC-15 | Admin |
 | POST | `/api/admin/moderators` | ACC-13 | Admin |
 | GET | `/api/admin/accounts` | ACC-14 | Admin |
 | POST | `/api/admin/users/{id}/reset-password` | ACC-07a | Admin |
