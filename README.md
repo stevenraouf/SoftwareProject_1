@@ -1,5 +1,49 @@
 # Travel Planning and Booking Platform
 
+## Milestone 2 · AERIS web application
+
+The repository contains the Next.js frontend in `frontend/` and the NestJS API in `backend/`. The AERIS aircraft-window design covers desktop and mobile discovery, traveler bookings, itineraries, community content, and provider and administrator workspaces.
+
+- [Combined project handbook (PDF)](output/pdf/AERIS_PROJECT_HANDBOOK.pdf) opens at the Milestone 2 chapter. Its PDF bookmarks include the 105 archived backend pages.
+- [Frontend handover and verification](docs/milestone-2/HANDOVER.md) describes the application architecture, each role, setup, service dependencies and review evidence.
+- [Original backend handbook](output/pdf/MILESTONE_1_HANDBOOK_2026-11-20.pdf) covers the November 20 release.
+
+**Verified on 24 November 2026.** Backend lint/build, 62/62 Jest tests, all 151 REST operations, frontend type checking/production build and 14/14 Edge browser workflows passed. The configured D: API reached Atlas and Stripe sandbox checks succeeded. A new browser card payment awaits a matching publishable test key. See the handover for the exact environments, remaining human review and reproduction steps.
+
+### Start the integrated site on Windows
+
+On Steven's configured PC, run **START_AERIS.cmd** from the D: project root. A fresh checkout needs the local setup below first.
+
+**Terminal A.** Begin in the root of the checkout you want to run. From that folder, copy `.env.example` to `backend/.env` if creating a new local configuration. Complete the private Atlas, administrator, signing and test-service settings described under **Configure the external services** below. Include `https://localhost:3000` in the backend's `CORS_ORIGINS`. Then run:
+
+```powershell
+Set-Location backend
+npm.cmd ci
+npm.cmd run certs
+npm.cmd run seed
+npm.cmd run start:local
+```
+
+Open the printed Swagger URL in your browser and trust the localhost certificate. **Terminal B.** From the same checkout root, install and start the frontend:
+
+```powershell
+Set-Location frontend
+npm.cmd ci
+if (!(Test-Path -LiteralPath .env.local)) { Copy-Item .env.example .env.local }
+npm.cmd run dev
+```
+
+Open [AERIS on localhost](https://localhost:3000). To enable browser checkout, set `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY` in `frontend/.env.local` to the publishable test key from the backend's Stripe sandbox. Keep Stripe secret keys, webhook secrets, Atlas credentials and session secrets in private backend configuration. Restart the frontend after local environment changes. For a production build, run `npm.cmd run typecheck`, `npm.cmd run build`, then `npm.cmd start` from `frontend`.
+
+After installing dependencies, generating local certificates and building both projects, run **START_AERIS.cmd** from the repository root to start the integrated site. On this PC the D: launcher serves the frontend at https://localhost:3000 and the API at https://localhost:3444; an ignored local configuration selects the existing backend environment. Fresh checkouts use port 3443 by default. The ignored root `.env.local` can set `AERIS_BACKEND_ENV`, `AERIS_API_PORT` and `AERIS_FRONTEND_PORT` to keep the two project versions side by side. For this D: checkout, run `node scripts/start-aeris.mjs --stripe` in a separate terminal to start the webhook listener for its selected API port. After initial signing-secret setup, restart the backend and keep the listener running for the sandbox exercise.
+
+For isolated browser verification, build both applications, generate the certificates, install Microsoft Edge, then run `npm.cmd run test:browser` from `frontend`. The tests start a dedicated HTTPS frontend (3300), a dedicated API (3445), and a temporary MongoDB replica set. The first run requires access to download MongoDB 8.2.6 or a compatible cached binary.
+
+To regenerate the combined PDF on Windows or Linux, install ReportLab, pypdf 6 or later, PyMuPDF and Pillow in a Python environment, then run `python scripts/export_project_handbook.py` from the repository root. The original backend PDF and the Markdown handover are its inputs. Rendered verification pages go under `tmp/milestone-2-handbook/`.
+
+## Milestone 1 · backend release notes
+
+
 NestJS 12 / TypeScript backend for Software Project I, Milestone 1. The repository includes mandatory backend functionality, the 11 workbook bonus feature implementations, Swagger/OpenAPI, official reference seeds, automated tests, and an implementation handover.
 
 **Solo project:** the repository owner is the only human student/developer. Codex is an AI tool, not a team member. Substantial code, tests and documentation were AI-assisted; the disclosure is in [AI_PROMPTS.txt](AI_PROMPTS.txt). See the [policy and deliverable record](docs/milestone-1/AI_POLICY_AND_SOLO_SUBMISSION.md) and [your review/discussion guide](docs/milestone-1/SOLO_REVIEW_AND_DISCUSSION_GUIDE.md). Your own review and understanding remain your responsibility; no completed student review is claimed.

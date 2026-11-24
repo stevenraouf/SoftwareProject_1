@@ -1,0 +1,93 @@
+{
+  "executedAt": "2026-11-24T19:02:06.270Z",
+  "browser": "Microsoft Edge",
+  "scope": "Production Next.js application, HTTPS NestJS API, isolated MongoDB replica set, synthetic accounts. One explicitly seeded confirmed ticket. No live card entry.",
+  "passed": 14,
+  "total": 14,
+  "cases": [
+    {
+      "spec": "account.spec.ts",
+      "name": "traveler signs in, updates a profile using secure cookies, and signs out",
+      "status": "passed",
+      "durationMs": 7021
+    },
+    {
+      "spec": "booking.spec.ts",
+      "name": "traveler selects a fare, adds baggage and creates an authenticated hold",
+      "status": "passed",
+      "durationMs": 4496
+    },
+    {
+      "spec": "booking.spec.ts",
+      "name": "traveler books two available hotel rooms and sees the stay policy",
+      "status": "passed",
+      "durationMs": 5543
+    },
+    {
+      "spec": "booking.spec.ts",
+      "name": "confirmed traveler selects a seat, reopens the ticket, and downloads the PDF",
+      "status": "passed",
+      "durationMs": 5483
+    },
+    {
+      "spec": "booking.spec.ts",
+      "name": "guest round-trip fare review preserves the return leg and offers a sign-in handoff",
+      "status": "passed",
+      "durationMs": 3266
+    },
+    {
+      "spec": "booking.spec.ts",
+      "name": "flight price filters give an actionable empty result",
+      "status": "passed",
+      "durationMs": 1077
+    },
+    {
+      "spec": "discovery.spec.ts",
+      "name": "a traveler budgets a day, publishes the plan and a guest reads the itinerary",
+      "status": "passed",
+      "durationMs": 5423
+    },
+    {
+      "spec": "discovery.spec.ts",
+      "name": "a journal author publishes, adds and removes a like, and edits and deletes a comment",
+      "status": "passed",
+      "durationMs": 5500
+    },
+    {
+      "spec": "home.spec.ts",
+      "name": "the desktop cabin has eight local photographs and localized arrivals",
+      "status": "passed",
+      "durationMs": 3554
+    },
+    {
+      "spec": "home.spec.ts",
+      "name": "the phone menu and same-page flight shortcut work without horizontal overflow",
+      "status": "passed",
+      "durationMs": 1910
+    },
+    {
+      "spec": "home.spec.ts",
+      "name": "tablet windows fit the viewport",
+      "status": "passed",
+      "durationMs": 978
+    },
+    {
+      "spec": "staff.spec.ts",
+      "name": "administrator creates a provider, changes its status and inspects the audit trail",
+      "status": "passed",
+      "durationMs": 3308
+    },
+    {
+      "spec": "staff.spec.ts",
+      "name": "airline moderator schedules a flight, adds a cabin, and is denied the admin directory",
+      "status": "passed",
+      "durationMs": 4373
+    },
+    {
+      "spec": "staff.spec.ts",
+      "name": "hotel moderator adds a room and verifies its bookable nights",
+      "status": "passed",
+      "durationMs": 5134
+    }
+  ]
+}
