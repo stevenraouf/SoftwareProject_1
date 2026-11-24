@@ -1,32 +1,12 @@
 import { spawn } from "node:child_process";
-import { existsSync, readFileSync, mkdirSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 import https from "node:https";
-import net from "node:net";
+import { ensureLocalMailpit, listening } from "./local-mailpit.mjs";
 import { resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { config } from "dotenv";
 
 const backend = fileURLToPath(new URL("../", import.meta.url));
-
-function listening(port) {
-  return new Promise((resolveResult, reject) => {
-    const socket = net.createConnection({ host: "127.0.0.1", port });
-    socket.setTimeout(3000);
-    socket.once("connect", () => {
-      socket.destroy();
-      resolveResult(true);
-    });
-    socket.once("error", (error) => {
-      socket.destroy();
-      if (error.code === "ECONNREFUSED") resolveResult(false);
-      else reject(new Error("Cannot check the local API port."));
-    });
-    socket.once("timeout", () => {
-      socket.destroy();
-      reject(new Error("The local API port check timed out."));
-    });
-  });
-}
 
 function healthy(port, ca) {
   return new Promise((resolveResult) => {
@@ -109,63 +89,7 @@ async function main() {
     process.exitCode = result.code;
     return;
   }
-  if (
-    process.env.ENABLE_EMAIL_BONUS === "true" &&
-    process.env.SMTP_TEST_INBOX === "mailpit"
-  ) {
-    if (!["127.0.0.1", "localhost"].includes(process.env.SMTP_HOST))
-      throw new Error(
-        "The Mailpit development profile requires a loopback SMTP_HOST.",
-      );
-    const smtpPort = Number(process.env.SMTP_PORT || 1025);
-    const inboxPort = Number(process.env.MAILPIT_HTTP_PORT || 8025);
-    if (
-      ![smtpPort, inboxPort].every(
-        (value) => Number.isInteger(value) && value > 0 && value < 65536,
-      )
-    )
-      throw new Error("Configure valid local SMTP and Mailpit HTTP ports.");
-    if (!(await listening(smtpPort))) {
-      if (!process.env.MAILPIT_PATH || !existsSync(process.env.MAILPIT_PATH))
-        throw new Error(
-          "Install Mailpit and set MAILPIT_PATH privately, or configure a different SMTP test provider. See README.",
-        );
-      mkdirSync(resolve(backend, ".local"), { recursive: true });
-      const inbox = spawn(
-        process.env.MAILPIT_PATH,
-        [
-          "--listen",
-          `127.0.0.1:${inboxPort}`,
-          "--smtp",
-          `127.0.0.1:${smtpPort}`,
-          "--database",
-          resolve(backend, ".local/release-mailpit.db"),
-          "--disable-version-check",
-          "--smtp-disable-rdns",
-        ],
-        { cwd: backend, detached: true, windowsHide: true, stdio: "ignore" },
-      );
-      let launchFailed = false;
-      inbox.on("error", () => {
-        launchFailed = true;
-      });
-      inbox.unref();
-      const deadline = Date.now() + 10000;
-      while (
-        !launchFailed &&
-        Date.now() < deadline &&
-        !(await listening(smtpPort))
-      )
-        await new Promise((done) => setTimeout(done, 300));
-      if (launchFailed || !(await listening(smtpPort)))
-        throw new Error(
-          "The local SMTP test inbox could not start. Check Mailpit's configured paths and ports.",
-        );
-    }
-    console.log(
-      `SMTP test inbox: http://127.0.0.1:${inboxPort} (local delivery only)`,
-    );
-  }
+  await ensureLocalMailpit(backend, process.env);
   const port = Number(process.env.PORT || 3443);
   if (!Number.isInteger(port) || port < 1 || port > 65535)
     throw new Error("Set PORT to a valid port number in backend/.env.");

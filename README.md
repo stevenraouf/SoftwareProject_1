@@ -12,9 +12,9 @@ The repository contains the Next.js frontend in `frontend/` and the NestJS API i
 
 ### Start the integrated site on Windows
 
-On Steven's configured PC, run **START_AERIS.cmd** from the D: project root. A fresh checkout needs the local setup below first.
+On Steven's PC, open **D:\Steven_Software_project_M2** and double-click **START_AERIS.cmd**. This folder contains both milestones and the private backend configuration. The launcher starts the [website](https://localhost:3000) and [Swagger UI](https://localhost:3444/api/docs). Use this folder for development and demonstrations. **D:\Steven_Software_project_M1_Archive** preserves the original checkout and its Git history for reference.
 
-**Terminal A.** Begin in the root of the checkout you want to run. From that folder, copy `.env.example` to `backend/.env` if creating a new local configuration. Complete the private Atlas, administrator, signing and test-service settings described under **Configure the external services** below. Include `https://localhost:3000` in the backend's `CORS_ORIGINS`. Then run:
+**Fresh checkout, terminal A.** Begin at the repository root. Copy `.env.example` to `backend/.env` when creating a new configuration. Complete the private Atlas, administrator, signing and test-service settings under **Configure the external services**. Include `https://localhost:3000` in the backend's `CORS_ORIGINS`. Run the following commands.
 
 ```powershell
 Set-Location backend
@@ -35,7 +35,7 @@ npm.cmd run dev
 
 Open [AERIS on localhost](https://localhost:3000). To enable browser checkout, set `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY` in `frontend/.env.local` to the publishable test key from the backend's Stripe sandbox. Keep Stripe secret keys, webhook secrets, Atlas credentials and session secrets in private backend configuration. Restart the frontend after local environment changes. For a production build, run `npm.cmd run typecheck`, `npm.cmd run build`, then `npm.cmd start` from `frontend`.
 
-After installing dependencies, generating local certificates and building both projects, run **START_AERIS.cmd** from the repository root to start the integrated site. On this PC the D: launcher serves the frontend at https://localhost:3000 and the API at https://localhost:3444; an ignored local configuration selects the existing backend environment. Fresh checkouts use port 3443 by default. The ignored root `.env.local` can set `AERIS_BACKEND_ENV`, `AERIS_API_PORT` and `AERIS_FRONTEND_PORT` to keep the two project versions side by side. For this D: checkout, run `node scripts/start-aeris.mjs --stripe` in a separate terminal to start the webhook listener for its selected API port. After initial signing-secret setup, restart the backend and keep the listener running for the sandbox exercise.
+After installing dependencies, generating local certificates and building both projects, run **START_AERIS.cmd** from the repository root. The active checkout's ignored root `.env.local` points to its own `backend/.env` with `AERIS_BACKEND_ENV=backend/.env`. It sets `AERIS_API_PORT=3444` on this PC. The standard launcher defaults to API port 3443 on a fresh checkout. To receive sandbox webhooks, run `node scripts/start-aeris.mjs --stripe` in a separate terminal at the active root. Restart the backend after the first signing-secret setup and keep the listener running.
 
 For isolated browser verification, build both applications, generate the certificates, install Microsoft Edge, then run `npm.cmd run test:browser` from `frontend`. The tests start a dedicated HTTPS frontend (3300), a dedicated API (3445), and a temporary MongoDB replica set. The first run requires access to download MongoDB 8.2.6 or a compatible cached binary.
 
@@ -59,8 +59,8 @@ The [follow-up coverage audit](docs/milestone-1/COVERAGE_AUDIT.md) records addit
 Use a currently patched Node.js 22 release and npm. Release checks passed with Node 22.23.5; `.nvmrc` pins that patched 22 release. The optional private `NODE_RUNTIME_PATH` lets the local launcher use a separately installed Node executable without changing Windows globally. Git, network access, and an Atlas account are required for the application. Tests use a disposable local MongoDB replica set rather than your Atlas database.
 
 ```powershell
-Set-Location C:\Users\User\Desktop\Steven_Software_project
-Copy-Item .env.example backend/.env
+Set-Location D:\Steven_Software_project_M2
+if (!(Test-Path -LiteralPath backend/.env)) { Copy-Item .env.example backend/.env }
 Set-Location backend
 npm.cmd ci
 npm.cmd run certs

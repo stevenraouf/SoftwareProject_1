@@ -4,6 +4,7 @@ import { resolve, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 import { parseEnv } from "node:util";
 import https from "node:https";
+import { ensureLocalMailpit } from "../backend/scripts/local-mailpit.mjs";
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const readEnv = (file) =>
   existsSync(file) ? parseEnv(readFileSync(file, "utf8")) : {};
@@ -88,6 +89,7 @@ if (process.argv.includes("--stripe")) {
     AERIS_API_PORT: String(apiPort),
   });
 } else {
+  await ensureLocalMailpit(resolve(root, "backend"), backendEnv);
   const running = await probe("/api/openapi.json");
   if (running && !running.paths?.["/api/admin/providers"])
     throw Error(

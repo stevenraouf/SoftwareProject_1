@@ -831,6 +831,17 @@ Validation: The backend lint and build passed, with 62/62 Jest tests and 151/151
 Review: Student review and independent first-time phone observations are pending unless separately completed and recorded. Codex was used as a tool; no additional human contributors or approvals are claimed.
 ================================================
 
+================================================
+Date: 2026-11-24
+Student: Steven (sole student)
+Tool: OpenAI Codex
+Related requirement: Milestones 1 and 2 local setup and handover
+Prompt summary: Continue development on D: and keep both milestones accessible.
+How the output was used: Codex moved the active runtime settings and local test mailbox to D:, preserved the original Milestone 1 checkout and submission artifacts, and updated the launchers to reuse the same mailbox. The combined PDF documents the integrated checkout. New VS Code terminals in that checkout use D: for project temporary files and development caches.
+Validation: File checksums and junction targets were compared. The website, Swagger and Atlas health check responded over local HTTPS. Launching AERIS twice reused the same services.
+Review: AI-assisted documentation and technical checks. Personal review is recorded separately.
+================================================
+
 FUTURE ENTRY FORMAT (template, not a completed event)
 Date: YYYY-MM-DD
 Student: Your actual student identity
