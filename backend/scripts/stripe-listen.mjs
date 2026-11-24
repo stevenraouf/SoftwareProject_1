@@ -3,7 +3,7 @@ import { fileURLToPath } from "node:url";
 import { spawn } from "node:child_process";
 import { parse } from "dotenv";
 
-const envPath = fileURLToPath(new URL("../.env", import.meta.url));
+const envPath = process.env.AERIS_BACKEND_ENV || fileURLToPath(new URL("../.env", import.meta.url));
 const env = parse(readFileSync(envPath, "utf8"));
 if (!env.STRIPE_SECRET_KEY?.startsWith("sk_test_")) {
   console.error(
@@ -16,7 +16,7 @@ if (binary !== "stripe" && !existsSync(binary)) {
   console.error("The configured Stripe CLI executable was not found.");
   process.exit(1);
 }
-const port = Number(env.PORT || 3443);
+const port = Number(process.env.AERIS_API_PORT || env.PORT || 3443);
 const child = spawn(
   binary,
   [
