@@ -94,12 +94,14 @@ function StripeForm({
 export function Checkout({
   id,
   type,
+  currency,
   expires,
   existingPayment,
   onChanged,
 }: {
   id: string;
   type: "flight" | "hotel" | "change";
+  currency: string;
   expires: string;
   existingPayment?: string;
   onChanged: () => void;
@@ -108,10 +110,8 @@ export function Checkout({
     compiledKey.startsWith("pk_test_") ? compiledKey : "",
   );
   useEffect(() => {
-    const runtimeKey = document
-      .querySelector<HTMLMetaElement>('meta[name="aeris-stripe-public"]')
-      ?.content.trim();
-    if (runtimeKey)
+    const runtimeKey = window.aerisConfig?.stripePublic;
+    if (runtimeKey !== undefined)
       configureKey(runtimeKey.startsWith("pk_test_") ? runtimeKey : "");
   }, []);
   const change = type === "change",
@@ -185,7 +185,7 @@ export function Checkout({
             <p key={s.flightId}>
               Leg {i + 1} · {s.cabin} · {s.freeBags} checked bags at{" "}
               {s.bagWeightKg} kg each · up to {s.maxExtraBags} extra at{" "}
-              {money(s.extraBagPrice)} each
+              {money(s.extraBagPrice, currency)} each
             </p>
           ))}
           {policy.data.policies.checkInTime && (

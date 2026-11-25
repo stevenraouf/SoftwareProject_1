@@ -3,6 +3,7 @@ import { useEffect, useRef, useState, type ReactNode } from "react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useSession } from "@/lib/session";
+import { localReturn } from "@/lib/api";
 
 const navigation = [
   ["/flights", "Flights"],
@@ -66,8 +67,18 @@ export function Shell({ children }: { children: ReactNode }) {
   }, [reduced]);
   useEffect(() => {
     setMenu(false);
-    if (user?.forcePasswordChange && !["/password", "/account"].includes(path))
-      router.replace("/password");
+    if (
+      user?.forcePasswordChange &&
+      !["/password", "/account"].includes(path)
+    ) {
+      const next =
+        path === "/login"
+          ? localReturn(new URLSearchParams(window.location.search).get("next"))
+          : null;
+      router.replace(
+        next ? "/password?next=" + encodeURIComponent(next) : "/password",
+      );
+    }
     if (prior.current === path) return;
     prior.current = path;
     if (reduced || matchMedia("(prefers-reduced-motion: reduce)").matches)

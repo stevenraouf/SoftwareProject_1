@@ -3,21 +3,24 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState, type FormEvent } from "react";
 import { api } from "@/lib/api";
+import { useFormErrors } from "@/lib/form-errors";
 
-const places = [
-  ["CDG", "France", "Paris", "Bonjour", "fr", "Charles de Gaulle"],
-  ["HND", "Japan", "Tokyo", "こんにちは", "ja", "Haneda"],
-  ["CAI", "Egypt", "Cairo", "أهلًا", "ar", "Cairo International"],
-  ["LHR", "UK", "London", "Hello", "en", "Heathrow"],
-  ["DXB", "UAE", "Dubai", "مرحبًا", "ar", "Dubai International"],
-  ["JFK", "USA", "New York", "Hi there", "en", "John F. Kennedy"],
-  ["RUH", "Saudi Arabia", "Riyadh", "يا هلا", "ar", "King Khalid"],
-  ["FRA", "Germany", "Frankfurt", "Hallo", "de", "Frankfurt Airport"],
-] as const;
+import { places } from "@/lib/destinations";
 
 type Airport = { iata_code: string; name: string; city?: string };
 function FlightBar({ arrival }: { arrival: string }) {
   const router = useRouter();
+  const { errors, setErrors, formEvents } = useFormErrors();
+  const errorProps = (field: string) => ({
+    "aria-invalid": errors[field] ? true : undefined,
+    "aria-describedby": errors[field] ? "flight-error-" + field : undefined,
+  });
+  const fieldError = (field: string) =>
+    errors[field] && (
+      <small role="alert" className="invalid" id={"flight-error-" + field}>
+        {errors[field]}
+      </small>
+    );
   const [airports, setAirports] = useState<Airport[]>([]),
     [round, setRound] = useState(false),
     [date, setDate] = useState("");
@@ -49,8 +52,17 @@ function FlightBar({ arrival }: { arrival: string }) {
     const values = new FormData(event.currentTarget);
     const origin = String(values.get("departureAirport")).toUpperCase().trim(),
       to = String(values.get("arrivalAirport")).toUpperCase().trim();
+    for (const [field, code] of [
+      ["departureAirport", origin],
+      ["arrivalAirport", to],
+    ]) {
+      if (airports.length && !airports.some((a) => a.iata_code === code)) {
+        setErrors({ [field]: "Choose an airport from the airport directory." });
+        return;
+      }
+    }
     if (origin === to) {
-      setHint("Choose different departure and arrival airports.");
+      setErrors({ arrivalAirport: "Choose a different arrival airport." });
       return;
     }
     const query = new URLSearchParams({
@@ -64,7 +76,12 @@ function FlightBar({ arrival }: { arrival: string }) {
     router.push("/flights?" + query);
   }
   return (
-    <form id="find-flight" className="flightbar panel" onSubmit={submit}>
+    <form
+      id="find-flight"
+      className="flightbar panel"
+      onSubmit={submit}
+      {...formEvents}
+    >
       <div className="section-line">
         <h2>Find a flight</h2>
         <select
@@ -82,24 +99,28 @@ function FlightBar({ arrival }: { arrival: string }) {
           <input
             aria-label="Departure airport"
             name="departureAirport"
+            {...errorProps("departureAirport")}
             list="airport-options"
             required
             pattern="[A-Za-z]{3}"
             maxLength={3}
             defaultValue={arrival === "CAI" ? "DXB" : "CAI"}
           />
+          {fieldError("departureAirport")}
         </label>
         <label>
           To
           <input
             aria-label="Arrival airport"
             name="arrivalAirport"
+            {...errorProps("arrivalAirport")}
             list="airport-options"
             required
             pattern="[A-Za-z]{3}"
             maxLength={3}
             defaultValue={arrival}
           />
+          {fieldError("arrivalAirport")}
         </label>
         <datalist id="airport-options">
           {airports.map((a) => (
@@ -112,16 +133,26 @@ function FlightBar({ arrival }: { arrival: string }) {
           Departure
           <input
             type="date"
+            name="departureDate"
+            {...errorProps("departureDate")}
             aria-label="Departure date"
             required
             value={date}
             onChange={(e) => setDate(e.target.value)}
           />
+          {fieldError("departureDate")}
         </label>
         {round && (
           <label>
             Return
-            <input type="date" name="returnDate" min={date} required />
+            <input
+              type="date"
+              name="returnDate"
+              min={date}
+              required
+              {...errorProps("returnDate")}
+            />
+            {fieldError("returnDate")}
           </label>
         )}
         <details className="quick-passengers">
@@ -134,12 +165,15 @@ function FlightBar({ arrival }: { arrival: string }) {
               Adults
               <input
                 type="number"
+                name="adults"
+                {...errorProps("adults")}
                 min="1"
                 max="1000"
                 required
                 value={adults}
                 onChange={(e) => setAdults(+e.target.value)}
               />
+              {fieldError("adults")}
             </label>
             <label>
               Cabin
@@ -226,7 +260,7 @@ export function WindowHome({ destination }: { destination?: string }) {
             <p>
               {airport} · {code}
             </p>
-            <Link href={"/stays?city=" + encodeURIComponent(city)}>
+            <Link href={"/stays?destination=" + encodeURIComponent(city)}>
               Find a stay in {city} →
             </Link>
           </section>

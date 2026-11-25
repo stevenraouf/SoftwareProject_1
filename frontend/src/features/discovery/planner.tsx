@@ -1,10 +1,13 @@
 "use client";
 
+import { FieldError } from "@/lib/form-errors";
+
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { api, apiUrl } from "@/lib/api";
 import { useSession } from "@/lib/session";
+import { discoveryList, type InitialList } from "@/lib/discovery-list";
 import {
   Action,
   authorLink,
@@ -31,31 +34,18 @@ import {
 import { DayDetails, DayForm } from "./day";
 import { TravelTools } from "./plan-travel";
 
-export function Planner() {
+export function Planner({ initial }: { initial?: InitialList<Page<Row>> }) {
   const refs = useRefs(),
     { user } = useSession(),
     search = useSearchParams(),
     router = useRouter();
-  const traveler = user?.role === "User",
-    tab = search.get("section") || "public",
-    page = Math.max(1, Number(search.get("page")) || 1);
-  const filters = Object.fromEntries(
-    ["q", "city", "country", "minDays", "maxDays"].map((k) => [
-      k,
-      search.get(k) || "",
-    ]),
-  );
+  const traveler = user?.role === "User";
+  const { tab, page, filters, publicPath } = discoveryList("planner", search);
   const go = (data: Fields) => router.push("/planner?" + query(data));
   const path =
-    tab === "mine"
-      ? traveler
-        ? "/itineraries?page=" + page
-        : null
-      : tab === "create"
-        ? null
-        : "/itineraries/public/search?" +
-          query({ ...filters, page: String(page) });
-  const result = useResource<Page<Row>>(path);
+    tab === "mine" && traveler ? "/itineraries?page=" + page : publicPath;
+  const seed = initial?.path === publicPath ? initial : undefined;
+  const result = useResource<Page<Row>>(path, seed?.data);
   const member = (target: string) => (traveler ? target : signInLink(target));
   return (
     <>
@@ -155,7 +145,8 @@ export function Planner() {
                 action="Search itineraries"
                 onSave={async (v) => {
                   if (v.minDays && v.maxDays && +v.maxDays < +v.minDays)
-                    throw new Error(
+                    throw new FieldError(
+                      "maxDays",
                       "Maximum days must be at least minimum days.",
                     );
                   go(v);
@@ -192,7 +183,7 @@ export function Planner() {
                   );
                 })}
               </div>
-              {!result.data.total && (
+              {!result.data.items.length && (
                 <p className="panel">
                   {tab === "mine"
                     ? "Your first itinerary starts with a title and a date."
@@ -202,11 +193,20 @@ export function Planner() {
               <Pager
                 page={page}
                 pages={result.data.pages}
+                href={
+                  publicPath
+                    ? (n) =>
+                        "/planner?" + query({ ...filters, page: String(n) })
+                    : undefined
+                }
                 go={(n) => go({ ...filters, section: tab, page: String(n) })}
               />
             </>
           ) : (
-            <LoadState error={result.error} retry={result.reload} />
+            <LoadState
+              error={result.error || seed?.error}
+              retry={result.reload}
+            />
           )}
         </>
       )}
@@ -270,12 +270,14 @@ function Budget({ plan }: { plan: Plan }) {
   );
 }
 
-export function PlanPage({ id }: { id: string }) {
+export function PlanPage({ id, initial }: { id: string; initial?: Plan }) {
   const { user, loading } = useSession(),
     refs = useRefs(),
     router = useRouter();
   const result = useResource<Plan>(
-    loading ? null : (user ? "/itineraries/" : "/itineraries/public/") + id,
+    (user ? "/itineraries/" : "/itineraries/public/") + id,
+    user ? undefined : initial,
+    !loading,
   );
   const [page, setPage] = useState(1);
   const plan = result.data;

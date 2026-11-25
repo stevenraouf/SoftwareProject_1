@@ -1,9 +1,15 @@
 import { expect, test } from "@playwright/test";
 import { mkdir } from "node:fs/promises";
+
+// Use software rendering for these Windows layout captures.
+if (process.platform === "win32")
+  test.use({ launchOptions: { args: ["--disable-gpu"] } });
+
 test("the desktop cabin has eight local photographs and localized arrivals", async ({
   page,
 }) => {
-  await page.setViewportSize({ width: 1360, height: 1000 });
+  await page.setViewportSize({ width: 1360, height: 1080 });
+  await page.emulateMedia({ reducedMotion: "reduce" });
   await page.goto("/");
   await expect(
     page.getByRole("heading", { name: "Where will your window take you?" }),
@@ -17,11 +23,13 @@ test("the desktop cabin has eight local photographs and localized arrivals", asy
     )
     .toBeGreaterThan(1000);
   await page.evaluate(() => document.fonts.ready);
-  await page.emulateMedia({ reducedMotion: "reduce" });
+  // Keep the whole homepage in the visible capture surface in headed Edge.
+  await expect(page.getByRole("contentinfo")).toBeInViewport({ ratio: 1 });
   await mkdir("../docs/milestone-2/evidence/screens", { recursive: true });
   await page.screenshot({
     path: "../docs/milestone-2/evidence/screens/home-desktop.png",
-    fullPage: true,
+    animations: "disabled",
+    timeout: 10000,
   });
   for (const [country, code, hello] of [
     ["Japan", "HND", "こんにちは"],

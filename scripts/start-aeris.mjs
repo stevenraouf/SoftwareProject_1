@@ -54,7 +54,7 @@ function run(file, cwd, extra) {
     if (!stopping) stop(code || 0);
   });
 }
-function probe(path, server = origin, html = false) {
+function probe(path, server = origin, checkFrontendConfig = false) {
   return new Promise((done) => {
     const req = https.get(
       server + path,
@@ -65,10 +65,10 @@ function probe(path, server = origin, html = false) {
         res.on("end", () => {
           try {
             done(
-              html
+              checkFrontendConfig
                 ? res.statusCode === 200 &&
-                    data.includes('name="aeris-api"') &&
-                    data.includes(origin + "/api")
+                    data.startsWith("window.aerisConfig = ") &&
+                    data.includes(JSON.stringify(origin + "/api"))
                 : JSON.parse(data),
             );
           } catch {
@@ -129,7 +129,7 @@ if (process.argv.includes("--stripe")) {
     }
   }
   if (!stopping) {
-    if (!(await probe("/", webOrigin, true)))
+    if (!(await probe("/aeris-config.js", webOrigin, true)))
       run("scripts/serve.mjs", "frontend", {
         FRONTEND_PORT: String(webPort),
         AERIS_API_BASE_URL: origin + "/api",

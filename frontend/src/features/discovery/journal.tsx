@@ -1,10 +1,13 @@
 "use client";
 
+import { FieldError } from "@/lib/form-errors";
+
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { api } from "@/lib/api";
 import { useSession } from "@/lib/session";
+import { discoveryList, type InitialList } from "@/lib/discovery-list";
 import {
   Action,
   authorLink,
@@ -24,7 +27,7 @@ import {
   type Page,
 } from "./shared";
 
-interface StoryRow {
+export interface StoryRow {
   id?: string;
   _id?: string;
   title: string;
@@ -46,7 +49,7 @@ interface Comment {
   createdAt: string;
   hidden: boolean;
 }
-interface Story extends Omit<StoryRow, "author"> {
+export interface Story extends Omit<StoryRow, "author"> {
   _id: string;
   userId: string;
   author: Author;
@@ -110,7 +113,7 @@ function StoryForm({
           .map((t) => t.trim())
           .filter(Boolean);
         if (tags.length > 5 || tags.some((t) => t.length > 30))
-          throw new Error(
+          throw new FieldError("tags",
             "Tags must be 30 characters or shorter, with up to five per story.",
           );
         const record = await api<Story>(
@@ -176,29 +179,24 @@ function TagList({ tags }: { tags?: string[] }) {
   ) : null;
 }
 
-export function Journal() {
+export function Journal({
+  initial,
+}: {
+  initial?: InitialList<Page<StoryRow>>;
+}) {
   const { user } = useSession(),
     router = useRouter(),
     search = useSearchParams();
-  const traveler = user?.role === "User",
-    tab = search.get("section") ?? "public";
-  const page = Math.max(1, Number(search.get("page")) || 1),
-    tag = search.get("tag") || "",
-    keyword = search.get("q") || "";
+  const traveler = user?.role === "User";
+  const { tab, page, filters, publicPath } = discoveryList("journal", search);
+  const { tag, q: keyword } = filters;
   function go(data: Fields) {
     router.push("/journal?" + query(data));
   }
   const path =
-    tab === "mine"
-      ? traveler
-        ? "/posts/mine?page=" + page
-        : null
-      : tab === "write"
-        ? null
-        : tag && !keyword
-          ? "/tags/" + encodeURIComponent(tag) + "/posts?page=" + page
-          : "/posts?" + query({ page: String(page), tag, q: keyword });
-  const list = useResource<Page<StoryRow>>(path);
+    tab === "mine" && traveler ? "/posts/mine?page=" + page : publicPath;
+  const seed = initial?.path === publicPath ? initial : undefined;
+  const list = useResource<Page<StoryRow>>(path, seed?.data);
   const member = (target: string) => (traveler ? target : signInLink(target));
   return (
     <>
@@ -281,13 +279,19 @@ export function Journal() {
               <Pager
                 page={page}
                 pages={list.data.pages}
+                href={
+                  publicPath
+                    ? (n) =>
+                        "/journal?" + query({ ...filters, page: String(n) })
+                    : undefined
+                }
                 go={(n) =>
                   go({ page: String(n), section: tab, tag, q: keyword })
                 }
               />
             </>
           ) : (
-            <LoadState error={list.error} retry={list.reload} />
+            <LoadState error={list.error || seed?.error} retry={list.reload} />
           )}
         </section>
       )}
@@ -359,12 +363,14 @@ function AttachPlan({ story, reload }: { story: Story; reload: () => void }) {
   );
 }
 
-export function StoryPage({ id }: { id: string }) {
+export function StoryPage({ id, initial }: { id: string; initial?: Story }) {
   const { user, loading } = useSession(),
     router = useRouter();
   const [page, setPage] = useState(1);
   const result = useResource<Story>(
-      loading ? null : "/posts/" + id + "?page=" + page,
+      "/posts/" + id + "?page=" + page,
+      user ? undefined : initial,
+      !loading,
     ),
     story = result.data;
   if (!story) return <LoadState retry={result.reload} error={result.error} />;
@@ -542,13 +548,24 @@ export function StoryPage({ id }: { id: string }) {
   );
 }
 
-export function AuthorPage({ id }: { id: string }) {
+export interface AuthorProfile {
+  author: Author;
+  posts: Page<StoryRow>;
+  itineraries: Page<{ _id: string; title: string; startDate: string }>;
+}
+
+export function AuthorPage({
+  id,
+  initial,
+}: {
+  id: string;
+  initial?: AuthorProfile;
+}) {
   const [page, setPage] = useState(1);
-  const result = useResource<{
-    author: Author;
-    posts: Page<StoryRow>;
-    itineraries: Page<{ _id: string; title: string; startDate: string }>;
-  }>("/authors/" + id + "?page=" + page);
+  const result = useResource<AuthorProfile>(
+    "/authors/" + id + "?page=" + page,
+    initial,
+  );
   if (!result.data)
     return <LoadState error={result.error} retry={result.reload} />;
   const { author, posts, itineraries } = result.data;

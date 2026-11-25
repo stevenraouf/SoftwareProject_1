@@ -231,7 +231,7 @@ function ArrivalFlights({ plan }: { plan: Plan }) {
         (results.data ? (
           <>
             {!results.data.length && (
-              <p>No airports are listed for this city.</p>
+              <p>No other arrival airport is available in this city. Choose a different departure airport.</p>
             )}
             {results.data.map(({ airport, results: fares }) => {
               const outbound = "outbound" in fares ? fares.outbound : fares,

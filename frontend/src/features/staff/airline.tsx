@@ -1,5 +1,7 @@
 "use client";
 
+import { FieldError } from "@/lib/form-errors";
+
 import { useState } from "react";
 import { api, apiUrl } from "@/lib/api";
 import {
@@ -189,7 +191,7 @@ function FlightForm({
         success="Flight saved."
         onSubmit={async (v) => {
           if (v.departureAirport === v.arrivalAirport)
-            throw new Error("Departure and arrival airports must differ.");
+            throw new FieldError("arrivalAirport", "Departure and arrival airports must differ.");
           const updated = await api<Flight>(
             flight ? "/flights/" + flight._id : "/flights",
             {

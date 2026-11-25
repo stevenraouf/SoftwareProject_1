@@ -1,5 +1,7 @@
 "use client";
 
+import { FieldError } from "@/lib/form-errors";
+
 import { useState } from "react";
 import { useWorkspaceSection } from "./ui";
 import { api } from "@/lib/api";
@@ -285,7 +287,7 @@ function Accounts() {
           success="Moderator account created."
           onSubmit={async (v) => {
             const p = providers.rows.find((p) => p._id === v.providerId);
-            if (!p) throw new Error("Choose a provider first.");
+            if (!p) throw new FieldError("providerId", "Choose a provider first.");
             await api("/admin/moderators", {
               method: "POST",
               body: {
@@ -527,7 +529,7 @@ function Analytics() {
         ]}
         onSubmit={(v) => {
           if (v.to < v.from)
-            throw new Error("End date must follow start date.");
+            throw new FieldError("to", "End date must follow start date.");
           setPeriod(v);
         }}
       />

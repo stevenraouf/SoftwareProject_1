@@ -3,6 +3,7 @@ import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { api, apiUrl } from "@/lib/api";
+import { useSession } from "@/lib/session";
 import {
   allPages,
   invalidField,
@@ -38,6 +39,24 @@ const criteria = [
   "sort",
   "page",
 ];
+function validStayDates(form: HTMLFormElement, timeZone = "Etc/GMT+12") {
+  const { checkIn, checkOut } = formData(form);
+  const today = new Intl.DateTimeFormat("sv-SE", {
+    timeZone,
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  }).format(new Date());
+  if (checkIn < today) {
+    invalidField(form, "checkIn", "Check-in cannot be in the past.");
+    return false;
+  }
+  if (checkOut <= checkIn) {
+    invalidField(form, "checkOut", "Check-out must be after check-in.");
+    return false;
+  }
+  return true;
+}
 export function StaySearch() {
   const q = useSearchParams(),
     router = useRouter(),
@@ -62,13 +81,8 @@ export function StaySearch() {
         className="panel stack"
         key={str}
         onSubmit={submit((f) => {
+          if (!validStayDates(f)) return;
           const values = formData(f);
-          if (values.checkOut <= values.checkIn)
-            return invalidField(
-              f,
-              "checkOut",
-              "Check-out must be after check-in.",
-            );
           if (
             values.minPrice &&
             values.maxPrice &&
@@ -268,8 +282,10 @@ function HotelReviews({ id }: { id: string }) {
 export function HotelDetail({ id }: { id: string }) {
   const q = useSearchParams(),
     router = useRouter(),
+    { user, loading: sessionLoading } = useSession(),
     [roomPage, setRoomPage] = useState(1),
     [selected, pick] = useState<Room[]>([]),
+    [restoring, setRestoring] = useState(false),
     [counts, setCounts] = useState<Record<string, number>>({}),
     [info, setInfo] = useState("");
   const dates = {
@@ -277,20 +293,56 @@ export function HotelDetail({ id }: { id: string }) {
       checkOut: q.get("checkOut") || "",
     },
     selectedDates = !!(dates.checkIn && dates.checkOut),
-    key = qs(dates);
+    key = qs(dates),
+    requested = q.get("selectedRooms") || "";
   const hotel = useLoad<Hotel>("/hotels/" + id),
     rooms = useLoad<Page<Room>>(
       selectedDates
         ? "/hotels/" + id + "/rooms/available?" + key + "&page=" + roomPage
         : null,
     );
-  const me = useLoad<{ id: string; role: string }>("/auth/me"),
-    action = useAction();
+  const action = useAction(),
+    traveler = user?.role === "User";
   useEffect(() => {
+    let active = true;
     pick([]);
     setCounts({});
     setRoomPage(1);
-  }, [id, key]);
+    setInfo("");
+    setRestoring(false);
+    if (!requested || !selectedDates) return;
+    const ids = new Set(
+      requested
+        .split(",")
+        .filter((s) => /^[a-f\d]{24}$/i.test(s))
+        .slice(0, 20),
+    );
+    if (!ids.size) return;
+    setRestoring(true);
+    // Resolve the guest's nonpersonal selection at current prices and availability.
+    allPages<Room>("/hotels/" + id + "/rooms/available?" + key)
+      .then((available) => {
+        if (!active) return;
+        const restored = available.filter((room) => ids.has(room._id));
+        pick(restored);
+        if (restored.length !== ids.size)
+          setInfo(
+            "Some selected rooms are no longer available. Review the remaining rooms.",
+          );
+      })
+      .catch(() => {
+        if (active)
+          setInfo(
+            "Your selection could not be restored. Choose from the available rooms.",
+          );
+      })
+      .finally(() => {
+        if (active) setRestoring(false);
+      });
+    return () => {
+      active = false;
+    };
+  }, [id, key, selectedDates, requested]);
   if (!hotel.data)
     return (
       <main className="booking-view">
@@ -335,7 +387,7 @@ export function HotelDetail({ id }: { id: string }) {
           Check-in {h.checkInTime} · Check-out {h.checkOutTime} · {h.timezone}
         </p>
         <Tiers tiers={h.cancellationTiers} />
-        {me.data?.role === "User" && (
+        {traveler && (
           <button
             className="secondary"
             disabled={action.busy}
@@ -357,11 +409,16 @@ export function HotelDetail({ id }: { id: string }) {
       <form
         className="panel actions"
         onSubmit={submit((form) => {
+          if (!validStayDates(form, h.timezone)) return;
           router.push(
             "/hotel/" +
               id +
               "?" +
-              qs({ ...Object.fromEntries(q), ...formData(form) }),
+              qs({
+                ...Object.fromEntries(q),
+                ...formData(form),
+                selectedRooms: "",
+              }),
           );
         })}
       >
@@ -387,22 +444,20 @@ export function HotelDetail({ id }: { id: string }) {
         <section className="panel stack">
           <h2>Available rooms</h2>
           <Status state={rooms} />
+          {sessionLoading ? (
+            <p role="status">Checking your account…</p>
+          ) : !user ? (
+            <p>Choose your rooms, then sign in to enter guest details.</p>
+          ) : !traveler ? (
+            <p className="notice">
+              Reservations are available to traveler accounts.
+            </p>
+          ) : null}
           {rooms.data?.total === 0 && (
             <p>No rooms are available across these dates.</p>
           )}
-          {rooms.data?.items.map((r) => (
-            <label className="room-choice" key={r._id}>
-              <input
-                type="checkbox"
-                checked={selected.some((x) => x._id === r._id)}
-                onChange={(e) =>
-                  pick(
-                    e.target.checked
-                      ? [...selected, r]
-                      : selected.filter((x) => x._id !== r._id),
-                  )
-                }
-              />
+          {rooms.data?.items.map((r) => {
+            const description = (
               <span>
                 <strong>
                   {r.type} · Room {r.number}
@@ -412,8 +467,33 @@ export function HotelDetail({ id }: { id: string }) {
                 {money(r.price, r.currency)} per night ·{" "}
                 {money(r.totalStayPrice, r.currency)} for the stay
               </span>
-            </label>
-          ))}
+            );
+            return !sessionLoading && (!user || traveler) ? (
+              <label className="room-choice" key={r._id}>
+                <input
+                  type="checkbox"
+                  checked={selected.some((x) => x._id === r._id)}
+                  disabled={
+                    restoring ||
+                    (selected.length >= 20 &&
+                      !selected.some((x) => x._id === r._id))
+                  }
+                  onChange={(e) =>
+                    pick(
+                      e.target.checked
+                        ? [...selected, r]
+                        : selected.filter((x) => x._id !== r._id),
+                    )
+                  }
+                />
+                {description}
+              </label>
+            ) : (
+              <div className="room-choice" key={r._id}>
+                {description}
+              </div>
+            );
+          })}
           {rooms.data && (
             <Pager
               page={roomPage}
@@ -421,10 +501,26 @@ export function HotelDetail({ id }: { id: string }) {
               onPage={setRoomPage}
             />
           )}
+          {restoring && <p role="status">Checking your selected rooms…</p>}
+          {!sessionLoading && !user && selected.length > 0 && (
+            <SignIn
+              label="Sign in to continue with selected rooms"
+              returnTo={
+                "/hotel/" +
+                id +
+                "?" +
+                qs({
+                  ...Object.fromEntries(q),
+                  selectedRooms: selected.map((room) => room._id).join(","),
+                })
+              }
+            />
+          )}
         </section>
       )}
-      {selected.length > 0 && (
+      {traveler && selected.length > 0 && (
         <form
+          key={user.id}
           className="panel stack"
           onSubmit={submit((form) =>
             action.run(async () => {
@@ -514,13 +610,9 @@ export function HotelDetail({ id }: { id: string }) {
               selected[0].currency,
             )}
           </strong>
-          {me.data?.role === "User" ? (
-            <button className="button" disabled={action.busy}>
-              Hold rooms for 10 minutes →
-            </button>
-          ) : (
-            <SignIn label="Sign in to reserve" />
-          )}
+          <button className="button" disabled={action.busy}>
+            Hold rooms for 10 minutes →
+          </button>
         </form>
       )}
       <ErrorLine text={action.error} />

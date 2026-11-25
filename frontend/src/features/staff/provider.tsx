@@ -1,13 +1,17 @@
 "use client";
 
+import { FieldError } from "@/lib/form-errors";
+
 import { useState } from "react";
-import { api, apiUrl } from "@/lib/api";
+import { api, ApiError, apiUrl } from "@/lib/api";
 import {
   Action,
   Form,
   Problem,
   Section,
+  StaffInput,
   useReferences,
+  useRowPage,
   type Field,
   type Provider,
   type Tier,
@@ -118,7 +122,11 @@ function HotelForm({ provider, after }: EditorProps) {
         success={provider ? "Hotel profile saved." : "Hotel created."}
         onSubmit={async (v) => {
           const city = cities.rows.find((c) => c.city_id === v.city);
-          if (!city) throw new Error("Select an official city and country.");
+          if (!city)
+            throw new FieldError(
+              "city",
+              "Select an official city and country.",
+            );
           const body = {
             ...v,
             country: city.country_code,
@@ -193,20 +201,27 @@ export function ProviderMedia({ provider, refresh }: ManagedProps) {
               file.size > 5 * 1024 * 1024 ||
               !["image/png", "image/jpeg"].includes(file.type)
             )
-              throw new Error("Choose a JPEG or PNG up to 5 MB.");
-            await api(path, { method: "POST", body: data });
+              throw new FieldError("file", "Choose a JPEG or PNG up to 5 MB.");
+            try {
+              await api(path, { method: "POST", body: data });
+            } catch (error) {
+              if (
+                error instanceof ApiError &&
+                [400, 413, 415].includes(error.status)
+              )
+                throw new FieldError("file", error.message);
+              throw error;
+            }
             refresh();
           }}
         >
-          <label className="field">
-            JPEG or PNG, up to 5 MB
-            <input
-              type="file"
-              name="file"
-              accept="image/jpeg,image/png"
-              required
-            />
-          </label>
+          <StaffInput
+            label="JPEG or PNG, up to 5 MB"
+            type="file"
+            name="file"
+            accept="image/jpeg,image/png"
+            required
+          />
         </Form>
       )}
     </Section>
@@ -221,6 +236,7 @@ export function Policies({ provider, refresh }: ManagedProps) {
       refundPercent,
     })),
   );
+  const tierPage = useRowPage(tiers, "Refund tier pages");
   const fields: Field[] = hotel
     ? [
         {
@@ -254,24 +270,52 @@ export function Policies({ provider, refresh }: ManagedProps) {
           submit="Save policy"
           success="Cancellation policy saved."
           onSubmit={async (values) => {
-            if (new Set(tiers.map((t) => t.threshold)).size !== tiers.length)
-              throw new Error(
-                "Each cancellation tier needs a different minimum number of days.",
-              );
+            const thresholds = new Set<number>();
+            for (const [index, tier] of tiers.entries()) {
+              let error = "", field = "threshold";
+              if (
+                !Number.isInteger(tier.threshold) ||
+                tier.threshold < 0 ||
+                tier.threshold > 3650
+              )
+                error = "Minimum days must be a whole number from 0 to 3650.";
+              else if (tier.refundPercent < 0 || tier.refundPercent > 100) {
+                field = "refundPercent";
+                error = "Refund percentage must be from 0 to 100.";
+              } else if (thresholds.has(tier.threshold))
+                error =
+                  "Each cancellation tier needs a different minimum number of days.";
+              if (error) {
+                tierPage.go(Math.floor(index / 10) + 1);
+                throw new FieldError("tiers." + index + "." + field, error);
+              }
+              thresholds.add(tier.threshold);
+            }
             await api(
               hotel
                 ? "/hotels/" + provider._id + "/policies"
                 : "/airlines/" + provider._id + "/cancellation-policy",
-              { method: "PUT", body: { ...values, tiers } },
+              {
+                method: "PUT",
+                body: hotel
+                  ? {
+                      checkInTime: values.checkInTime,
+                      checkOutTime: values.checkOutTime,
+                      tiers,
+                    }
+                  : { tiers },
+              },
             );
             refresh();
           }}
         >
-          {tiers.map((tier, index) => (
-            <div className="staffTier" key={index}>
-              <label className="field">
-                Minimum days
-                <input
+          {tierPage.rows.map((tier, offset) => {
+            const index = tierPage.start + offset;
+            return (
+              <div className="staffTier" key={index}>
+                <StaffInput
+                  label="Minimum days"
+                  name={"tiers." + index + ".threshold"}
                   type="number"
                   value={tier.threshold}
                   min={0}
@@ -279,10 +323,9 @@ export function Policies({ provider, refresh }: ManagedProps) {
                   required
                   onChange={(e) => setTier(index, "threshold", e.target.value)}
                 />
-              </label>
-              <label className="field">
-                Refund %
-                <input
+                <StaffInput
+                  label="Refund %"
+                  name={"tiers." + index + ".refundPercent"}
                   type="number"
                   value={tier.refundPercent}
                   min={0}
@@ -293,25 +336,27 @@ export function Policies({ provider, refresh }: ManagedProps) {
                     setTier(index, "refundPercent", e.target.value)
                   }
                 />
-              </label>
-              <button
-                type="button"
-                className="secondary"
-                onClick={() =>
-                  setTiers((prev) => prev.filter((_, i) => i !== index))
-                }
-              >
-                Remove tier {index + 1}
-              </button>
-            </div>
-          ))}
+                <button
+                  type="button"
+                  className="secondary"
+                  onClick={() =>
+                    setTiers((prev) => prev.filter((_, i) => i !== index))
+                  }
+                >
+                  Remove tier {index + 1}
+                </button>
+              </div>
+            );
+          })}
+          {tierPage.pager}
           <button
             type="button"
             className="secondary"
             disabled={tiers.length >= 30}
-            onClick={() =>
-              setTiers((prev) => [...prev, { threshold: 0, refundPercent: 0 }])
-            }
+            onClick={() => {
+              setTiers((prev) => [...prev, { threshold: 0, refundPercent: 0 }]);
+              tierPage.go(Math.floor(tiers.length / 10) + 1);
+            }}
           >
             Add refund tier
           </button>

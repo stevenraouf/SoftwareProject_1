@@ -57,11 +57,9 @@ test("a traveler budgets a day, publishes the plan and a guest reads the itinera
     .locator("summary")
     .filter({ hasText: /^Add expense$/ })
     .click();
-  const expense = day
-    .locator("details")
-    .filter({
-      has: page.locator("summary").filter({ hasText: /^Add expense$/ }),
-    });
+  const expense = day.locator("details").filter({
+    has: page.locator("summary").filter({ hasText: /^Add expense$/ }),
+  });
   await expense.getByLabel("Amount", { exact: true }).fill("10");
   await expense.getByLabel("Currency", { exact: true }).selectOption("USD");
   await expense.getByRole("button", { name: "Add expense" }).click();
@@ -101,6 +99,10 @@ test("a journal author publishes, adds and removes a like, and edits and deletes
 }) => {
   const title = "Notes from the Nile " + randomUUID().slice(0, 8);
   await registerTraveler(page, "/journal?section=write");
+  await page.getByRole("button", { name: "Save story" }).click();
+  await expect(
+    page.getByLabel("Title", { exact: true }),
+  ).toHaveAccessibleDescription(/\S/);
   await page.getByLabel("Title", { exact: true }).fill(title);
   await page
     .getByLabel("Visibility", { exact: true })
@@ -108,20 +110,23 @@ test("a journal author publishes, adds and removes a like, and edits and deletes
   await page
     .getByLabel("Your story")
     .fill("The ferry crossed just before sunset.");
-  await page.getByLabel("Tags", { exact: true }).fill("Cairo, river");
+  const tags = page.getByLabel("Tags", { exact: true });
+  await tags.fill("one, two, three, four, five, six");
+  await page.getByRole("button", { name: "Save story" }).click();
+  await expect(tags).toHaveAttribute("aria-invalid", "true");
+  await expect(tags).toHaveAccessibleDescription(/up to five per story/i);
+  await tags.fill("Cairo, river");
   await page.getByRole("button", { name: "Save story" }).click();
   await expect(page.getByRole("heading", { name: title })).toBeVisible();
   const samplePng = Buffer.from(
     "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR4AWMIqOj5DwAExAJUq0mQ6gAAAABJRU5ErkJggg==",
     "base64",
   );
-  await page
-    .getByLabel("Add a photograph", { exact: true })
-    .setInputFiles({
-      name: "sample.png",
-      mimeType: "image/png",
-      buffer: samplePng,
-    });
+  await page.getByLabel("Add a photograph", { exact: true }).setInputFiles({
+    name: "sample.png",
+    mimeType: "image/png",
+    buffer: samplePng,
+  });
   const photograph = page.getByRole("img", { name: title + " · photo 1" });
   await photograph.scrollIntoViewIfNeeded();
   await expect

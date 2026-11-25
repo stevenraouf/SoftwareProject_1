@@ -1,5 +1,6 @@
 "use client";
 import {
+  Children,
   useEffect,
   useId,
   useRef,
@@ -52,6 +53,7 @@ export interface Cabin {
 export interface Flight {
   _id: string;
   flightNumber: string;
+  currency: string;
   airline: { id: string; name: string };
   departureAirport: string;
   arrivalAirport: string;
@@ -357,13 +359,15 @@ export function Pager({
   page,
   pages,
   onPage,
+  label = "Results pages",
 }: {
   page: number;
   pages: number;
   onPage: (n: number) => void;
+  label?: string;
 }) {
   return pages > 1 ? (
-    <nav aria-label="Results pages" className="actions">
+    <nav aria-label={label} className="actions">
       <button
         type="button"
         className="secondary"
@@ -386,12 +390,33 @@ export function Pager({
     </nav>
   ) : null;
 }
+export function PagedRows({
+  children,
+  label,
+  list = false,
+}: {
+  children: ReactNode;
+  label: string;
+  list?: boolean;
+}) {
+  const rows = Children.toArray(children);
+  const [page, setPage] = useState(1);
+  const pages = Math.ceil(rows.length / 10);
+  const current = Math.min(page, pages) || 1;
+  const visible = rows.slice((current - 1) * 10, current * 10);
+  return (
+    <>
+      {list ? <ul>{visible}</ul> : visible}
+      <Pager page={current} pages={pages} onPage={setPage} label={label} />
+    </>
+  );
+}
 export function Tiers({ tiers }: { tiers: Tier[] }) {
   return (
     <div>
       <h3>Cancellation terms</h3>
       {tiers.length ? (
-        <ul>
+        <PagedRows list label="Cancellation tier pages">
           {[...tiers]
             .sort((a, b) => b.threshold - a.threshold)
             .map((t) => (
@@ -399,18 +424,25 @@ export function Tiers({ tiers }: { tiers: Tier[] }) {
                 {t.threshold}+ days before travel · {t.refundPercent}% refund
               </li>
             ))}
-        </ul>
+        </PagedRows>
       ) : (
         <p>No refund tiers are available.</p>
       )}
     </div>
   );
 }
-export function SignIn({ label = "Sign in to continue" }: { label?: string }) {
+export function SignIn({
+  label = "Sign in to continue",
+  returnTo,
+}: {
+  label?: string;
+  returnTo?: string;
+}) {
   const next =
-    typeof window === "undefined"
+    returnTo ??
+    (typeof window === "undefined"
       ? ""
-      : window.location.pathname + window.location.search;
+      : window.location.pathname + window.location.search);
   return (
     <Link className="button" href={"/login?next=" + encodeURIComponent(next)}>
       {label}

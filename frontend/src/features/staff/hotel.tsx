@@ -1,5 +1,7 @@
 "use client";
 
+import { FieldError } from "@/lib/form-errors";
+
 import { useState } from "react";
 import { api } from "@/lib/api";
 import {
@@ -13,6 +15,7 @@ import {
   isoDate,
   query,
   useRevision,
+  useRowPage,
 } from "./ui";
 
 type Range = { start: string; end: string };
@@ -212,13 +215,18 @@ function DateRanges({
   ranges: Range[];
   refresh: () => void;
 }) {
+  const { rows, pager } = useRowPage(
+    ranges,
+    kind === "availability" ? "Bookable date pages" : "Blocked date pages",
+    true,
+  );
   return (
     <div className="stack">
       <p className="muted">
         The range includes the starting night and ends before the last date.
       </p>
-      {ranges.map((r, i) => (
-        <div className="staffRange" key={r.start}>
+      {rows.map((r) => (
+        <div className="staffRange" key={r.start + ":" + r.end}>
           <span>
             {r.start} — {r.end}
           </span>
@@ -231,7 +239,9 @@ function DateRanges({
                 body: {
                   kind,
                   ranges: ranges
-                    .filter((_, j) => i !== j)
+                    .filter(
+                      (range) => range.start !== r.start || range.end !== r.end,
+                    )
                     .map(({ start, end }) => ({ start, end })),
                 },
               });
@@ -241,6 +251,7 @@ function DateRanges({
         </div>
       ))}
       {!ranges.length && <p>No ranges configured.</p>}
+      {pager}
       <Form
         fields={[
           { name: "start", type: "date", label: "First night" },
@@ -251,7 +262,7 @@ function DateRanges({
         reset
         onSubmit={async (v) => {
           if (v.end <= v.start)
-            throw new Error("The end date must follow the first night.");
+            throw new FieldError("end", "The end date must follow the first night.");
           await api(base, {
             method: "POST",
             body: { kind, ranges: [{ start: v.start, end: v.end }] },
@@ -262,6 +273,28 @@ function DateRanges({
     </div>
   );
 }
+function RoomCalendar({ days }: { days: RoomDay[] }) {
+  const { rows, pager } = useRowPage(days, "Nightly availability pages");
+  return (
+    <>
+      <ul className="staffCalendar">
+        {rows.map((d) => (
+          <li key={d.date} data-state={d.status}>
+            <time dateTime={d.date}>{d.date}</time>
+            <strong>{d.status}</strong>
+            {d.reference && (
+              <span>
+                {d.reference} · {d.bookingStatus}
+              </span>
+            )}
+          </li>
+        ))}
+      </ul>
+      {pager}
+    </>
+  );
+}
+
 export function Availability({ id }: { id: string }) {
   const [range, setRange] = useState({ start: isoDate(), end: isoDate(7) });
   return (
@@ -284,7 +317,7 @@ export function Availability({ id }: { id: string }) {
         submit="View availability"
         onSubmit={(v) => {
           if (v.end <= v.start)
-            throw new Error("Choose an end date after the first night.");
+            throw new FieldError("end", "Choose an end date after the first night.");
           setRange({ start: v.start, end: v.end });
         }}
       />
@@ -293,25 +326,27 @@ export function Availability({ id }: { id: string }) {
         empty="No rooms at this property."
         draw={(r) => (
           <Row key={r.roomId} title={"Room " + r.number}>
-            <ul className="staffCalendar">
-              {r.days.map((d) => (
-                <li key={d.date} data-state={d.status}>
-                  <time dateTime={d.date}>{d.date}</time>
-                  <strong>{d.status}</strong>
-                  {d.reference && (
-                    <span>
-                      {d.reference} · {d.bookingStatus}
-                    </span>
-                  )}
-                </li>
-              ))}
-            </ul>
+            <RoomCalendar days={r.days} />
           </Row>
         )}
       />
     </Section>
   );
 }
+function ReservationRooms({ rooms }: { rooms: Reservation["rooms"] }) {
+  const { rows, pager } = useRowPage(rooms, "Reserved room pages");
+  return (
+    <>
+      {rows.map((room) => (
+        <p key={room.number}>
+          Room {room.number} · {room.guests.map((g) => g.name).join(", ")}
+        </p>
+      ))}
+      {pager}
+    </>
+  );
+}
+
 export function Reservations({ id }: { id: string }) {
   return (
     <Section title="Guest reservations">
@@ -324,11 +359,7 @@ export function Reservations({ id }: { id: string }) {
             title={r.reference || "Awaiting confirmation"}
             meta={r.status + " · " + r.checkIn + " to " + r.checkOut}
           >
-            {r.rooms.map((room) => (
-              <p key={room.number}>
-                Room {room.number} · {room.guests.map((g) => g.name).join(", ")}
-              </p>
-            ))}
+            <ReservationRooms rooms={r.rooms} />
           </Row>
         )}
       />

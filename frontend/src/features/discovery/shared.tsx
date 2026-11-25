@@ -9,6 +9,7 @@ import {
   type ReactNode,
 } from "react";
 import { api, apiUrl } from "@/lib/api";
+import { getFieldErrors, useFormErrors } from "@/lib/form-errors";
 
 export interface Page<T> {
   items: T[];
@@ -57,10 +58,7 @@ export const displayDate = (value?: string) =>
     : "";
 export const cash = (amount: number, currency: string) =>
   new Intl.NumberFormat("en", { style: "currency", currency }).format(amount);
-export const query = (data: Fields) =>
-  new URLSearchParams(
-    Object.entries(data).filter(([, value]) => value !== ""),
-  ).toString();
+export { query } from "@/lib/discovery-list";
 export const authorLink = (author?: Author) =>
   author?.id ? (
     <Link href={"/author/" + author.id}>{author.name}</Link>
@@ -70,16 +68,21 @@ export const authorLink = (author?: Author) =>
 export const signInLink = (next: string) =>
   "/login?next=" + encodeURIComponent(next);
 
-export function useResource<T>(path: string | null) {
+export function useResource<T>(path: string | null, initial?: T, ready = true) {
   const [version, setVersion] = useState(0);
-  const [snapshot, setSnapshot] = useState<{
-    path: string;
-    data?: T;
-    error?: string;
-  }>();
+  const [snapshot, setSnapshot] = useState<
+    | {
+        path: string;
+        data?: T;
+        error?: string;
+      }
+    | undefined
+  >(() =>
+    path && initial !== undefined ? { path, data: initial } : undefined,
+  );
   useEffect(() => {
     let active = true;
-    if (path) {
+    if (path && ready) {
       api<T>(path)
         .then((data) => {
           if (active) setSnapshot({ path, data });
@@ -91,7 +94,7 @@ export function useResource<T>(path: string | null) {
     return () => {
       active = false;
     };
-  }, [path, version]);
+  }, [path, version, ready]);
   return {
     data: snapshot?.path === path ? snapshot?.data : undefined,
     error: snapshot?.path === path ? snapshot?.error : undefined,
@@ -133,27 +136,41 @@ export function Pager({
   page,
   pages,
   go,
+  href,
 }: {
   page: number;
   pages: number;
   go: (page: number) => void;
+  href?: (page: number) => string;
 }) {
   if (pages <= 1) return null;
   return (
     <nav className="discovery-pager" aria-label="Result pages">
-      <button type="button" disabled={page <= 1} onClick={() => go(page - 1)}>
-        Previous
-      </button>
+      {href && page > 1 ? (
+        <Link href={href(page - 1)} rel="prev">
+          Previous
+        </Link>
+      ) : (
+        <button type="button" disabled={page <= 1} onClick={() => go(page - 1)}>
+          Previous
+        </button>
+      )}
       <span>
         Page {page} of {pages}
       </span>
-      <button
-        type="button"
-        disabled={page >= pages}
-        onClick={() => go(page + 1)}
-      >
-        Next
-      </button>
+      {href && page < pages ? (
+        <Link href={href(page + 1)} rel="next">
+          Next
+        </Link>
+      ) : (
+        <button
+          type="button"
+          disabled={page >= pages}
+          onClick={() => go(page + 1)}
+        >
+          Next
+        </button>
+      )}
     </nav>
   );
 }
@@ -174,7 +191,7 @@ export function Editor({
   const uid = useId();
   const [busy, setBusy] = useState(false);
   const [message, setMessage] = useState("");
-  const [errors, setErrors] = useState<Record<string, string>>({});
+  const { errors, setErrors, formEvents } = useFormErrors();
   async function submit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     if (busy) return;
@@ -193,24 +210,14 @@ export function Editor({
         form.reset();
       }
     } catch (e) {
-      const problem = e as { fields?: { field: string; messages: string[] }[] };
-      const issues = problem?.fields;
-      if (Array.isArray(issues))
-        setErrors(
-          Object.fromEntries(
-            issues.map((x) => [
-              x.field,
-              x.messages?.join(" ") || "Check this field.",
-            ]),
-          ),
-        );
+      setErrors(getFieldErrors(e));
       setMessage(failure(e));
     } finally {
       setBusy(false);
     }
   }
   return (
-    <form className="discovery-form" onSubmit={submit}>
+    <form className="discovery-form" onSubmit={submit} {...formEvents}>
       {fields.map((f) => {
         const id = uid + f.name,
           invalid = !!errors[f.name];

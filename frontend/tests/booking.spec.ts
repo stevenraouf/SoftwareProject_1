@@ -100,6 +100,65 @@ test("traveler books two available hotel rooms and sees the stay policy", async 
   await acceptPolicies(page);
 });
 
+test("guest selects rooms and returns from sign-in with the same rooms and dates", async ({
+  page,
+}) => {
+  await page.goto("/explore/CAI");
+  await page.getByRole("link", { name: /Find a stay in Cairo/ }).click();
+  await expect(page.getByLabel("Destination", { exact: true })).toHaveValue(
+    "Cairo",
+  );
+  await page.getByLabel("Check-in", { exact: true }).fill(cairoDate(18));
+  await page.getByLabel("Check-out", { exact: true }).fill(cairoDate(20));
+  await page.getByLabel("Rooms", { exact: true }).fill("2");
+  await page.getByLabel("Guests", { exact: true }).fill("2");
+  await page.getByRole("button", { name: /Search stays/ }).click();
+  await page
+    .getByRole("link", { name: /Choose rooms/ })
+    .first()
+    .click();
+  await expect(
+    page.getByRole("heading", { name: "Available rooms", exact: true }),
+  ).toBeVisible();
+  const stay = new URL(page.url());
+  const rooms = page.locator("label.room-choice input");
+  await rooms.nth(0).check();
+  await rooms.nth(1).check();
+  const signIn = page.getByRole("link", {
+    name: "Sign in to continue with selected rooms",
+  });
+  await expect(signIn).toBeVisible();
+  await expect(page.getByLabel("Guest 1 name")).toHaveCount(0);
+  await signIn.click();
+  await expect(page).toHaveURL(/\/login\?/);
+  const returnTo = new URL(new URL(page.url()).searchParams.get("next")!, stay);
+  expect(returnTo.pathname).toBe(stay.pathname);
+  for (const [field, value] of stay.searchParams)
+    expect(returnTo.searchParams.get(field)).toBe(value);
+  expect(returnTo.searchParams.get("selectedRooms")?.split(",")).toHaveLength(
+    2,
+  );
+  await page.getByLabel("Email address").fill("traveler@example.test");
+  await page
+    .getByLabel("Password", { exact: true })
+    .fill(process.env.AERIS_TEST_PASSWORD!);
+  await page.getByRole("button", { name: "Sign in", exact: true }).click();
+  await expect(page).toHaveURL(returnTo.toString());
+  await expect(rooms.nth(0)).toBeChecked();
+  await expect(rooms.nth(1)).toBeChecked();
+  await page.getByLabel("Guest 1 name").nth(0).fill("Guest Handoff Traveler");
+  await page.getByLabel("Guest 1 age").nth(0).fill("34");
+  await page.getByLabel("Guest 1 name").nth(1).fill("Guest Handoff Child");
+  await page.getByLabel("Guest 1 age").nth(1).fill("9");
+  await page.getByRole("button", { name: /Hold rooms for 10 minutes/ }).click();
+  await expect(
+    page.getByRole("heading", { name: "Your reservation", exact: true }),
+  ).toBeVisible();
+  await expect(
+    page.getByText("Pending Payment", { exact: true }),
+  ).toBeVisible();
+});
+
 test("confirmed traveler selects a seat, reopens the ticket, and downloads the PDF", async ({
   page,
 }) => {
@@ -169,9 +228,25 @@ test("guest round-trip fare review preserves the return leg and offers a sign-in
   await page.getByRole("link", { name: /Continue to travelers/ }).click();
   await expect(page.getByRole("heading", { name: /DEMO100/ })).toBeVisible();
   await expect(page.getByRole("heading", { name: /DEMO101/ })).toBeVisible();
-  await expect(
-    page.getByRole("link", { name: "Sign in to book this flight" }),
-  ).toBeVisible();
+  const outboundDetails = page.locator("section").filter({
+    has: page.getByRole("heading", { name: /DEMO100/ }),
+  });
+  await expect(outboundDetails.getByRole("listitem")).toHaveCount(10);
+  await outboundDetails
+    .getByRole("button", { name: "Next", exact: true })
+    .click();
+  await expect(outboundDetails.getByRole("listitem")).toHaveCount(1);
+  await expect(outboundDetails.getByRole("listitem")).toContainText("0+ days");
+  await page.getByLabel("Your cabin").selectOption("Business");
+  await page.getByRole("link", { name: "Sign in to book this flight" }).click();
+  await page.getByLabel("Email address").fill("traveler@example.test");
+  await page
+    .getByLabel("Password", { exact: true })
+    .fill(process.env.AERIS_TEST_PASSWORD!);
+  await page.getByRole("button", { name: "Sign in", exact: true }).click();
+  await expect(page.getByLabel("Your cabin")).toHaveValue("Business");
+  await expect(page.getByText("Selected cabin · Economy")).toBeVisible();
+  await expect(page.getByLabel("Full name on document")).toBeVisible();
 });
 
 test("flight price filters give an actionable empty result", async ({
@@ -184,6 +259,17 @@ test("flight price filters give an actionable empty result", async ({
   );
   await expect(page.getByText(/^No flights found/)).toBeVisible();
   await expect(page.getByLabel("Maximum party fare")).toHaveValue("1");
+  await expect(page.locator("#aeris-airports option[value=CAI]")).toHaveCount(
+    1,
+  );
+  await page.getByLabel("From airport").fill("ZZZ");
+  await page.getByRole("button", { name: "Search flights" }).click();
+  await expect(
+    page
+      .getByRole("alert")
+      .filter({ hasText: "Choose an airport from the airport directory." }),
+  ).toBeVisible();
+  await page.getByLabel("From airport").fill("CAI");
   await page.getByLabel("Maximum party fare").fill("200");
   await page.getByRole("button", { name: "Search flights" }).click();
   await expect(page.getByText(/DEMO100 · Economy/)).toBeVisible();

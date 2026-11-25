@@ -8,10 +8,27 @@ test("traveler signs in, updates a profile using secure cookies, and signs out",
     password = "Test9" + randomUUID();
   await page.goto("/register");
   await page.getByLabel("Name", { exact: true }).fill("Profile traveler");
-  await page.getByLabel("Email address").fill(email);
+  const create = page.getByRole("button", { name: "Create account" });
+  await page.getByLabel("Email address").fill("invalid-email");
+  await page.getByLabel("Password", { exact: true }).fill("short");
+  await create.click();
+  for (const field of [
+    page.getByLabel("Email address"),
+    page.getByLabel("Password", { exact: true }),
+    page.getByRole("checkbox"),
+  ]) {
+    await expect(field).toHaveAttribute("aria-invalid", "true");
+    await expect(field).toHaveAccessibleDescription(/\S/);
+  }
+  await page.getByLabel("Email address").fill("traveler@example.test");
   await page.getByLabel("Password", { exact: true }).fill(password);
   await page.getByRole("checkbox").check();
-  await page.getByRole("button", { name: "Create account" }).click();
+  await create.click();
+  await expect(page.getByLabel("Email address")).toHaveAccessibleDescription(
+    "This email address is already registered.",
+  );
+  await page.getByLabel("Email address").fill(email);
+  await create.click();
   await expect(page).toHaveURL(/\/login\?registered=1/);
   await page.getByLabel("Email address").fill(email);
   await page.getByLabel("Password", { exact: true }).fill(password);

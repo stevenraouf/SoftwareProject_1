@@ -1,15 +1,19 @@
 "use client";
 
 import {
+  createContext,
+  useContext,
   useCallback,
   useEffect,
   useState,
   useId,
   type ReactNode,
   type FormEvent,
+  type InputHTMLAttributes,
 } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { api, ApiError } from "@/lib/api";
+import { getFieldErrors, useFormErrors } from "@/lib/form-errors";
 
 export type Values = Record<string, string>;
 export type Page<T> = {
@@ -150,6 +154,33 @@ export function Problem({ children }: { children?: string }) {
     </p>
   ) : null;
 }
+const StaffFieldErrors = createContext<Record<string, string>>({});
+
+export function StaffInput({
+  label,
+  name,
+  ...props
+}: InputHTMLAttributes<HTMLInputElement> & { label: string; name: string }) {
+  const uid = useId();
+  const error = useContext(StaffFieldErrors)[name];
+  return (
+    <div className="field">
+      <label htmlFor={uid}>{label}</label>
+      <input
+        {...props}
+        id={uid}
+        name={name}
+        aria-invalid={!!error || undefined}
+        aria-describedby={error ? uid + "-error" : undefined}
+      />
+      {error && (
+        <small className="invalid" id={uid + "-error"}>
+          {error}
+        </small>
+      )}
+    </div>
+  );
+}
 export function Form({
   fields,
   submit,
@@ -168,7 +199,11 @@ export function Form({
   reset?: boolean;
 }) {
   const uid = useId();
-  const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
+  const {
+    errors: fieldErrors,
+    setErrors: setFieldErrors,
+    formEvents,
+  } = useFormErrors();
   function fieldAttrs(name: string) {
     return {
       "aria-invalid": fieldErrors[name] ? true : undefined,
@@ -198,51 +233,14 @@ export function Form({
       if (reset) element.reset();
       setDone(true);
     } catch (e) {
-      if (e instanceof ApiError && e.fields?.length) {
-        setFieldErrors(
-          Object.fromEntries(
-            e.fields.map((f) => [f.field, f.messages.join(". ")]),
-          ),
-        );
-      }
+      setFieldErrors(getFieldErrors(e));
       setError(message(e));
     } finally {
       setPending(false);
     }
   }
   return (
-    <form
-      className="staffForm"
-      onSubmit={handle}
-      onInvalidCapture={(event) => {
-        const input = event.target;
-        if (
-          (input instanceof HTMLInputElement ||
-            input instanceof HTMLSelectElement ||
-            input instanceof HTMLTextAreaElement) &&
-          input.name
-        )
-          setFieldErrors((previous) => ({
-            ...previous,
-            [input.name]: input.validationMessage,
-          }));
-      }}
-      onChangeCapture={(event) => {
-        const input = event.target;
-        if (
-          (input instanceof HTMLInputElement ||
-            input instanceof HTMLSelectElement ||
-            input instanceof HTMLTextAreaElement) &&
-          fieldErrors[input.name]
-        ) {
-          setFieldErrors((previous) => {
-            const updated = { ...previous };
-            delete updated[input.name];
-            return updated;
-          });
-        }
-      }}
-    >
+    <form className="staffForm" onSubmit={handle} {...formEvents}>
       <div className="staffFields">
         {fields.map((f) => (
           <label className="field" key={f.name}>
@@ -302,7 +300,9 @@ export function Form({
           </label>
         ))}
       </div>
-      {children}
+      <StaffFieldErrors.Provider value={fieldErrors}>
+        {children}
+      </StaffFieldErrors.Provider>
       <button className="button" type="submit" disabled={pending}>
         {pending ? "Working…" : submit}
       </button>
@@ -332,6 +332,72 @@ export function Action({
     />
   );
 }
+function StaffPager({
+  page,
+  pages,
+  total,
+  label,
+  go,
+}: {
+  page: number;
+  pages: number;
+  total: number;
+  label: string;
+  go: (page: number) => void;
+}) {
+  return (
+    <nav className="staffPager" aria-label={label}>
+      <button
+        type="button"
+        className="secondary"
+        disabled={page <= 1}
+        onClick={() => go(page - 1)}
+      >
+        Previous
+      </button>
+      <span>
+        Page {page} of {pages} · {total} records
+      </span>
+      <button
+        type="button"
+        className="secondary"
+        disabled={page >= pages}
+        onClick={() => go(page + 1)}
+      >
+        Next
+      </button>
+    </nav>
+  );
+}
+
+export function useRowPage<T>(
+  rows: T[],
+  label: string,
+  showSinglePage = false,
+) {
+  const [selected, go] = useState(1);
+  const pages = Math.max(1, Math.ceil(rows.length / 10));
+  const page = Math.min(selected, pages);
+  useEffect(() => {
+    go((current) => Math.min(current, pages));
+  }, [pages]);
+  const start = (page - 1) * 10;
+  return {
+    rows: rows.slice(start, start + 10),
+    start,
+    go,
+    pager: (pages > 1 || (showSinglePage && rows.length > 0)) && (
+      <StaffPager
+        page={page}
+        pages={pages}
+        total={rows.length}
+        label={label}
+        go={go}
+      />
+    ),
+  };
+}
+
 export function PageList<T>({
   url,
   revision = 0,
@@ -388,25 +454,13 @@ function PagedRows<T>({
             <p className="muted">{empty}</p>
           )}
           {!!pages && (
-            <div className="staffPager">
-              <button
-                className="secondary"
-                disabled={page <= 1}
-                onClick={() => setPage(page - 1)}
-              >
-                Previous
-              </button>
-              <span>
-                Page {page} of {pages} · {r.data.total} records
-              </span>
-              <button
-                className="secondary"
-                disabled={page >= pages}
-                onClick={() => setPage(page + 1)}
-              >
-                Next
-              </button>
-            </div>
+            <StaffPager
+              page={page}
+              pages={pages}
+              total={r.data.total}
+              label="Record pages"
+              go={setPage}
+            />
           )}
         </>
       )}

@@ -2,7 +2,6 @@ import { expect, test, type Page } from "@playwright/test";
 import { randomUUID } from "node:crypto";
 
 async function signIn(page: Page, email: string, password: string) {
-  await page.goto("/login");
   await page.getByLabel("Email address").fill(email);
   await page.locator("input[name=password]").fill(password);
   await page.getByRole("button", { name: "Sign in", exact: true }).click();
@@ -18,6 +17,9 @@ function initialPassword() {
 async function moderator(page: Page, email: string) {
   const password = initialPassword(),
     changed = "Temp-" + randomUUID() + "9";
+  await page.goto(
+    "/login?next=" + encodeURIComponent("/workspace?section=overview"),
+  );
   await signIn(page, email, password);
   await expect(page).toHaveURL(/\/password(?:\?|$)/);
   await page.getByLabel("Current password").fill(password);
@@ -27,7 +29,7 @@ async function moderator(page: Page, email: string) {
     .click();
   await expect(page).toHaveURL(/\/login\?updated=1/);
   await signIn(page, email, changed);
-  await expect(page).toHaveURL(/\/workspace(?:\?|$)/);
+  await expect(page).toHaveURL(/\/workspace\?section=overview$/);
 }
 function tab(page: Page, label: string) {
   return page
@@ -42,6 +44,7 @@ function future(days: number) {
 test("administrator creates a provider, changes its status and inspects the audit trail", async ({
   page,
 }) => {
+  await page.goto("/login");
   await signIn(page, "admin@example.test", initialPassword());
   await expect(
     page.getByRole("heading", { name: "Platform operations" }),
@@ -101,12 +104,16 @@ test("airline moderator schedules a flight, adds a cabin, and is denied the admi
   await flight.getByLabel("Flight number").fill(number);
   await flight.getByLabel("Departure airport").selectOption("CAI");
   await flight.getByLabel("Arrival airport").selectOption("DXB");
-  await flight
-    .getByLabel("Departure (airport local time)")
-    .fill(future(50) + "T08:00");
+  const departure = flight.getByLabel("Departure (airport local time)");
+  await departure.fill(future(-2) + "T08:00");
   await flight
     .getByLabel("Arrival (airport local time)")
     .fill(future(50) + "T15:00");
+  await flight.getByRole("button", { name: "Create flight" }).click();
+  await expect(departure).toHaveAccessibleDescription(
+    /departure must be in the future/i,
+  );
+  await departure.fill(future(50) + "T08:00");
   await flight.getByRole("button", { name: "Create flight" }).click();
   await expect(
     page.getByRole("heading", { name: new RegExp(number) }),

@@ -1,31 +1,94 @@
 import { notFound } from "next/navigation";
+import { cookies } from "next/headers";
 import Link from "next/link";
 import { Suspense } from "react";
+import type { Metadata } from "next";
 import { WindowHome } from "@/components/home";
 import { Account } from "@/components/account";
 import { VerifyEmail } from "@/components/verify-email";
-import type { Metadata } from "next";
+import {
+  publicMetadata,
+  readPublicContent,
+  readPublicListing,
+} from "@/lib/public-discovery";
+import {
+  discoveryList,
+  searchFromValues,
+  type SearchValues,
+} from "@/lib/discovery-list";
+import { places } from "@/lib/destinations";
+import BookingFeature from "@/features/booking";
+import DiscoveryFeature from "@/features/discovery";
+import StaffFeature from "@/features/staff";
+
+export const dynamic = "force-dynamic";
+
+interface RouteProps {
+  params: Promise<{ route: string[] }>;
+  searchParams: Promise<SearchValues>;
+}
 
 export async function generateMetadata({
   params,
-}: {
-  params: Promise<{ route: string[] }>;
-}): Promise<Metadata> {
-  const [view] = (await params).route;
+  searchParams,
+}: RouteProps): Promise<Metadata> {
+  const { route } = await params;
+  if (route.length > 2) notFound();
+  const [view, id] = route;
+  if (id && ["post", "author", "itinerary"].includes(view))
+    return publicMetadata(await readPublicContent(view, id));
+  if (view === "explore" && id) {
+    const place = places.find(([code]) => code === id.toUpperCase());
+    if (!place) return { robots: { index: false, follow: false } };
+    const [code, country, city, , , airport] = place;
+    return {
+      title: "Explore " + city,
+      description:
+        "Plan a visit to " +
+        city +
+        ", " +
+        country +
+        ". Find flights to " +
+        airport +
+        " (" +
+        code +
+        ") and stays in the city.",
+    };
+  }
+  if (!id && (view === "journal" || view === "planner")) {
+    const search = searchFromValues(await searchParams);
+    const { tab } = discoveryList(view, search);
+    if (tab !== "public") return { robots: { index: false, follow: false } };
+    return view === "journal"
+      ? {
+          title: "Travel journal",
+          description:
+            "Read published travel stories and search the journal by author, keyword or tag.",
+        }
+      : {
+          title: "Public itineraries",
+          description:
+            "Find public travel itineraries by city, country or trip length and explore their day-by-day plans.",
+        };
+  }
+  if (view === "flights" && !id)
+    return {
+      title: "Search flights",
+      description:
+        "Compare flights by departure, arrival, cabin, fare and travel dates.",
+    };
+  if (view === "stays" && !id)
+    return {
+      title: "Search stays",
+      description:
+        "Find hotels and available rooms by destination, stay dates, nightly rate and guest rating.",
+    };
   return view === "verify-email" || view === "reset"
     ? { referrer: "no-referrer", robots: { index: false, follow: false } }
     : {};
 }
 
-import BookingFeature from "@/features/booking";
-import DiscoveryFeature from "@/features/discovery";
-import StaffFeature from "@/features/staff";
-
-export default async function Page({
-  params,
-}: {
-  params: Promise<{ route: string[] }>;
-}) {
+export default async function Page({ params, searchParams }: RouteProps) {
   const route = (await params).route;
   const [view, id] = route;
   if (route.length > 2) notFound();
@@ -43,7 +106,28 @@ export default async function Page({
     ].includes(view)
   )
     content = <BookingFeature view={view} id={id} />;
-  else if (["journal", "planner", "itinerary", "post", "author"].includes(view))
+  else if (id && ["itinerary", "post", "author"].includes(view)) {
+    const initial = await readPublicContent(view, id);
+    if (!initial) {
+      // Owners can open drafts and private plans at the same URL. Only the
+      // authenticated browser API can authorize that view.
+      const session = await cookies();
+      if (
+        view === "author" ||
+        !(session.has("access_token") || session.has("refresh_token"))
+      )
+        notFound();
+    }
+    content = <DiscoveryFeature view={view} id={id} initial={initial} />;
+  } else if (!id && (view === "journal" || view === "planner")) {
+    const listing = await readPublicListing(
+      view,
+      searchFromValues(await searchParams),
+    );
+    content = <DiscoveryFeature view={view} listing={listing} />;
+  } else if (
+    ["journal", "planner", "itinerary", "post", "author"].includes(view)
+  )
     content = <DiscoveryFeature view={view} id={id} />;
   else if (view === "verify-email" && !id) content = <VerifyEmail />;
   else if (view === "workspace") content = <StaffFeature view={view} id={id} />;

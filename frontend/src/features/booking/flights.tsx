@@ -11,6 +11,7 @@ import {
   Field,
   formData,
   money,
+  PagedRows,
   Pager,
   qs,
   SignIn,
@@ -166,6 +167,17 @@ export function FlightSearch() {
         onSubmit={submit((form) => {
           const values = formData(form);
           if (!round) delete values.returnDate;
+          for (const field of ["departureAirport", "arrivalAirport"]) {
+            if (
+              airports.length &&
+              !airports.some((a) => a.iata_code === values[field])
+            )
+              return invalidField(
+                form,
+                field,
+                "Choose an airport from the airport directory.",
+              );
+          }
           if (values.departureAirport === values.arrivalAirport)
             return invalidField(
               form,
@@ -442,7 +454,7 @@ export function FlightDetail({ id }: { id: string }) {
             {l.cabins.map((c) => (
               <div key={c.category} className="fare-cabin">
                 <strong>
-                  {c.category} · {money(c.price)}
+                  {c.category} · {money(c.price, l.currency)}
                 </strong>
                 <p>
                   {c.seatsRemaining} seats left · {c.freeBags} checked bags ·{" "}
@@ -471,8 +483,8 @@ export function FlightDetail({ id }: { id: string }) {
             <p>Selected cabin · {cat}</p>
           )}
           <p>
-            Extra bags · {money(l.extraBagPrice)} each · up to {l.maxExtraBags}{" "}
-            per passenger
+            Extra bags · {money(l.extraBagPrice, l.currency)} each · up to{" "}
+            {l.maxExtraBags} per passenger
           </p>
           <Tiers tiers={l.cancellationTiers} />
         </section>
@@ -489,7 +501,15 @@ export function FlightDetail({ id }: { id: string }) {
         </Link>
       ) : !me.data ? (
         <div className="panel">
-          <SignIn label="Sign in to book this flight" />
+          <SignIn
+            label="Sign in to book this flight"
+            returnTo={
+              "/flight/" +
+              id +
+              "?" +
+              qs({ ...Object.fromEntries(q), cabin: category })
+            }
+          />
         </div>
       ) : me.data.role !== "User" ? (
         <p className="notice">Booking is available to traveler accounts.</p>
@@ -645,11 +665,13 @@ export function FlightDetail({ id }: { id: string }) {
               {money(s.total, quote.currency)}
             </p>
           ))}
-          {quote.passengers.map((p, i) => (
-            <p key={i}>
-              {p.fullName} · {p.type} · {p.extraBags} extra bags
-            </p>
-          ))}
+          <PagedRows label="Passenger summary pages">
+            {quote.passengers.map((p, i) => (
+              <p key={i}>
+                {p.fullName} · {p.type} · {p.extraBags} extra bags
+              </p>
+            ))}
+          </PagedRows>
           <strong>Total {money(quote.amount, quote.currency)}</strong>
           <button
             className="button"

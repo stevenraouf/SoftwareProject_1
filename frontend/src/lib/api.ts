@@ -2,14 +2,19 @@ const base = (
   process.env.NEXT_PUBLIC_API_BASE_URL || "https://localhost:3443/api"
 ).replace(/\/$/, "");
 
+declare global {
+  interface Window {
+    aerisConfig?: { apiBase: string; stripePublic: string };
+  }
+}
+
 export function apiUrl(path: string) {
   if (!path.startsWith("/") || path.startsWith("//") || path.includes("\\"))
     throw new Error("Invalid API path");
   const runtime =
     typeof document === "undefined"
-      ? null
-      : document.querySelector<HTMLMetaElement>('meta[name="aeris-api"]')
-          ?.content;
+      ? process.env.AERIS_API_BASE_URL
+      : window.aerisConfig?.apiBase;
   return (runtime || base).replace(/\/$/, "") + path;
 }
 

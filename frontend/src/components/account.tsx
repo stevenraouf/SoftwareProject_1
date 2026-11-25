@@ -3,6 +3,7 @@ import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState, type FormEvent } from "react";
 import { api, ApiError, localReturn } from "@/lib/api";
+import { getFieldErrors, useFormErrors } from "@/lib/form-errors";
 import { useSession, type User } from "@/lib/session";
 
 const titles: Record<string, string> = {
@@ -21,15 +22,17 @@ export function Account({ view }: { view: string }) {
     query = useSearchParams();
   const [busy, setBusy] = useState(false),
     [message, setMessage] = useState(""),
-    [error, setError] = useState(""),
-    [fields, setFields] = useState<Record<string, string>>({});
+    [error, setError] = useState("");
+  const { errors: fields, setErrors: setFields, formEvents } = useFormErrors();
   const [currencies, setCurrencies] = useState<string[]>([]),
     [page, setPage] = useState(1),
     [rows, setRows] = useState<any>(),
     [version, setVersion] = useState(0);
   const user = session.user;
   const next = localReturn(query.get("next")),
-    after = next ? "?next=" + encodeURIComponent(next) : "";
+    after = next ? "?next=" + encodeURIComponent(next) : "",
+    loginAfterUpdate =
+      "/login?updated=1" + (next ? "&next=" + encodeURIComponent(next) : "");
   useEffect(() => {
     let active = true;
     if (view === "account")
@@ -78,7 +81,7 @@ export function Account({ view }: { view: string }) {
           await session.reload();
           router.replace(
             account.forcePasswordChange
-              ? "/password"
+              ? "/password" + after
               : next || (account.role === "User" ? "/trips" : "/workspace"),
           );
           break;
@@ -108,7 +111,7 @@ export function Account({ view }: { view: string }) {
             method: "POST",
             body: { ...formValues, token: query.get("token") },
           });
-          router.replace("/login?updated=1");
+          router.replace(loginAfterUpdate);
           break;
         case "password":
           await api("/auth/change-password", {
@@ -116,7 +119,7 @@ export function Account({ view }: { view: string }) {
             body: formValues,
           });
           await session.reload();
-          router.replace("/login?updated=1");
+          router.replace(loginAfterUpdate);
           break;
         case "account":
           await api("/users/me", { method: "PATCH", body: formValues });
@@ -126,12 +129,10 @@ export function Account({ view }: { view: string }) {
       }
     } catch (e) {
       const problem = e as ApiError;
-      setError(problem.message);
-      const detail = Object.fromEntries(
-        (problem.fields || []).map((f) => [f.field, f.messages.join(" ")]),
-      );
+      const detail = getFieldErrors(problem);
       if (view === "register" && problem.status === 409)
         detail.email = "This email address is already registered.";
+      setError(problem.message);
       setFields(detail);
     } finally {
       setBusy(false);
@@ -156,6 +157,22 @@ export function Account({ view }: { view: string }) {
       setBusy(false);
     }
   }
+  function fieldAttributes(name: string) {
+    return {
+      id: "account-" + name,
+      "aria-invalid": fields[name] ? true : undefined,
+      "aria-describedby": fields[name] ? "account-error-" + name : undefined,
+    };
+  }
+  function fieldError(name: string) {
+    return (
+      fields[name] && (
+        <small className="invalid" id={"account-error-" + name} role="alert">
+          {fields[name]}
+        </small>
+      )
+    );
+  }
   function input(
     name: string,
     label: string,
@@ -163,17 +180,17 @@ export function Account({ view }: { view: string }) {
     props: React.InputHTMLAttributes<HTMLInputElement> = {},
   ) {
     return (
-      <label className="field">
-        {label}
+      <div className="field">
+        <label htmlFor={"account-" + name}>{label}</label>
         <input
           required
           name={name}
           type={type}
-          aria-invalid={!!fields[name]}
+          {...fieldAttributes(name)}
           {...props}
         />
-        {fields[name] && <small className="invalid">{fields[name]}</small>}
-      </label>
+        {fieldError(name)}
+      </div>
     );
   }
   const strong = {
@@ -189,6 +206,13 @@ export function Account({ view }: { view: string }) {
         <h1>{titles[view]}</h1>
         {session.loading ? (
           <p>Checking your session…</p>
+        ) : session.error ? (
+          <div className="panel stack">
+            <p role="alert">{session.error}</p>
+            <button className="secondary" onClick={() => void session.reload()}>
+              Try again
+            </button>
+          </div>
         ) : (
           <Link
             className="button"
@@ -331,7 +355,7 @@ export function Account({ view }: { view: string }) {
           )}
         </div>
       ) : (
-        <form className="panel stack" onSubmit={submit}>
+        <form className="panel stack" onSubmit={submit} {...formEvents}>
           {view === "account" && user && (
             <p>
               {user.email} · {user.role}
@@ -370,13 +394,23 @@ export function Account({ view }: { view: string }) {
             </small>
           )}
           {view === "register" && (
-            <label className="check">
-              <input type="checkbox" name="consent" required />I agree to the{" "}
-              <Link href="/terms" target="_blank">
-                terms and privacy notice
-              </Link>
-              .
-            </label>
+            <div className="field">
+              <label className="check">
+                <input
+                  type="checkbox"
+                  name="consent"
+                  title="Accept the terms and privacy notice to create your account."
+                  required
+                  {...fieldAttributes("consent")}
+                />
+                I agree to the{" "}
+                <Link href="/terms" target="_blank">
+                  terms and privacy notice
+                </Link>
+                .
+              </label>
+              {fieldError("consent")}
+            </div>
           )}
           {view === "account" && (
             <>
@@ -386,10 +420,13 @@ export function Account({ view }: { view: string }) {
                 autoComplete: "tel",
                 maxLength: 25,
               })}
-              <label>
-                Preferred currency
+              <div className="field">
+                <label htmlFor="account-preferredCurrency">
+                  Preferred currency
+                </label>
                 <select
                   name="preferredCurrency"
+                  {...fieldAttributes("preferredCurrency")}
                   defaultValue={user?.preferredCurrency || "USD"}
                 >
                   {Array.from(
@@ -398,7 +435,8 @@ export function Account({ view }: { view: string }) {
                     <option key={c}>{c}</option>
                   ))}
                 </select>
-              </label>
+                {fieldError("preferredCurrency")}
+              </div>
             </>
           )}
           <button disabled={busy}>
@@ -416,7 +454,7 @@ export function Account({ view }: { view: string }) {
           {view === "login" && (
             <div className="actions">
               <Link href={"/register" + after}>Create an account</Link>
-              <Link href="/forgot">Forgot password?</Link>
+              <Link href={"/forgot" + after}>Forgot password?</Link>
             </div>
           )}
           {["register", "forgot", "reset"].includes(view) && (

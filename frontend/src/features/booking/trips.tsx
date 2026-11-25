@@ -12,6 +12,7 @@ import {
   formData,
   localTime,
   money,
+  PagedRows,
   Pager,
   qs,
   SignIn,
@@ -51,28 +52,32 @@ function ItinerarySummary({ s, currency }: { s: Snapshot; currency: string }) {
           </p>
         </article>
       ))}
-      {s.passengers?.map((p, i) => (
-        <p key={i}>
-          <strong>{p.fullName}</strong> · {p.type} · {p.extraBags} extra bags
-        </p>
-      ))}
+      <PagedRows label="Passenger summary pages">
+        {s.passengers?.map((p, i) => (
+          <p key={i}>
+            <strong>{p.fullName}</strong> · {p.type} · {p.extraBags} extra bags
+          </p>
+        ))}
+      </PagedRows>
       {s.hotelName && (
         <>
           <h3>{s.hotelName}</h3>
           <p>
             {s.checkIn} to {s.checkOut} · {s.timezone}
           </p>
-          {s.rooms?.map((r) => (
-            <p key={r.roomId}>
-              <strong>
-                {r.type} · Room {r.number}
-              </strong>
-              <br />
-              {r.guests
-                .map((g) => g.name + " (" + g.age + ")")
-                .join(", ")} · {money(r.total, currency)}
-            </p>
-          ))}
+          <PagedRows label="Reserved room pages">
+            {s.rooms?.map((r) => (
+              <p key={r.roomId}>
+                <strong>
+                  {r.type} · Room {r.number}
+                </strong>
+                <br />
+                {r.guests
+                  .map((g) => g.name + " (" + g.age + ")")
+                  .join(", ")} · {money(r.total, currency)}
+              </p>
+            ))}
+          </PagedRows>
         </>
       )}
     </div>
@@ -233,16 +238,18 @@ function SeatPicker({
         {segment.flightNumber} · {segment.departureAirport} →{" "}
         {segment.arrivalAirport}
       </h3>
-      {passengers.map((p, i) => (
-        <p key={i}>
-          {p.fullName} ·{" "}
-          <strong>
-            {p.type === "infant"
-              ? "Adult’s lap"
-              : assignment(i) || "Seat unassigned"}
-          </strong>
-        </p>
-      ))}
+      <PagedRows label="Passenger seat assignment pages">
+        {passengers.map((p, i) => (
+          <p key={i}>
+            {p.fullName} ·{" "}
+            <strong>
+              {p.type === "infant"
+                ? "Adult’s lap"
+                : assignment(i) || "Seat unassigned"}
+            </strong>
+          </p>
+        ))}
+      </PagedRows>
       {canEdit && !editing && (
         <button
           className="secondary"
@@ -473,6 +480,7 @@ export function BookingDetail({ id }: { id: string }) {
         <Checkout
           id={id}
           type={type}
+          currency={b.currency}
           expires={b.holdExpiresAt}
           existingPayment={b.paymentId}
           onChanged={changed}
@@ -507,9 +515,11 @@ export function BookingDetail({ id }: { id: string }) {
       {b.refunds && b.refunds.length > 0 && (
         <section className="panel">
           <h2>Refunds</h2>
-          {b.refunds.map((r) => (
-            <RefundRow key={r._id} r={r} />
-          ))}
+          <PagedRows label="Refund pages">
+            {b.refunds.map((r) => (
+              <RefundRow key={r._id} r={r} />
+            ))}
+          </PagedRows>
         </section>
       )}
       {type === "hotel" && b.status === "Completed" && (
@@ -682,23 +692,22 @@ export function ChangeDetail({ id }: { id: string }) {
         <h1>Flight change</h1>
       </header>
       <Status state={res} />
-      {c && (
+      {c && <Status state={booking} />}
+      {c && booking.data && (
         <>
           <section className="panel stack">
             <p>{c.status}</p>
-            <ItinerarySummary
-              s={c.snapshot}
-              currency={booking.data?.currency || "USD"}
-            />
+            <ItinerarySummary s={c.snapshot} currency={booking.data.currency} />
             <strong>
               {c.difference < 0 ? "Refund" : "Additional fare"}{" "}
-              {money(Math.abs(c.difference), booking.data?.currency || "USD")}
+              {money(Math.abs(c.difference), booking.data.currency)}
             </strong>
           </section>
           {c.status === "Pending Payment" && (
             <Checkout
               id={id}
               type="change"
+              currency={booking.data.currency}
               existingPayment={c.paymentId}
               expires={c.expiresAt}
               onChanged={changed}
