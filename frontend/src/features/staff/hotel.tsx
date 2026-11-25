@@ -9,6 +9,8 @@ import {
   Fold,
   Form,
   PageList,
+  type Page,
+  Problem,
   Row,
   Section,
   amount,
@@ -16,6 +18,7 @@ import {
   query,
   useRevision,
   useRowPage,
+  useResource,
 } from "./ui";
 
 type Range = { start: string; end: string };
@@ -52,6 +55,69 @@ type Review = {
   createdAt: string;
   reply?: string;
 };
+export function HotelOverview({
+  id,
+  choose,
+}: {
+  id: string;
+  choose: (section: string) => void;
+}) {
+  const rooms = useResource<Page<Room>>("/hotels/" + id + "/rooms");
+  const reservations = useResource<Page<Reservation>>(
+    "/hotels/" + id + "/reservations",
+  );
+  const latest = reservations.data?.items[0];
+  return (
+    <div className="staffMetrics">
+      <Section title="Rooms and availability">
+        <Problem>{rooms.error}</Problem>
+        {rooms.loading && <p role="status">Loading rooms…</p>}
+        {rooms.data?.total === 0 && <p>No rooms have been added.</p>}
+        {rooms.data?.items.slice(0, 3).map((r) => (
+          <Row
+            key={r._id}
+            title={"Room " + r.number + " · " + r.type}
+            meta={
+              r.occupancy +
+              " guests · " +
+              amount(r.price) +
+              " per night" +
+              (r.active ? "" : " · Inactive")
+            }
+          />
+        ))}
+        <button className="secondary" onClick={() => choose("Rooms")}>
+          Manage rooms
+        </button>
+        <button className="secondary" onClick={() => choose("Availability")}>
+          Open availability calendar
+        </button>
+      </Section>
+      <Section title="Recent reservation">
+        <Problem>{reservations.error}</Problem>
+        {reservations.loading && <p role="status">Loading reservations…</p>}
+        {reservations.data && !latest && <p>No reservations yet.</p>}
+        {latest && (
+          <Row
+            title={latest.reference || latest.status}
+            meta={
+              latest.checkIn + " to " + latest.checkOut + " · " + latest.status
+            }
+          >
+            <ReservationRooms rooms={latest.rooms} />
+          </Row>
+        )}
+        <button className="secondary" onClick={() => choose("Reservations")}>
+          View reservations
+        </button>
+        <button className="secondary" onClick={() => choose("Reviews")}>
+          Review guest feedback
+        </button>
+      </Section>
+    </div>
+  );
+}
+
 export function Rooms({ id }: { id: string }) {
   const [revision, refresh] = useRevision();
   const base = "/hotels/" + id + "/rooms";
@@ -262,7 +328,10 @@ function DateRanges({
         reset
         onSubmit={async (v) => {
           if (v.end <= v.start)
-            throw new FieldError("end", "The end date must follow the first night.");
+            throw new FieldError(
+              "end",
+              "The end date must follow the first night.",
+            );
           await api(base, {
             method: "POST",
             body: { kind, ranges: [{ start: v.start, end: v.end }] },
@@ -317,7 +386,10 @@ export function Availability({ id }: { id: string }) {
         submit="View availability"
         onSubmit={(v) => {
           if (v.end <= v.start)
-            throw new FieldError("end", "Choose an end date after the first night.");
+            throw new FieldError(
+              "end",
+              "Choose an end date after the first night.",
+            );
           setRange({ start: v.start, end: v.end });
         }}
       />

@@ -1,245 +1,299 @@
 "use client";
+
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useEffect, useRef, useState, type FormEvent } from "react";
-import { api } from "@/lib/api";
-import { useFormErrors } from "@/lib/form-errors";
+import { useEffect, useRef, useState, type MouseEvent } from "react";
+import {
+  cityGuides,
+  findPlace,
+  places,
+  type AirportCode,
+  type Place,
+} from "@/lib/destinations";
+import { AirportPair, PortalFlightForm } from "./portal-flight-form";
+import {
+  cityName,
+  initialDraft,
+  portalHref,
+  withDestination,
+  type FlightDraft,
+} from "./portal-draft";
 
-import { places } from "@/lib/destinations";
-
-type Airport = { iata_code: string; name: string; city?: string };
-function FlightBar({ arrival }: { arrival: string }) {
-  const router = useRouter();
-  const { errors, setErrors, formEvents } = useFormErrors();
-  const errorProps = (field: string) => ({
-    "aria-invalid": errors[field] ? true : undefined,
-    "aria-describedby": errors[field] ? "flight-error-" + field : undefined,
-  });
-  const fieldError = (field: string) =>
-    errors[field] && (
-      <small role="alert" className="invalid" id={"flight-error-" + field}>
-        {errors[field]}
-      </small>
-    );
-  const [airports, setAirports] = useState<Airport[]>([]),
-    [round, setRound] = useState(false),
-    [date, setDate] = useState("");
-  const [hint, setHint] = useState(""),
-    [adults, setAdults] = useState(1),
-    [cabin, setCabin] = useState("Economy");
-  useEffect(() => {
-    let active = true;
-    (async () => {
-      const first = await api("/airports");
-      const more = await Promise.all(
-        Array.from({ length: Math.max(0, first.pages - 1) }, (_, i) =>
-          api("/airports?page=" + (i + 2)),
-        ),
-      );
-      if (active) setAirports([first, ...more].flatMap((page) => page.items));
-    })().catch(() => {
-      if (active)
-        setHint(
-          "Airport directory is offline. You can still enter an IATA airport code.",
-        );
-    });
-    return () => {
-      active = false;
-    };
-  }, []);
-  function submit(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    const values = new FormData(event.currentTarget);
-    const origin = String(values.get("departureAirport")).toUpperCase().trim(),
-      to = String(values.get("arrivalAirport")).toUpperCase().trim();
-    for (const [field, code] of [
-      ["departureAirport", origin],
-      ["arrivalAirport", to],
-    ]) {
-      if (airports.length && !airports.some((a) => a.iata_code === code)) {
-        setErrors({ [field]: "Choose an airport from the airport directory." });
-        return;
-      }
-    }
-    if (origin === to) {
-      setErrors({ arrivalAirport: "Choose a different arrival airport." });
-      return;
-    }
-    const query = new URLSearchParams({
-      departureAirport: origin,
-      arrivalAirport: to,
-      departureDate: date,
-      adults: String(adults),
-      cabin,
-    });
-    if (round) query.set("returnDate", String(values.get("returnDate")));
-    router.push("/flights?" + query);
-  }
+function reducedMotion() {
+  const preference = document.documentElement.dataset.motion;
   return (
-    <form
-      id="find-flight"
-      className="flightbar panel"
-      onSubmit={submit}
-      {...formEvents}
-    >
-      <div className="section-line">
-        <h2>Find a flight</h2>
-        <select
-          aria-label="Trip type"
-          value={round ? "round" : "one"}
-          onChange={(e) => setRound(e.target.value === "round")}
-        >
-          <option value="one">One way</option>
-          <option value="round">Round trip</option>
-        </select>
-      </div>
-      <div className="quickfields">
-        <label>
-          From
-          <input
-            aria-label="Departure airport"
-            name="departureAirport"
-            {...errorProps("departureAirport")}
-            list="airport-options"
-            required
-            pattern="[A-Za-z]{3}"
-            maxLength={3}
-            defaultValue={arrival === "CAI" ? "DXB" : "CAI"}
-          />
-          {fieldError("departureAirport")}
-        </label>
-        <label>
-          To
-          <input
-            aria-label="Arrival airport"
-            name="arrivalAirport"
-            {...errorProps("arrivalAirport")}
-            list="airport-options"
-            required
-            pattern="[A-Za-z]{3}"
-            maxLength={3}
-            defaultValue={arrival}
-          />
-          {fieldError("arrivalAirport")}
-        </label>
-        <datalist id="airport-options">
-          {airports.map((a) => (
-            <option key={a.iata_code} value={a.iata_code}>
-              {a.name}
-            </option>
-          ))}
-        </datalist>
-        <label>
-          Departure
-          <input
-            type="date"
-            name="departureDate"
-            {...errorProps("departureDate")}
-            aria-label="Departure date"
-            required
-            value={date}
-            onChange={(e) => setDate(e.target.value)}
-          />
-          {fieldError("departureDate")}
-        </label>
-        {round && (
-          <label>
-            Return
-            <input
-              type="date"
-              name="returnDate"
-              min={date}
-              required
-              {...errorProps("returnDate")}
-            />
-            {fieldError("returnDate")}
-          </label>
-        )}
-        <details className="quick-passengers">
-          <summary>
-            <small>Travelers &amp; cabin</small>
-            {adults} adult{adults === 1 ? "" : "s"} · {cabin}
-          </summary>
-          <div className="popover stack">
-            <label>
-              Adults
-              <input
-                type="number"
-                name="adults"
-                {...errorProps("adults")}
-                min="1"
-                max="1000"
-                required
-                value={adults}
-                onChange={(e) => setAdults(+e.target.value)}
-              />
-              {fieldError("adults")}
-            </label>
-            <label>
-              Cabin
-              <select value={cabin} onChange={(e) => setCabin(e.target.value)}>
-                {["Economy", "Premium Economy", "Business", "First"].map(
-                  (x) => (
-                    <option key={x}>{x}</option>
-                  ),
-                )}
-              </select>
-            </label>
-            <Link href="/flights">More traveler options</Link>
-          </div>
-        </details>
-        <button className="primary">
-          Search flights <span aria-hidden>→</span>
-        </button>
-      </div>
-      {hint && (
-        <p role="status" className="muted">
-          {hint}
-        </p>
-      )}
-    </form>
+    preference === "reduced" ||
+    (!preference &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches)
   );
 }
 
-export function WindowHome({ destination }: { destination?: string }) {
-  const [selected, setSelected] = useState(0);
+function CabinWindow({
+  place,
+  previous,
+  finish,
+  label = true,
+}: {
+  place: Place;
+  previous?: AirportCode;
+  finish?: () => void;
+  label?: boolean;
+}) {
+  const [code] = place;
+  const guide = cityGuides[code];
+  return (
+    <div className="window-assembly">
+      <div className="window-glass">
+        {previous && (
+          <img
+            className="scene scene-outgoing"
+            key={"from-" + previous + "-" + code}
+            alt=""
+            src={"/art/" + previous + "-window.jpg"}
+          />
+        )}
+        <img
+          key={(previous || "") + code}
+          className={"scene" + (previous ? " scene-incoming" : "")}
+          src={"/art/" + code + "-window.jpg"}
+          alt={guide.landscape + " seen through the cabin window"}
+        />
+        {label && (
+          <div className="window-name">
+            <small>{guide.country}</small>
+            <strong>{guide.landscape}</strong>
+          </div>
+        )}
+      </div>
+      <img className="surround" src="/art/window-shell.png" alt="" />
+      {previous && (
+        <button className="skip-shuffle" type="button" onClick={finish}>
+          Skip animation
+        </button>
+      )}
+    </div>
+  );
+}
+
+export function WindowHome({
+  destination,
+  flightDraft = false,
+  initialQuery = "",
+  today,
+}: {
+  destination?: string;
+  flightDraft?: boolean;
+  initialQuery?: string;
+  today: string;
+}) {
+  const initial = new URLSearchParams(initialQuery);
+  const router = useRouter();
+  const [interactive, setInteractive] = useState(false);
+  useEffect(() => setInteractive(true), []);
+  const routedPlace = destination ? findPlace(destination) : undefined;
+  const [selected, setSelected] = useState<AirportCode>(
+    () =>
+      routedPlace?.[0] || findPlace(initial.get("window") || "")?.[0] || "CDG",
+  );
+  const [draft, setDraft] = useState<FlightDraft>(() =>
+    initialDraft(selected, initial, today),
+  );
+  const [previous, setPrevious] = useState<AirportCode>();
   const rail = useRef<HTMLDivElement>(null);
-  const index = destination
-    ? places.findIndex((p) => p[0] === destination.toUpperCase())
-    : selected;
-  if (index < 0)
+  const scrollFrame = useRef(0);
+  const place = routedPlace || findPlace(selected)!;
+  const [code, country, city, greeting, lang, airport] = place;
+  const guide = cityGuides[code];
+  const index = places.findIndex(([iata]) => iata === code);
+  const arrivalPath = "/explore/" + code;
+  const draftPath = arrivalPath + "/flights";
+  useEffect(() => {
+    if (!previous) return;
+    const finish = () => setPrevious(undefined);
+    const timer = window.setTimeout(finish, 465);
+    const escape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") finish();
+    };
+    window.addEventListener("keydown", escape);
+    return () => {
+      window.clearTimeout(timer);
+      window.removeEventListener("keydown", escape);
+    };
+  }, [previous, selected]);
+  useEffect(() => () => window.cancelAnimationFrame(scrollFrame.current), []);
+  useEffect(() => {
+    if (!rail.current) return;
+    const active = places.findIndex(([iata]) => iata === selected);
+    const item = rail.current.children[Math.max(0, active - 1)];
+    if (item)
+      rail.current.scrollLeft +=
+        item.getBoundingClientRect().left -
+        rail.current.getBoundingClientRect().left;
+  }, [selected]);
+
+  function store(next: FlightDraft, view: AirportCode = selected) {
+    setDraft(next);
+    const url =
+      portalHref(
+        window.location.pathname,
+        next,
+        destination ? undefined : view,
+      ) + window.location.hash;
+    window.history.replaceState(window.history.state, "", url);
+  }
+  function choose(next: AirportCode) {
+    if (next !== selected) {
+      setPrevious(reducedMotion() ? undefined : selected);
+      setSelected(next);
+    }
+    store(withDestination(draft, next, today), next);
+  }
+  function setAirport(
+    field: "departureAirport" | "arrivalAirport",
+    value: string,
+  ) {
+    if (field === "arrivalAirport") {
+      const linked = findPlace(value);
+      const next = withDestination(draft, value, today);
+      if (linked && !destination) choose(linked[0]);
+      else if (linked && linked[0] !== code) {
+        router.push(
+          flightDraft
+            ? portalHref("/explore/" + linked[0] + "/flights", next)
+            : portalHref("/", next, linked[0]),
+          { scroll: false },
+        );
+      } else store(next);
+    } else {
+      updateDraft({
+        departureAirport: value,
+        arrivalAirport:
+          value === draft.arrivalAirport
+            ? draft.departureAirport
+            : draft.arrivalAirport,
+      });
+    }
+  }
+  function scrollToForm(event: MouseEvent<HTMLAnchorElement>) {
+    if (
+      event.button !== 0 ||
+      event.metaKey ||
+      event.ctrlKey ||
+      event.shiftKey ||
+      event.altKey
+    )
+      return;
+    const form = document.getElementById("find-flight");
+    if (!form) return;
+    event.preventDefault();
+    const initialY = window.scrollY;
+    const top = Math.min(
+      initialY + form.getBoundingClientRect().top - 16,
+      Math.max(0, document.documentElement.scrollHeight - window.innerHeight),
+    );
+    if (window.location.hash !== "#find-flight")
+      window.history.pushState(window.history.state, "", "#find-flight");
+    form.focus({ preventScroll: true });
+    window.cancelAnimationFrame(scrollFrame.current);
+    if (reducedMotion()) {
+      window.scrollTo(0, top);
+      return;
+    }
+    const start = performance.now();
+    function nextFrame(now: number) {
+      const progress = Math.min(1, (now - start) / 240);
+      window.scrollTo(
+        0,
+        initialY + (top - initialY) * (1 - (1 - progress) ** 3),
+      );
+      if (progress < 1)
+        scrollFrame.current = window.requestAnimationFrame(nextFrame);
+    }
+    scrollFrame.current = window.requestAnimationFrame(nextFrame);
+  }
+  if (destination && !routedPlace)
     return (
-      <main className="wrap">
+      <main className="wrap content">
         <h1>Destination unavailable</h1>
         <Link href="/">Choose a window</Link>
       </main>
     );
-  const [code, country, city, greeting, lang, airport] = places[index];
-  function choose(i: number) {
-    const next = (i + places.length) % places.length;
-    setSelected(next);
-    const target = rail.current?.children[next] as HTMLElement | undefined;
-    if (target && rail.current)
-      rail.current.scrollLeft +=
-        target.getBoundingClientRect().left -
-        rail.current.getBoundingClientRect().left -
-        16;
+  function updateDraft(fields: Partial<FlightDraft>) {
+    const next = { ...draft, ...fields };
+    if (fields.departureDate !== undefined) next.sampleDeparture = false;
+    if (fields.departureAirport !== undefined) next.defaultOrigin = false;
+    const destinationPlace =
+      fields.arrivalAirport && findPlace(fields.arrivalAirport);
+    if (flightDraft && destinationPlace && destinationPlace[0] !== code) {
+      router.push(
+        portalHref("/explore/" + destinationPlace[0] + "/flights", next),
+        { scroll: false },
+      );
+    } else store(next);
   }
+  const form = (
+    <PortalFlightForm
+      interactive={interactive}
+      today={today}
+      draft={draft}
+      onAirport={setAirport}
+      onChange={updateDraft}
+      title={destination ? "Find flights to " + city : "Find a flight"}
+      dedicated={flightDraft}
+    />
+  );
+  if (flightDraft)
+    return (
+      <main className="destination-portal flight-draft">
+        <section className="hero">
+          <div className="wrap hero-content">
+            <div className="hero-copy">
+              <p className="kicker">{guide.country}</p>
+              <h1 className="glass">Flights to {city}</h1>
+              <p className="intro">
+                Departing from {cityName(draft.departureAirport)}.
+              </p>
+              <Link
+                className="button secondary"
+                href={portalHref(arrivalPath, draft)}
+              >
+                Explore {city} →
+              </Link>
+            </div>
+            <CabinWindow place={place} label={false} />
+          </div>
+        </section>
+        <div className="wrap">
+          {form}
+          <AirportPair draft={draft} />
+        </div>
+      </main>
+    );
   if (destination)
     return (
-      <main className="arrival">
-        <div className="wrap">
-          <Link href="/" className="back">
-            ← Back to explore
-          </Link>
-          <section className="arrival-view">
-            <img
-              src={"/art/" + code + "-landscape.jpg"}
-              alt={city + " destination landscape"}
+      <main className="destination-portal city-arrival">
+        <section className="destination-hero">
+          <picture>
+            <source
+              media="(max-width: 650px)"
+              srcSet={"/art/" + code + "-window.jpg"}
             />
-            <div>
+            <img
+              className="destination-landscape"
+              src={"/art/" + code + "-landscape.jpg"}
+              alt={guide.landscape + " destination landscape"}
+            />
+          </picture>
+          <div className="wrap">
+            <Link
+              href={portalHref("/", draft, code)}
+              className="destination-back"
+            >
+              ← Back to windows
+            </Link>
+            <div className="destination-intro">
               <p className="kicker">
-                {country} · {city}
+                {guide.country} · {city}
               </p>
               <h1
                 className="glass arrival-word"
@@ -248,27 +302,49 @@ export function WindowHome({ destination }: { destination?: string }) {
               >
                 {greeting}
               </h1>
-              <p>Welcome to {city}.</p>
-              <a className="button secondary" href="#find-flight">
-                Choose {code} →
-              </a>
+              <p className="city-story">{guide.story}</p>
+              <Link
+                className="button secondary"
+                href={portalHref(
+                  draftPath,
+                  withDestination(draft, code, today),
+                )}
+              >
+                Fly to {code} <span aria-hidden="true">→</span>
+              </Link>
             </div>
-          </section>
-          <FlightBar key={code} arrival={code} />
-          <section className="panel arrival-airport">
-            <h2>Your airport</h2>
-            <p>
-              {airport} · {code}
-            </p>
-            <Link href={"/stays?destination=" + encodeURIComponent(city)}>
-              Find a stay in {city} →
+          </div>
+        </section>
+        <div className="wrap">
+          <section className="panel destination-airport">
+            <div>
+              <p className="kicker">Destination airport</p>
+              <h2>
+                {airport} ({code})
+              </h2>
+              <span>
+                {city} · {guide.country}
+              </span>
+            </div>
+            <Link
+              className="button secondary"
+              href={portalHref(draftPath, withDestination(draft, code, today))}
+            >
+              Choose {code} <span aria-hidden="true">→</span>
             </Link>
           </section>
+          {form}
+          <Link
+            className="city-stays"
+            href={"/stays?destination=" + encodeURIComponent(city)}
+          >
+            Find a stay in {city} →
+          </Link>
         </div>
       </main>
     );
   return (
-    <main className="home">
+    <main className="home destination-portal">
       <section className="hero">
         <div className="wrap hero-content">
           <div className="hero-copy">
@@ -292,29 +368,27 @@ export function WindowHome({ destination }: { destination?: string }) {
               </span>
             </p>
             <div className="actions hero-actions">
-              <Link className="button secondary" href={"/explore/" + code}>
-                Explore {country} <span aria-hidden>→</span>
+              <Link
+                className="button secondary"
+                href={portalHref(arrivalPath, draft)}
+              >
+                Explore {country} <span aria-hidden="true">→</span>
               </Link>
-              <a href="#find-flight" className="text-action">
-                Find a flight ↓
+              <a
+                href="#find-flight"
+                className="text-action"
+                onClick={scrollToForm}
+              >
+                <span className="desktop-copy">Find flights</span>
+                <span className="phone-copy">Find a flight ↓</span>
               </a>
             </div>
           </div>
-          <div className="window-assembly">
-            <div className="window-glass">
-              <img
-                key={code}
-                className="scene"
-                src={"/art/" + code + "-window.jpg"}
-                alt={city + " seen through the cabin window"}
-              />
-              <div className="window-name">
-                <small>{country}</small>
-                <strong>{city}</strong>
-              </div>
-            </div>
-            <img className="surround" src="/art/window-shell.png" alt="" />
-          </div>
+          <CabinWindow
+            place={place}
+            previous={previous}
+            finish={() => setPrevious(undefined)}
+          />
         </div>
       </section>
       <div className="wrap">
@@ -322,38 +396,42 @@ export function WindowHome({ destination }: { destination?: string }) {
           <div className="section-line">
             <h2>Choose a window</h2>
             <div className="actions">
-              <button
-                className="round secondary"
-                aria-label="Previous destination"
-                onClick={() => choose(index - 1)}
-              >
-                ←
-              </button>
-              <button
-                className="round secondary"
-                aria-label="Next destination"
-                onClick={() => choose(index + 1)}
-              >
-                →
-              </button>
+              {[-1, 1].map((step) => (
+                <button
+                  key={step}
+                  className="round secondary"
+                  disabled={!interactive}
+                  aria-label={
+                    step === 1 ? "Next destination" : "Previous destination"
+                  }
+                  onClick={() =>
+                    choose(
+                      places[(index + places.length + step) % places.length][0],
+                    )
+                  }
+                >
+                  {step === 1 ? "→" : "←"}
+                </button>
+              ))}
             </div>
           </div>
           <div ref={rail} className="destination-rail">
-            {places.map(([key, name], i) => (
+            {places.map(([iata, name]) => (
               <button
-                key={key}
+                key={iata}
                 aria-label={name}
-                aria-pressed={selected === i}
-                onClick={() => choose(i)}
+                disabled={!interactive}
+                aria-pressed={code === iata}
+                onClick={() => choose(iata)}
               >
-                <img alt="" src={"/art/" + key + "-landscape.jpg"} />
+                <img alt="" src={"/art/" + iata + "-window.jpg"} />
                 <span>{name}</span>
-                {selected === i && <b aria-hidden>✓</b>}
+                {code === iata && <b aria-hidden="true">✓</b>}
               </button>
             ))}
           </div>
         </section>
-        <FlightBar arrival="CDG" />
+        {form}
       </div>
     </main>
   );

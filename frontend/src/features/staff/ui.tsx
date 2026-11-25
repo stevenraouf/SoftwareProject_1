@@ -128,24 +128,29 @@ export async function referenceRows<T>(url: string): Promise<T[]> {
   return rows;
 }
 export function useReferences<T>(url: string, revision = 0) {
-  const [rows, setRows] = useState<T[]>([]);
-  const [error, setError] = useState("");
+  const [result, setResult] = useState<{
+    key: string;
+    rows: T[];
+    error: string;
+  }>();
+  const key = JSON.stringify([url, revision]);
   useEffect(() => {
     let current = true;
-    setError("");
     referenceRows<T>(url).then(
       (r) => {
-        if (current) setRows(r);
+        if (current) setResult({ key, rows: r, error: "" });
       },
       (e) => {
-        if (current) setError(message(e));
+        if (current) setResult({ key, rows: [], error: message(e) });
       },
     );
     return () => {
       current = false;
     };
-  }, [url, revision]);
-  return { rows, error };
+  }, [url, key]);
+  return result?.key === key
+    ? { rows: result.rows, error: result.error, loading: false }
+    : { rows: [] as T[], error: "", loading: true };
 }
 export function Problem({ children }: { children?: string }) {
   return children ? (

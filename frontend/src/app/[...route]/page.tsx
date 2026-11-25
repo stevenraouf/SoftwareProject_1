@@ -33,7 +33,8 @@ export async function generateMetadata({
   searchParams,
 }: RouteProps): Promise<Metadata> {
   const { route } = await params;
-  if (route.length > 2) notFound();
+  const flightDraft = route.length === 3 && route[0] === "explore" && route[2] === "flights";
+  if (route.length > 2 && !flightDraft) notFound();
   const [view, id] = route;
   if (id && ["post", "author", "itinerary"].includes(view))
     return publicMetadata(await readPublicContent(view, id));
@@ -42,7 +43,7 @@ export async function generateMetadata({
     if (!place) return { robots: { index: false, follow: false } };
     const [code, country, city, , , airport] = place;
     return {
-      title: "Explore " + city,
+      title: (flightDraft ? "Flights to " : "Explore ") + city,
       description:
         "Plan a visit to " +
         city +
@@ -91,9 +92,14 @@ export async function generateMetadata({
 export default async function Page({ params, searchParams }: RouteProps) {
   const route = (await params).route;
   const [view, id] = route;
-  if (route.length > 2) notFound();
+  const flightDraft = route.length === 3 && view === "explore" && route[2] === "flights";
+  if (route.length > 2 && !flightDraft) notFound();
   let content;
-  if (view === "explore" && id) content = <WindowHome destination={id} />;
+  if (view === "explore" && id) {
+    if (!places.some(([code]) => code === id.toUpperCase())) notFound();
+    content = <WindowHome key={route.join("/")} destination={id} flightDraft={flightDraft} today={new Date().toISOString().slice(0, 10)}
+      initialQuery={searchFromValues(await searchParams).toString()} />;
+  }
   else if (
     [
       "flights",

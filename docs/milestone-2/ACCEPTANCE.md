@@ -4,6 +4,8 @@
 
 ## Required deliverables
 
+The subsequent prototype review covers desktop, tablet and phone, including the changes to the Cairo booking flow. [Frontend implementation and retest](prototype-review/implementation.md)
+
 | Deliverable | How to check it |
 | --- | --- |
 | Complete Next.js frontend | Start the site and visit the guest, traveler, airline moderator, hotel moderator and administrator screens. The [handover](HANDOVER.md) describes each workspace. |

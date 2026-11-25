@@ -26,6 +26,7 @@ import {
   type Fields,
   type Page,
 } from "./shared";
+import { DiscoveryLead } from "./lead";
 
 export interface StoryRow {
   id?: string;
@@ -197,44 +198,77 @@ export function Journal({
     tab === "mine" && traveler ? "/posts/mine?page=" + page : publicPath;
   const seed = initial?.path === publicPath ? initial : undefined;
   const list = useResource<Page<StoryRow>>(path, seed?.data);
+  const featured = tab === "public" ? list.data?.items[0] : undefined;
+  const featuredId = featured?.id || featured?._id;
   const member = (target: string) => (traveler ? target : signInLink(target));
+  const tabs = (
+    <nav className="discovery-tabs" aria-label="Journal views">
+      <Link
+        aria-current={tab === "public" ? "page" : undefined}
+        href="/journal"
+      >
+        Published stories
+      </Link>
+      {(!user || traveler) && (
+        <>
+          <Link
+            aria-current={tab === "mine" ? "page" : undefined}
+            href={member("/journal?section=mine")}
+          >
+            My notebook
+          </Link>
+          <Link
+            aria-current={tab === "write" ? "page" : undefined}
+            href={member("/journal?section=write")}
+          >
+            Write a story
+          </Link>
+        </>
+      )}
+    </nav>
+  );
   return (
     <>
-      <header className="discovery-hero">
-        <div>
-          <span className="discovery-kicker">AERIS JOURNAL</span>
-          <h1>Travel journal</h1>
-          <p>Notes and discoveries from the community.</p>
-        </div>
-        <img
-          src="/art/parisStreets.jpg"
-          alt="The Seine and the Pont Alexandre III at dusk"
-        />
+      <header className="discovery-intro">
+        <span className="discovery-kicker">Travel journal</span>
+        <h1 className="glass">
+          {tab === "public" && !traveler
+            ? "Stories worth taking along."
+            : "Travel journal"}
+        </h1>
+        <p>Notes and discoveries from the community.</p>
       </header>
-      <nav className="discovery-tabs" aria-label="Journal views">
-        <Link
-          aria-current={tab === "public" ? "page" : undefined}
-          href="/journal"
-        >
-          Published stories
-        </Link>
-        {(!user || traveler) && (
-          <>
-            <Link
-              aria-current={tab === "mine" ? "page" : undefined}
-              href={member("/journal?section=mine")}
-            >
-              My notebook
-            </Link>
-            <Link
-              aria-current={tab === "write" ? "page" : undefined}
-              href={member("/journal?section=write")}
-            >
-              Write a story
-            </Link>
-          </>
-        )}
-      </nav>
+      {tab === "public" && (
+        <DiscoveryLead
+          journal
+          feature={
+            featured && featuredId
+              ? {
+                  href: "/post/" + featuredId,
+                  title: featured.title,
+                  byline: [
+                    featured.author,
+                    (featured.likeCount ?? 0) +
+                      (featured.likeCount === 1 ? " like" : " likes"),
+                    (featured.commentCount ?? 0) +
+                      (featured.commentCount === 1 ? " comment" : " comments"),
+                  ]
+                    .filter(Boolean)
+                    .join(" · "),
+                }
+              : undefined
+          }
+          action={
+            user && !traveler
+              ? { href: "#story-search", label: "Find a story" }
+              : {
+                  href: member("/journal?section=write"),
+                  label: "Write a story",
+                }
+          }
+        />
+      )}
+      {tab !== "public" && tabs}
       {tab === "write" ? (
         <section className="panel">
           <h2>Write a story</h2>
@@ -247,11 +281,11 @@ export function Journal({
           )}
         </section>
       ) : (
-        <section>
+        <section className={tab === "public" ? "discovery-results" : undefined}>
           {tab === "mine" ? (
             <h2>My notebook</h2>
           ) : (
-            <div className="panel">
+            <div className="panel" id="story-search">
               <h2>Find a story</h2>
               <Editor
                 key={keyword + ":" + tag}
@@ -295,6 +329,7 @@ export function Journal({
           )}
         </section>
       )}
+      {tab === "public" && tabs}
     </>
   );
 }

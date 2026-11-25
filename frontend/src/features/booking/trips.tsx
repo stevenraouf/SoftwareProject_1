@@ -3,6 +3,7 @@ import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useState } from "react";
 import { api, apiUrl } from "@/lib/api";
+import { findPlace } from "@/lib/destinations";
 import { Checkout } from "./payment";
 import { StayReview } from "./stays";
 import {
@@ -20,6 +21,7 @@ import {
   submit,
   ticketLink,
   useAction,
+  useAirports,
   useLoad,
   type Booking,
   type Fare,
@@ -208,6 +210,12 @@ type Seat = {
   passengerIndex?: number;
 };
 type SeatMap = { flightId: string; cabin: string; seats: Seat[] };
+function seatPosition(label: string) {
+  const letter = label.slice(-1);
+  if (["A", "F"].includes(letter)) return "Window";
+  if (["C", "D"].includes(letter)) return "Aisle";
+  return "Middle";
+}
 function SeatPicker({
   map,
   passengers,
@@ -215,6 +223,8 @@ function SeatPicker({
   canEdit,
   id,
   onSaved,
+  initialPassenger,
+  onCancel,
 }: {
   map: SeatMap;
   passengers: Passenger[];
@@ -222,10 +232,19 @@ function SeatPicker({
   canEdit: boolean;
   id: string;
   onSaved: () => void;
+  initialPassenger?: number;
+  onCancel?: () => void;
 }) {
-  const [editing, setEditing] = useState(false),
-    [chosen, select] = useState<Record<number, string>>({}),
-    [active, setActive] = useState(0),
+  const [editing, setEditing] = useState(initialPassenger !== undefined),
+    [listView, setListView] = useState(false),
+    [chosen, select] = useState<Record<number, string>>(() =>
+      Object.fromEntries(
+        map.seats
+          .filter((s) => s.selected && s.passengerIndex !== undefined)
+          .map((s) => [s.passengerIndex, s.label]),
+      ),
+    ),
+    [active, setActive] = useState(initialPassenger ?? 0),
     action = useAction();
   const seated = passengers
     .map((p, i) => ({ p, i }))
@@ -260,6 +279,7 @@ function SeatPicker({
               ),
             );
             setActive(seated[0]?.i || 0);
+            setListView(false);
             setEditing(true);
           }}
         >
@@ -280,27 +300,40 @@ function SeatPicker({
               ))}
             </select>
           </Field>
-          <p>Window A/F · Aisle C/D</p>
-          <div className="seat-map">
-            {map.seats.map((s) => (
-              <button
-                aria-label={
-                  "Seat " + s.label + (s.available ? "" : " unavailable")
-                }
-                type="button"
-                key={s.label}
-                aria-pressed={chosen[active] === s.label}
-                disabled={!s.available}
-                onClick={() => {
-                  const updated = { ...chosen };
-                  for (const key in updated)
-                    if (updated[key] === s.label) updated[key] = "";
-                  select({ ...updated, [active]: s.label });
-                }}
-              >
-                {s.label}
-              </button>
-            ))}
+          <button
+            type="button"
+            className="secondary"
+            onClick={() => setListView(!listView)}
+          >
+            {listView ? "Show seat map" : "Use accessible seat list"}
+          </button>
+          <p>{listView ? "Available seats" : "Window A/F · Aisle C/D"}</p>
+          <div className={listView ? "seat-list" : "seat-map"}>
+            {map.seats
+              .filter((seat) => !listView || seat.available)
+              .map((s) => (
+                <button
+                  aria-label={
+                    "Seat " +
+                    s.label +
+                    (listView ? " · " + seatPosition(s.label) : "") +
+                    (s.available ? "" : " unavailable")
+                  }
+                  type="button"
+                  key={s.label}
+                  aria-pressed={chosen[active] === s.label}
+                  disabled={!s.available}
+                  onClick={() => {
+                    const updated = { ...chosen };
+                    for (const key in updated)
+                      if (updated[key] === s.label) updated[key] = "";
+                    select({ ...updated, [active]: s.label });
+                  }}
+                >
+                  {s.label}
+                  {listView && <span>{seatPosition(s.label)}</span>}
+                </button>
+              ))}
           </div>
           <p>
             {seated
@@ -329,8 +362,11 @@ function SeatPicker({
             >
               Save seats
             </button>
-            <button className="secondary" onClick={() => setEditing(false)}>
-              Close
+            <button
+              className="secondary"
+              onClick={() => (onCancel ? onCancel() : setEditing(false))}
+            >
+              {onCancel ? "Cancel" : "Close"}
             </button>
           </div>
           <ErrorLine text={action.error} />
@@ -439,6 +475,277 @@ function RefundRow({ r }: { r: Refund }) {
     </div>
   );
 }
+function FlightTicket({
+  b,
+  bookingUrl,
+  pdfUrl,
+}: {
+  b: Booking;
+  bookingUrl: string;
+  pdfUrl: string;
+}) {
+  const router = useRouter(),
+    query = useSearchParams(),
+    airports = useAirports();
+  const [version, refresh] = useState(0);
+  const maps = useLoad<SeatMap[]>(
+    "/flight-bookings/" + b._id + "/seats",
+    version,
+  );
+  const segments = b.snapshot.segments || [],
+    passengers = b.snapshot.passengers || [];
+  const ticketUrl = bookingUrl + "&view=ticket";
+  const editable =
+    b.status === "Confirmed" && Date.parse(b.startsAt) > Date.now();
+  const carrierNames = [
+    ...new Set(segments.map((s) => s.airlineName).filter(Boolean)),
+  ].join(" / ");
+  const selectedFlight = query.get("seatFlight");
+  const passengerIndex = Number(query.get("seatPassenger"));
+  const changing = segments.find((s) => s.flightId === selectedFlight);
+  const changingMap = maps.data?.find(
+    (m) => m.flightId === selectedFlight && m.cabin === changing?.cabin,
+  );
+  if (
+    editable &&
+    changing &&
+    changingMap &&
+    query.has("seatPassenger") &&
+    passengers[passengerIndex] &&
+    passengers[passengerIndex].type !== "infant"
+  ) {
+    return (
+      <main className="booking-view stack">
+        <header>
+          <p className="eyebrow">Confirmed booking</p>
+          <h1>Choose your seat</h1>
+        </header>
+        <SeatPicker
+          key={changing.flightId + "-" + passengerIndex}
+          map={changingMap}
+          passengers={passengers}
+          segment={changing}
+          canEdit
+          id={b._id}
+          initialPassenger={passengerIndex}
+          onCancel={() => router.replace(ticketUrl)}
+          onSaved={() => {
+            refresh((i) => i + 1);
+            router.replace(ticketUrl);
+          }}
+        />
+      </main>
+    );
+  }
+  return (
+    <main className="booking-view stack ticket-preview">
+      <ol className="ticket-steps" aria-label="Booking stages">
+        {["Flight", "Travelers", "Review", "Payment", "Booking"].map(
+          (stage) => (
+            <li
+              key={stage}
+              aria-current={stage === "Booking" ? "step" : undefined}
+            >
+              {stage}
+            </li>
+          ),
+        )}
+      </ol>
+      <header>
+        <p className="eyebrow">E-ticket / Document preview</p>
+        <h1 className="glass">Flight e-ticket</h1>
+        <p>
+          {[
+            carrierNames,
+            segments.length === 1
+              ? "One-way flight"
+              : segments.length === 2
+                ? "Round-trip flight"
+                : "",
+          ]
+            .filter(Boolean)
+            .join(" · ")}
+        </p>
+      </header>
+      {maps.error && <ErrorLine text={maps.error} />}
+      {segments.map((s, leg) => {
+        const map = maps.data?.find(
+          (m) => m.flightId === s.flightId && m.cabin === s.cabin,
+        );
+        const assigned = new Map(
+          map?.seats
+            .filter((seat) => seat.selected)
+            .map((seat) => [seat.passengerIndex, seat.label]),
+        );
+        const endpoints = [
+          {
+            code: s.departureAirport,
+            instant: s.departureAt,
+            zone: s.departureZone,
+          },
+          { code: s.arrivalAirport, instant: s.arrivalAt, zone: s.arrivalZone },
+        ].map((end) => {
+          const airport = airports.find((a) => a.iata_code === end.code);
+          const city =
+            findPlace(end.code)?.[2] ||
+            airport?.city_id
+              ?.replace(/[-_]/g, " ")
+              .replace(/\b\p{L}/gu, (letter) => letter.toLocaleUpperCase());
+          const zone = end.zone || airport?.time_zone || "UTC";
+          const time = new Date(end.instant);
+          return {
+            ...end,
+            city,
+            zone,
+            localTime: time.toLocaleTimeString("en-GB", {
+              timeZone: zone,
+              hour: "2-digit",
+              minute: "2-digit",
+            }),
+            date: time.toLocaleDateString("en-GB", {
+              timeZone: zone,
+              day: "numeric",
+              month: "short",
+              year: "numeric",
+            }),
+          };
+        });
+        const minutes = Math.round(
+          (Date.parse(s.arrivalAt) - Date.parse(s.departureAt)) / 60000,
+        );
+        return (
+          <article
+            className="ticket-document"
+            aria-label={"Flight e-ticket document · " + s.flightNumber}
+            key={s.flightId}
+          >
+            <header className="ticket-carrier">
+              <p>{[s.airlineName, s.cabin].filter(Boolean).join("　/　")}</p>
+              <h2>
+                {s.departureAirport} → {s.arrivalAirport}
+              </h2>
+            </header>
+            <div className="ticket-paper">
+              <div className="ticket-route">
+                {endpoints.map((end, i) => (
+                  <div className={"ticket-stop ticket-stop-" + i} key={i}>
+                    <time
+                      dateTime={end.instant}
+                      aria-label={
+                        (i ? "Arrival " : "Departure ") + end.localTime
+                      }
+                    >
+                      {end.localTime}
+                    </time>
+                    <span>
+                      {[end.code, end.city].filter(Boolean).join(" · ")}
+                    </span>
+                  </div>
+                ))}
+                <div className="ticket-duration" aria-label="Flight duration">
+                  {Math.floor(minutes / 60)}h{" "}
+                  {String(minutes % 60).padStart(2, "0")}m
+                  <span aria-hidden="true" />
+                </div>
+              </div>
+              <PagedRows label={"Ticket passengers for " + s.flightNumber}>
+                {passengers.map((p, i) => (
+                  <dl className="ticket-fields ticket-traveler" key={i}>
+                    <dt>Passenger</dt>
+                    <dd>
+                      {p.fullName} · {p.type}
+                    </dd>
+                    <dt>Seat</dt>
+                    <dd className="ticket-seat">
+                      <strong>
+                        {p.type === "infant"
+                          ? "Adult’s lap"
+                          : assigned.get(i) ||
+                            (map
+                              ? "Not assigned"
+                              : maps.error || maps.data
+                                ? "Unavailable"
+                                : "Loading…")}
+                      </strong>
+                      {editable && map && p.type !== "infant" && (
+                        <Link
+                          href={
+                            ticketUrl +
+                            "&" +
+                            qs({ seatFlight: s.flightId, seatPassenger: i })
+                          }
+                        >
+                          {assigned.has(i) ? "Change seat" : "Choose a seat"}
+                        </Link>
+                      )}
+                    </dd>
+                    {passengers.length > 1 && (
+                      <>
+                        <dt>Extra bags</dt>
+                        <dd>{p.extraBags ?? 0}</dd>
+                      </>
+                    )}
+                  </dl>
+                ))}
+              </PagedRows>
+              <dl className="ticket-fields">
+                <dt>Flight</dt>
+                <dd>{s.flightNumber}</dd>
+                <dt>Date</dt>
+                <dd>{endpoints[0].date}</dd>
+                {endpoints[1].date !== endpoints[0].date && (
+                  <>
+                    <dt>Arrival date</dt>
+                    <dd>{endpoints[1].date}</dd>
+                  </>
+                )}
+                {passengers.length === 1 && (
+                  <>
+                    <dt>Extra bags</dt>
+                    <dd>{passengers[0].extraBags ?? 0}</dd>
+                  </>
+                )}
+                {segments.length > 1 && (
+                  <>
+                    <dt>Fare for this leg</dt>
+                    <dd>{money(s.total, b.currency)}</dd>
+                  </>
+                )}
+                {leg === segments.length - 1 && (
+                  <>
+                    <dt>
+                      {segments.length > 1
+                        ? "Booking total paid"
+                        : "Total paid"}
+                    </dt>
+                    <dd>{money(b.amount, b.currency)}</dd>
+                  </>
+                )}
+              </dl>
+              <footer>
+                <p>
+                  {endpoints
+                    .map((end) => end.code + " · " + end.zone)
+                    .join("　/　")}
+                </p>
+                <p>Booking reference: {b.reference}</p>
+              </footer>
+            </div>
+          </article>
+        );
+      })}
+      <div className="actions">
+        <Link className="button secondary" href={bookingUrl}>
+          ← Back to booking
+        </Link>
+        <a className="button" href={pdfUrl} target="_blank" rel="noreferrer">
+          Download e-ticket PDF
+        </a>
+      </div>
+    </main>
+  );
+}
+
 export function BookingDetail({ id }: { id: string }) {
   const q = useSearchParams(),
     type = q.get("type") === "hotel" ? "hotel" : "flight",
@@ -454,18 +761,16 @@ export function BookingDetail({ id }: { id: string }) {
     );
   const b = item.data,
     ticket = type === "flight" && ["Confirmed", "Completed"].includes(b.status);
+  const bookingUrl = ticketLink(id, type);
+  const pdfUrl = apiUrl("/flight-bookings/" + id + "/e-ticket");
+  if (ticket && q.get("view") === "ticket")
+    return <FlightTicket b={b} bookingUrl={bookingUrl} pdfUrl={pdfUrl} />;
   return (
     <main className="booking-view stack">
       <Link href={"/trips?type=" + type}>← My trips</Link>
       <header>
         <p className="eyebrow">{b.status}</p>
-        <h1>
-          {ticket
-            ? "Your e-ticket"
-            : type === "hotel"
-              ? "Your reservation"
-              : "Your flight booking"}
-        </h1>
+        <h1>{type === "hotel" ? "Your reservation" : "Your flight booking"}</h1>
         {b.reference && (
           <p>
             Booking reference <strong>{b.reference}</strong>
@@ -488,15 +793,12 @@ export function BookingDetail({ id }: { id: string }) {
       )}
       {ticket && (
         <>
-          <Seats b={b} />
-          <a
-            className="button"
-            href={apiUrl("/flight-bookings/" + id + "/e-ticket")}
-            target="_blank"
-            rel="noreferrer"
-          >
-            Download e-ticket PDF
-          </a>
+          <Link className="button" href={bookingUrl + "&view=ticket"}>
+            View e-ticket
+          </Link>
+          <div id="seat-assignments">
+            <Seats b={b} />
+          </div>
         </>
       )}
       {b.status === "Confirmed" && Date.parse(b.startsAt) > Date.now() && (

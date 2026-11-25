@@ -7,6 +7,19 @@
 .staffWorkspace * {
   min-width: 0;
 }
+.recovery-dialog {
+  width: min(32rem, 92vw);
+  padding: clamp(20px, 3vw, 36px);
+  max-height: 85dvh;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  color: var(--ink);
+  background: var(--panel);
+  box-shadow: var(--shadow);
+}
+.recovery-dialog::backdrop {
+  background: #192c4380;
+}
 .staffHeading {
   margin-bottom: 20px;
 }

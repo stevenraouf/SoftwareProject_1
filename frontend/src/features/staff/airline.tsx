@@ -40,8 +40,8 @@ type Flight = {
   departureAt: string;
   departureDate: string;
   arrivalAt: string;
-  departureLocal: string;
-  arrivalLocal: string;
+  departureLocal?: string;
+  arrivalLocal?: string;
   status: string;
   cabins: Cabin[];
 };
@@ -52,6 +52,94 @@ type FlightBooking = {
   passengers: string[];
   segment: { cabin: string; seats: number };
 };
+
+function departureText(flight: Flight, zone?: string) {
+  if (!zone) return flight.departureDate + " · " + flight.departureAirport;
+  return (
+    new Intl.DateTimeFormat("en", {
+      timeZone: zone,
+      year: "numeric",
+      month: "short",
+      day: "numeric",
+      hour: "numeric",
+      minute: "2-digit",
+    }).format(new Date(flight.departureAt)) +
+    " · " +
+    zone
+  );
+}
+
+export function AirlineOverview({
+  id,
+  choose,
+}: {
+  id: string;
+  choose: (section: string) => void;
+}) {
+  const schedule = useReferences<Flight>("/airlines/" + id + "/flights");
+  const airports = useReferences<Airport>("/airports");
+  const zones = new Map(airports.rows.map((a) => [a.iata_code, a.time_zone]));
+  const now = Date.now();
+  const upcoming = schedule.rows
+    .filter((f) => f.status === "Scheduled" && Date.parse(f.departureAt) > now)
+    .sort((a, b) => Date.parse(a.departureAt) - Date.parse(b.departureAt));
+  const next = upcoming[0];
+  return (
+    <div className="staffMetrics">
+      <Section title="Upcoming departures">
+        <Problem>{schedule.error}</Problem>
+        {schedule.loading && <p role="status">Loading departures…</p>}
+        {!schedule.loading && !schedule.error && !next && (
+          <p>No upcoming departures.</p>
+        )}
+        {upcoming.slice(0, 3).map((f) => (
+          <Row
+            key={f._id}
+            title={
+              f.flightNumber +
+              " · " +
+              f.departureAirport +
+              " → " +
+              f.arrivalAirport
+            }
+            meta={departureText(f, zones.get(f.departureAirport))}
+          />
+        ))}
+        <button className="secondary" onClick={() => choose("Flights")}>
+          Manage flights
+        </button>
+      </Section>
+      <Section title="Cabin availability">
+        {next && (
+          <>
+            <p>
+              {next.flightNumber} · {next.departureAirport} →{" "}
+              {next.arrivalAirport}
+            </p>
+            {next.cabins.map((c) => (
+              <Row
+                key={c.category}
+                title={c.category}
+                meta={c.capacity + " seats"}
+              >
+                <p>
+                  {c.booked} booked · {c.held} held ·{" "}
+                  {c.seatsRemaining ?? c.capacity - c.held - c.booked} available
+                </p>
+              </Row>
+            ))}
+          </>
+        )}
+        <button className="secondary" onClick={() => choose("Manifests")}>
+          View passenger bookings
+        </button>
+        <button className="secondary" onClick={() => choose("Policies")}>
+          Provider policies
+        </button>
+      </Section>
+    </div>
+  );
+}
 
 export function Flights({
   provider,
@@ -64,22 +152,6 @@ export function Flights({
     [revision, refresh] = useRevision();
   const airports = useReferences<Airport>("/airports");
   const zones = new Map(airports.rows.map((a) => [a.iata_code, a.time_zone]));
-  function departureText(f: Flight) {
-    const zone = zones.get(f.departureAirport);
-    if (!zone) return f.departureDate + " · " + f.departureAirport;
-    return (
-      new Intl.DateTimeFormat("en", {
-        timeZone: zone,
-        year: "numeric",
-        month: "short",
-        day: "numeric",
-        hour: "numeric",
-        minute: "2-digit",
-      }).format(new Date(f.departureAt)) +
-      " · " +
-      zone
-    );
-  }
   const path = "/airlines/" + provider._id + "/flights";
   if (selected)
     return (
@@ -114,7 +186,11 @@ export function Flights({
                 " → " +
                 f.arrivalAirport
               }
-              meta={departureText(f) + " · " + f.status}
+              meta={
+                departureText(f, zones.get(f.departureAirport)) +
+                " · " +
+                f.status
+              }
             >
               <button className="secondary" onClick={() => setSelected(f._id)}>
                 {manifest ? "Open manifest" : "Manage flight"}
@@ -191,7 +267,10 @@ function FlightForm({
         success="Flight saved."
         onSubmit={async (v) => {
           if (v.departureAirport === v.arrivalAirport)
-            throw new FieldError("arrivalAirport", "Departure and arrival airports must differ.");
+            throw new FieldError(
+              "arrivalAirport",
+              "Departure and arrival airports must differ.",
+            );
           const updated = await api<Flight>(
             flight ? "/flights/" + flight._id : "/flights",
             {

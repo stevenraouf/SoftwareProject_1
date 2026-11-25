@@ -1,0 +1,603 @@
+{
+  "date": "2026-11-25",
+  "frontendCommit": "2a7dbca",
+  "engine": "Microsoft Edge (Playwright, Chromium)",
+  "fixture": "local production Next.js build; disposable seeded backend",
+  "purpose": "Observed behavior, including differences from the design. Successful checks do not indicate design equivalence.",
+  "completedScenarios": 6,
+  "destinationArrivalsComparedWithNativeGreetingRecords": 24,
+  "devices": {
+    "desktop": {
+      "device": "desktop",
+      "width": 1360,
+      "height": 1000,
+      "homeEvents": [
+        {
+          "target": "signature",
+          "name": "logo-reflection",
+          "duration": "1.1s",
+          "delay": "0s",
+          "ease": "ease-out"
+        },
+        {
+          "target": "heading-line",
+          "name": "type-in",
+          "duration": "0.52s",
+          "delay": "0s",
+          "ease": "steps(15)"
+        },
+        {
+          "target": "scene",
+          "name": "scene-in",
+          "duration": "0.465s",
+          "delay": "0s",
+          "ease": "ease-out"
+        },
+        {
+          "target": "heading-line",
+          "name": "type-in",
+          "duration": "0.52s",
+          "delay": "0.48s",
+          "ease": "steps(15)"
+        }
+      ],
+      "home": {
+        "width": 1360,
+        "height": 1061,
+        "fonts": "\"Bricolage Grotesque Variable\", sans-serif",
+        "headingSize": "65.28px",
+        "countryCount": 8,
+        "headerMenu": false,
+        "mainNav": true,
+        "heroHeight": 503.1875,
+        "from": "CAI",
+        "to": "CDG",
+        "date": "",
+        "airportControl": "HTML input with three-character IATA code and datalist"
+      },
+      "replay": {
+        "events": [
+          {
+            "target": "signature",
+            "name": "logo-reflection",
+            "duration": "1.1s",
+            "delay": "0s",
+            "ease": "ease-out"
+          }
+        ],
+        "dialogCount": 0
+      },
+      "egypt": {
+        "preview": "EGYPT\nCairo",
+        "to": "CDG",
+        "events": [
+          {
+            "target": "scene",
+            "name": "scene-in",
+            "duration": "0.465s",
+            "delay": "0s",
+            "ease": "ease-out"
+          }
+        ]
+      },
+      "cairo": {
+        "text": "EGYPT · CAIRO\n\nأهلًا\n\nWelcome to Cairo.\n\nChoose CAI →",
+        "links": [
+          "← Back to explore",
+          "Choose CAI →",
+          "More traveler options",
+          "Find a stay in Cairo →"
+        ],
+        "from": "DXB",
+        "to": "CAI",
+        "events": [
+          {
+            "target": "glass arrival-word",
+            "name": "scene-in",
+            "duration": "0.62s",
+            "delay": "0s",
+            "ease": "ease-out"
+          },
+          {
+            "target": "cloud-passage",
+            "name": "cloud-cross",
+            "duration": "0.825s",
+            "delay": "0s",
+            "ease": "ease-in-out"
+          }
+        ]
+      },
+      "choose": "/explore/CAI#find-flight",
+      "afterBack": "FRANCE\nParis",
+      "afterSkip": "こんにちは",
+      "reduced": {
+        "mode": "reduced",
+        "events": []
+      },
+      "afterReload": {
+        "mode": "reduced",
+        "clouds": 0
+      },
+      "eventsOnNavigationToStays": [
+        {
+          "target": "cloud-passage",
+          "name": "cloud-cross",
+          "duration": "0.48s",
+          "delay": "0s",
+          "ease": "ease-in-out"
+        }
+      ],
+      "destinations": {
+        "CDG": {
+          "text": "Bonjour",
+          "lang": "fr",
+          "dir": "ltr",
+          "railImage": "/art/CDG-window.jpg"
+        },
+        "HND": {
+          "text": "こんにちは",
+          "lang": "ja",
+          "dir": "ltr",
+          "railImage": "/art/HND-window.jpg"
+        },
+        "CAI": {
+          "text": "أهلًا",
+          "lang": "ar",
+          "dir": "rtl",
+          "railImage": "/art/CAI-window.jpg"
+        },
+        "LHR": {
+          "text": "Hello",
+          "lang": "en",
+          "dir": "ltr",
+          "railImage": "/art/LHR-window.jpg"
+        },
+        "DXB": {
+          "text": "مرحبًا",
+          "lang": "ar",
+          "dir": "rtl",
+          "railImage": "/art/DXB-window.jpg"
+        },
+        "JFK": {
+          "text": "Hi there",
+          "lang": "en",
+          "dir": "ltr",
+          "railImage": "/art/JFK-window.jpg"
+        },
+        "RUH": {
+          "text": "يا هلا",
+          "lang": "ar",
+          "dir": "rtl",
+          "railImage": "/art/RUH-window.jpg"
+        },
+        "FRA": {
+          "text": "Hallo",
+          "lang": "de",
+          "dir": "ltr",
+          "railImage": "/art/FRA-window.jpg"
+        }
+      },
+      "publicTitles": {
+        "stays": {
+          "heading": "Find a place to stay",
+          "animation": "none",
+          "descendants": []
+        },
+        "planner": {
+          "heading": "Your itinerary",
+          "animation": "none",
+          "descendants": []
+        },
+        "journal": {
+          "heading": "Travel journal",
+          "animation": "none",
+          "descendants": []
+        },
+        "flights": {
+          "heading": "Find your flight",
+          "animation": "none",
+          "descendants": []
+        }
+      },
+      "hover": [
+        "box-shadow, transform",
+        "0.16s, 0.16s"
+      ],
+      "leave": [
+        "box-shadow, transform",
+        "0.16s, 0.16s"
+      ],
+      "osReduced": "none"
+    },
+    "tablet": {
+      "device": "tablet",
+      "width": 834,
+      "height": 1014,
+      "homeEvents": [
+        {
+          "target": "signature",
+          "name": "logo-reflection",
+          "duration": "1.1s",
+          "delay": "0s",
+          "ease": "ease-out"
+        },
+        {
+          "target": "heading-line",
+          "name": "type-in",
+          "duration": "0.52s",
+          "delay": "0s",
+          "ease": "steps(15)"
+        },
+        {
+          "target": "scene",
+          "name": "scene-in",
+          "duration": "0.465s",
+          "delay": "0s",
+          "ease": "ease-out"
+        },
+        {
+          "target": "heading-line",
+          "name": "type-in",
+          "duration": "0.52s",
+          "delay": "0.48s",
+          "ease": "steps(15)"
+        }
+      ],
+      "home": {
+        "width": 834,
+        "height": 1014,
+        "fonts": "\"Bricolage Grotesque Variable\", sans-serif",
+        "headingSize": "44px",
+        "countryCount": 8,
+        "headerMenu": false,
+        "mainNav": true,
+        "heroHeight": 380,
+        "from": "CAI",
+        "to": "CDG",
+        "date": "",
+        "airportControl": "HTML input with three-character IATA code and datalist"
+      },
+      "replay": {
+        "events": [
+          {
+            "target": "signature",
+            "name": "logo-reflection",
+            "duration": "1.1s",
+            "delay": "0s",
+            "ease": "ease-out"
+          }
+        ],
+        "dialogCount": 0
+      },
+      "egypt": {
+        "preview": "EGYPT\nCairo",
+        "to": "CDG",
+        "events": [
+          {
+            "target": "scene",
+            "name": "scene-in",
+            "duration": "0.465s",
+            "delay": "0s",
+            "ease": "ease-out"
+          }
+        ]
+      },
+      "cairo": {
+        "text": "EGYPT · CAIRO\n\nأهلًا\n\nWelcome to Cairo.\n\nChoose CAI →",
+        "links": [
+          "← Back to explore",
+          "Choose CAI →",
+          "More traveler options",
+          "Find a stay in Cairo →"
+        ],
+        "from": "DXB",
+        "to": "CAI",
+        "events": [
+          {
+            "target": "glass arrival-word",
+            "name": "scene-in",
+            "duration": "0.62s",
+            "delay": "0s",
+            "ease": "ease-out"
+          },
+          {
+            "target": "cloud-passage",
+            "name": "cloud-cross",
+            "duration": "0.825s",
+            "delay": "0s",
+            "ease": "ease-in-out"
+          }
+        ]
+      },
+      "choose": "/explore/CAI#find-flight",
+      "afterBack": "FRANCE\nParis",
+      "afterSkip": "こんにちは",
+      "reduced": {
+        "mode": "reduced",
+        "events": []
+      },
+      "afterReload": {
+        "mode": "reduced",
+        "clouds": 0
+      },
+      "eventsOnNavigationToStays": [],
+      "destinations": {
+        "CDG": {
+          "text": "Bonjour",
+          "lang": "fr",
+          "dir": "ltr",
+          "railImage": "/art/CDG-window.jpg"
+        },
+        "HND": {
+          "text": "こんにちは",
+          "lang": "ja",
+          "dir": "ltr",
+          "railImage": "/art/HND-window.jpg"
+        },
+        "CAI": {
+          "text": "أهلًا",
+          "lang": "ar",
+          "dir": "rtl",
+          "railImage": "/art/CAI-window.jpg"
+        },
+        "LHR": {
+          "text": "Hello",
+          "lang": "en",
+          "dir": "ltr",
+          "railImage": "/art/LHR-window.jpg"
+        },
+        "DXB": {
+          "text": "مرحبًا",
+          "lang": "ar",
+          "dir": "rtl",
+          "railImage": "/art/DXB-window.jpg"
+        },
+        "JFK": {
+          "text": "Hi there",
+          "lang": "en",
+          "dir": "ltr",
+          "railImage": "/art/JFK-window.jpg"
+        },
+        "RUH": {
+          "text": "يا هلا",
+          "lang": "ar",
+          "dir": "rtl",
+          "railImage": "/art/RUH-window.jpg"
+        },
+        "FRA": {
+          "text": "Hallo",
+          "lang": "de",
+          "dir": "ltr",
+          "railImage": "/art/FRA-window.jpg"
+        }
+      },
+      "publicTitles": {
+        "stays": {
+          "heading": "Find a place to stay",
+          "animation": "none",
+          "descendants": []
+        },
+        "planner": {
+          "heading": "Your itinerary",
+          "animation": "none",
+          "descendants": []
+        },
+        "journal": {
+          "heading": "Travel journal",
+          "animation": "none",
+          "descendants": []
+        },
+        "flights": {
+          "heading": "Find your flight",
+          "animation": "none",
+          "descendants": []
+        }
+      },
+      "hover": [
+        "box-shadow, transform",
+        "0.16s, 0.16s"
+      ],
+      "leave": [
+        "box-shadow, transform",
+        "0.16s, 0.16s"
+      ],
+      "osReduced": "none"
+    },
+    "phone": {
+      "device": "phone",
+      "width": 390,
+      "height": 844,
+      "homeEvents": [
+        {
+          "target": "signature",
+          "name": "logo-reflection",
+          "duration": "1.1s",
+          "delay": "0s",
+          "ease": "ease-out"
+        },
+        {
+          "target": "glass typed",
+          "name": "type-in",
+          "duration": "0.85s",
+          "delay": "0s",
+          "ease": "steps(26)"
+        },
+        {
+          "target": "scene",
+          "name": "scene-in",
+          "duration": "0.465s",
+          "delay": "0s",
+          "ease": "ease-out"
+        }
+      ],
+      "home": {
+        "width": 390,
+        "height": 1021,
+        "fonts": "\"Bricolage Grotesque Variable\", sans-serif",
+        "headingSize": "26.13px",
+        "countryCount": 8,
+        "headerMenu": true,
+        "mainNav": false,
+        "heroHeight": 311.453125,
+        "from": "CAI",
+        "to": "CDG",
+        "date": "",
+        "airportControl": "HTML input with three-character IATA code and datalist"
+      },
+      "replay": {
+        "events": [
+          {
+            "target": "signature",
+            "name": "logo-reflection",
+            "duration": "1.1s",
+            "delay": "0s",
+            "ease": "ease-out"
+          }
+        ],
+        "dialogCount": 0
+      },
+      "egypt": {
+        "preview": "EGYPT\nCairo",
+        "to": "CDG",
+        "events": [
+          {
+            "target": "scene",
+            "name": "scene-in",
+            "duration": "0.465s",
+            "delay": "0s",
+            "ease": "ease-out"
+          }
+        ]
+      },
+      "cairo": {
+        "text": "EGYPT · CAIRO\n\nأهلًا\n\nWelcome to Cairo.\n\nChoose CAI →",
+        "links": [
+          "← Back to explore",
+          "Choose CAI →",
+          "More traveler options",
+          "Find a stay in Cairo →"
+        ],
+        "from": "DXB",
+        "to": "CAI",
+        "events": [
+          {
+            "target": "glass arrival-word",
+            "name": "scene-in",
+            "duration": "0.62s",
+            "delay": "0s",
+            "ease": "ease-out"
+          },
+          {
+            "target": "cloud-passage",
+            "name": "cloud-cross",
+            "duration": "0.825s",
+            "delay": "0s",
+            "ease": "ease-in-out"
+          }
+        ]
+      },
+      "choose": "/explore/CAI#find-flight",
+      "afterBack": "FRANCE\nParis",
+      "afterSkip": "こんにちは",
+      "phoneMenu": "Flights\nStays\nTrip planner\nJournal\nHelp\nSign in",
+      "reduced": {
+        "mode": "reduced",
+        "events": []
+      },
+      "afterReload": {
+        "mode": "reduced",
+        "clouds": 0
+      },
+      "eventsOnNavigationToStays": [
+        {
+          "target": "cloud-passage",
+          "name": "cloud-cross",
+          "duration": "0.48s",
+          "delay": "0s",
+          "ease": "ease-in-out"
+        }
+      ],
+      "destinations": {
+        "CDG": {
+          "text": "Bonjour",
+          "lang": "fr",
+          "dir": "ltr",
+          "railImage": "/art/CDG-window.jpg"
+        },
+        "HND": {
+          "text": "こんにちは",
+          "lang": "ja",
+          "dir": "ltr",
+          "railImage": "/art/HND-window.jpg"
+        },
+        "CAI": {
+          "text": "أهلًا",
+          "lang": "ar",
+          "dir": "rtl",
+          "railImage": "/art/CAI-window.jpg"
+        },
+        "LHR": {
+          "text": "Hello",
+          "lang": "en",
+          "dir": "ltr",
+          "railImage": "/art/LHR-window.jpg"
+        },
+        "DXB": {
+          "text": "مرحبًا",
+          "lang": "ar",
+          "dir": "rtl",
+          "railImage": "/art/DXB-window.jpg"
+        },
+        "JFK": {
+          "text": "Hi there",
+          "lang": "en",
+          "dir": "ltr",
+          "railImage": "/art/JFK-window.jpg"
+        },
+        "RUH": {
+          "text": "يا هلا",
+          "lang": "ar",
+          "dir": "rtl",
+          "railImage": "/art/RUH-window.jpg"
+        },
+        "FRA": {
+          "text": "Hallo",
+          "lang": "de",
+          "dir": "ltr",
+          "railImage": "/art/FRA-window.jpg"
+        }
+      },
+      "publicTitles": {
+        "stays": {
+          "heading": "Find a place to stay",
+          "animation": "none",
+          "descendants": []
+        },
+        "planner": {
+          "heading": "Your itinerary",
+          "animation": "none",
+          "descendants": []
+        },
+        "journal": {
+          "heading": "Travel journal",
+          "animation": "none",
+          "descendants": []
+        },
+        "flights": {
+          "heading": "Find your flight",
+          "animation": "none",
+          "descendants": []
+        }
+      },
+      "hover": [
+        "box-shadow, transform",
+        "0.16s, 0.16s"
+      ],
+      "leave": [
+        "box-shadow, transform",
+        "0.16s, 0.16s"
+      ],
+      "osReduced": "none"
+    }
+  }
+}

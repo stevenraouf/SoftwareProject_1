@@ -84,6 +84,38 @@ test("administrator creates a provider, changes its status and inspects the audi
   await expect(
     page.getByRole("heading", { name: "Demo Airline Moderator", exact: true }),
   ).toBeVisible();
+  await page
+    .getByText("Manage Demo Airline Moderator", { exact: true })
+    .click();
+  await page.getByRole("button", { name: "Reset account password" }).click();
+  const review = page.getByRole("dialog", { name: "Set a temporary password" });
+  await expect(review).toContainText("airline@example.test");
+  await review.getByRole("button", { name: "Cancel" }).click();
+  await expect(review).toHaveCount(0);
+  // Use a new disposable account so the other role journeys keep their credentials.
+  const email = "recovery-" + randomUUID() + "@example.test";
+  const apiBase = process.env.NEXT_PUBLIC_API_BASE_URL;
+  if (!apiBase) throw new Error("The test requires the isolated API.");
+  const created = await page.request.post(apiBase + "/auth/register", {
+    data: {
+      name: "Recovery traveler",
+      email,
+      password: "Demo9" + randomUUID(),
+      consent: true,
+    },
+  });
+  expect(created.ok()).toBe(true);
+  await page.getByLabel("Name or email").fill(email);
+  await page.getByRole("button", { name: "Apply filters" }).click();
+  await page.getByText("Manage Recovery traveler", { exact: true }).click();
+  await page.getByRole("button", { name: "Reset account password" }).click();
+  const tempPassword = "Temp9" + randomUUID();
+  await review.getByLabel("Temporary password").fill(tempPassword);
+  await review.getByRole("button", { name: "Set temporary password" }).click();
+  const result = page.getByRole("dialog", { name: "Temporary password saved" });
+  await expect(result).toContainText(email);
+  await result.getByRole("button", { name: "Back to accounts" }).click();
+  await expect(result).toHaveCount(0);
 });
 test("airline moderator schedules a flight, adds a cabin, and is denied the admin directory", async ({
   page,
@@ -91,6 +123,12 @@ test("airline moderator schedules a flight, adds a cabin, and is denied the admi
   await moderator(page, "airline@example.test");
   await expect(
     page.getByRole("heading", { name: "Demo Airways", exact: true }),
+  ).toBeVisible();
+  await expect(
+    page.getByRole("heading", { name: /DEMO100 · CAI → DXB/ }),
+  ).toBeVisible();
+  await expect(
+    page.getByRole("heading", { name: "Cabin availability" }),
   ).toBeVisible();
   await expect(
     page.getByRole("button", { name: "Audit log", exact: true }),
@@ -141,6 +179,12 @@ test("hotel moderator adds a room and verifies its bookable nights", async ({
   await moderator(page, "hotel@example.test");
   await expect(
     page.getByRole("heading", { name: "Demo Cairo Hotel", exact: true }),
+  ).toBeVisible();
+  await expect(
+    page.getByRole("heading", { name: "Rooms and availability" }),
+  ).toBeVisible();
+  await expect(
+    page.getByRole("heading", { name: /^Room .+ · / }).first(),
   ).toBeVisible();
   await tab(page, "Rooms").click();
   const number = "T" + randomUUID().slice(0, 6);

@@ -41,24 +41,117 @@
 .discovery .panel {
   min-width: 0;
 }
-.discovery-hero {
+.discovery:has(.discovery-intro) {
+  width: min(1400px, calc(100% - clamp(32px, 7vw, 96px)));
+  padding-top: clamp(24px, 3vw, 42px);
+}
+.discovery-intro .discovery-kicker,
+.discovery-lead .discovery-kicker {
+  font-size: 0.72rem;
+  font-weight: 650;
+  letter-spacing: 0.05em;
+}
+.discovery-intro .discovery-kicker {
+  color: var(--teal);
+}
+.discovery-intro h1 {
+  font-size: clamp(2.2rem, 3.8vw, 3.35rem);
+}
+.discovery-intro p {
+  margin: 0.65rem 0 0;
+  font-size: 1.18rem;
+  color: var(--muted);
+}
+.discovery-lead,
+.discovery-results {
   display: grid;
-  grid-template-columns: 1fr 1.12fr;
-  align-items: center;
-  gap: 2rem;
-  min-height: 235px;
-  border-radius: 1.5rem;
-  overflow: hidden;
-  background: linear-gradient(120deg, #fbf2e9, #f4e7df);
+  grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
+  align-items: start;
+  gap: 1.5rem;
 }
-.discovery-hero > div {
-  padding: clamp(1.35rem, 4vw, 3.5rem);
+.discovery-feature {
+  min-width: 0;
+  display: grid;
+  gap: 0.84rem;
+  text-decoration: none;
+  color: var(--teal);
 }
-.discovery-hero > img {
+.discovery-feature img {
   width: 100%;
-  height: clamp(205px, 24vw, 330px);
+  display: block;
   object-fit: cover;
-  border-radius: 1.5rem 0 0 1.5rem;
+  height: clamp(218px, 22.1vw, 300px);
+  border-radius: 20px;
+}
+.journal-lead .discovery-feature img {
+  height: clamp(248px, 25vw, 340px);
+}
+.discovery-feature .discovery-kicker,
+.discovery-feature h2,
+.discovery-feature p,
+.discovery-invitation :is(h2, p, .discovery-kicker) {
+  margin: 0;
+}
+.discovery-lead h2 {
+  font-size: clamp(2.2rem, 3.9vw, 3.35rem);
+  font-weight: 450;
+  letter-spacing: -0.05em;
+}
+.journal-lead .discovery-feature h2 {
+  max-width: 18ch;
+  font-size: clamp(2.3rem, 4.6vw, 4rem);
+}
+.discovery-feature p {
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+a.discovery-feature:hover h2 {
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.12em;
+}
+.discovery-invitation {
+  display: grid;
+  align-content: start;
+  gap: 1.05rem;
+  padding: 1.4rem;
+  background: #f2e8e1;
+  color: var(--teal);
+}
+.discovery-invitation p {
+  color: var(--muted);
+  font-size: 1.1rem;
+}
+.discovery-invitation a {
+  width: fit-content;
+  color: inherit;
+  font-weight: 650;
+  text-decoration: none;
+}
+.discovery-invitation a:hover {
+  text-decoration: underline;
+}
+.journal-lead .discovery-invitation {
+  background: #006c69;
+  color: white;
+  padding: clamp(20px, 2.35vw, 32px);
+  gap: 1.3rem;
+}
+.journal-lead .discovery-invitation :is(.discovery-kicker, p) {
+  color: #f4fcf8;
+}
+.journal-lead .discovery-invitation a {
+  color: #ffe0a4;
+}
+.discovery-results .discovery-cards {
+  grid-template-columns: 1fr;
+  margin: 0;
+}
+.discovery-results > .panel h2 {
+  font-size: 1.35rem;
+}
+.discovery-results > .discovery-pager {
+  grid-column: 1 / -1;
 }
 .discovery-kicker,
 .discovery-meta {
@@ -271,16 +364,10 @@
   .discovery {
     width: calc(100% - 2rem);
   }
-  .discovery-hero {
+  .discovery-lead,
+  .discovery-results {
     grid-template-columns: 1fr;
-    gap: 0;
-  }
-  .discovery-hero > img {
-    border-radius: 0;
-    height: 155px;
-  }
-  .discovery-hero > div {
-    padding: 1.35rem;
+    gap: 1rem;
   }
   .discovery-tabs {
     gap: 0.25rem;

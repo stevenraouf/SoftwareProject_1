@@ -171,5 +171,7 @@ test("a journal author publishes, adds and removes a like, and edits and deletes
   await edited.getByRole("button", { name: "Confirm", exact: true }).click();
   await expect(page.locator("article.discovery-comment")).toHaveCount(0);
   await page.getByRole("link", { name: "#Cairo", exact: true }).click();
-  await expect(page.getByRole("link", { name: title })).toBeVisible();
+  await expect(
+    page.locator(".discovery-cards").getByRole("link", { name: title, exact: true }),
+  ).toBeVisible();
 });

@@ -1,8 +1,9 @@
 "use client";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { api } from "@/lib/api";
+import { AirportPicker } from "@/components/portal-flight-form";
 import {
   atAirport,
   invalidField,
@@ -23,6 +24,7 @@ import {
   useAirports,
   useLoad,
   type Booking,
+  type Airport,
   type Fare,
   type Flight,
   type Page,
@@ -45,6 +47,234 @@ const searchKeys = [
   "sort",
   "page",
 ];
+type AirportField = "departureAirport" | "arrivalAirport";
+const flightOrders = [
+  {
+    value: "price",
+    label: "Lowest price",
+    description: "Compare the total fare for your party.",
+  },
+  {
+    value: "duration",
+    label: "Shortest duration",
+    description: "Compare elapsed flight time.",
+  },
+  {
+    value: "departure",
+    label: "Earliest departure",
+    description: "Compare local departure times.",
+  },
+];
+
+type ResultPanel = "filters" | "sort";
+
+function FlightResultPanel({
+  panel,
+  parameters,
+  currency,
+  cancel,
+  apply,
+}: {
+  panel: ResultPanel;
+  parameters: Record<string, string>;
+  currency?: string;
+  cancel: () => void;
+  apply: (changes: Record<string, string>) => void;
+}) {
+  const heading = useRef<HTMLHeadingElement>(null);
+  useEffect(() => {
+    heading.current?.focus();
+  }, [panel]);
+  const passengers =
+    Number(parameters.adults || 1) +
+    Number(parameters.children) +
+    Number(parameters.infants);
+  return (
+    <main
+      className="booking-view stack"
+      onKeyDown={(event) => {
+        if (event.key === "Escape") {
+          event.preventDefault();
+          cancel();
+        }
+      }}
+    >
+      <header>
+        <p className="eyebrow">Flight search</p>
+        <h1 ref={heading} tabIndex={-1}>
+          {panel === "filters" ? "Filter flights" : "Sort flights"}
+        </h1>
+        <p>
+          {parameters.departureAirport} → {parameters.arrivalAirport} ·{" "}
+          {parameters.departureDate}
+          {parameters.returnDate
+            ? " – " + parameters.returnDate + " · Round trip"
+            : " · One way"}{" "}
+          · {passengers} {passengers === 1 ? "traveler" : "travelers"}
+          {parameters.cabin && " · " + parameters.cabin}
+        </p>
+      </header>
+      <form
+        className="panel stack"
+        onSubmit={submit((form) => {
+          const values = formData(form);
+          if (
+            panel === "filters" &&
+            values.minPrice &&
+            values.maxPrice &&
+            Number(values.minPrice) > Number(values.maxPrice)
+          ) {
+            return invalidField(
+              form,
+              "maxPrice",
+              "Maximum fare must be at least the minimum fare.",
+            );
+          }
+          apply(values);
+        })}
+      >
+        {panel === "filters" ? (
+          <>
+            <h2>Set a party price range</h2>
+            <p>
+              Filter the total fare for your party on each flight
+              {currency ? " in " + currency : ""}.
+            </p>
+            <div className="grid">
+              {["minPrice", "maxPrice"].map((key) => (
+                <Field
+                  key={key}
+                  label={
+                    key === "minPrice"
+                      ? "Minimum party fare"
+                      : "Maximum party fare"
+                  }
+                >
+                  <input
+                    type="number"
+                    name={key}
+                    min="0"
+                    max="100000000"
+                    step=".01"
+                    defaultValue={parameters[key]}
+                  />
+                </Field>
+              ))}
+            </div>
+            <div className="actions">
+              <button
+                type="button"
+                className="secondary"
+                onClick={() => apply({ minPrice: "", maxPrice: "" })}
+              >
+                Clear filters · Any price
+              </button>
+              <button
+                type="button"
+                className="secondary"
+                onClick={() => apply({ minPrice: "", maxPrice: "150" })}
+              >
+                Up to {currency ? currency + " " : ""}150
+              </button>
+            </div>
+          </>
+        ) : (
+          <fieldset className="stack">
+            <legend>Order results by</legend>
+            {flightOrders.map(({ value, label, description }) => (
+              <label key={value}>
+                <input
+                  type="radio"
+                  name="sort"
+                  value={value}
+                  defaultChecked={value === (parameters.sort || "price")}
+                />{" "}
+                <strong>{label}</strong> · {description}
+              </label>
+            ))}
+          </fieldset>
+        )}
+        <div className="actions">
+          <button className="button">
+            {panel === "filters" ? "Apply filters" : "Apply sort"}
+          </button>
+          <button className="secondary" type="button" onClick={cancel}>
+            Cancel
+          </button>
+        </div>
+      </form>
+    </main>
+  );
+}
+
+function FlightAirports({
+  airports,
+  origin,
+  destination,
+  openChooser,
+}: {
+  airports: Airport[];
+  origin: string;
+  destination: string;
+  openChooser: boolean;
+}) {
+  const [values, setValues] = useState({
+    departureAirport: origin || "CAI",
+    arrivalAirport: destination,
+  });
+  const [field, setField] = useState<AirportField | null>(
+    openChooser ? "arrivalAirport" : null,
+  );
+  return (
+    <>
+      {(["departureAirport", "arrivalAirport"] as const).map((key, index) => (
+        <div key={key}>
+          <Field label={index ? "To airport" : "From airport"}>
+            <input
+              required
+              name={key}
+              value={values[key]}
+              pattern="[A-Z]{3}"
+              maxLength={3}
+              list="aeris-airports"
+              title="Enter an official three-letter airport code, such as CAI."
+              onChange={(event) =>
+                setValues({
+                  ...values,
+                  [key]: event.target.value.toUpperCase(),
+                })
+              }
+            />
+          </Field>
+          <button
+            className="airport-choice-link"
+            type="button"
+            aria-haspopup="dialog"
+            onClick={() => setField(key)}
+          >
+            {index ? "Choose destination" : "Choose departure"}
+          </button>
+        </div>
+      ))}
+      <datalist id="aeris-airports">
+        {airports.map((a) => (
+          <option key={a.iata_code} value={a.iata_code}>
+            {a.name} · {a.time_zone}
+          </option>
+        ))}
+      </datalist>
+      {field && (
+        <AirportPicker
+          field={field}
+          current={values[field]}
+          directory={airports}
+          onPick={(code) => setValues({ ...values, [field]: code })}
+          onClose={() => setField(null)}
+        />
+      )}
+    </>
+  );
+}
 export function FlightSearch() {
   const query = useSearchParams(),
     router = useRouter(),
@@ -67,8 +297,8 @@ export function FlightSearch() {
     out?: Fare;
     back?: Fare;
   }>({ key: "" });
-  // Page changes preserve the other leg's selection.
-  const selectionKey = qs({ ...parameters, page: "" }),
+  // Paging and reordering the same fares preserve the selected leg.
+  const selectionKey = qs({ ...parameters, page: "", sort: "" }),
     chosen = selection.key === selectionKey ? selection : { key: selectionKey };
   const page = Math.max(1, Number(parameters.page) || 1);
   const legPage =
@@ -77,6 +307,44 @@ export function FlightSearch() {
   const backPage =
     result.data && "outbound" in result.data ? result.data.return : undefined;
   const hero = airports.find((a) => a.iata_code === parameters.arrivalAirport);
+  const requestedPanel = query.get("resultsView");
+  const panel =
+    ready && (requestedPanel === "filters" || requestedPanel === "sort")
+      ? requestedPanel
+      : null;
+  const lastPanel = useRef<ResultPanel | null>(null);
+  const openedFromResults = useRef(false);
+  const filtersButton = useRef<HTMLButtonElement>(null);
+  const sortButton = useRef<HTMLButtonElement>(null);
+  useEffect(() => {
+    if (!panel && lastPanel.current) {
+      (lastPanel.current === "filters"
+        ? filtersButton
+        : sortButton
+      ).current?.focus();
+      openedFromResults.current = false;
+    }
+    lastPanel.current = panel;
+  }, [panel]);
+  const resultsHref = (changes: Record<string, string>) =>
+    "/flights?" + qs({ ...parameters, ...changes });
+  function openResultPanel(target: ResultPanel) {
+    openedFromResults.current = true;
+    router.push(resultsHref({ resultsView: target }), { scroll: false });
+  }
+  function cancelResultPanel() {
+    if (openedFromResults.current) router.back();
+    else router.replace(resultsHref({}), { scroll: false });
+  }
+  const priceRange = [
+    parameters.minPrice && "From " + parameters.minPrice,
+    parameters.maxPrice && "Up to " + parameters.maxPrice,
+  ]
+    .filter(Boolean)
+    .join(" · ");
+  const sortLabel =
+    flightOrders.find((option) => option.value === parameters.sort)?.label ||
+    "Lowest price";
   function options(title: string, items: Page<Fare>, leg: "out" | "back") {
     return (
       <section className="stack">
@@ -126,7 +394,13 @@ export function FlightSearch() {
                   chosen[leg]?.flightId === f.flightId &&
                   chosen[leg]?.cabin === f.cabin
                 }
-                onClick={() => select({ ...chosen, [leg]: f })}
+                onClick={() => {
+                  select({ ...chosen, [leg]: f });
+                  if (leg === "out" && backPage && page !== 1)
+                    router.push("/flights?" + qs({ ...parameters, page: 1 }), {
+                      scroll: false,
+                    });
+                }}
               >
                 {chosen[leg]?.flightId === f.flightId &&
                 chosen[leg]?.cabin === f.cabin
@@ -151,8 +425,11 @@ export function FlightSearch() {
           backCabin: chosen.back?.cabin,
         })
       : "";
-  return (
-    <main className="booking-view stack">
+  const results = (
+    <main
+      className="booking-view stack"
+      style={panel ? { display: "none" } : undefined}
+    >
       <header>
         <p className="eyebrow">Flights</p>
         <h1>
@@ -166,6 +443,11 @@ export function FlightSearch() {
         className="panel stack"
         onSubmit={submit((form) => {
           const values = formData(form);
+          if (ready) {
+            values.minPrice = parameters.minPrice;
+            values.maxPrice = parameters.maxPrice;
+            values.sort = parameters.sort;
+          }
           if (!round) delete values.returnDate;
           for (const field of ["departureAirport", "arrivalAirport"]) {
             if (
@@ -229,29 +511,13 @@ export function FlightSearch() {
           </label>
         </div>
         <div className="grid">
-          {(["departureAirport", "arrivalAirport"] as const).map((k, i) => (
-            <Field key={k} label={i ? "To airport" : "From airport"}>
-              <input
-                required
-                name={k}
-                defaultValue={parameters[k] || (i ? "" : "CAI")}
-                pattern="[A-Z]{3}"
-                title="Enter an official three-letter airport code, such as CAI."
-                maxLength={3}
-                list="aeris-airports"
-                onInput={(e) => {
-                  e.currentTarget.value = e.currentTarget.value.toUpperCase();
-                }}
-              />
-            </Field>
-          ))}
-          <datalist id="aeris-airports">
-            {airports.map((a) => (
-              <option key={a.iata_code} value={a.iata_code}>
-                {a.name} · {a.time_zone}
-              </option>
-            ))}
-          </datalist>
+          <FlightAirports
+            key={query.get("choose") || "form"}
+            airports={airports}
+            origin={parameters.departureAirport}
+            destination={parameters.arrivalAirport}
+            openChooser={query.get("choose") === "destination"}
+          />
           <Field label="Departure date">
             <input
               name="departureDate"
@@ -298,41 +564,88 @@ export function FlightSearch() {
             </select>
           </Field>
         </div>
-        <details open={!!(parameters.minPrice || parameters.maxPrice)}>
-          <summary>Price filters &amp; sorting</summary>
-          <div className="grid">
-            {["minPrice", "maxPrice"].map((k, i) => (
-              <Field
-                key={k}
-                label={(i ? "Maximum" : "Minimum") + " party fare"}
-              >
-                <input
-                  name={k}
-                  type="number"
-                  min="0"
-                  step=".01"
-                  defaultValue={parameters[k]}
-                />
+        {!ready && (
+          <details open={!!(parameters.minPrice || parameters.maxPrice)}>
+            <summary>Price filters &amp; sorting</summary>
+            <div className="grid">
+              {["minPrice", "maxPrice"].map((k, i) => (
+                <Field
+                  key={k}
+                  label={(i ? "Maximum" : "Minimum") + " party fare"}
+                >
+                  <input
+                    name={k}
+                    type="number"
+                    min="0"
+                    step=".01"
+                    defaultValue={parameters[k]}
+                  />
+                </Field>
+              ))}
+              <Field label="Sort by">
+                <select name="sort" defaultValue={parameters.sort || "price"}>
+                  <option value="price">Lowest fare</option>
+                  <option value="duration">Shortest duration</option>
+                  <option value="departure">Earliest departure</option>
+                </select>
               </Field>
-            ))}
-            <Field label="Sort by">
-              <select name="sort" defaultValue={parameters.sort || "price"}>
-                <option value="price">Lowest fare</option>
-                <option value="duration">Shortest duration</option>
-                <option value="departure">Earliest departure</option>
-              </select>
-            </Field>
-          </div>
-        </details>
+            </div>
+          </details>
+        )}
         <button className="button">Search flights →</button>
       </form>
+      {ready && (
+        <nav className="actions" aria-label="Flight result options">
+          <button
+            ref={filtersButton}
+            type="button"
+            className="secondary"
+            onClick={() => openResultPanel("filters")}
+          >
+            Filters · {priceRange || "Any price"}
+          </button>
+          <button
+            ref={sortButton}
+            type="button"
+            className="secondary"
+            onClick={() => openResultPanel("sort")}
+          >
+            Sort · {sortLabel}
+          </button>
+        </nav>
+      )}
       {ready && <Status state={result} />}{" "}
-      {legPage && options("Outbound flights", legPage, "out")}
-      {backPage && options("Return flights", backPage, "back")}
+      {legPage &&
+        (!backPage || !chosen.out) &&
+        options("Outbound flights", legPage, "out")}
+      {backPage && chosen.out && (
+        <>
+          <div className="actions">
+            <strong>
+              Outbound · {chosen.out.flightNumber} ·{" "}
+              {chosen.out.departureAirport} → {chosen.out.arrivalAirport}
+            </strong>
+            <button
+              type="button"
+              className="secondary"
+              onClick={() => {
+                select({ key: selectionKey });
+                if (page !== 1)
+                  router.push("/flights?" + qs({ ...parameters, page: 1 }), {
+                    scroll: false,
+                  });
+              }}
+            >
+              Change outbound flight
+            </button>
+          </div>
+          {options("Return flights", backPage, "back")}
+        </>
+      )}
       {legPage && (
         <Pager
           page={page}
-          pages={Math.max(legPage.pages, backPage?.pages || 0)}
+          pages={backPage && chosen.out ? backPage.pages : legPage.pages}
           onPage={(n) =>
             router.push("/flights?" + qs({ ...parameters, page: n }))
           }
@@ -356,6 +669,25 @@ export function FlightSearch() {
         </aside>
       )}
     </main>
+  );
+  return (
+    <>
+      {panel && (
+        <FlightResultPanel
+          key={panel}
+          panel={panel}
+          parameters={parameters}
+          currency={legPage?.items[0]?.currency || backPage?.items[0]?.currency}
+          cancel={cancelResultPanel}
+          apply={(changes) =>
+            router.replace(resultsHref({ ...changes, page: "" }), {
+              scroll: false,
+            })
+          }
+        />
+      )}
+      {results}
+    </>
   );
 }
 

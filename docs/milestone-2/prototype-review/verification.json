@@ -1,0 +1,267 @@
+{
+  "date": "2026-11-25",
+  "frontendGitTree": "490c41204f8ef09abc4b2ed307125cc4b0ae989a",
+  "system": "Windows, Microsoft Edge, production Next.js HTTPS frontend with a disposable MongoDB replica set",
+  "build": "passed",
+  "typescript": "passed",
+  "backend": {
+    "passed": 64,
+    "failed": 0,
+    "successfulApiOperations": 151,
+    "totalApiOperations": 151
+  },
+  "browser": {
+    "startedAt": "2026-11-25T16:38:19.359Z",
+    "durationSeconds": 106.8,
+    "passed": 22,
+    "failed": 0,
+    "skipped": 0,
+    "flaky": 0,
+    "cases": [
+      "traveler signs in, updates a profile using secure cookies, and signs out",
+      "traveler selects a fare, adds baggage and creates an authenticated hold",
+      "traveler books two available hotel rooms and sees the stay policy",
+      "guest selects rooms and returns from sign-in with the same rooms and dates",
+      "confirmed traveler selects a seat, reopens the ticket, and downloads the PDF",
+      "guest round-trip fare review preserves the return leg and offers a sign-in handoff",
+      "flight price filters give an actionable empty result",
+      "a traveler budgets a day, publishes the plan and a guest reads the itinerary",
+      "a journal author publishes, adds and removes a like, and edits and deletes a comment",
+      "the desktop cabin has eight local photographs and localized arrivals",
+      "the phone menu and same-page flight shortcut work without horizontal overflow",
+      "tablet windows fit the viewport",
+      "airport choices preserve the draft, support cancellation and submit the edited trip",
+      "window shuffle exposes both scenes and skips immediately via Escape",
+      "portal samples roll forward after expiry and keep explicit dates and distinct airports",
+      "public content and metadata render without JavaScript and respect later privacy changes",
+      "the phone menu returns keyboard focus and opens the flight destination picker",
+      "the cabin covers the outgoing page, keeps history, and honors reduced motion",
+      "hotel staff paginate date ranges, nightly availability and refund tiers without losing records",
+      "administrator creates a provider, changes its status and inspects the audit trail",
+      "airline moderator schedules a flight, adds a cabin, and is denied the admin directory",
+      "hotel moderator adds a room and verifies its bookable nights"
+    ]
+  },
+  "headedHome": {
+    "startedAt": "2026-11-25T16:40:43.679Z",
+    "durationSeconds": 38.7,
+    "passed": 6,
+    "failed": 0,
+    "skipped": 0,
+    "flaky": 0,
+    "cases": [
+      "the desktop cabin has eight local photographs and localized arrivals",
+      "the phone menu and same-page flight shortcut work without horizontal overflow",
+      "tablet windows fit the viewport",
+      "airport choices preserve the draft, support cancellation and submit the edited trip",
+      "window shuffle exposes both scenes and skips immediately via Escape",
+      "portal samples roll forward after expiry and keep explicit dates and distinct airports"
+    ]
+  },
+  "destinationJourneys": [
+    {
+      "device": "desktop",
+      "width": 1360,
+      "height": 1000,
+      "checks": [
+        {
+          "iata": "CDG",
+          "greeting": "Bonjour",
+          "departure": "CAI",
+          "arrival": "CDG",
+          "selectedWindowRestored": true
+        },
+        {
+          "iata": "HND",
+          "greeting": "こんにちは",
+          "departure": "CAI",
+          "arrival": "HND",
+          "selectedWindowRestored": true
+        },
+        {
+          "iata": "CAI",
+          "greeting": "أهلًا",
+          "departure": "DXB",
+          "arrival": "CAI",
+          "selectedWindowRestored": true
+        },
+        {
+          "iata": "LHR",
+          "greeting": "Hello",
+          "departure": "CAI",
+          "arrival": "LHR",
+          "selectedWindowRestored": true
+        },
+        {
+          "iata": "DXB",
+          "greeting": "مرحبًا",
+          "departure": "CAI",
+          "arrival": "DXB",
+          "selectedWindowRestored": true
+        },
+        {
+          "iata": "JFK",
+          "greeting": "Hi there",
+          "departure": "CAI",
+          "arrival": "JFK",
+          "selectedWindowRestored": true
+        },
+        {
+          "iata": "RUH",
+          "greeting": "يا هلا",
+          "departure": "CAI",
+          "arrival": "RUH",
+          "selectedWindowRestored": true
+        },
+        {
+          "iata": "FRA",
+          "greeting": "Hallo",
+          "departure": "CAI",
+          "arrival": "FRA",
+          "selectedWindowRestored": true
+        }
+      ]
+    },
+    {
+      "device": "tablet",
+      "width": 834,
+      "height": 1014,
+      "checks": [
+        {
+          "iata": "CDG",
+          "greeting": "Bonjour",
+          "departure": "CAI",
+          "arrival": "CDG",
+          "selectedWindowRestored": true
+        },
+        {
+          "iata": "HND",
+          "greeting": "こんにちは",
+          "departure": "CAI",
+          "arrival": "HND",
+          "selectedWindowRestored": true
+        },
+        {
+          "iata": "CAI",
+          "greeting": "أهلًا",
+          "departure": "DXB",
+          "arrival": "CAI",
+          "selectedWindowRestored": true
+        },
+        {
+          "iata": "LHR",
+          "greeting": "Hello",
+          "departure": "CAI",
+          "arrival": "LHR",
+          "selectedWindowRestored": true
+        },
+        {
+          "iata": "DXB",
+          "greeting": "مرحبًا",
+          "departure": "CAI",
+          "arrival": "DXB",
+          "selectedWindowRestored": true
+        },
+        {
+          "iata": "JFK",
+          "greeting": "Hi there",
+          "departure": "CAI",
+          "arrival": "JFK",
+          "selectedWindowRestored": true
+        },
+        {
+          "iata": "RUH",
+          "greeting": "يا هلا",
+          "departure": "CAI",
+          "arrival": "RUH",
+          "selectedWindowRestored": true
+        },
+        {
+          "iata": "FRA",
+          "greeting": "Hallo",
+          "departure": "CAI",
+          "arrival": "FRA",
+          "selectedWindowRestored": true
+        }
+      ]
+    },
+    {
+      "device": "phone",
+      "width": 390,
+      "height": 844,
+      "checks": [
+        {
+          "iata": "CDG",
+          "greeting": "Bonjour",
+          "departure": "CAI",
+          "arrival": "CDG",
+          "selectedWindowRestored": true
+        },
+        {
+          "iata": "HND",
+          "greeting": "こんにちは",
+          "departure": "CAI",
+          "arrival": "HND",
+          "selectedWindowRestored": true
+        },
+        {
+          "iata": "CAI",
+          "greeting": "أهلًا",
+          "departure": "DXB",
+          "arrival": "CAI",
+          "selectedWindowRestored": true
+        },
+        {
+          "iata": "LHR",
+          "greeting": "Hello",
+          "departure": "CAI",
+          "arrival": "LHR",
+          "selectedWindowRestored": true
+        },
+        {
+          "iata": "DXB",
+          "greeting": "مرحبًا",
+          "departure": "CAI",
+          "arrival": "DXB",
+          "selectedWindowRestored": true
+        },
+        {
+          "iata": "JFK",
+          "greeting": "Hi there",
+          "departure": "CAI",
+          "arrival": "JFK",
+          "selectedWindowRestored": true
+        },
+        {
+          "iata": "RUH",
+          "greeting": "يا هلا",
+          "departure": "CAI",
+          "arrival": "RUH",
+          "selectedWindowRestored": true
+        },
+        {
+          "iata": "FRA",
+          "greeting": "Hallo",
+          "departure": "CAI",
+          "arrival": "FRA",
+          "selectedWindowRestored": true
+        }
+      ]
+    }
+  ],
+  "stripeSandbox": {
+    "passed": true,
+    "currency": "USD",
+    "paymentMinor": 18000,
+    "refundMinor": 16200,
+    "steps": [
+      "sandbox identity",
+      "signed event listener",
+      "seed separate local database",
+      "traveler sign-in, flight hold and policy acceptance",
+      "real Stripe Elements",
+      "test card payment and signed booking confirmation",
+      "browser cancellation and sandbox refund"
+    ]
+  }
+}

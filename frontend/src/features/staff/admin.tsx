@@ -2,7 +2,7 @@
 
 import { FieldError } from "@/lib/form-errors";
 
-import { useState } from "react";
+import { useId, useRef, useState } from "react";
 import { useWorkspaceSection } from "./ui";
 import { api } from "@/lib/api";
 import {
@@ -172,6 +172,92 @@ function Overview({ go }: { go: (tab: string) => void }) {
     </div>
   );
 }
+function AccountRecovery({ account }: { account: Account }) {
+  const dialog = useRef<HTMLDialogElement>(null);
+  const title = useId();
+  const [complete, setComplete] = useState(false);
+  const [open, setOpen] = useState(false);
+  const [saving, setSaving] = useState(false);
+  return (
+    <>
+      <button
+        type="button"
+        className="secondary"
+        aria-haspopup="dialog"
+        onClick={() => {
+          setComplete(false);
+          setOpen(true);
+          dialog.current?.showModal();
+        }}
+      >
+        Reset account password
+      </button>
+      <dialog
+        ref={dialog}
+        className="recovery-dialog"
+        aria-labelledby={title}
+        onCancel={(e) => {
+          if (saving) e.preventDefault();
+        }}
+        onClose={() => setOpen(false)}
+      >
+        {open && (
+          <div className="stack">
+            <header>
+              <p className="eyebrow">Account recovery</p>
+              <h2 id={title}>
+                {complete
+                  ? "Temporary password saved"
+                  : "Set a temporary password"}
+              </h2>
+            </header>
+            <p>
+              {account.name} · {account.email}
+            </p>
+            {complete ? (
+              <p role="status">
+                Existing sessions have been revoked. The account holder will
+                choose a new password at their next sign-in.
+              </p>
+            ) : (
+              <>
+                <p>
+                  Setting this password signs the account holder out of all
+                  sessions and requires a change at the next sign-in.
+                </p>
+                <Form
+                  fields={[password]}
+                  submit="Set temporary password"
+                  reset
+                  onSubmit={async (values) => {
+                    setSaving(true);
+                    try {
+                      await api(
+                        "/admin/users/" + account.id + "/reset-password",
+                        { method: "POST", body: values },
+                      );
+                      setComplete(true);
+                    } finally {
+                      setSaving(false);
+                    }
+                  }}
+                />
+              </>
+            )}
+            <button
+              type="button"
+              className="secondary"
+              disabled={saving}
+              onClick={() => dialog.current?.close()}
+            >
+              {complete ? "Back to accounts" : "Cancel"}
+            </button>
+          </div>
+        )}
+      </dialog>
+    </>
+  );
+}
 function Accounts() {
   const [revision, refresh] = useRevision(),
     [filters, setFilters] = useState<Values>({});
@@ -243,23 +329,7 @@ function Accounts() {
                       refresh();
                     }}
                   />
-                  <Form
-                    fields={[password]}
-                    submit="Reset account password"
-                    confirmation={
-                      "Reset " +
-                      u.name +
-                      "’s password and sign out their existing sessions?"
-                    }
-                    reset
-                    success="Temporary password saved."
-                    onSubmit={(v) =>
-                      api("/admin/users/" + u.id + "/reset-password", {
-                        method: "POST",
-                        body: v,
-                      })
-                    }
-                  />
+                  <AccountRecovery account={u} />
                 </Fold>
               )}
             </Row>
@@ -287,7 +357,8 @@ function Accounts() {
           success="Moderator account created."
           onSubmit={async (v) => {
             const p = providers.rows.find((p) => p._id === v.providerId);
-            if (!p) throw new FieldError("providerId", "Choose a provider first.");
+            if (!p)
+              throw new FieldError("providerId", "Choose a provider first.");
             await api("/admin/moderators", {
               method: "POST",
               body: {

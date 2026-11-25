@@ -108,10 +108,25 @@ test("guest selects rooms and returns from sign-in with the same rooms and dates
   await expect(page.getByLabel("Destination", { exact: true })).toHaveValue(
     "Cairo",
   );
+  await page.getByRole("button", { name: "Choose stay dates" }).click();
   await page.getByLabel("Check-in", { exact: true }).fill(cairoDate(18));
   await page.getByLabel("Check-out", { exact: true }).fill(cairoDate(20));
+  await page.getByRole("button", { name: "Use stay dates" }).click();
+  await page.getByRole("button", { name: "Choose rooms and guests" }).click();
   await page.getByLabel("Rooms", { exact: true }).fill("2");
-  await page.getByLabel("Guests", { exact: true }).fill("2");
+  await page.getByLabel("Children, age 0–17").fill("1");
+  await page.getByRole("button", { name: "Cancel" }).click();
+  await expect(
+    page.getByText("1 guest · 1 room", { exact: true }),
+  ).toBeVisible();
+  await page.getByRole("button", { name: "Choose rooms and guests" }).click();
+  await page.getByLabel("Rooms", { exact: true }).fill("2");
+  await page.getByLabel("Children, age 0–17").fill("1");
+  await page.getByRole("button", { name: "Use rooms and guests" }).click();
+  await expect(
+    page.getByText("2 guests · 2 rooms", { exact: true }),
+  ).toBeVisible();
+  await expect(page.getByText("2 nights", { exact: true })).toBeVisible();
   await page.getByRole("button", { name: /Search stays/ }).click();
   await page
     .getByRole("link", { name: /Choose rooms/ })
@@ -174,7 +189,14 @@ test("confirmed traveler selects a seat, reopens the ticket, and downloads the P
     .click();
   const seat = page.locator(".seat-map button:enabled").first();
   const label = (await seat.innerText()).trim();
-  await seat.click();
+  await page.getByRole("button", { name: "Use accessible seat list" }).click();
+  await page
+    .getByRole("button", {
+      name: new RegExp("^Seat " + label + " · (Window|Aisle|Middle)$"),
+    })
+    .click();
+  await page.getByRole("button", { name: "Show seat map" }).click();
+  await expect(seat).toHaveAttribute("aria-pressed", "true");
   await page.getByRole("button", { name: "Save seats" }).click();
   await expect(
     page
@@ -183,12 +205,27 @@ test("confirmed traveler selects a seat, reopens the ticket, and downloads the P
       .first(),
   ).toBeVisible();
   await page.reload();
+  await page.getByRole("link", { name: "View e-ticket" }).click();
   await expect(
-    page
-      .locator(".travel-leg strong")
+    page.getByRole("heading", { name: "Flight e-ticket" }),
+  ).toBeVisible();
+  const document = page
+    .getByRole("article", { name: /Flight e-ticket document/ })
+    .first();
+  await expect(document.locator(".ticket-carrier")).toContainText("Economy");
+  await expect(document.locator(".ticket-route time")).toHaveCount(2);
+  await expect(
+    document
+      .locator(".ticket-seat strong")
       .filter({ hasText: new RegExp("^" + label + "$") })
       .first(),
   ).toBeVisible();
+  await document.getByRole("link", { name: "Change seat" }).first().click();
+  await expect(
+    page.getByRole("heading", { name: "Choose your seat" }),
+  ).toBeVisible();
+  await page.getByRole("button", { name: "Cancel", exact: true }).click();
+  await expect(document).toBeVisible();
   const href = await page
     .getByRole("link", { name: "Download e-ticket PDF" })
     .getAttribute("href");
@@ -196,6 +233,8 @@ test("confirmed traveler selects a seat, reopens the ticket, and downloads the P
   expect(pdf.ok()).toBeTruthy();
   expect(pdf.headers()["content-type"]).toContain("application/pdf");
   expect((await pdf.body()).subarray(0, 5).toString()).toBe("%PDF-");
+  await page.getByRole("link", { name: "Back to booking" }).click();
+  await expect(page.getByRole("link", { name: "View e-ticket" })).toBeVisible();
 });
 
 test("guest round-trip fare review preserves the return leg and offers a sign-in handoff", async ({
@@ -216,7 +255,8 @@ test("guest round-trip fare review preserves the return leg and offers a sign-in
     .locator("article")
     .filter({ hasText: "DEMO101" })
     .first();
-  await expect(inbound).toBeVisible();
+  await expect(outbound).toBeVisible();
+  await expect(inbound).toHaveCount(0);
   await outbound
     .getByRole("link", { name: "Flight details & baggage" })
     .click();
@@ -258,7 +298,23 @@ test("flight price filters give an actionable empty result", async ({
       "&adults=1&maxPrice=1",
   );
   await expect(page.getByText(/^No flights found/)).toBeVisible();
+  const filters = page.getByRole("button", { name: /^Filters ·/ });
+  const sort = page.getByRole("button", { name: /^Sort ·/ });
+  await filters.click();
+  await expect(
+    page.getByRole("heading", { name: "Filter flights" }),
+  ).toBeFocused();
   await expect(page.getByLabel("Maximum party fare")).toHaveValue("1");
+  await page.getByLabel("Minimum party fare").fill("5");
+  await page.getByRole("button", { name: "Apply filters" }).click();
+  await expect(
+    page.getByLabel("Maximum party fare"),
+  ).toHaveAccessibleDescription(
+    "Maximum fare must be at least the minimum fare.",
+  );
+  await page.keyboard.press("Escape");
+  await expect(filters).toBeFocused();
+  await expect(page).toHaveURL(/maxPrice=1/);
   await expect(page.locator("#aeris-airports option[value=CAI]")).toHaveCount(
     1,
   );
@@ -270,7 +326,24 @@ test("flight price filters give an actionable empty result", async ({
       .filter({ hasText: "Choose an airport from the airport directory." }),
   ).toBeVisible();
   await page.getByLabel("From airport").fill("CAI");
+  await filters.click();
+  await expect(page.getByLabel("Minimum party fare")).toHaveValue("");
   await page.getByLabel("Maximum party fare").fill("200");
-  await page.getByRole("button", { name: "Search flights" }).click();
+  await page.getByRole("button", { name: "Apply filters" }).click();
+  await expect(page.getByText(/DEMO100 · Economy/)).toBeVisible();
+  await sort.click();
+  await page.getByRole("radio", { name: /Earliest departure/ }).check();
+  await page.getByRole("button", { name: "Cancel" }).click();
+  await expect(sort).toHaveText(/Lowest price/);
+  await sort.click();
+  await page.getByRole("radio", { name: /Shortest duration/ }).check();
+  await page.getByRole("button", { name: "Apply sort" }).click();
+  await expect(sort).toHaveText(/Shortest duration/);
+  await expect(page).toHaveURL(/sort=duration/);
+  await filters.click();
+  await page.getByRole("button", { name: /Clear filters/ }).click();
+  await expect(filters).toHaveText(/Any price/);
+  await expect(page).not.toHaveURL(/maxPrice=|minPrice=/);
+  await expect(page).toHaveURL(/arrivalAirport=DXB/);
   await expect(page.getByText(/DEMO100 · Economy/)).toBeVisible();
 });

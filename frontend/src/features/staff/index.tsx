@@ -4,8 +4,14 @@ import Link from "next/link";
 import { useWorkspaceSection } from "./ui";
 import { useSession } from "@/lib/session";
 import { AdminWorkspace } from "./admin";
-import { Flights } from "./airline";
-import { Availability, Reservations, Reviews, Rooms } from "./hotel";
+import { AirlineOverview, Flights } from "./airline";
+import {
+  Availability,
+  HotelOverview,
+  Reservations,
+  Reviews,
+  Rooms,
+} from "./hotel";
 import { Policies, ProviderForm, ProviderMedia } from "./provider";
 import {
   Problem,
@@ -57,46 +63,11 @@ function Assignment({ id, hotel }: { id: string; hotel: boolean }) {
       {loading && <p role="status">Loading assigned provider…</p>}
       {p &&
         (tab === "Overview" ? (
-          <div className="staffMetrics">
-            {(hotel
-              ? [
-                  ["Inventory", "Rooms", "Manage rooms and nightly prices"],
-                  [
-                    "Calendar",
-                    "Availability",
-                    "Inspect bookable and blocked nights",
-                  ],
-                  [
-                    "Guests",
-                    "Reservations",
-                    "See reservations and guest names",
-                  ],
-                ]
-              : [
-                  ["Schedule", "Flights", "Manage flights, seats and fares"],
-                  [
-                    "Passengers",
-                    "Manifests",
-                    "Inspect bookings and export passenger lists",
-                  ],
-                  [
-                    "Terms",
-                    "Policies",
-                    "Manage cancellation and baggage rules",
-                  ],
-                ]
-            ).map(([name, dest, sub]) => (
-              <button
-                key={dest}
-                className="staffMetric"
-                onClick={() => setTab(dest)}
-              >
-                <span>{name}</span>
-                <strong>{dest}</strong>
-                <span>{sub} →</span>
-              </button>
-            ))}
-          </div>
+          hotel ? (
+            <HotelOverview id={id} choose={setTab} />
+          ) : (
+            <AirlineOverview id={id} choose={setTab} />
+          )
         ) : tab === "Property" || tab === "Airline" ? (
           <div className="stack">
             <Section title={hotel ? "Property profile" : "Carrier profile"}>

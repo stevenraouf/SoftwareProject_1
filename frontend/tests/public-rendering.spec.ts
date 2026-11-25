@@ -177,6 +177,13 @@ test("public content and metadata render without JavaScript and respect later pr
         );
         expect(titles).toHaveLength(current === 1 ? 10 : 1);
         await expect(reader.locator(".discovery-cards h3")).toHaveText(titles);
+        const feature = reader.locator("a.discovery-feature");
+        const first = expected.items[0];
+        await expect(feature).toHaveAccessibleName(first.title);
+        await expect(feature).toHaveAttribute(
+          "href",
+          (endpoint === "/posts" ? "/post/" : "/itinerary/") + first.id,
+        );
         if (current === 1)
           await reader.getByRole("link", { name: "Next", exact: true }).click();
       }

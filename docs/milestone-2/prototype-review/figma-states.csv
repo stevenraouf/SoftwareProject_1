@@ -1,0 +1,749 @@
+﻿atlas_chapter,stable_state,native_frame_title,desktop_node,tablet_node,mobile_node,shared_node,reachable_variants_from_27_9726,reachable_variants_from_27_9839,reachable_variants_from_27_9952
+Window portal,home:CDG,Window seat / CDG,27:9726,27:9839,27:9952,,Desktop,Desktop|Tablet,Desktop|Mobile
+Window portal,arrival:CDG,Paris / Bonjour,27:9727,27:9840,27:9953,,Desktop,Desktop|Tablet,Desktop|Mobile
+Window portal,quiet-home:CDG,Window seat · Reduced motion / CDG,27:9728,27:9841,27:9954,,Desktop,Desktop|Tablet,Desktop|Mobile
+Window portal,quiet-arrival:CDG,Paris / Bonjour · Reduced motion,27:9729,27:9842,27:9955,,Desktop,Desktop|Tablet,Desktop|Mobile
+Window portal,gather:CDG,Clouds gather / CDG,27:9730,27:9843,27:9956,,Desktop,Desktop|Tablet,Desktop|Mobile
+Window portal,cover:CDG,Clouds meet / CDG,27:9731,27:9844,27:9957,,Desktop,Desktop|Tablet,Desktop|Mobile
+Window portal,reveal:CDG,Clouds part / CDG,27:9732,27:9845,27:9958,,Desktop,Desktop|Tablet,Desktop|Mobile
+Window portal,home:HND,Window seat / HND,27:9733,27:9846,27:9959,,Desktop,Desktop|Tablet,Desktop|Mobile
+Window portal,arrival:HND,Tokyo / こんにちは,27:9734,27:9847,27:9960,,Desktop,Desktop|Tablet,Desktop|Mobile
+Window portal,quiet-home:HND,Window seat · Reduced motion / HND,27:9735,27:9848,27:9961,,Desktop,Desktop|Tablet,Desktop|Mobile
+Window portal,quiet-arrival:HND,Tokyo / こんにちは · Reduced motion,27:9736,27:9849,27:9962,,Desktop,Desktop|Tablet,Desktop|Mobile
+Window portal,gather:HND,Clouds gather / HND,27:9737,27:9850,27:9963,,Desktop,Desktop|Tablet,Desktop|Mobile
+Window portal,cover:HND,Clouds meet / HND,27:9738,27:9851,27:9964,,Desktop,Desktop|Tablet,Desktop|Mobile
+Window portal,reveal:HND,Clouds part / HND,27:9739,27:9852,27:9965,,Desktop,Desktop|Tablet,Desktop|Mobile
+Window portal,home:CAI,Window seat / CAI,27:9740,27:9853,27:9966,,Desktop,Desktop|Tablet,Desktop|Mobile
+Window portal,arrival:CAI,Cairo / أهلًا,27:9741,27:9854,27:9967,,Desktop,Desktop|Tablet,Desktop|Mobile
+Window portal,quiet-home:CAI,Window seat · Reduced motion / CAI,27:9742,27:9855,27:9968,,Desktop,Desktop|Tablet,Desktop|Mobile
+Window portal,quiet-arrival:CAI,Cairo / أهلًا · Reduced motion,27:9743,27:9856,27:9969,,Desktop,Desktop|Tablet,Desktop|Mobile
+Window portal,gather:CAI,Clouds gather / CAI,27:9744,27:9857,27:9970,,Desktop,Desktop|Tablet,Desktop|Mobile
+Window portal,cover:CAI,Clouds meet / CAI,27:9745,27:9858,27:9971,,Desktop,Desktop|Tablet,Desktop|Mobile
+Window portal,reveal:CAI,Clouds part / CAI,27:9746,27:9859,27:9972,,Desktop,Desktop|Tablet,Desktop|Mobile
+Window portal,home:LHR,Window seat / LHR,27:9747,27:9860,27:9973,,Desktop,Desktop|Tablet,Desktop|Mobile
+Window portal,arrival:LHR,London / Hello,27:9748,27:9861,27:9974,,Desktop,Desktop|Tablet,Desktop|Mobile
+Window portal,quiet-home:LHR,Window seat · Reduced motion / LHR,27:9749,27:9862,27:9975,,Desktop,Desktop|Tablet,Desktop|Mobile
+Window portal,quiet-arrival:LHR,London / Hello · Reduced motion,27:9750,27:9863,27:9976,,Desktop,Desktop|Tablet,Desktop|Mobile
+Window portal,gather:LHR,Clouds gather / LHR,27:9751,27:9864,27:9977,,Desktop,Desktop|Tablet,Desktop|Mobile
+Window portal,cover:LHR,Clouds meet / LHR,27:9752,27:9865,27:9978,,Desktop,Desktop|Tablet,Desktop|Mobile
+Window portal,reveal:LHR,Clouds part / LHR,27:9753,27:9866,27:9979,,Desktop,Desktop|Tablet,Desktop|Mobile
+Window portal,home:DXB,Window seat / DXB,27:9754,27:9867,27:9980,,Desktop,Desktop|Tablet,Desktop|Mobile
+Window portal,arrival:DXB,Dubai / مرحبًا,27:9755,27:9868,27:9981,,Desktop,Desktop|Tablet,Desktop|Mobile
+Window portal,quiet-home:DXB,Window seat · Reduced motion / DXB,27:9756,27:9869,27:9982,,Desktop,Desktop|Tablet,Desktop|Mobile
+Window portal,quiet-arrival:DXB,Dubai / مرحبًا · Reduced motion,27:9757,27:9870,27:9983,,Desktop,Desktop|Tablet,Desktop|Mobile
+Window portal,gather:DXB,Clouds gather / DXB,27:9758,27:9871,27:9984,,Desktop,Desktop|Tablet,Desktop|Mobile
+Window portal,cover:DXB,Clouds meet / DXB,27:9759,27:9872,27:9985,,Desktop,Desktop|Tablet,Desktop|Mobile
+Window portal,reveal:DXB,Clouds part / DXB,27:9760,27:9873,27:9986,,Desktop,Desktop|Tablet,Desktop|Mobile
+Window portal,home:JFK,Window seat / JFK,27:9761,27:9874,27:9987,,Desktop,Desktop|Tablet,Desktop|Mobile
+Window portal,arrival:JFK,New York / Hi there,27:9762,27:9875,27:9988,,Desktop,Desktop|Tablet,Desktop|Mobile
+Window portal,quiet-home:JFK,Window seat · Reduced motion / JFK,27:9763,27:9876,27:9989,,Desktop,Desktop|Tablet,Desktop|Mobile
+Window portal,quiet-arrival:JFK,New York / Hi there · Reduced motion,27:9764,27:9877,27:9990,,Desktop,Desktop|Tablet,Desktop|Mobile
+Window portal,gather:JFK,Clouds gather / JFK,27:9765,27:9878,27:9991,,Desktop,Desktop|Tablet,Desktop|Mobile
+Window portal,cover:JFK,Clouds meet / JFK,27:9766,27:9879,27:9992,,Desktop,Desktop|Tablet,Desktop|Mobile
+Window portal,reveal:JFK,Clouds part / JFK,27:9767,27:9880,27:9993,,Desktop,Desktop|Tablet,Desktop|Mobile
+Window portal,home:RUH,Window seat / RUH,27:9768,27:9881,27:9994,,Desktop,Desktop|Tablet,Desktop|Mobile
+Window portal,arrival:RUH,Riyadh / يا هلا,27:9769,27:9882,27:9995,,Desktop,Desktop|Tablet,Desktop|Mobile
+Window portal,quiet-home:RUH,Window seat · Reduced motion / RUH,27:9770,27:9883,27:9996,,Desktop,Desktop|Tablet,Desktop|Mobile
+Window portal,quiet-arrival:RUH,Riyadh / يا هلا · Reduced motion,27:9771,27:9884,27:9997,,Desktop,Desktop|Tablet,Desktop|Mobile
+Window portal,gather:RUH,Clouds gather / RUH,27:9772,27:9885,27:9998,,Desktop,Desktop|Tablet,Desktop|Mobile
+Window portal,cover:RUH,Clouds meet / RUH,27:9773,27:9886,27:9999,,Desktop,Desktop|Tablet,Desktop|Mobile
+Window portal,reveal:RUH,Clouds part / RUH,27:9774,27:9887,27:10000,,Desktop,Desktop|Tablet,Desktop|Mobile
+Window portal,home:FRA,Window seat / FRA,27:9775,27:9888,27:10001,,Desktop,Desktop|Tablet,Desktop|Mobile
+Window portal,arrival:FRA,Frankfurt / Hallo,27:9776,27:9889,27:10002,,Desktop,Desktop|Tablet,Desktop|Mobile
+Window portal,quiet-home:FRA,Window seat · Reduced motion / FRA,27:9777,27:9890,27:10003,,Desktop,Desktop|Tablet,Desktop|Mobile
+Window portal,quiet-arrival:FRA,Frankfurt / Hallo · Reduced motion,27:9778,27:9891,27:10004,,Desktop,Desktop|Tablet,Desktop|Mobile
+Window portal,gather:FRA,Clouds gather / FRA,27:9779,27:9892,27:10005,,Desktop,Desktop|Tablet,Desktop|Mobile
+Window portal,cover:FRA,Clouds meet / FRA,27:9780,27:9893,27:10006,,Desktop,Desktop|Tablet,Desktop|Mobile
+Window portal,reveal:FRA,Clouds part / FRA,27:9781,27:9894,27:10007,,Desktop,Desktop|Tablet,Desktop|Mobile
+Window portal,shuffle:CDG:HND,Window shuffle / CDG → HND,27:9782,27:9895,27:10008,,Desktop,Desktop|Tablet,Desktop|Mobile
+Window portal,shuffle:CDG:CAI,Window shuffle / CDG → CAI,27:9783,27:9896,27:10009,,Desktop,Desktop|Tablet,Desktop|Mobile
+Window portal,shuffle:CDG:LHR,Window shuffle / CDG → LHR,27:9784,27:9897,27:10010,,Desktop,Desktop|Tablet,Desktop|Mobile
+Window portal,shuffle:CDG:DXB,Window shuffle / CDG → DXB,27:9785,27:9898,27:10011,,Desktop,Desktop|Tablet,Desktop|Mobile
+Window portal,shuffle:CDG:JFK,Window shuffle / CDG → JFK,27:9786,27:9899,27:10012,,Desktop,Desktop|Tablet,Desktop|Mobile
+Window portal,shuffle:CDG:RUH,Window shuffle / CDG → RUH,27:9787,27:9900,27:10013,,Desktop,Desktop|Tablet,Desktop|Mobile
+Window portal,shuffle:CDG:FRA,Window shuffle / CDG → FRA,27:9788,27:9901,27:10014,,Desktop,Desktop|Tablet,Desktop|Mobile
+Window portal,shuffle:HND:CDG,Window shuffle / HND → CDG,27:9789,27:9902,27:10015,,Desktop,Desktop|Tablet,Desktop|Mobile
+Window portal,shuffle:HND:CAI,Window shuffle / HND → CAI,27:9790,27:9903,27:10016,,Desktop,Desktop|Tablet,Desktop|Mobile
+Window portal,shuffle:HND:LHR,Window shuffle / HND → LHR,27:9791,27:9904,27:10017,,Desktop,Desktop|Tablet,Desktop|Mobile
+Window portal,shuffle:HND:DXB,Window shuffle / HND → DXB,27:9792,27:9905,27:10018,,Desktop,Desktop|Tablet,Desktop|Mobile
+Window portal,shuffle:HND:JFK,Window shuffle / HND → JFK,27:9793,27:9906,27:10019,,Desktop,Desktop|Tablet,Desktop|Mobile
+Window portal,shuffle:HND:RUH,Window shuffle / HND → RUH,27:9794,27:9907,27:10020,,Desktop,Desktop|Tablet,Desktop|Mobile
+Window portal,shuffle:HND:FRA,Window shuffle / HND → FRA,27:9795,27:9908,27:10021,,Desktop,Desktop|Tablet,Desktop|Mobile
+Window portal,shuffle:CAI:CDG,Window shuffle / CAI → CDG,27:9796,27:9909,27:10022,,Desktop,Desktop|Tablet,Desktop|Mobile
+Window portal,shuffle:CAI:HND,Window shuffle / CAI → HND,27:9797,27:9910,27:10023,,Desktop,Desktop|Tablet,Desktop|Mobile
+Window portal,shuffle:CAI:LHR,Window shuffle / CAI → LHR,27:9798,27:9911,27:10024,,Desktop,Desktop|Tablet,Desktop|Mobile
+Window portal,shuffle:CAI:DXB,Window shuffle / CAI → DXB,27:9799,27:9912,27:10025,,Desktop,Desktop|Tablet,Desktop|Mobile
+Window portal,shuffle:CAI:JFK,Window shuffle / CAI → JFK,27:9800,27:9913,27:10026,,Desktop,Desktop|Tablet,Desktop|Mobile
+Window portal,shuffle:CAI:RUH,Window shuffle / CAI → RUH,27:9801,27:9914,27:10027,,Desktop,Desktop|Tablet,Desktop|Mobile
+Window portal,shuffle:CAI:FRA,Window shuffle / CAI → FRA,27:9802,27:9915,27:10028,,Desktop,Desktop|Tablet,Desktop|Mobile
+Window portal,shuffle:LHR:CDG,Window shuffle / LHR → CDG,27:9803,27:9916,27:10029,,Desktop,Desktop|Tablet,Desktop|Mobile
+Window portal,shuffle:LHR:HND,Window shuffle / LHR → HND,27:9804,27:9917,27:10030,,Desktop,Desktop|Tablet,Desktop|Mobile
+Window portal,shuffle:LHR:CAI,Window shuffle / LHR → CAI,27:9805,27:9918,27:10031,,Desktop,Desktop|Tablet,Desktop|Mobile
+Window portal,shuffle:LHR:DXB,Window shuffle / LHR → DXB,27:9806,27:9919,27:10032,,Desktop,Desktop|Tablet,Desktop|Mobile
+Window portal,shuffle:LHR:JFK,Window shuffle / LHR → JFK,27:9807,27:9920,27:10033,,Desktop,Desktop|Tablet,Desktop|Mobile
+Window portal,shuffle:LHR:RUH,Window shuffle / LHR → RUH,27:9808,27:9921,27:10034,,Desktop,Desktop|Tablet,Desktop|Mobile
+Window portal,shuffle:LHR:FRA,Window shuffle / LHR → FRA,27:9809,27:9922,27:10035,,Desktop,Desktop|Tablet,Desktop|Mobile
+Window portal,shuffle:DXB:CDG,Window shuffle / DXB → CDG,27:9810,27:9923,27:10036,,Desktop,Desktop|Tablet,Desktop|Mobile
+Window portal,shuffle:DXB:HND,Window shuffle / DXB → HND,27:9811,27:9924,27:10037,,Desktop,Desktop|Tablet,Desktop|Mobile
+Window portal,shuffle:DXB:CAI,Window shuffle / DXB → CAI,27:9812,27:9925,27:10038,,Desktop,Desktop|Tablet,Desktop|Mobile
+Window portal,shuffle:DXB:LHR,Window shuffle / DXB → LHR,27:9813,27:9926,27:10039,,Desktop,Desktop|Tablet,Desktop|Mobile
+Window portal,shuffle:DXB:JFK,Window shuffle / DXB → JFK,27:9814,27:9927,27:10040,,Desktop,Desktop|Tablet,Desktop|Mobile
+Window portal,shuffle:DXB:RUH,Window shuffle / DXB → RUH,27:9815,27:9928,27:10041,,Desktop,Desktop|Tablet,Desktop|Mobile
+Window portal,shuffle:DXB:FRA,Window shuffle / DXB → FRA,27:9816,27:9929,27:10042,,Desktop,Desktop|Tablet,Desktop|Mobile
+Window portal,shuffle:JFK:CDG,Window shuffle / JFK → CDG,27:9817,27:9930,27:10043,,Desktop,Desktop|Tablet,Desktop|Mobile
+Window portal,shuffle:JFK:HND,Window shuffle / JFK → HND,27:9818,27:9931,27:10044,,Desktop,Desktop|Tablet,Desktop|Mobile
+Window portal,shuffle:JFK:CAI,Window shuffle / JFK → CAI,27:9819,27:9932,27:10045,,Desktop,Desktop|Tablet,Desktop|Mobile
+Window portal,shuffle:JFK:LHR,Window shuffle / JFK → LHR,27:9820,27:9933,27:10046,,Desktop,Desktop|Tablet,Desktop|Mobile
+Window portal,shuffle:JFK:DXB,Window shuffle / JFK → DXB,27:9821,27:9934,27:10047,,Desktop,Desktop|Tablet,Desktop|Mobile
+Window portal,shuffle:JFK:RUH,Window shuffle / JFK → RUH,27:9822,27:9935,27:10048,,Desktop,Desktop|Tablet,Desktop|Mobile
+Window portal,shuffle:JFK:FRA,Window shuffle / JFK → FRA,27:9823,27:9936,27:10049,,Desktop,Desktop|Tablet,Desktop|Mobile
+Window portal,shuffle:RUH:CDG,Window shuffle / RUH → CDG,27:9824,27:9937,27:10050,,Desktop,Desktop|Tablet,Desktop|Mobile
+Window portal,shuffle:RUH:HND,Window shuffle / RUH → HND,27:9825,27:9938,27:10051,,Desktop,Desktop|Tablet,Desktop|Mobile
+Window portal,shuffle:RUH:CAI,Window shuffle / RUH → CAI,27:9826,27:9939,27:10052,,Desktop,Desktop|Tablet,Desktop|Mobile
+Window portal,shuffle:RUH:LHR,Window shuffle / RUH → LHR,27:9827,27:9940,27:10053,,Desktop,Desktop|Tablet,Desktop|Mobile
+Window portal,shuffle:RUH:DXB,Window shuffle / RUH → DXB,27:9828,27:9941,27:10054,,Desktop,Desktop|Tablet,Desktop|Mobile
+Window portal,shuffle:RUH:JFK,Window shuffle / RUH → JFK,27:9829,27:9942,27:10055,,Desktop,Desktop|Tablet,Desktop|Mobile
+Window portal,shuffle:RUH:FRA,Window shuffle / RUH → FRA,27:9830,27:9943,27:10056,,Desktop,Desktop|Tablet,Desktop|Mobile
+Window portal,shuffle:FRA:CDG,Window shuffle / FRA → CDG,27:9831,27:9944,27:10057,,Desktop,Desktop|Tablet,Desktop|Mobile
+Window portal,shuffle:FRA:HND,Window shuffle / FRA → HND,27:9832,27:9945,27:10058,,Desktop,Desktop|Tablet,Desktop|Mobile
+Window portal,shuffle:FRA:CAI,Window shuffle / FRA → CAI,27:9833,27:9946,27:10059,,Desktop,Desktop|Tablet,Desktop|Mobile
+Window portal,shuffle:FRA:LHR,Window shuffle / FRA → LHR,27:9834,27:9947,27:10060,,Desktop,Desktop|Tablet,Desktop|Mobile
+Window portal,shuffle:FRA:DXB,Window shuffle / FRA → DXB,27:9835,27:9948,27:10061,,Desktop,Desktop|Tablet,Desktop|Mobile
+Window portal,shuffle:FRA:JFK,Window shuffle / FRA → JFK,27:9836,27:9949,27:10062,,Desktop,Desktop|Tablet,Desktop|Mobile
+Window portal,shuffle:FRA:RUH,Window shuffle / FRA → RUH,27:9837,27:9950,27:10063,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight search,home,Cabin / Desktop / Flights to Dubai · CAI–DXB / home,5:199,8:37956,8:21168,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight search,aeris-paris,Cabin / Desktop / Flights to Paris · CAI–CDG / paris,14:66188,14:91798,14:80045,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight search,aeris-round,Cabin / Desktop / Flights to Dubai · CAI–DXB / round,14:67869,14:93323,14:81509,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight search,aeris-swap,Cabin / Desktop / Flights to Cairo · DXB–CAI / swap,14:68035,14:93476,14:81648,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight search,aeris-party,Cabin / Desktop / Flights to Dubai · CAI–DXB / party,14:68204,14:93632,14:81787,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight search,aeris-date-other,Cabin / Desktop / Flights to Dubai · CAI–DXB / date-other,14:68370,14:93785,14:81926,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight search,aeris-business,Cabin / Desktop / Flights to Dubai · CAI–DXB / business,14:68536,14:93938,14:82065,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight search,aeris-tokyo,Cabin / Desktop / Flights to Tokyo · CAI–HND / tokyo,14:68702,14:94091,14:82204,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight search,aeris-london,Cabin / Desktop / Flights to London · CAI–LHR / london,14:68850,14:94226,14:82336,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight search,aeris-new-york,Cabin / Desktop / Flights to New York · CAI–JFK / new-york,14:69001,14:94364,14:82467,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight search,aeris-riyadh,Cabin / Desktop / Flights to Riyadh · CAI–RUH / riyadh,14:69149,14:94499,14:82599,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight search,aeris-frankfurt,Cabin / Desktop / Flights to Frankfurt · CAI–FRA / frankfurt,14:69300,14:94637,14:82730,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight search,aeris-origin,AERIS / Desktop / Origin,14:69451,14:94775,14:82861,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight search,aeris-destination,AERIS / Desktop / Destination,14:69499,14:94810,14:82896,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight search,aeris-destination-match,AERIS / Desktop / Destination Match,14:69576,14:94874,14:82960,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight search,aeris-destination-empty,AERIS / Desktop / Destination Empty,14:69620,14:94905,14:82991,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight search,aeris-departure,AERIS / Desktop / Departure,14:69660,14:94932,14:83018,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight search,aeris-next-month,AERIS / Desktop / Next Month,14:69772,14:95031,14:83117,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight search,aeris-return-date,AERIS / Desktop / Return Date,14:69882,14:95128,14:83214,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight search,aeris-travelers,AERIS / Desktop / Travelers,14:69994,14:95227,14:83313,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight search,aeris-travelers-party,AERIS / Desktop / Travelers Party,14:70064,14:95284,14:83370,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight search,aeris-travelers-child,AERIS / Desktop / Travelers Child,14:70134,14:95341,14:83427,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight search,aeris-travelers-infant,AERIS / Desktop / Travelers Infant,14:70204,14:95398,14:83484,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight search,aeris-travelers-business,AERIS / Desktop / Travelers Business,14:70274,14:95455,14:83541,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight search,aeris-travelers-premium,AERIS / Desktop / Travelers Premium,14:70344,14:95512,14:83598,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight search,aeris-travelers-first,AERIS / Desktop / Travelers First,14:70414,14:95569,14:83655,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight search,aeris-travelers-rule,AERIS / Desktop / Travelers Rule,14:70484,14:95626,14:83712,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight search,aeris-child,Cabin / Desktop / Flights to Dubai · CAI–DXB / child,14:70555,14:95684,14:83770,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight search,aeris-infant,Cabin / Desktop / Flights to Dubai · CAI–DXB / infant,14:70721,14:95837,14:83909,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight search,aeris-premium,Cabin / Desktop / Flights to Dubai · CAI–DXB / premium,14:70887,14:95990,14:84048,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight search,aeris-first,Cabin / Desktop / Flights to Dubai · CAI–DXB / first,14:71053,14:96143,14:84187,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight search,aeris-empty-date,AERIS / Desktop / Empty Date,14:71219,14:96296,14:84326,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight search,aeris-empty-business,AERIS / Desktop / Empty Business,14:71258,14:96322,14:84352,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight search,aeris-empty-premium,AERIS / Desktop / Empty Premium,14:71297,14:96348,14:84378,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight search,aeris-empty-first,AERIS / Desktop / Empty First,14:71336,14:96374,14:84404,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight search,aeris-empty-tokyo,AERIS / Desktop / Empty Tokyo,14:71375,14:96400,14:84430,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight search,aeris-empty-london,AERIS / Desktop / Empty London,14:71414,14:96426,14:84456,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight search,aeris-empty-new-york,AERIS / Desktop / Empty New York,14:71453,14:96452,14:84482,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight search,aeris-empty-riyadh,AERIS / Desktop / Empty Riyadh,14:71492,14:96478,14:84508,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight search,aeris-empty-frankfurt,AERIS / Desktop / Empty Frankfurt,14:71531,14:96504,14:84534,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight search,aeris-destination-focus-dubai,AERIS / Desktop / Destination Focus Dubai,14:111301,14:116257,14:114028,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight search,aeris-destination-focus-paris,AERIS / Desktop / Destination Focus Paris,14:111379,14:116322,14:114093,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight search,aeris-from-paris,Cabin / Desktop / Flights to Dubai · CDG–DXB / from-paris,14:111456,14:116386,14:114157,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight search,aeris-from-tokyo,Cabin / Desktop / Flights to Dubai · HND–DXB / from-tokyo,14:111604,14:116521,14:114289,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight search,aeris-from-london,Cabin / Desktop / Flights to Dubai · LHR–DXB / from-london,14:111752,14:116656,14:114421,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight search,aeris-from-new-york,Cabin / Desktop / Flights to Dubai · JFK–DXB / from-new-york,14:111903,14:116794,14:114552,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight search,aeris-from-riyadh,Cabin / Desktop / Flights to Dubai · RUH–DXB / from-riyadh,14:112051,14:116929,14:114684,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight search,aeris-from-frankfurt,Cabin / Desktop / Flights to Dubai · FRA–DXB / from-frankfurt,14:112202,14:117067,14:114815,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight search,aeris-empty-from-paris,AERIS / Desktop / Empty From Paris,14:112353,14:117205,14:114946,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight search,aeris-empty-from-tokyo,AERIS / Desktop / Empty From Tokyo,14:112392,14:117231,14:114972,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight search,aeris-empty-from-london,AERIS / Desktop / Empty From London,14:112431,14:117257,14:114998,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight search,aeris-empty-from-new-york,AERIS / Desktop / Empty From New York,14:112470,14:117283,14:115024,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight search,aeris-empty-from-riyadh,AERIS / Desktop / Empty From Riyadh,14:112509,14:117309,14:115050,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight search,aeris-empty-from-frankfurt,AERIS / Desktop / Empty From Frankfurt,14:112548,14:117335,14:115076,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight search,aeris-edit-paris,AERIS / Desktop / Edit Paris,14:112587,14:117361,14:115102,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight search,aeris-edit-round,AERIS / Desktop / Edit Round,14:112652,14:117413,14:115154,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight search,aeris-edit-swap,AERIS / Desktop / Edit Swap,14:112717,14:117465,14:115206,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight search,aeris-edit-party,AERIS / Desktop / Edit Party,14:112782,14:117517,14:115258,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight search,aeris-edit-child,AERIS / Desktop / Edit Child,14:112847,14:117569,14:115310,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight search,aeris-edit-infant,AERIS / Desktop / Edit Infant,14:112912,14:117621,14:115362,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight search,aeris-edit-business,AERIS / Desktop / Edit Business,14:112977,14:117673,14:115414,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight search,aeris-edit-premium,AERIS / Desktop / Edit Premium,14:113042,14:117725,14:115466,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight search,aeris-edit-first,AERIS / Desktop / Edit First,14:113107,14:117777,14:115518,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight search,aeris-edit-date-other,AERIS / Desktop / Edit Date Other,14:113172,14:117829,14:115570,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight search,aeris-edit-tokyo,AERIS / Desktop / Edit Tokyo,14:113237,14:117881,14:115622,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight search,aeris-edit-london,AERIS / Desktop / Edit London,14:113302,14:117933,14:115674,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight search,aeris-edit-new-york,AERIS / Desktop / Edit New York,14:113367,14:117985,14:115726,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight search,aeris-edit-riyadh,AERIS / Desktop / Edit Riyadh,14:113432,14:118037,14:115778,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight search,aeris-edit-frankfurt,AERIS / Desktop / Edit Frankfurt,14:113497,14:118089,14:115830,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight search,aeris-edit-from-paris,AERIS / Desktop / Edit From Paris,14:113562,14:118141,14:115882,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight search,aeris-edit-from-tokyo,AERIS / Desktop / Edit From Tokyo,14:113627,14:118193,14:115934,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight search,aeris-edit-from-london,AERIS / Desktop / Edit From London,14:113692,14:118245,14:115986,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight search,aeris-edit-from-new-york,AERIS / Desktop / Edit From New York,14:113757,14:118297,14:116038,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight search,aeris-edit-from-riyadh,AERIS / Desktop / Edit From Riyadh,14:113822,14:118349,14:116090,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight search,aeris-edit-from-frankfurt,AERIS / Desktop / Edit From Frankfurt,14:113887,14:118401,14:116142,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight booking,aeris-results,AERIS / Desktop / Results,14:71570,14:96530,14:84560,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight booking,aeris-results-duration,AERIS / Desktop / Results Duration,14:71631,14:96578,14:84603,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight booking,aeris-results-departure,AERIS / Desktop / Results Departure,14:71691,14:96625,14:84645,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight booking,aeris-filters,AERIS / Desktop / Filters,14:71751,14:96672,14:84687,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight booking,aeris-sort,AERIS / Desktop / Sort,14:71783,14:96703,14:84713,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight booking,aeris-limited,AERIS / Desktop / Limited,14:71819,14:96738,14:84743,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight booking,aeris-no-paris,AERIS / Desktop / No Paris,14:71850,14:96768,14:84768,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight booking,aeris-offline,AERIS / Desktop / Offline,14:71881,,,,Desktop,Desktop,Desktop
+Flight booking,aeris-loading,AERIS / Desktop / Loading,14:71912,14:96828,14:84818,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight booking,aeris-fare,AERIS / Desktop / Fare,14:71944,14:96859,14:84844,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight booking,aeris-signin,AERIS / Desktop / Signin,14:72016,14:96916,14:84896,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight booking,aeris-signup,AERIS / Desktop / Signup,14:72067,14:96952,14:84927,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight booking,aeris-registration-done,AERIS / Desktop / Registration Done,14:72123,14:96993,14:84963,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight booking,aeris-passengers,AERIS / Desktop / Passengers,14:72168,14:97023,14:84988,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight booking,aeris-passengers-invalid,AERIS / Desktop / Passengers Invalid,14:72225,,,,Desktop,Desktop,Desktop
+Flight booking,aeris-help,AERIS / Desktop / Help,14:72283,14:97108,14:85063,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight booking,aeris-contract,AERIS / Desktop / Contract,14:72327,,,,Desktop,Desktop,Desktop
+Flight booking,aeris-expired,AERIS / Desktop / Expired,14:72395,14:97218,14:85163,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight booking,aeris-bags,AERIS / Desktop / Bags,14:72428,14:97250,14:85190,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight booking,aeris-review,AERIS / Desktop / Review,14:72485,14:97292,14:85227,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight booking,aeris-held,AERIS / Desktop / Held,14:72548,14:97340,14:85270,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight booking,aeris-accepted,AERIS / Desktop / Accepted,14:72600,14:97377,14:85302,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight booking,aeris-pending,AERIS / Desktop / Pending,14:72652,14:97414,14:85334,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight booking,aeris-declined,AERIS / Desktop / Declined,14:72701,14:97448,14:85363,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight booking,aeris-confirmed,AERIS / Desktop / Confirmed,14:72750,14:97482,14:85392,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight booking,aeris-ticket,AERIS / Desktop / Ticket,14:72816,14:97539,14:85444,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight booking,aeris-seats,AERIS / Desktop / Seats,14:72870,14:97592,14:85492,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight booking,aeris-seat-list,AERIS / Desktop / Seat List,14:72945,14:97650,14:85545,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight booking,aeris-pick-1a,AERIS / Desktop / Pick 1a,14:72999,14:97687,14:85577,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight booking,aeris-pick-2c,AERIS / Desktop / Pick 2c,14:73075,14:97746,14:85631,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight booking,aeris-assigned,AERIS / Desktop / Assigned,14:73151,14:97805,14:85685,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight booking,aeris-assigned-2c,AERIS / Desktop / Assigned 2c,14:73202,14:97839,14:85714,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight booking,aeris-cancel-quote,AERIS / Desktop / Cancel Quote,14:73253,14:97873,14:85743,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight booking,aeris-cancelled,AERIS / Desktop / Cancelled,14:73286,14:97905,14:85770,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight booking,aeris-trip-detail,AERIS / Desktop / Trip Detail,14:73319,14:97937,14:85797,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight booking,aeris-link-plan,AERIS / Desktop / Link Plan,14:73385,14:97994,14:85849,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight booking,aeris-linked-plan,AERIS / Desktop / Linked Plan,14:73430,14:98024,14:85874,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight booking,aeris-trips,AERIS / Desktop / Trips,14:73475,14:98054,14:85899,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight booking,aeris-bags-bag1,AERIS / Desktop / Bags Bag1,14:73504,14:98082,14:85922,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight booking,aeris-review-bag1,AERIS / Desktop / Review Bag1,14:73563,14:98126,14:85961,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight booking,aeris-held-bag1,AERIS / Desktop / Held Bag1,14:73626,14:98174,14:86004,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight booking,aeris-accepted-bag1,AERIS / Desktop / Accepted Bag1,14:73678,14:98211,14:86036,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight booking,aeris-pending-bag1,AERIS / Desktop / Pending Bag1,14:73730,14:98248,14:86068,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight booking,aeris-declined-bag1,AERIS / Desktop / Declined Bag1,14:73779,14:98282,14:86097,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight booking,aeris-confirmed-bag1,AERIS / Desktop / Confirmed Bag1,14:73828,14:98316,14:86126,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight booking,aeris-ticket-bag1,AERIS / Desktop / Ticket Bag1,14:73894,14:98373,14:86178,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight booking,aeris-seats-bag1,AERIS / Desktop / Seats Bag1,14:73948,14:98426,14:86226,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight booking,aeris-seat-list-bag1,AERIS / Desktop / Seat List Bag1,14:74023,14:98484,14:86279,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight booking,aeris-pick-1a-bag1,AERIS / Desktop / Pick 1a Bag1,14:74077,14:98521,14:86311,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight booking,aeris-pick-2c-bag1,AERIS / Desktop / Pick 2c Bag1,14:74153,14:98580,14:86365,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight booking,aeris-assigned-bag1,AERIS / Desktop / Assigned Bag1,14:74229,14:98639,14:86419,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight booking,aeris-assigned-2c-bag1,AERIS / Desktop / Assigned 2c Bag1,14:74280,14:98673,14:86448,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight booking,aeris-cancel-quote-bag1,AERIS / Desktop / Cancel Quote Bag1,14:74331,14:98707,14:86477,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight booking,aeris-cancelled-bag1,AERIS / Desktop / Cancelled Bag1,14:74364,14:98739,14:86504,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight booking,aeris-trip-detail-bag1,AERIS / Desktop / Trip Detail Bag1,14:74397,14:98771,14:86531,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight booking,aeris-link-plan-bag1,AERIS / Desktop / Link Plan Bag1,14:74463,14:98828,14:86583,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight booking,aeris-linked-plan-bag1,AERIS / Desktop / Linked Plan Bag1,14:74508,14:98858,14:86608,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight booking,aeris-trips-bag1,AERIS / Desktop / Trips Bag1,14:74553,14:98888,14:86633,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight booking,aeris-bags-bag2,AERIS / Desktop / Bags Bag2,14:74582,14:98916,14:86656,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight booking,aeris-review-bag2,AERIS / Desktop / Review Bag2,14:74644,14:98963,14:86698,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight booking,aeris-held-bag2,AERIS / Desktop / Held Bag2,14:74707,14:99011,14:86741,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight booking,aeris-accepted-bag2,AERIS / Desktop / Accepted Bag2,14:74759,14:99048,14:86773,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight booking,aeris-pending-bag2,AERIS / Desktop / Pending Bag2,14:74811,14:99085,14:86805,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight booking,aeris-declined-bag2,AERIS / Desktop / Declined Bag2,14:74860,14:99119,14:86834,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight booking,aeris-confirmed-bag2,AERIS / Desktop / Confirmed Bag2,14:74909,14:99153,14:86863,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight booking,aeris-ticket-bag2,AERIS / Desktop / Ticket Bag2,14:74975,14:99210,14:86915,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight booking,aeris-seats-bag2,AERIS / Desktop / Seats Bag2,14:75029,14:99263,14:86963,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight booking,aeris-seat-list-bag2,AERIS / Desktop / Seat List Bag2,14:75104,14:99321,14:87016,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight booking,aeris-pick-1a-bag2,AERIS / Desktop / Pick 1a Bag2,14:75158,14:99358,14:87048,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight booking,aeris-pick-2c-bag2,AERIS / Desktop / Pick 2c Bag2,14:75234,14:99417,14:87102,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight booking,aeris-assigned-bag2,AERIS / Desktop / Assigned Bag2,14:75310,14:99476,14:87156,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight booking,aeris-assigned-2c-bag2,AERIS / Desktop / Assigned 2c Bag2,14:75361,14:99510,14:87185,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight booking,aeris-cancel-quote-bag2,AERIS / Desktop / Cancel Quote Bag2,14:75412,14:99544,14:87214,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight booking,aeris-cancelled-bag2,AERIS / Desktop / Cancelled Bag2,14:75445,14:99576,14:87241,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight booking,aeris-trip-detail-bag2,AERIS / Desktop / Trip Detail Bag2,14:75478,14:99608,14:87268,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight booking,aeris-link-plan-bag2,AERIS / Desktop / Link Plan Bag2,14:75544,14:99665,14:87320,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight booking,aeris-linked-plan-bag2,AERIS / Desktop / Linked Plan Bag2,14:75589,14:99695,14:87345,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight booking,aeris-trips-bag2,AERIS / Desktop / Trips Bag2,14:75634,14:99725,14:87370,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight variants,aeris-round-results,AERIS / Desktop / Round Results,14:75663,14:99753,14:87393,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight variants,aeris-round-select-return,AERIS / Desktop / Round Select Return,14:75696,14:99786,14:87426,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight variants,aeris-round-signin,AERIS / Desktop / Round Signin,14:75728,14:99818,14:87458,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight variants,aeris-round-travelers,AERIS / Desktop / Round Travelers,14:75755,14:99845,14:87485,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight variants,aeris-round-quote,AERIS / Desktop / Round Quote,14:75780,14:99870,14:87510,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight variants,aeris-round-hold,AERIS / Desktop / Round Hold,14:75821,14:99911,14:87551,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight variants,aeris-round-consent,AERIS / Desktop / Round Consent,14:75850,14:99940,14:87580,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight variants,aeris-round-pending,AERIS / Desktop / Round Pending,14:75879,14:99969,14:87609,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight variants,aeris-round-confirmed,AERIS / Desktop / Round Confirmed,14:75903,14:99993,14:87633,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight variants,aeris-round-ticket,AERIS / Desktop / Round Ticket,14:75940,14:100030,14:87670,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight variants,aeris-round-seats,AERIS / Desktop / Round Seats,14:75976,14:100066,14:87706,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight variants,aeris-round-assigned,AERIS / Desktop / Round Assigned,14:76004,14:100094,14:87734,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight variants,aeris-return-results,AERIS / Desktop / Return Results,14:76032,14:100122,14:87762,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight variants,aeris-return-signin,AERIS / Desktop / Return Signin,14:76061,14:100151,14:87791,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight variants,aeris-return-travelers,AERIS / Desktop / Return Travelers,14:76088,14:100178,14:87818,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight variants,aeris-return-quote,AERIS / Desktop / Return Quote,14:76113,14:100203,14:87843,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight variants,aeris-return-hold,AERIS / Desktop / Return Hold,14:76149,14:100239,14:87879,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight variants,aeris-return-consent,AERIS / Desktop / Return Consent,14:76178,14:100268,14:87908,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight variants,aeris-return-pending,AERIS / Desktop / Return Pending,14:76207,14:100297,14:87937,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight variants,aeris-return-confirmed,AERIS / Desktop / Return Confirmed,14:76231,14:100321,14:87961,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight variants,aeris-return-ticket,AERIS / Desktop / Return Ticket,14:76263,14:100353,14:87993,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight variants,aeris-return-seats,AERIS / Desktop / Return Seats,14:76294,14:100384,14:88024,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight variants,aeris-return-assigned,AERIS / Desktop / Return Assigned,14:76319,14:100409,14:88049,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight variants,aeris-party-results,AERIS / Desktop / Party Results,14:76344,14:100434,14:88074,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight variants,aeris-party-signin,AERIS / Desktop / Party Signin,14:76373,14:100463,14:88103,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight variants,aeris-party-travelers,AERIS / Desktop / Party Travelers,14:76400,14:100490,14:88130,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight variants,aeris-party-quote,AERIS / Desktop / Party Quote,14:76430,14:100520,14:88160,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight variants,aeris-party-hold,AERIS / Desktop / Party Hold,14:76467,14:100557,14:88197,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight variants,aeris-party-consent,AERIS / Desktop / Party Consent,14:76496,14:100586,14:88226,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight variants,aeris-party-pending,AERIS / Desktop / Party Pending,14:76525,14:100615,14:88255,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight variants,aeris-party-confirmed,AERIS / Desktop / Party Confirmed,14:76549,14:100639,14:88279,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight variants,aeris-party-ticket,AERIS / Desktop / Party Ticket,14:76582,14:100672,14:88312,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight variants,aeris-party-seats,AERIS / Desktop / Party Seats,14:76614,14:100704,14:88344,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight variants,aeris-party-assigned,AERIS / Desktop / Party Assigned,14:76640,14:100730,14:88370,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight variants,aeris-child-results,AERIS / Desktop / Child Results,14:76666,14:100756,14:88396,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight variants,aeris-child-signin,AERIS / Desktop / Child Signin,14:76695,14:100785,14:88425,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight variants,aeris-child-travelers,AERIS / Desktop / Child Travelers,14:76722,14:100812,14:88452,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight variants,aeris-child-quote,AERIS / Desktop / Child Quote,14:76752,14:100842,14:88482,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight variants,aeris-child-hold,AERIS / Desktop / Child Hold,14:76789,14:100879,14:88519,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight variants,aeris-child-consent,AERIS / Desktop / Child Consent,14:76818,14:100908,14:88548,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight variants,aeris-child-pending,AERIS / Desktop / Child Pending,14:76847,14:100937,14:88577,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight variants,aeris-child-confirmed,AERIS / Desktop / Child Confirmed,14:76871,14:100961,14:88601,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight variants,aeris-child-ticket,AERIS / Desktop / Child Ticket,14:76904,14:100994,14:88634,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight variants,aeris-child-seats,AERIS / Desktop / Child Seats,14:76936,14:101026,14:88666,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight variants,aeris-child-assigned,AERIS / Desktop / Child Assigned,14:76962,14:101052,14:88692,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight variants,aeris-infant-results,AERIS / Desktop / Infant Results,14:76988,14:101078,14:88718,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight variants,aeris-infant-signin,AERIS / Desktop / Infant Signin,14:77017,14:101107,14:88747,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight variants,aeris-infant-travelers,AERIS / Desktop / Infant Travelers,14:77044,14:101134,14:88774,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight variants,aeris-infant-quote,AERIS / Desktop / Infant Quote,14:77074,14:101164,14:88804,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight variants,aeris-infant-hold,AERIS / Desktop / Infant Hold,14:77111,14:101201,14:88841,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight variants,aeris-infant-consent,AERIS / Desktop / Infant Consent,14:77140,14:101230,14:88870,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight variants,aeris-infant-pending,AERIS / Desktop / Infant Pending,14:77169,14:101259,14:88899,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight variants,aeris-infant-confirmed,AERIS / Desktop / Infant Confirmed,14:77193,14:101283,14:88923,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight variants,aeris-infant-ticket,AERIS / Desktop / Infant Ticket,14:77226,14:101316,14:88956,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight variants,aeris-infant-seats,AERIS / Desktop / Infant Seats,14:77258,14:101348,14:88988,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flight variants,aeris-infant-assigned,AERIS / Desktop / Infant Assigned,14:77284,14:101374,14:89014,,Desktop,Desktop|Tablet,Desktop|Mobile
+Account,round-sign-in,Desktop / Account / Sign in to continue,8:4166,8:41072,8:24292,,Desktop,Desktop|Tablet,Desktop|Mobile
+Account,sign-in,Desktop / Account / Welcome back,8:7182,8:43363,8:26609,,Desktop,Desktop|Tablet,Desktop|Mobile
+Account,register,Desktop / Account / Create your account,8:7260,8:43419,8:26666,,Desktop,Desktop|Tablet,Desktop|Mobile
+Account,verify-email,Desktop / Account / Check your inbox,8:7347,8:43484,8:26732,,Desktop,Desktop|Tablet,Desktop|Mobile
+Account,recovery,Desktop / Account / Recover your account,8:7417,8:43532,8:26781,,Desktop,Desktop|Tablet,Desktop|Mobile
+Account,recovery-sent,Desktop / Account / Check for a reset email,8:7487,8:43580,8:26830,,Desktop,Desktop|Tablet,Desktop|Mobile
+Account,new-password,Desktop / Account / Set a new password,8:7561,8:43632,8:26883,,Desktop,Desktop|Tablet,Desktop|Mobile
+Account,account,Desktop / Account / Your account,8:7632,8:43681,8:26933,,Desktop,Desktop|Tablet,Desktop|Mobile
+Account,profile-saved,Desktop / Account / Profile saved,8:7720,8:43752,8:27004,,Desktop,Desktop|Tablet,Desktop|Mobile
+Account,register-invalid,Desktop / Account / Create your account,8:7784,,,,Desktop,Desktop,Desktop
+Account,password-forced,Desktop / Account / Replace your temporary password,8:7863,8:43856,8:27109,,Desktop,Desktop|Tablet,Desktop|Mobile
+Account,password-change,Desktop / Account / Change your password,8:7933,8:43909,8:27162,,Desktop,Desktop|Tablet,Desktop|Mobile
+Account,password-changed,Desktop / Account / Password changed,8:8000,8:43959,8:27212,,Desktop,Desktop|Tablet,Desktop|Mobile
+Account,login-locked,Desktop / Account / Sign-in temporarily locked,8:8058,,,,Desktop,Desktop,Desktop
+Account,login-suspended,Desktop / Account / Account suspended,8:8125,,,,Desktop,Desktop,Desktop
+Account,login-inactive,Desktop / Account / Account deactivated,8:8192,8:44090,8:27345,,Desktop,Desktop|Tablet,Desktop|Mobile
+Account,deactivate,Desktop / Account / Deactivate your account?,8:8257,8:44133,8:27389,,Desktop,Desktop|Tablet,Desktop|Mobile
+Account,deactivate-blocked,Desktop / Account / You have upcoming bookings,8:8322,,,,Desktop,Desktop,Desktop
+Account,member-menu,"Desktop / Account / Welcome back, Maya",8:8384,8:44226,8:27482,,Desktop,Desktop|Tablet,Desktop|Mobile
+Account,login-general,Desktop / Account / Sign in,8:8456,8:44281,8:27537,,Desktop,Desktop|Tablet,Desktop|Mobile
+Account,guest-signin-clone,Desktop / Account / Sign in to clone this itinerary,8:8526,8:44329,8:27586,,Desktop,Desktop|Tablet,Desktop|Mobile
+Account,guest-register-plan,Desktop / Account / Create your account,8:8596,8:44377,8:27635,,Desktop,Desktop|Tablet,Desktop|Mobile
+Account,guest-verify-plan,Desktop / Account / Check your inbox,8:8678,8:44437,8:27696,,Desktop,Desktop|Tablet,Desktop|Mobile
+Account,guest-signin-save,Desktop / Account / Sign in to save this itinerary,8:8748,8:44485,8:27745,,Desktop,Desktop|Tablet,Desktop|Mobile
+Account,guest-signin-comment,Desktop / Account / Sign in to join the conversation,8:8818,8:44533,8:27794,,Desktop,Desktop|Tablet,Desktop|Mobile
+Account,guest-register-post,Desktop / Account / Create your account,8:8888,8:44581,8:27843,,Desktop,Desktop|Tablet,Desktop|Mobile
+Account,guest-verify-post,Desktop / Account / Check your inbox,8:8970,8:44641,8:27904,,Desktop,Desktop|Tablet,Desktop|Mobile
+Account,guest-signin-like,Desktop / Account / Sign in to like this story,8:9040,8:44689,8:27953,,Desktop,Desktop|Tablet,Desktop|Mobile
+Account,guest-signin-write,Desktop / Account / Sign in to write your story,8:9110,8:44737,8:28002,,Desktop,Desktop|Tablet,Desktop|Mobile
+Account,guest-register-write,Desktop / Account / Create your account,8:9180,8:44785,8:28051,,Desktop,Desktop|Tablet,Desktop|Mobile
+Account,guest-verify-write,Desktop / Account / Check your inbox,8:9262,8:44845,8:28112,,Desktop,Desktop|Tablet,Desktop|Mobile
+Account,guest-signin-notebook,Desktop / Account / Sign in to open your notebook,8:9332,8:44893,8:28161,,Desktop,Desktop|Tablet,Desktop|Mobile
+Account,guest-register-notebook,Desktop / Account / Create your account,8:9402,8:44941,8:28210,,Desktop,Desktop|Tablet,Desktop|Mobile
+Account,guest-verify-notebook,Desktop / Account / Check your inbox,8:9484,8:45001,8:28271,,Desktop,Desktop|Tablet,Desktop|Mobile
+Account,guest-signin-planner,Desktop / Account / Sign in to open your planner,8:9554,8:45049,8:28320,,Desktop,Desktop|Tablet,Desktop|Mobile
+Account,guest-register-planner,Desktop / Account / Create your account,8:9624,8:45097,8:28369,,Desktop,Desktop|Tablet,Desktop|Mobile
+Account,guest-verify-planner,Desktop / Account / Check your inbox,8:9706,8:45157,8:28430,,Desktop,Desktop|Tablet,Desktop|Mobile
+Account,guest-signin-report-post,Desktop / Account / Sign in to report this story,8:9776,8:45205,8:28479,,Desktop,Desktop|Tablet,Desktop|Mobile
+Account,guest-register-report-post,Desktop / Account / Create your account,8:9846,8:45253,8:28528,,Desktop,Desktop|Tablet,Desktop|Mobile
+Account,guest-verify-report-post,Desktop / Account / Check your inbox,8:9928,8:45313,8:28589,,Desktop,Desktop|Tablet,Desktop|Mobile
+Account,guest-signin-report-plan,Desktop / Account / Sign in to report this itinerary,8:9998,8:45361,8:28638,,Desktop,Desktop|Tablet,Desktop|Mobile
+Account,guest-register-report-plan,Desktop / Account / Create your account,8:10068,8:45409,8:28687,,Desktop,Desktop|Tablet,Desktop|Mobile
+Account,guest-verify-report-plan,Desktop / Account / Check your inbox,8:10150,8:45469,8:28748,,Desktop,Desktop|Tablet,Desktop|Mobile
+Account,guest-register-flight,Desktop / Account / Create your account,8:10220,8:45517,8:28797,,Desktop,Desktop|Tablet,Desktop|Mobile
+Account,guest-verify-flight,Desktop / Account / Check your inbox,8:10302,8:45577,8:28858,,Desktop,Desktop|Tablet,Desktop|Mobile
+Account,guest-register-round,Desktop / Account / Create your account,8:10372,8:45625,8:28907,,Desktop,Desktop|Tablet,Desktop|Mobile
+Account,guest-verify-round,Desktop / Account / Check your inbox,8:10454,8:45685,8:28968,,Desktop,Desktop|Tablet,Desktop|Mobile
+Account,guest-register-stay,Desktop / Account / Create your account,8:10524,8:45733,8:29017,,Desktop,Desktop|Tablet,Desktop|Mobile
+Account,guest-verify-stay,Desktop / Account / Check your inbox,8:10606,8:45793,8:29078,,Desktop,Desktop|Tablet,Desktop|Mobile
+Account,stay-sign-in,Desktop / Account / Sign in to reserve this room,8:12137,8:46981,8:30270,,Desktop,Desktop|Tablet,Desktop|Mobile
+Account,saved,Desktop / Saved / Saved places and itineraries,8:17173,8:50951,8:34256,,Desktop,Desktop|Tablet,Desktop|Mobile
+Account,inbox,Desktop / Inbox / Notifications,8:17266,8:51027,8:34332,,Desktop,Desktop|Tablet,Desktop|Mobile
+Account,inbox-read,Desktop / Inbox / A little update for your journey.,8:17358,8:51102,8:34407,,Desktop,Desktop|Tablet,Desktop|Mobile
+Account,nav-menu,Desktop / Navigation / Explore Elsewhere,8:21075,8:54661,8:37877,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flights,flights,Desktop / Flights / Find your flight,8:403,8:38075,8:21288,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flights,passengers,Desktop / Flights / Passenger details,8:504,8:38154,8:21368,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flights,checkout,Desktop / Flights / Your seat is held,8:591,8:38224,8:21438,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flights,payment-pending,Desktop / Flights / Confirming your booking,8:673,8:38289,8:21503,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flights,checkout-accepted,Desktop / Flights / Ready to pay,8:740,8:38339,8:21553,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flights,member-flights,Desktop / Flights / Find your flight,8:833,8:38415,8:21629,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flights,member-flight-results,Desktop / Flights / Flights to Paris,8:922,8:38487,8:21701,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flights,member-flight-detail,Desktop / Flights / Cairo to Paris,8:1028,8:38576,8:21790,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flights,member-round-trip,Desktop / Flights / Find a round trip,8:1125,8:38656,8:21870,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flights,member-round-out,Desktop / Flights / Choose your outbound flight,8:1201,8:38715,8:21929,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flights,member-round-return,Desktop / Flights / Choose your return flight,8:1287,8:38784,8:21998,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flights,member-round-gate,Desktop / Flights / Review both flights,8:1373,8:38853,8:22067,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flights,member-search-loading,Desktop / Flights / Searching flights,8:1477,8:38940,8:22154,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flights,member-sa-detail,Desktop / Flights / Cairo to Paris,8:1540,8:38986,8:22200,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flights,member-search-empty,Desktop / Flights / No flights under $200,8:1610,8:39039,8:22253,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flights,member-search-offline,Desktop / Flights / We couldn’t load the flights,8:1675,,,,Desktop,Desktop,Desktop
+Flights,member-flight-results-duration,Desktop / Flights / Flights to Paris,8:1740,8:39135,8:22349,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flights,member-flight-results-departure,Desktop / Flights / Flights to Paris,8:1827,8:39205,8:22419,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flights,member-flight-results-filtered,Desktop / Flights / Flights to Paris,8:1914,8:39275,8:22489,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flights,member-flight-filters,Desktop / Flights / Refine your flight search,8:1987,8:39331,8:22545,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flights,member-flight-order,Desktop / Flights / How would you like to compare?,8:2062,8:39389,8:22603,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flights,member-flight-departure-date,Desktop / Flights / Choose your departure,8:2134,8:39444,8:22658,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flights,member-round-departure-date,Desktop / Flights / Choose your departure,8:2311,8:39604,8:22818,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flights,member-flight-configured,Desktop / Flights / Find your flight,8:2488,8:39764,8:22978,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flights,member-flight-travelers,Desktop / Flights / Travelers and cabin,8:2577,8:39836,8:23050,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flights,member-flight-travelers-business,Desktop / Flights / Travelers and cabin,8:2653,8:39895,8:23109,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flights,member-flight-business-search,Desktop / Flights / Find your flight,8:2729,8:39954,8:23168,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flights,member-flight-business-empty,Desktop / Flights / No Business cabins for this search,8:2821,8:40029,8:23243,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flights,member-round-configured,Desktop / Flights / Find a round trip,8:2883,8:40074,8:23288,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flights,member-round-travelers,Desktop / Flights / Travelers and cabin,8:2959,8:40133,8:23347,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flights,member-round-travelers-business,Desktop / Flights / Travelers and cabin,8:3035,8:40192,8:23406,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flights,member-round-business-search,Desktop / Flights / Find a round trip,8:3111,8:40251,8:23465,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flights,member-round-business-empty,Desktop / Flights / No Business cabins for this search,8:3190,8:40313,8:23527,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flights,flight-results,Desktop / Flights / Flights to Paris,8:3252,8:40358,8:23572,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flights,flight-detail,Desktop / Flights / Cairo to Paris,8:3364,8:40448,8:23663,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flights,flight-quote,Desktop / Flights / Review your flight,8:3466,8:40528,8:23744,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flights,round-trip,Desktop / Flights / Find a round trip,8:3788,8:40782,8:23998,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flights,round-out,Desktop / Flights / Choose your outbound flight,8:3875,8:40847,8:24064,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flights,round-return,Desktop / Flights / Choose your return flight,8:3966,8:40916,8:24134,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flights,round-gate,Desktop / Flights / Review both flights,8:4057,8:40985,8:24204,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flights,search-loading,Desktop / Flights / Searching flights,8:4244,8:41128,8:24349,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flights,search-empty,Desktop / Flights / No flights under $200,8:4316,8:41178,8:24400,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flights,search-offline,Desktop / Flights / We couldn’t load the flights,8:4386,,,,Desktop,Desktop,Desktop
+Flights,sa-detail,Desktop / Flights / Cairo to Paris,8:4749,8:41479,8:24707,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flights,round-passengers,Desktop / Flights / Passenger details,8:5036,8:41710,8:24939,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flights,round-quote,Desktop / Flights / Review your round trip,8:5117,8:41774,8:25003,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flights,round-checkout,Desktop / Flights / Both flights are held,8:5191,8:41831,8:25060,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flights,round-pending,Desktop / Flights / Confirming your booking,8:5275,8:41898,8:25127,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flights,round-checkout-accepted,Desktop / Flights / Ready to pay,8:5490,8:42062,8:25291,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flights,flight-results-duration,Desktop / Flights / Flights to Paris,8:5585,8:42140,8:25369,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flights,flight-results-departure,Desktop / Flights / Flights to Paris,8:5677,8:42210,8:25440,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flights,flight-results-filtered,Desktop / Flights / Flights to Paris,8:5769,8:42280,8:25511,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flights,flight-filters,Desktop / Flights / Refine your flight search,8:5847,8:42336,8:25568,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flights,flight-order,Desktop / Flights / How would you like to compare?,8:5927,8:42394,8:25627,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flights,flight-departure-date,Desktop / Flights / Choose your departure,8:6004,8:42449,8:25683,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flights,round-departure-date,Desktop / Flights / Choose your departure,8:6186,8:42609,8:25844,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flights,flight-configured,Desktop / Flights / Find your flight,8:6368,8:42769,8:26005,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flights,flight-travelers,Desktop / Flights / Travelers and cabin,8:6462,8:42841,8:26078,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flights,flight-travelers-business,Desktop / Flights / Travelers and cabin,8:6543,8:42900,8:26138,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flights,flight-business-search,Desktop / Flights / Find your flight,8:6624,8:42959,8:26198,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flights,flight-business-empty,Desktop / Flights / No Business cabins for this search,8:6721,8:43034,8:26274,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flights,round-configured,Desktop / Flights / Find a round trip,8:6788,8:43079,8:26320,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flights,round-travelers,Desktop / Flights / Travelers and cabin,8:6869,8:43138,8:26380,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flights,round-travelers-business,Desktop / Flights / Travelers and cabin,8:6950,8:43197,8:26440,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flights,round-business-search,Desktop / Flights / Find a round trip,8:7031,8:43256,8:26500,,Desktop,Desktop|Tablet,Desktop|Mobile
+Flights,round-business-empty,Desktop / Flights / No Business cabins for this search,8:7115,8:43318,8:26563,,Desktop,Desktop|Tablet,Desktop|Mobile
+Stays,stays,Desktop / Stays / Find a place to stay,8:11350,8:46379,8:29665,,Desktop,Desktop|Tablet,Desktop|Mobile
+Stays,stay-results,Desktop / Stays / Stays in Paris,8:11441,8:46448,8:29735,,Desktop,Desktop|Tablet,Desktop|Mobile
+Stays,stay-detail,Desktop / Stays / Hôtel Cour des Arts,8:11536,8:46521,8:29809,,Desktop,Desktop|Tablet,Desktop|Mobile
+Stays,guests,Desktop / Stays / Who is staying?,8:11624,8:46587,8:29876,,Desktop,Desktop|Tablet,Desktop|Mobile
+Stays,hotel-checkout,Desktop / Stays / Your room is held,8:11701,8:46647,8:29936,,Desktop,Desktop|Tablet,Desktop|Mobile
+Stays,hotel-pending,Desktop / Stays / Confirming your stay,8:11783,8:46712,8:30001,,Desktop,Desktop|Tablet,Desktop|Mobile
+Stays,canal-detail,Desktop / Stays / Maison du Canal,8:12217,8:47039,8:30329,,Desktop,Desktop|Tablet,Desktop|Mobile
+Stays,hotel-checkout-accepted,Desktop / Stays / Ready to pay,8:12289,8:47089,8:30380,,Desktop,Desktop|Tablet,Desktop|Mobile
+Stays,stay-results-rating,Desktop / Stays / Stays in Paris,8:12382,8:47165,8:30456,,Desktop,Desktop|Tablet,Desktop|Mobile
+Stays,stay-results-filtered,Desktop / Stays / Stays in Paris,8:12472,8:47233,8:30525,,Desktop,Desktop|Tablet,Desktop|Mobile
+Stays,stay-filters,Desktop / Stays / Find your kind of stay,8:12550,8:47289,8:30582,,Desktop,Desktop|Tablet,Desktop|Mobile
+Stays,stay-order,Desktop / Stays / Compare your stays,8:12625,8:47342,8:30636,,Desktop,Desktop|Tablet,Desktop|Mobile
+Stays,stay-dates,Desktop / Stays / Choose your stay dates,8:12697,8:47392,8:30687,,Desktop,Desktop|Tablet,Desktop|Mobile
+Stays,stays-configured,Desktop / Stays / Find a place to stay,8:12870,8:47543,8:30839,,Desktop,Desktop|Tablet,Desktop|Mobile
+Stays,stay-travelers,Desktop / Stays / Rooms and guests,8:12954,8:47605,8:30902,,Desktop,Desktop|Tablet,Desktop|Mobile
+Stays,stay-rooms,Desktop / Stays / Choose your room,8:13029,8:47658,8:30956,,Desktop,Desktop|Tablet,Desktop|Mobile
+Stays,stay-room-selected,Desktop / Stays / Room 204 is selected,8:13103,8:47710,8:31009,,Desktop,Desktop|Tablet,Desktop|Mobile
+Stays,member-stays,Desktop / Stays / Find a place to stay,8:13179,8:47764,8:31064,,Desktop,Desktop|Tablet,Desktop|Mobile
+Stays,member-stay-results,Desktop / Stays / Stays in Paris,8:13258,8:47826,8:31126,,Desktop,Desktop|Tablet,Desktop|Mobile
+Stays,member-stay-detail,Desktop / Stays / Hôtel Cour des Arts,8:13348,8:47899,8:31199,,Desktop,Desktop|Tablet,Desktop|Mobile
+Stays,member-canal-detail,Desktop / Stays / Maison du Canal,8:13431,8:47965,8:31265,,Desktop,Desktop|Tablet,Desktop|Mobile
+Stays,member-stay-results-rating,Desktop / Stays / Stays in Paris,8:13498,8:48015,8:31315,,Desktop,Desktop|Tablet,Desktop|Mobile
+Stays,member-stay-results-filtered,Desktop / Stays / Stays in Paris,8:13583,8:48083,8:31383,,Desktop,Desktop|Tablet,Desktop|Mobile
+Stays,member-stay-filters,Desktop / Stays / Find your kind of stay,8:13656,8:48139,8:31439,,Desktop,Desktop|Tablet,Desktop|Mobile
+Stays,member-stay-order,Desktop / Stays / Compare your stays,8:13726,8:48192,8:31492,,Desktop,Desktop|Tablet,Desktop|Mobile
+Stays,member-stay-dates,Desktop / Stays / Choose your stay dates,8:13793,8:48242,8:31542,,Desktop,Desktop|Tablet,Desktop|Mobile
+Stays,member-stays-configured,Desktop / Stays / Find a place to stay,8:13961,8:48393,8:31693,,Desktop,Desktop|Tablet,Desktop|Mobile
+Stays,member-stay-travelers,Desktop / Stays / Rooms and guests,8:14040,8:48455,8:31755,,Desktop,Desktop|Tablet,Desktop|Mobile
+Stays,member-stay-rooms,Desktop / Stays / Choose your room,8:14110,8:48508,8:31808,,Desktop,Desktop|Tablet,Desktop|Mobile
+Stays,member-stay-room-selected,Desktop / Stays / Room 204 is selected,8:14179,8:48560,8:31860,,Desktop,Desktop|Tablet,Desktop|Mobile
+Bookings,flight-confirmed,Desktop / Bookings / Your flight is confirmed,8:3561,8:40606,8:23822,,Desktop,Desktop|Tablet,Desktop|Mobile
+Bookings,seat-saved,Desktop / Bookings / Seat 2A is yours,8:3641,8:40669,8:23885,,Desktop,Desktop|Tablet,Desktop|Mobile
+Bookings,flight-change,Desktop / Bookings / Change your flight,8:3708,8:40719,8:23935,,Desktop,Desktop|Tablet,Desktop|Mobile
+Bookings,seat-2b,Desktop / Bookings / Choose your seat,8:4824,8:41532,8:24761,,Desktop,Desktop|Tablet,Desktop|Mobile
+Bookings,seat-2b-saved,Desktop / Bookings / Seat 2B is yours,8:4974,8:41665,8:24894,,Desktop,Desktop|Tablet,Desktop|Mobile
+Bookings,round-confirmed,Desktop / Bookings / Your round trip is confirmed,8:5344,8:41950,8:25179,,Desktop,Desktop|Tablet,Desktop|Mobile
+Bookings,round-ticket,Desktop / Bookings / Round-trip e-ticket,8:5418,8:42007,8:25236,,Desktop,Desktop|Tablet,Desktop|Mobile
+Bookings,ticket,Desktop / Bookings / Flight e-ticket,8:10676,8:45841,8:29127,,Desktop,Desktop|Tablet,Desktop|Mobile
+Bookings,seats,Desktop / Bookings / Choose your seat,8:10774,8:45922,8:29208,,Desktop,Desktop|Tablet,Desktop|Mobile
+Bookings,change-saved,Desktop / Bookings / Flight changed,8:10924,8:46055,8:29341,,Desktop,Desktop|Tablet,Desktop|Mobile
+Bookings,bookings,Desktop / Bookings / My bookings,8:10991,8:46105,8:29391,,Desktop,Desktop|Tablet,Desktop|Mobile
+Bookings,cancel,Desktop / Bookings / Cancel this flight?,8:11073,8:46170,8:29456,,Desktop,Desktop|Tablet,Desktop|Mobile
+Bookings,refund,Desktop / Bookings / Booking cancelled,8:11149,8:46229,8:29515,,Desktop,Desktop|Tablet,Desktop|Mobile
+Bookings,expired,Desktop / Bookings / Your hold expired,8:11216,,,,Desktop,Desktop,Desktop
+Bookings,declined,Desktop / Bookings / Payment declined,8:11283,,,,Desktop,Desktop,Desktop
+Bookings,stay-confirmed,Desktop / Bookings / Your stay is confirmed,8:11850,8:46762,8:30051,,Desktop,Desktop|Tablet,Desktop|Mobile
+Bookings,completed-stay,Desktop / Bookings / Review your stay,8:11928,8:46823,8:30112,,Desktop,Desktop|Tablet,Desktop|Mobile
+Bookings,hotel-cancel,Desktop / Bookings / Cancel this stay?,8:11998,8:46876,8:30165,,Desktop,Desktop|Tablet,Desktop|Mobile
+Bookings,hotel-refund,Desktop / Bookings / Your stay was cancelled,8:12070,8:46931,8:30220,,Desktop,Desktop|Tablet,Desktop|Mobile
+Trip planner,public-tokyo,Desktop / Itineraries / Travel plans for Tokyo,8:4456,,,,Desktop,Desktop,Desktop
+Trip planner,tokyo-detail,Desktop / Itineraries / Asakusa to Ueno,8:4528,,,,Desktop,Desktop,Desktop
+Trip planner,public-ny,Desktop / Itineraries / Travel plans for New York,8:4605,,,,Desktop,Desktop,Desktop
+Trip planner,ny-detail,Desktop / Itineraries / A Manhattan weekend,8:4677,,,,Desktop,Desktop,Desktop
+Trip planner,planner,Desktop / Trip planner / My itineraries,8:14250,8:48614,8:31914,,Desktop,Desktop|Tablet,Desktop|Mobile
+Trip planner,planner-new,Desktop / Trip planner / Create an itinerary,8:14343,8:48690,8:31990,,Desktop,Desktop|Tablet,Desktop|Mobile
+Trip planner,planner-trip,Desktop / Trip planner / Paris in bloom,8:14417,8:48747,8:32047,,Desktop,Desktop|Tablet,Desktop|Mobile
+Trip planner,planner-day,Desktop / Trip planner / Edit day two,8:14546,8:48859,8:32159,,Desktop,Desktop|Tablet,Desktop|Mobile
+Trip planner,planner-budget,Desktop / Trip planner / Trip budget,8:14659,8:48955,8:32255,,Desktop,Desktop|Tablet,Desktop|Mobile
+Trip planner,planner-expense,Desktop / Trip planner / Add an expense,8:14787,8:49066,8:32366,,Desktop,Desktop|Tablet,Desktop|Mobile
+Trip planner,planner-links,Desktop / Trip planner / Link a booking,8:14871,8:49133,8:32433,,Desktop,Desktop|Tablet,Desktop|Mobile
+Trip planner,planner-share,Desktop / Trip planner / Sharing and export,8:14949,8:49194,8:32494,,Desktop,Desktop|Tablet,Desktop|Mobile
+Trip planner,planner-export,Desktop / Trip planner / Your itinerary PDF,8:15029,8:49257,8:32557,,Desktop,Desktop|Tablet,Desktop|Mobile
+Trip planner,planner-discover,Desktop / Trip planner / Explore itineraries,8:15098,8:49309,8:32609,,Desktop,Desktop|Tablet,Desktop|Mobile
+Trip planner,planner-public,Desktop / Trip planner / Paris by foot,8:15192,8:49386,8:32686,,Desktop,Desktop|Tablet,Desktop|Mobile
+Trip planner,planner-cloned,Desktop / Trip planner / Paris by foot,8:15283,8:49460,8:32760,,Desktop,Desktop|Tablet,Desktop|Mobile
+Trip planner,planner-clone-library,Desktop / Trip planner / Make room for the memorable.,8:15359,8:49519,8:32819,,Desktop,Desktop|Tablet,Desktop|Mobile
+Trip planner,planner-now-public,Desktop / Trip planner / Paris in bloom,8:15428,8:49571,8:32871,,Desktop,Desktop|Tablet,Desktop|Mobile
+Trip planner,planner-sharing-public,Desktop / Trip planner / Keep it close. Or pass it on.,8:15519,8:49645,8:32945,,Desktop,Desktop|Tablet,Desktop|Mobile
+Trip planner,planner-now-private,Desktop / Trip planner / Paris in bloom,8:15599,8:49708,8:33008,,Desktop,Desktop|Tablet,Desktop|Mobile
+Trip planner,guest-planner-discover,Desktop / Trip planner / Borrow a little inspiration.,8:15690,8:49782,8:33082,,Desktop,Desktop|Tablet,Desktop|Mobile
+Trip planner,guest-planner-public,Desktop / Trip planner / Paris by foot,8:15789,8:49859,8:33160,,Desktop,Desktop|Tablet,Desktop|Mobile
+Community,journal,Desktop / Travel journal / Travel journal,8:15885,8:49933,8:33235,,Desktop,Desktop|Tablet,Desktop|Mobile
+Community,journal-post,Desktop / Travel journal / Paris is better without a checklist,8:15979,8:50010,8:33312,,Desktop,Desktop|Tablet,Desktop|Mobile
+Community,journal-editor,Desktop / Travel journal / Write a story,8:16087,8:50101,8:33403,,Desktop,Desktop|Tablet,Desktop|Mobile
+Community,journal-mine,Desktop / Travel journal / My stories,8:16172,8:50169,8:33471,,Desktop,Desktop|Tablet,Desktop|Mobile
+Community,journal-author,Desktop / Travel journal / Amira Noor,8:16252,8:50232,8:33534,,Desktop,Desktop|Tablet,Desktop|Mobile
+Community,journal-report,Desktop / Travel journal / Report content,8:16328,8:50291,8:33593,,Desktop,Desktop|Tablet,Desktop|Mobile
+Community,journal-liked,Desktop / Travel journal / Paris is better without a checklist,8:16406,8:50352,8:33654,,Desktop,Desktop|Tablet,Desktop|Mobile
+Community,journal-commented,Desktop / Travel journal / Paris is better without a checklist,8:16497,8:50426,8:33728,,Desktop,Desktop|Tablet,Desktop|Mobile
+Community,journal-liked-commented,Desktop / Travel journal / Paris is better without a checklist,8:16588,8:50500,8:33802,,Desktop,Desktop|Tablet,Desktop|Mobile
+Community,journal-published,"Desktop / Travel journal / Paris, between plans",8:16679,8:50574,8:33876,,Desktop,Desktop|Tablet,Desktop|Mobile
+Community,journal-mine-published,Desktop / Travel journal / Your notebook.,8:16746,8:50624,8:33926,,Desktop,Desktop|Tablet,Desktop|Mobile
+Community,guest-journal,Desktop / Travel journal / Stories worth taking along.,8:16815,8:50676,8:33978,,Desktop,Desktop|Tablet,Desktop|Mobile
+Community,guest-journal-post,Desktop / Travel journal / Paris is better without a checklist,8:16911,8:50750,8:34053,,Desktop,Desktop|Tablet,Desktop|Mobile
+Community,guest-journal-author,Desktop / Travel journal / Amira Noor,8:17024,8:50841,8:34145,,Desktop,Desktop|Tablet,Desktop|Mobile
+Community,member-report-plan,Desktop / Travel journal / Help keep this space thoughtful.,8:17105,8:50900,8:34205,,Desktop,Desktop|Tablet,Desktop|Mobile
+Operations,admin,Desktop / Administration / Platform overview,8:17449,,,,Desktop,Desktop,Desktop
+Operations,admin-accounts,Desktop / Administration / People and permissions,8:17539,,,,Desktop,Desktop,Desktop
+Operations,admin-providers,Desktop / Administration / Providers and assignments,8:17672,,,,Desktop,Desktop,Desktop
+Operations,admin-bookings,Desktop / Administration / Booking oversight,8:17755,,,,Desktop,Desktop,Desktop
+Operations,admin-moderation,Desktop / Administration / Reports and content review,8:17830,,,,Desktop,Desktop,Desktop
+Operations,admin-analytics,Desktop / Administration / Payments and booking analytics,8:17929,,,,Desktop,Desktop,Desktop
+Operations,admin-audit,Desktop / Administration / Administrative audit trail,8:18016,,,,Desktop,Desktop,Desktop
+Operations,admin-suspend-confirm,Desktop / Administration / Suspend this account,8:18143,,,,Desktop,Desktop,Desktop
+Operations,admin-account-suspended,Desktop / Administration / Account suspended,8:18209,,,,Desktop,Desktop,Desktop
+Operations,admin-reactivate-confirm,Desktop / Administration / Reactivate this account,8:18273,,,,Desktop,Desktop,Desktop
+Operations,admin-account-reactivated,Desktop / Administration / Account reactivated,8:18339,,,,Desktop,Desktop,Desktop
+Operations,admin-moderator-create,Desktop / Administration / Create an assigned moderator,8:18401,,,,Desktop,Desktop,Desktop
+Operations,admin-moderator-created,Desktop / Administration / Moderator account created,8:18467,,,,Desktop,Desktop,Desktop
+Operations,admin-audit-record,Desktop / Administration / Audit record details,8:18533,,,,Desktop,Desktop,Desktop
+Operations,admin-hide-confirm,Desktop / Administration / Hide reported content,8:18624,,,,Desktop,Desktop,Desktop
+Operations,admin-report-hidden,Desktop / Administration / Content hidden and report resolved,8:18708,,,,Desktop,Desktop,Desktop
+Operations,admin-dismiss-confirm,Desktop / Administration / Dismiss this report,8:18782,,,,Desktop,Desktop,Desktop
+Operations,admin-report-dismissed,Desktop / Administration / Report dismissed,8:18864,,,,Desktop,Desktop,Desktop
+Operations,admin-provider-create,Desktop / Administration / Create a hotel provider,8:18936,,,,Desktop,Desktop,Desktop
+Operations,admin-provider-created,Desktop / Administration / Hotel provider created,8:19006,,,,Desktop,Desktop,Desktop
+Operations,airline,Desktop / Airline workspace / AeroNile workspace,8:19070,,,,Desktop,Desktop,Desktop
+Operations,airline-profile,Desktop / Airline workspace / Airline profile and policies,8:19148,,,,Desktop,Desktop,Desktop
+Operations,airline-flights,Desktop / Airline workspace / Flight schedule,8:19224,,,,Desktop,Desktop,Desktop
+Operations,airline-flight-form,Desktop / Airline workspace / Create a flight,8:19301,,,,Desktop,Desktop,Desktop
+Operations,airline-inventory,"Desktop / Airline workspace / Cabins, fares and baggage",8:19375,,,,Desktop,Desktop,Desktop
+Operations,airline-reservations,Desktop / Airline workspace / Passenger bookings,8:19450,,,,Desktop,Desktop,Desktop
+Operations,airline-cancel-confirm,Desktop / Airline workspace / Cancel flight AN271,8:19556,,,,Desktop,Desktop,Desktop
+Operations,airline-flight-cancelled,Desktop / Airline workspace / Flight cancelled,8:19622,,,,Desktop,Desktop,Desktop
+Operations,airline-profile-saved,Desktop / Airline workspace / Airline policy updated,8:19687,,,,Desktop,Desktop,Desktop
+Operations,airline-flight-created,Desktop / Airline workspace / Flight AN273 created,8:19745,,,,Desktop,Desktop,Desktop
+Operations,airline-inventory-saved,Desktop / Airline workspace / Cabin price updated,8:19805,,,,Desktop,Desktop,Desktop
+Operations,airline-csv-ready,Desktop / Airline workspace / Passenger export prepared,8:19865,,,,Desktop,Desktop,Desktop
+Operations,hotelops,Desktop / Hotel workspace / Lumiere House workspace,8:19953,,,,Desktop,Desktop,Desktop
+Operations,hotel-profile,Desktop / Hotel workspace / Hotel profile and policies,8:20027,,,,Desktop,Desktop,Desktop
+Operations,hotel-rooms,Desktop / Hotel workspace / Room inventory,8:20112,,,,Desktop,Desktop,Desktop
+Operations,hotel-room-form,Desktop / Hotel workspace / Room details and nightly price,8:20225,,,,Desktop,Desktop,Desktop
+Operations,hotel-calendar,Desktop / Hotel workspace / Availability and date blocks,8:20301,,,,Desktop,Desktop,Desktop
+Operations,hotel-reservations,Desktop / Hotel workspace / Hotel reservations,8:20420,,,,Desktop,Desktop,Desktop
+Operations,hotel-reviews,Desktop / Hotel workspace / Guest reviews and replies,8:20493,,,,Desktop,Desktop,Desktop
+Operations,hotel-block-confirm,Desktop / Hotel workspace / Review a maintenance block,8:20564,,,,Desktop,Desktop,Desktop
+Operations,hotel-room-blocked,Desktop / Hotel workspace / Maintenance dates blocked,8:20630,,,,Desktop,Desktop,Desktop
+Operations,hotel-reply-confirm,Desktop / Hotel workspace / Review your reply,8:20694,,,,Desktop,Desktop,Desktop
+Operations,hotel-reply-published,Desktop / Hotel workspace / Reply published,8:20759,,,,Desktop,Desktop,Desktop
+Operations,hotel-profile-saved,Desktop / Hotel workspace / Hotel policy updated,8:20821,,,,Desktop,Desktop,Desktop
+Operations,hotel-room-saved,Desktop / Hotel workspace / Room price updated,8:20883,,,,Desktop,Desktop,Desktop
+Operations,hotel-room-create,Desktop / Hotel workspace / Add an individually bookable room,8:20945,,,,Desktop,Desktop,Desktop
+Operations,hotel-room-created,Desktop / Hotel workspace / Room 206 created,8:21013,,,,Desktop,Desktop,Desktop
+Workspace actions,aeris-task-admin-reset,AERIS / Desktop / Task Admin Reset,14:77310,,,,Desktop,Desktop,Desktop
+Workspace actions,aeris-done-admin-reset,AERIS / Desktop / Done Admin Reset,14:77333,,,,Desktop,Desktop,Desktop
+Workspace actions,aeris-task-provider-off,AERIS / Desktop / Task Provider Off,14:77348,,,,Desktop,Desktop,Desktop
+Workspace actions,aeris-done-provider-off,AERIS / Desktop / Done Provider Off,14:77369,,,,Desktop,Desktop,Desktop
+Workspace actions,aeris-task-provider-on,AERIS / Desktop / Task Provider On,14:77384,,,,Desktop,Desktop,Desktop
+Workspace actions,aeris-done-provider-on,AERIS / Desktop / Done Provider On,14:77405,,,,Desktop,Desktop,Desktop
+Workspace actions,aeris-task-rates,AERIS / Desktop / Task Rates,14:77420,,,,Desktop,Desktop,Desktop
+Workspace actions,aeris-done-rates,AERIS / Desktop / Done Rates,14:77441,,,,Desktop,Desktop,Desktop
+Workspace actions,aeris-task-comment-edit,AERIS / Desktop / Task Comment Edit,14:77456,14:101546,14:89186,,Desktop,Desktop|Tablet,Desktop|Mobile
+Workspace actions,aeris-done-comment-edit,AERIS / Desktop / Done Comment Edit,14:77477,14:101567,14:89207,,Desktop,Desktop|Tablet,Desktop|Mobile
+Workspace actions,aeris-task-comment-delete,AERIS / Desktop / Task Comment Delete,14:77492,14:101582,14:89222,,Desktop,Desktop|Tablet,Desktop|Mobile
+Workspace actions,aeris-done-comment-delete,AERIS / Desktop / Done Comment Delete,14:77513,14:101603,14:89243,,Desktop,Desktop|Tablet,Desktop|Mobile
+Workspace actions,aeris-task-post-delete,AERIS / Desktop / Task Post Delete,14:77528,14:101618,14:89258,,Desktop,Desktop|Tablet,Desktop|Mobile
+Workspace actions,aeris-done-post-delete,AERIS / Desktop / Done Post Delete,14:77549,14:101639,14:89279,,Desktop,Desktop|Tablet,Desktop|Mobile
+Workspace actions,aeris-task-post-attach,AERIS / Desktop / Task Post Attach,14:77564,14:101654,14:89294,,Desktop,Desktop|Tablet,Desktop|Mobile
+Workspace actions,aeris-done-post-attach,AERIS / Desktop / Done Post Attach,14:77585,14:101675,14:89315,,Desktop,Desktop|Tablet,Desktop|Mobile
+Workspace actions,aeris-task-review-edit,AERIS / Desktop / Task Review Edit,14:77600,14:101690,14:89330,,Desktop,Desktop|Tablet,Desktop|Mobile
+Workspace actions,aeris-done-review-edit,AERIS / Desktop / Done Review Edit,14:77622,14:101712,14:89352,,Desktop,Desktop|Tablet,Desktop|Mobile
+Workspace actions,aeris-task-review-remove,AERIS / Desktop / Task Review Remove,14:77637,14:101727,14:89367,,Desktop,Desktop|Tablet,Desktop|Mobile
+Workspace actions,aeris-done-review-remove,AERIS / Desktop / Done Review Remove,14:77658,14:101748,14:89388,,Desktop,Desktop|Tablet,Desktop|Mobile
+Workspace actions,aeris-task-day-edit,AERIS / Desktop / Task Day Edit,14:77673,14:101763,14:89403,,Desktop,Desktop|Tablet,Desktop|Mobile
+Workspace actions,aeris-done-day-edit,AERIS / Desktop / Done Day Edit,14:77695,14:101785,14:89425,,Desktop,Desktop|Tablet,Desktop|Mobile
+Workspace actions,aeris-task-day-remove,AERIS / Desktop / Task Day Remove,14:77710,14:101800,14:89440,,Desktop,Desktop|Tablet,Desktop|Mobile
+Workspace actions,aeris-done-day-remove,AERIS / Desktop / Done Day Remove,14:77731,14:101821,14:89461,,Desktop,Desktop|Tablet,Desktop|Mobile
+Workspace actions,aeris-task-day-order,AERIS / Desktop / Task Day Order,14:77746,14:101836,14:89476,,Desktop,Desktop|Tablet,Desktop|Mobile
+Workspace actions,aeris-done-day-order,AERIS / Desktop / Done Day Order,14:77768,14:101858,14:89498,,Desktop,Desktop|Tablet,Desktop|Mobile
+Workspace actions,aeris-task-trip-remove,AERIS / Desktop / Task Trip Remove,14:77783,14:101873,14:89513,,Desktop,Desktop|Tablet,Desktop|Mobile
+Workspace actions,aeris-done-trip-remove,AERIS / Desktop / Done Trip Remove,14:77804,14:101894,14:89534,,Desktop,Desktop|Tablet,Desktop|Mobile
+Workspace actions,aeris-task-activity,AERIS / Desktop / Task Activity,14:77819,14:101909,14:89549,,Desktop,Desktop|Tablet,Desktop|Mobile
+Workspace actions,aeris-done-activity,AERIS / Desktop / Done Activity,14:77841,14:101931,14:89571,,Desktop,Desktop|Tablet,Desktop|Mobile
+Workspace actions,aeris-task-activity-remove,AERIS / Desktop / Task Activity Remove,14:77856,14:101946,14:89586,,Desktop,Desktop|Tablet,Desktop|Mobile
+Workspace actions,aeris-done-activity-remove,AERIS / Desktop / Done Activity Remove,14:77877,14:101967,14:89607,,Desktop,Desktop|Tablet,Desktop|Mobile
+Workspace actions,aeris-task-expense,AERIS / Desktop / Task Expense,14:77892,14:101982,14:89622,,Desktop,Desktop|Tablet,Desktop|Mobile
+Workspace actions,aeris-done-expense,AERIS / Desktop / Done Expense,14:77914,14:102004,14:89644,,Desktop,Desktop|Tablet,Desktop|Mobile
+Workspace actions,aeris-task-expense-remove,AERIS / Desktop / Task Expense Remove,14:77929,14:102019,14:89659,,Desktop,Desktop|Tablet,Desktop|Mobile
+Workspace actions,aeris-done-expense-remove,AERIS / Desktop / Done Expense Remove,14:77950,14:102040,14:89680,,Desktop,Desktop|Tablet,Desktop|Mobile
+Workspace actions,aeris-task-transport,AERIS / Desktop / Task Transport,14:77965,14:102055,14:89695,,Desktop,Desktop|Tablet,Desktop|Mobile
+Workspace actions,aeris-done-transport,AERIS / Desktop / Done Transport,14:77987,14:102077,14:89717,,Desktop,Desktop|Tablet,Desktop|Mobile
+Workspace actions,aeris-task-transport-remove,AERIS / Desktop / Task Transport Remove,14:78002,14:102092,14:89732,,Desktop,Desktop|Tablet,Desktop|Mobile
+Workspace actions,aeris-done-transport-remove,AERIS / Desktop / Done Transport Remove,14:78023,14:102113,14:89753,,Desktop,Desktop|Tablet,Desktop|Mobile
+Workspace actions,aeris-task-hotel-room-remove,AERIS / Desktop / Task Hotel Room Remove,14:78038,,,,Desktop,Desktop,Desktop
+Workspace actions,aeris-done-hotel-room-remove,AERIS / Desktop / Done Hotel Room Remove,14:78059,,,,Desktop,Desktop,Desktop
+Workspace actions,aeris-task-moderate-restore,AERIS / Desktop / Task Moderate Restore,14:78074,,,,Desktop,Desktop,Desktop
+Workspace actions,aeris-done-moderate-restore,AERIS / Desktop / Done Moderate Restore,14:78096,,,,Desktop,Desktop,Desktop
+Workspace actions,aeris-task-moderate-delete,AERIS / Desktop / Task Moderate Delete,14:78111,,,,Desktop,Desktop,Desktop
+Workspace actions,aeris-done-moderate-delete,AERIS / Desktop / Done Moderate Delete,14:78132,,,,Desktop,Desktop,Desktop
+Workspace actions,aeris-task-change-pay,AERIS / Desktop / Task Change Pay,14:78147,14:102237,14:89877,,Desktop,Desktop|Tablet,Desktop|Mobile
+Workspace actions,aeris-done-change-pay,AERIS / Desktop / Done Change Pay,14:78169,14:102259,14:89899,,Desktop,Desktop|Tablet,Desktop|Mobile
+Workspace actions,aeris-task-change-follow,AERIS / Desktop / Task Change Follow,14:78186,14:102276,14:89916,,Desktop,Desktop|Tablet,Desktop|Mobile
+Workspace actions,aeris-done-change-follow,AERIS / Desktop / Done Change Follow,14:78207,14:102297,14:89937,,Desktop,Desktop|Tablet,Desktop|Mobile
+Workspace actions,aeris-task-fx-view,AERIS / Desktop / Task Fx View,14:78222,14:102312,14:89952,,Desktop,Desktop|Tablet,Desktop|Mobile
+Workspace actions,aeris-done-fx-view,AERIS / Desktop / Done Fx View,14:78244,14:102334,14:89974,,Desktop,Desktop|Tablet,Desktop|Mobile
+Workspace actions,aeris-task-logout,AERIS / Desktop / Task Logout,14:78259,14:102349,14:89989,,Desktop,Desktop|Tablet,Desktop|Mobile
+Workspace actions,aeris-done-logout,AERIS / Desktop / Done Logout,14:78280,14:102370,14:90010,,Desktop,Desktop|Tablet,Desktop|Mobile
+Workspace actions,aeris-task-post-media,AERIS / Desktop / Task Post Media,14:78295,14:102385,14:90025,,Desktop,Desktop|Tablet,Desktop|Mobile
+Workspace actions,aeris-done-post-media,AERIS / Desktop / Done Post Media,14:78317,14:102407,14:90047,,Desktop,Desktop|Tablet,Desktop|Mobile
+Workspace actions,aeris-task-post-media-remove,AERIS / Desktop / Task Post Media Remove,14:78332,14:102422,14:90062,,Desktop,Desktop|Tablet,Desktop|Mobile
+Workspace actions,aeris-done-post-media-remove,AERIS / Desktop / Done Post Media Remove,14:78353,14:102443,14:90083,,Desktop,Desktop|Tablet,Desktop|Mobile
+Workspace actions,aeris-task-activity-media,AERIS / Desktop / Task Activity Media,14:78368,14:102458,14:90098,,Desktop,Desktop|Tablet,Desktop|Mobile
+Workspace actions,aeris-done-activity-media,AERIS / Desktop / Done Activity Media,14:78390,14:102480,14:90120,,Desktop,Desktop|Tablet,Desktop|Mobile
+Workspace actions,aeris-task-activity-media-remove,AERIS / Desktop / Task Activity Media Remove,14:78405,14:102495,14:90135,,Desktop,Desktop|Tablet,Desktop|Mobile
+Workspace actions,aeris-done-activity-media-remove,AERIS / Desktop / Done Activity Media Remove,14:78426,14:102516,14:90156,,Desktop,Desktop|Tablet,Desktop|Mobile
+Workspace actions,aeris-task-hotel-media,AERIS / Desktop / Task Hotel Media,14:78441,,,,Desktop,Desktop,Desktop
+Workspace actions,aeris-done-hotel-media,AERIS / Desktop / Done Hotel Media,14:78463,,,,Desktop,Desktop,Desktop
+Workspace actions,aeris-task-hotel-media-remove,AERIS / Desktop / Task Hotel Media Remove,14:78478,,,,Desktop,Desktop,Desktop
+Workspace actions,aeris-done-hotel-media-remove,AERIS / Desktop / Done Hotel Media Remove,14:78499,,,,Desktop,Desktop,Desktop
+Workspace actions,aeris-task-airline-media,AERIS / Desktop / Task Airline Media,14:78514,,,,Desktop,Desktop,Desktop
+Workspace actions,aeris-done-airline-media,AERIS / Desktop / Done Airline Media,14:78536,,,,Desktop,Desktop,Desktop
+Workspace actions,aeris-task-airline-media-remove,AERIS / Desktop / Task Airline Media Remove,14:78551,,,,Desktop,Desktop,Desktop
+Workspace actions,aeris-done-airline-media-remove,AERIS / Desktop / Done Airline Media Remove,14:78572,,,,Desktop,Desktop,Desktop
+Workspace actions,aeris-task-airline-create,AERIS / Desktop / Task Airline Create,14:78587,,,,Desktop,Desktop,Desktop
+Workspace actions,aeris-done-airline-create,AERIS / Desktop / Done Airline Create,14:78609,,,,Desktop,Desktop,Desktop
+Workspace actions,aeris-task-airline-public,AERIS / Desktop / Task Airline Public,14:78624,,,,Desktop,Desktop,Desktop
+Workspace actions,aeris-done-airline-public,AERIS / Desktop / Done Airline Public,14:78646,,,,Desktop,Desktop,Desktop
+Workspace actions,aeris-task-health,AERIS / Desktop / Task Health,14:78661,,,,Desktop,Desktop,Desktop
+Workspace actions,aeris-task-save-favourite,AERIS / Desktop / Task Save Favourite,14:78697,14:102787,14:90427,,Desktop,Desktop|Tablet,Desktop|Mobile
+Workspace actions,aeris-done-save-favourite,AERIS / Desktop / Done Save Favourite,14:78718,14:102808,14:90448,,Desktop,Desktop|Tablet,Desktop|Mobile
+Workspace actions,aeris-task-remove-favourite,AERIS / Desktop / Task Remove Favourite,14:78733,14:102823,14:90463,,Desktop,Desktop|Tablet,Desktop|Mobile
+Workspace actions,aeris-done-remove-favourite,AERIS / Desktop / Done Remove Favourite,14:78754,14:102844,14:90484,,Desktop,Desktop|Tablet,Desktop|Mobile
+Workspace actions,aeris-task-tag-posts,AERIS / Desktop / Task Tag Posts,14:78769,14:102859,14:90499,,Desktop,Desktop|Tablet,Desktop|Mobile
+Workspace actions,aeris-done-tag-posts,AERIS / Desktop / Done Tag Posts,14:78790,14:102880,14:90520,,Desktop,Desktop|Tablet,Desktop|Mobile
+Workspace actions,aeris-task-flight-edit,AERIS / Desktop / Task Flight Edit,14:78805,,,,Desktop,Desktop,Desktop
+Workspace actions,aeris-done-flight-edit,AERIS / Desktop / Done Flight Edit,14:78827,,,,Desktop,Desktop,Desktop
+Workspace actions,aeris-task-cabin-add,AERIS / Desktop / Task Cabin Add,14:78842,,,,Desktop,Desktop,Desktop
+Workspace actions,aeris-done-cabin-add,AERIS / Desktop / Done Cabin Add,14:78864,,,,Desktop,Desktop,Desktop
+Workspace actions,aeris-task-day-add,AERIS / Desktop / Task Day Add,14:78879,14:102969,14:90609,,Desktop,Desktop|Tablet,Desktop|Mobile
+Workspace actions,aeris-done-day-add,AERIS / Desktop / Done Day Add,14:78901,14:102991,14:90631,,Desktop,Desktop|Tablet,Desktop|Mobile
+Design handoff,guest-menu,Desktop / Explore / Explore as a guest,8:320,8:38015,8:21227,,Desktop,Desktop|Tablet,Desktop|Mobile
+Design handoff,review,Start here · design review,8:54740,,,,Desktop,Desktop,Desktop
+Design handoff,directory,Design state directory,8:54806,,,,Desktop,Desktop,Desktop
+Design handoff,foundations,"Typography, interaction and layout",8:55410,,,,Desktop,Desktop,Desktop
+Design handoff,aeris-api,AERIS / Desktop / Api,14:78916,,,,Desktop,Desktop,Desktop
+Design handoff,aeris-api-account,AERIS / Desktop / Api Account,14:78972,,,,Desktop,Desktop,Desktop
+Design handoff,aeris-api-flight,AERIS / Desktop / Api Flight,14:79077,,,,Desktop,Desktop,Desktop
+Design handoff,aeris-api-hotel,AERIS / Desktop / Api Hotel,14:79162,,,,Desktop,Desktop,Desktop
+Design handoff,aeris-api-book,AERIS / Desktop / Api Book,14:79242,,,,Desktop,Desktop,Desktop
+Design handoff,aeris-api-pay,AERIS / Desktop / Api Pay,14:79352,,,,Desktop,Desktop,Desktop
+Design handoff,aeris-api-plan,AERIS / Desktop / Api Plan,14:79402,,,,Desktop,Desktop,Desktop
+Design handoff,aeris-api-social,AERIS / Desktop / Api Social,14:79547,,,,Desktop,Desktop,Desktop
+Design handoff,aeris-api-admin,AERIS / Desktop / Api Admin,14:79662,,,,Desktop,Desktop,Desktop
+Design handoff,aeris-api-ref,AERIS / Desktop / Api Ref,14:79752,,,,Desktop,Desktop,Desktop
+Design handoff,aeris-api-media,AERIS / Desktop / Api Media,14:79802,,,,Desktop,Desktop,Desktop
+Design handoff,aeris-foundations,AERIS / Desktop / Foundations,14:79862,,,,Desktop,Desktop,Desktop
+Foundations and artwork,panel-trace,AERIS / Window signature / Light enters,,,,20:164874,Shared,Shared,Shared
+Foundations and artwork,panel-write,AERIS / Window signature / Letters appear,,,,20:164875,Shared,Shared,Shared
+Foundations and artwork,panel-rest,AERIS / Window signature / Wordmark,,,,20:164876,Shared,Shared,Shared
+Foundations and artwork,panel-still,AERIS / Window signature / Still wordmark,,,,20:164877,Shared,Shared,Shared
+Milestone 1 workflows,m1-platform,Cabin / Desktop / Booking records and inventory,39:38254,,,,Desktop,Desktop,Desktop
+Milestone 1 workflows,m1-settlement,Cabin / Desktop / From payment to reservation,39:38255,,,,Desktop,Desktop,Desktop
+Milestone 1 workflows,m1-health,Cabin / Desktop / Service health,39:38256,,,,Desktop,Desktop,Desktop
+Milestone 1 workflows,m1-party-range,Cabin / Desktop / Party price range,39:38257,39:38317,39:38377,,Desktop,Desktop|Tablet,Desktop|Mobile
+Milestone 1 workflows,m1-party-matches,Cabin / Desktop / Flights within your range,39:38258,39:38318,39:38378,,Desktop,Desktop|Tablet,Desktop|Mobile
+Milestone 1 workflows,align-status-payment-pending,Cabin / Desktop / Waiting for confirmation,39:38259,39:38319,39:38379,,Desktop,Desktop|Tablet,Desktop|Mobile
+Milestone 1 workflows,align-status-round-pending,Cabin / Desktop / Waiting for confirmation,39:38260,39:38320,39:38380,,Desktop,Desktop|Tablet,Desktop|Mobile
+Milestone 1 workflows,align-status-hotel-pending,Cabin / Desktop / Waiting for confirmation,39:38261,39:38321,39:38381,,Desktop,Desktop|Tablet,Desktop|Mobile
+Milestone 1 workflows,align-status-aeris-pending,Cabin / Desktop / Waiting for confirmation,39:38262,39:38322,39:38382,,Desktop,Desktop|Tablet,Desktop|Mobile
+Milestone 1 workflows,align-status-aeris-pending-bag1,Cabin / Desktop / Waiting for confirmation,39:38263,39:38323,39:38383,,Desktop,Desktop|Tablet,Desktop|Mobile
+Milestone 1 workflows,align-status-aeris-pending-bag2,Cabin / Desktop / Waiting for confirmation,39:38264,39:38324,39:38384,,Desktop,Desktop|Tablet,Desktop|Mobile
+Milestone 1 workflows,align-status-aeris-round-pending,Cabin / Desktop / Waiting for confirmation,39:38265,39:38325,39:38385,,Desktop,Desktop|Tablet,Desktop|Mobile
+Milestone 1 workflows,align-status-aeris-return-pending,Cabin / Desktop / Waiting for confirmation,39:38266,39:38326,39:38386,,Desktop,Desktop|Tablet,Desktop|Mobile
+Milestone 1 workflows,align-status-aeris-party-pending,Cabin / Desktop / Waiting for confirmation,39:38267,39:38327,39:38387,,Desktop,Desktop|Tablet,Desktop|Mobile
+Milestone 1 workflows,align-status-aeris-child-pending,Cabin / Desktop / Waiting for confirmation,39:38268,39:38328,39:38388,,Desktop,Desktop|Tablet,Desktop|Mobile
+Milestone 1 workflows,align-status-aeris-infant-pending,Cabin / Desktop / Waiting for confirmation,39:38269,39:38329,39:38389,,Desktop,Desktop|Tablet,Desktop|Mobile
+Milestone 1 workflows,align-late-payment,Cabin / Desktop / Payment arrived after expiry,39:38270,39:38330,39:38390,,Desktop,Desktop|Tablet,Desktop|Mobile
+Milestone 1 workflows,align-accepted-checkout-accepted,Cabin / Desktop / Policies accepted,39:38271,39:38331,39:38391,,Desktop,Desktop|Tablet,Desktop|Mobile
+Milestone 1 workflows,align-accepted-round-checkout-accepted,Cabin / Desktop / Policies accepted,39:38272,39:38332,39:38392,,Desktop,Desktop|Tablet,Desktop|Mobile
+Milestone 1 workflows,align-accepted-hotel-checkout-accepted,Cabin / Desktop / Policies accepted,39:38273,39:38333,39:38393,,Desktop,Desktop|Tablet,Desktop|Mobile
+Milestone 1 workflows,align-accepted-aeris-round-consent,Cabin / Desktop / Policies accepted,39:38274,39:38334,39:38394,,Desktop,Desktop|Tablet,Desktop|Mobile
+Milestone 1 workflows,align-accepted-aeris-return-consent,Cabin / Desktop / Policies accepted,39:38275,39:38335,39:38395,,Desktop,Desktop|Tablet,Desktop|Mobile
+Milestone 1 workflows,align-accepted-aeris-party-consent,Cabin / Desktop / Policies accepted,39:38276,39:38336,39:38396,,Desktop,Desktop|Tablet,Desktop|Mobile
+Milestone 1 workflows,align-accepted-aeris-child-consent,Cabin / Desktop / Policies accepted,39:38277,39:38337,39:38397,,Desktop,Desktop|Tablet,Desktop|Mobile
+Milestone 1 workflows,align-accepted-aeris-infant-consent,Cabin / Desktop / Policies accepted,39:38278,39:38338,39:38398,,Desktop,Desktop|Tablet,Desktop|Mobile
+Milestone 1 workflows,align-refund-refund,Cabin / Desktop / Refund pending,39:38279,39:38339,39:38399,,Desktop,Desktop|Tablet,Desktop|Mobile
+Milestone 1 workflows,align-refund-hotel-refund,Cabin / Desktop / Refund pending,39:38280,39:38340,39:38400,,Desktop,Desktop|Tablet,Desktop|Mobile
+Milestone 1 workflows,align-refund-aeris-cancelled,Cabin / Desktop / Refund pending,39:38281,39:38341,39:38401,,Desktop,Desktop|Tablet,Desktop|Mobile
+Milestone 1 workflows,align-refund-aeris-cancelled-bag1,Cabin / Desktop / Refund pending,39:38282,39:38342,39:38402,,Desktop,Desktop|Tablet,Desktop|Mobile
+Milestone 1 workflows,align-refund-aeris-cancelled-bag2,Cabin / Desktop / Refund pending,39:38283,39:38343,39:38403,,Desktop,Desktop|Tablet,Desktop|Mobile
+Milestone 1 workflows,align-refund-late,Cabin / Desktop / Refund pending,39:38284,39:38344,39:38404,,Desktop,Desktop|Tablet,Desktop|Mobile
+Milestone 1 workflows,align-refund-complete,Cabin / Desktop / Refund issued,39:38285,39:38345,39:38405,,Desktop,Desktop|Tablet,Desktop|Mobile
+Milestone 1 workflows,align-refund-failed,Cabin / Desktop / Refund needs attention,39:38286,39:38346,39:38406,,Desktop,Desktop|Tablet,Desktop|Mobile
+Milestone 1 workflows,align-change-status,Cabin / Desktop / Replacement awaiting payment,39:38287,39:38347,39:38407,,Desktop,Desktop|Tablet,Desktop|Mobile
+Milestone 1 workflows,align-change-committed,Cabin / Desktop / Replacement confirmed,39:38288,39:38348,39:38408,,Desktop,Desktop|Tablet,Desktop|Mobile
+Milestone 1 workflows,align-change-expired,Cabin / Desktop / Replacement hold expired,39:38289,39:38349,39:38409,,Desktop,Desktop|Tablet,Desktop|Mobile
+Milestone 1 workflows,align-seat-conflict,Cabin / Desktop / That seat was just taken,39:38290,39:38350,39:38410,,Desktop,Desktop|Tablet,Desktop|Mobile
+Milestone 1 workflows,align-seat-conflict-bag1,Cabin / Desktop / That seat was just taken,39:38291,39:38351,39:38411,,Desktop,Desktop|Tablet,Desktop|Mobile
+Milestone 1 workflows,align-seat-conflict-bag2,Cabin / Desktop / That seat was just taken,39:38292,39:38352,39:38412,,Desktop,Desktop|Tablet,Desktop|Mobile
+Milestone 1 workflows,align-two-rooms,Cabin / Desktop / Two rooms in Cairo,39:38293,39:38353,39:38413,,Desktop,Desktop|Tablet,Desktop|Mobile
+Milestone 1 workflows,align-room-guests,Cabin / Desktop / Review your guests,39:38294,39:38354,39:38414,,Desktop,Desktop|Tablet,Desktop|Mobile
+Milestone 1 workflows,align-room-conflict,Cabin / Desktop / One room became unavailable,39:38295,39:38355,39:38415,,Desktop,Desktop|Tablet,Desktop|Mobile
+Milestone 1 workflows,align-room-held,Cabin / Desktop / Two rooms held,39:38296,39:38356,39:38416,,Desktop,Desktop|Tablet,Desktop|Mobile
+Milestone 1 workflows,align-room-accepted,Cabin / Desktop / Ready to pay,39:38297,39:38357,39:38417,,Desktop,Desktop|Tablet,Desktop|Mobile
+Milestone 1 workflows,align-room-pending,Cabin / Desktop / Confirming your stay,39:38298,39:38358,39:38418,,Desktop,Desktop|Tablet,Desktop|Mobile
+Milestone 1 workflows,align-room-confirmed,Cabin / Desktop / Your stay is confirmed,39:38299,39:38359,39:38419,,Desktop,Desktop|Tablet,Desktop|Mobile
+Milestone 1 workflows,align-round-hold-conflict,Cabin / Desktop / The return flight sold out,39:38300,39:38360,39:38420,,Desktop,Desktop|Tablet,Desktop|Mobile
+Milestone 1 workflows,align-round-outbound-saved,Cabin / Desktop / Choose your return seat,39:38301,39:38361,39:38421,,Desktop,Desktop|Tablet,Desktop|Mobile
+Milestone 1 workflows,align-round-return-conflict,Cabin / Desktop / Choose another return seat,39:38302,39:38362,39:38422,,Desktop,Desktop|Tablet,Desktop|Mobile
+Milestone 1 workflows,align-round-return-2c,Cabin / Desktop / Both seats are saved,39:38303,39:38363,39:38423,,Desktop,Desktop|Tablet,Desktop|Mobile
+Milestone 1 workflows,m1-password-required,Cabin / Desktop / Change your temporary password,39:38304,39:38364,39:38424,,Desktop,Desktop|Tablet,Desktop|Mobile
+Milestone 1 workflows,m1-email-verified,Cabin / Desktop / Email verified,39:38305,39:38365,39:38425,,Desktop,Desktop|Tablet,Desktop|Mobile
+Milestone 1 workflows,m1-email-unavailable,Cabin / Desktop / Email recovery is unavailable,39:38306,39:38366,39:38426,,Desktop,Desktop|Tablet,Desktop|Mobile
+Milestone 1 workflows,m1-reset-link-invalid,Cabin / Desktop / This reset link has expired,39:38307,39:38367,39:38427,,Desktop,Desktop|Tablet,Desktop|Mobile
+Milestone 1 workflows,m1-analytics-date-range,Cabin / Desktop / Analytics date range,39:38308,,,,Desktop,Desktop,Desktop
+Milestone 1 workflows,m1-budget-no-rate,Cabin / Desktop / Conversion unavailable,39:38309,39:38369,39:38429,,Desktop,Desktop|Tablet,Desktop|Mobile
+Milestone 1 workflows,m1-itinerary-detached,Cabin / Desktop / Itinerary removed from post,39:38310,39:38370,39:38430,,Desktop,Desktop|Tablet,Desktop|Mobile
+Milestone 1 workflows,m1-report-post,Cabin / Desktop / Report received,39:38311,39:38371,39:38431,,Desktop,Desktop|Tablet,Desktop|Mobile
+Milestone 1 workflows,m1-report-itinerary,Cabin / Desktop / Report received,39:38312,39:38372,39:38432,,Desktop,Desktop|Tablet,Desktop|Mobile
+Milestone 1 workflows,m1-trip-group-stays,Cabin / Desktop / Stays for your Paris days,39:43595,39:43603,39:43611,,Desktop,Desktop|Tablet,Desktop|Mobile
+Milestone 1 workflows,m1-trip-group-party,Cabin / Desktop / Two rooms in Paris,39:43596,39:43604,39:43612,,Desktop,Desktop|Tablet,Desktop|Mobile
+Milestone 1 workflows,m1-trip-group-matches,Cabin / Desktop / Stays for 12–16 May,39:43597,39:43605,39:43613,,Desktop,Desktop|Tablet,Desktop|Mobile
+Milestone 1 workflows,m1-trip-group-empty,Cabin / Desktop / No matching stays,39:43598,39:43606,39:43614,,Desktop,Desktop|Tablet,Desktop|Mobile
+Milestone 1 workflows,m1-trip-city-flights,Cabin / Desktop / Fly to your first city,39:43599,39:43607,39:43615,,Desktop,Desktop|Tablet,Desktop|Mobile
+Milestone 1 workflows,m1-trip-round-search,Cabin / Desktop / Round trip to Paris,39:43600,39:43608,39:43616,,Desktop,Desktop|Tablet,Desktop|Mobile
+Milestone 1 workflows,m1-trip-origin-london,Cabin / Desktop / London to Paris,39:43601,39:43609,39:43617,,Desktop,Desktop|Tablet,Desktop|Mobile
+Milestone 1 workflows,m1-trip-flight-empty,Cabin / Desktop / No flights for these dates,39:43602,39:43610,39:43618,,Desktop,Desktop|Tablet,Desktop|Mobile

@@ -5,6 +5,7 @@ import "@fontsource-variable/bricolage-grotesque/index.css";
 import "@fontsource-variable/dm-sans/index.css";
 import "@fontsource-variable/source-sans-3/index.css";
 import "./style.css";
+import "./shell-motion.css";
 import { SessionProvider } from "@/lib/session";
 import { Shell } from "@/components/shell";
 export const metadata: Metadata = {
@@ -14,7 +15,19 @@ export const metadata: Metadata = {
 };
 export default function Layout({ children }: { children: ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `try {
+              const saved = localStorage.getItem("aeris-motion") === "reduced";
+              if (saved || matchMedia("(prefers-reduced-motion: reduce)").matches) {
+                document.documentElement.dataset.motion = "reduced";
+              }
+            } catch {}`,
+          }}
+        />
+      </head>
       <body>
         <Script src="/aeris-config.js" strategy="beforeInteractive" />
         <SessionProvider>

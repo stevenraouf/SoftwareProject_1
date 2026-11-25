@@ -6,6 +6,7 @@ The repository contains the Next.js frontend in `frontend/` and the NestJS API i
 
 - [Combined project handbook (PDF)](output/pdf/AERIS_PROJECT_HANDBOOK.pdf) opens at the Milestone 2 chapter. Its PDF bookmarks include the 105 archived backend pages.
 - [Frontend handover and verification](docs/milestone-2/HANDOVER.md) describes the application architecture, each role, setup, service dependencies and review evidence.
+- [Prototype implementation and browser checks](docs/milestone-2/prototype-review/implementation.md) includes desktop, tablet and phone comparisons and the Cairo booking walkthrough.
 - [Original backend handbook](output/pdf/MILESTONE_1_HANDBOOK_2026-11-20.pdf) covers the November 20 release.
 
 **Milestone 2 acceptance, 25 November 2026.** The [acceptance report](docs/milestone-2/ACCEPTANCE.md) maps the required deliverables to the current code, test results and outstanding student review. The integrated browser checkout completed a USD 180.00 Stripe test payment, received its signed webhook and confirmed a USD 162.00 refund after cancellation.

@@ -110,6 +110,210 @@
   color: #625e62;
   cursor: not-allowed;
 }
+.seat-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(115px, 1fr));
+  gap: 8px;
+  max-height: 460px;
+  overflow: auto;
+  padding: 4px;
+}
+.seat-list button {
+  justify-content: space-between;
+  border-radius: 10px;
+  color: var(--ink);
+  background: var(--panel);
+}
+.seat-list button[aria-pressed="true"] {
+  color: white;
+  background: #173d54;
+}
+.ticket-preview {
+  max-width: 850px;
+}
+.ticket-steps {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.25rem;
+  margin: 0;
+  padding: 0 0.6rem;
+  list-style: none;
+  background: #f1e8e2;
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+.ticket-steps li {
+  padding: 0.35rem 0;
+  border-bottom: 2px solid transparent;
+}
+.ticket-steps [aria-current] {
+  color: var(--teal);
+  border-color: currentColor;
+  font-weight: 650;
+}
+.ticket-preview > header .eyebrow,
+.ticket-carrier > p,
+.ticket-duration {
+  font-size: 0.8rem;
+  font-weight: 650;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.ticket-preview > header .eyebrow {
+  color: var(--teal);
+}
+.ticket-preview > header > p:last-child {
+  color: var(--muted);
+  margin-top: 0.7rem;
+}
+.ticket-document {
+  overflow: hidden;
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  box-shadow: var(--shadow);
+}
+.ticket-document .ticket-carrier {
+  padding: clamp(18px, 3.2vw, 36px);
+  color: white;
+  background: #16334e;
+  border-radius: 0 0 15px 15px;
+}
+.ticket-carrier > p {
+  color: #b3d8d8;
+  margin: 0;
+}
+.ticket-carrier h2,
+.ticket-stop time {
+  font: 500 clamp(1.8rem, 4.2vw, 3rem)/1.12 var(--display);
+  letter-spacing: -0.045em;
+}
+.ticket-document .ticket-carrier h2 {
+  margin: 0.6rem 0 0;
+  color: white;
+}
+.ticket-paper {
+  padding: clamp(18px, 3.2vw, 36px);
+}
+.ticket-route {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(52px, 0.65fr) minmax(0, 1fr);
+  grid-template-areas: "depart duration arrive";
+  align-items: center;
+  gap: clamp(10px, 2vw, 24px);
+  padding: 0.5rem 0 1.6rem;
+  border-bottom: 1px solid var(--line);
+  margin-bottom: 1.55rem;
+}
+.ticket-stop {
+  display: grid;
+  gap: 0.7rem;
+  min-width: 0;
+}
+.ticket-stop-0 {
+  grid-area: depart;
+}
+.ticket-stop-1 {
+  grid-area: arrive;
+}
+.ticket-stop span,
+.ticket-fields dt,
+.ticket-paper footer {
+  color: var(--muted);
+}
+.ticket-duration {
+  grid-area: duration;
+  color: var(--teal);
+  white-space: nowrap;
+  font-size: clamp(0.62rem, 2.2vw, 0.85rem);
+}
+.ticket-duration span {
+  display: block;
+  position: relative;
+  border-bottom: 1px solid;
+  width: 100%;
+  margin: 0.7rem 0;
+}
+.ticket-duration span::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: -3px;
+  width: 6px;
+  height: 6px;
+  border: solid currentColor;
+  border-width: 1px 1px 0 0;
+  transform: rotate(45deg);
+}
+.ticket-fields {
+  display: grid;
+  grid-template-columns: minmax(70px, 1fr) minmax(0, 1.55fr);
+  gap: 0.85rem 1rem;
+  align-items: baseline;
+  margin: 1rem 0;
+}
+.ticket-fields dd {
+  font-weight: 650;
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+.ticket-traveler + .ticket-traveler {
+  padding-top: 1rem;
+  border-top: 1px solid var(--line);
+}
+.ticket-seat {
+  display: flex;
+  gap: 0.4rem 0.75rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.ticket-seat a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  border-radius: 2rem;
+  background: #e2f0ea;
+  color: var(--teal);
+  padding: 0.35rem 0.8rem;
+  text-decoration: none;
+}
+.ticket-seat a:hover {
+  text-decoration: underline;
+}
+.ticket-paper footer {
+  margin-top: 2rem;
+  font-size: 0.9rem;
+  overflow-wrap: anywhere;
+}
+.ticket-paper footer p {
+  margin: 0 0 0.9rem;
+}
+@media (max-width: 600px) {
+  .ticket-preview {
+    width: calc(100% - 36px);
+  }
+  .ticket-paper,
+  .ticket-document .ticket-carrier {
+    padding: 20px;
+  }
+  .ticket-stop > span {
+    font-size: 0.85rem;
+  }
+  .ticket-fields {
+    font-size: 0.94rem;
+  }
+}
+.airport-choice-link {
+  margin: 0.35rem 0 0;
+  padding: 0.2rem 0;
+  border: 0;
+  border-radius: 0;
+  color: var(--teal);
+  box-shadow: none;
+  background: transparent;
+  text-decoration: underline;
+}
 .hotel-gallery {
   display: flex;
   overflow: auto;

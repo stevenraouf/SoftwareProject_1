@@ -33,6 +33,7 @@ import {
 } from "./planner-data";
 import { DayDetails, DayForm } from "./day";
 import { TravelTools } from "./plan-travel";
+import { DiscoveryLead } from "./lead";
 
 export function Planner({ initial }: { initial?: InitialList<Page<Row>> }) {
   const refs = useRefs(),
@@ -46,44 +47,79 @@ export function Planner({ initial }: { initial?: InitialList<Page<Row>> }) {
     tab === "mine" && traveler ? "/itineraries?page=" + page : publicPath;
   const seed = initial?.path === publicPath ? initial : undefined;
   const result = useResource<Page<Row>>(path, seed?.data);
+  const featured = tab === "public" ? result.data?.items[0] : undefined;
+  const featuredId = featured?.id || featured?._id;
+  const author = useResource<Pick<Plan, "author">>(
+    featuredId ? "/itineraries/public/" + featuredId : null,
+  ).data?.author?.name;
+  const days = Array.isArray(featured?.days)
+    ? featured.days.length
+    : featured?.days;
   const member = (target: string) => (traveler ? target : signInLink(target));
+  const tabs = (
+    <nav className="discovery-tabs" aria-label="Planner views">
+      <Link
+        aria-current={tab === "public" ? "page" : undefined}
+        href="/planner"
+      >
+        Public itineraries
+      </Link>
+      {(!user || traveler) && (
+        <>
+          <Link
+            aria-current={tab === "mine" ? "page" : undefined}
+            href={member("/planner?section=mine")}
+          >
+            My itineraries
+          </Link>
+          <Link
+            aria-current={tab === "create" ? "page" : undefined}
+            href={member("/planner?section=create")}
+          >
+            Create itinerary
+          </Link>
+        </>
+      )}
+    </nav>
+  );
   return (
     <>
-      <header className="discovery-hero">
-        <div>
-          <span className="discovery-kicker">THE TRIP PLANNER</span>
-          <h1>Your itinerary</h1>
-          <p>Find a route worth following, or build your own day by day.</p>
-        </div>
-        <img
-          src="/art/parisTower.jpg"
-          alt="A view of the Eiffel Tower from the Seine"
-        />
+      <header className="discovery-intro">
+        <span className="discovery-kicker">Trip planner</span>
+        <h1 className="glass">
+          {tab === "public" ? "Borrow a little inspiration." : "Your itinerary"}
+        </h1>
+        <p>
+          {tab === "public"
+            ? "Public itineraries made by fellow travelers."
+            : "Build your trip day by day."}
+        </p>
       </header>
-      <nav className="discovery-tabs" aria-label="Planner views">
-        <Link
-          aria-current={tab === "public" ? "page" : undefined}
-          href="/planner"
-        >
-          Public itineraries
-        </Link>
-        {(!user || traveler) && (
-          <>
-            <Link
-              aria-current={tab === "mine" ? "page" : undefined}
-              href={member("/planner?section=mine")}
-            >
-              My itineraries
-            </Link>
-            <Link
-              aria-current={tab === "create" ? "page" : undefined}
-              href={member("/planner?section=create")}
-            >
-              Create itinerary
-            </Link>
-          </>
-        )}
-      </nav>
+      {tab === "public" && (
+        <DiscoveryLead
+          feature={
+            featured && featuredId
+              ? {
+                  href: "/itinerary/" + featuredId,
+                  title: featured.title,
+                  byline: [
+                    author,
+                    days + (days === 1 ? " day" : " days"),
+                    "Public",
+                  ]
+                    .filter(Boolean)
+                    .join(" · "),
+                }
+              : undefined
+          }
+          action={
+            user && !traveler
+              ? { href: "#plan-search", label: "Find a route" }
+              : { href: member("/planner?section=mine"), label: "My planner" }
+          }
+        />
+      )}
+      {tab !== "public" && tabs}
       {tab === "create" ? (
         <section className="panel">
           <h2>Create an itinerary</h2>
@@ -96,12 +132,12 @@ export function Planner({ initial }: { initial?: InitialList<Page<Row>> }) {
           )}
         </section>
       ) : (
-        <>
+        <section className={tab === "public" ? "discovery-results" : undefined}>
           {tab === "mine" ? (
             <h2>My itineraries</h2>
           ) : (
-            <section className="panel">
-              <h2>Explore public itineraries</h2>
+            <section className="panel" id="plan-search">
+              <h2>Find your kind of trip</h2>
               <Editor
                 key={query(filters)}
                 fields={[
@@ -208,8 +244,9 @@ export function Planner({ initial }: { initial?: InitialList<Page<Row>> }) {
               retry={result.reload}
             />
           )}
-        </>
+        </section>
       )}
+      {tab === "public" && tabs}
     </>
   );
 }

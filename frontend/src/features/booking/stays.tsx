@@ -26,6 +26,13 @@ import {
   type Review,
   type Booking,
 } from "./shared";
+import {
+  readableDate,
+  stayNights,
+  StayPickerDialog,
+  type StayParty,
+  type StayPicker,
+} from "./stay-pickers";
 
 const criteria = [
   "destination",
@@ -58,30 +65,71 @@ function validStayDates(form: HTMLFormElement, timeZone = "Etc/GMT+12") {
   return true;
 }
 export function StaySearch() {
-  const q = useSearchParams(),
-    router = useRouter(),
-    params = Object.fromEntries(criteria.map((k) => [k, q.get(k) || ""])),
-    str = qs(params);
+  const q = useSearchParams();
+  const params = Object.fromEntries(criteria.map((k) => [k, q.get(k) || ""]));
+  const childCount = q.get("stayChildren") || "";
+  return (
+    <StaySearchPage
+      key={q.toString()}
+      params={params}
+      childCount={childCount}
+    />
+  );
+}
+
+function StaySearchPage({
+  params,
+  childCount,
+}: {
+  params: Record<string, string>;
+  childCount: string;
+}) {
+  const router = useRouter();
+  const str = qs(params);
   const active = !!(params.destination && params.checkIn && params.checkOut);
   const result = useLoad<Page<Hotel>>(active ? "/hotels/search?" + str : null);
+  const guests = Math.max(
+    1,
+    Math.min(100, Math.floor(Number(params.guests) || 1)),
+  );
+  const children = Math.max(
+    0,
+    Math.min(guests - 1, Math.floor(Number(childCount) || 0)),
+  );
+  const [party, setParty] = useState<StayParty>({
+    rooms: Math.max(1, Math.min(20, Math.floor(Number(params.rooms) || 1))),
+    adults: guests - children,
+    children,
+  });
+  const [dates, setDates] = useState({
+    checkIn: params.checkIn,
+    checkOut: params.checkOut,
+  });
+  const [picker, setPicker] = useState<StayPicker | null>(null);
+  const today = new Intl.DateTimeFormat("sv-SE", {
+    timeZone: "Etc/GMT+12",
+  }).format(new Date());
+  const count = party.adults + party.children;
+  const nights = stayNights(dates);
+  const extra = children ? { stayChildren: String(children) } : {};
   return (
-    <main className="booking-view stack">
-      <header className="stay-hero">
-        <div>
-          <p className="eyebrow">Stays</p>
-          <h1>Find a place to stay</h1>
-          <p>Search by city or country and choose rooms for your whole stay.</p>
-        </div>
-        <img
-          src="/art/hotelRoom.jpg"
-          alt="Sunlit guest room opening onto a garden"
-        />
+    <main className="booking-view stay-search stack">
+      <header>
+        <p className="eyebrow">Stays</p>
+        <h1 className="glass">Find a place to stay</h1>
+        <p>Search by city or country and choose the rooms you need.</p>
       </header>
+      <nav className="stay-modes" aria-label="Search type">
+        <Link href="/stays" aria-current="page">
+          Hotels
+        </Link>
+        <Link href="/flights">Flights</Link>
+      </nav>
       <form
-        className="panel stack"
+        className="stack"
         key={str}
         onSubmit={submit((f) => {
-          if (!validStayDates(f)) return;
+          if (!nights || dates.checkIn < today) return setPicker("dates");
           const values = formData(f);
           if (
             values.minPrice &&
@@ -93,35 +141,73 @@ export function StaySearch() {
               "maxPrice",
               "Maximum nightly price must be at least the minimum price.",
             );
-          router.push("/stays?" + qs(values));
+          router.push(
+            "/stays?" +
+              qs({
+                ...values,
+                ...dates,
+                guests: count,
+                rooms: party.rooms,
+                stayChildren: party.children || "",
+              }),
+          );
         })}
       >
-        <div className="grid">
-          <Field label="Destination">
-            <input
-              required
-              name="destination"
-              placeholder="City or country"
-              defaultValue={params.destination}
-            />
-          </Field>
-          {["checkIn", "checkOut"].map((k, i) => (
-            <Field key={k} label={i ? "Check-out" : "Check-in"}>
-              <input type="date" required name={k} defaultValue={params[k]} />
-            </Field>
-          ))}
-          {["guests", "rooms"].map((k, i) => (
-            <Field key={k} label={i ? "Rooms" : "Guests"}>
+        <div className="stay-search-grid">
+          <div className="stack">
+            <section className="panel">
+              <label htmlFor="stay-destination" className="stay-panel-title">
+                Destination
+              </label>
               <input
-                name={k}
-                type="number"
-                min={1}
-                max={i ? 20 : 100}
-                defaultValue={params[k] || 1}
+                id="stay-destination"
                 required
+                name="destination"
+                placeholder="City or country"
+                defaultValue={params.destination}
               />
-            </Field>
-          ))}
+            </section>
+            <section className="panel">
+              <h2>Rooms &amp; guests</h2>
+              <p>
+                {count} {count === 1 ? "guest" : "guests"} · {party.rooms}{" "}
+                {party.rooms === 1 ? "room" : "rooms"}
+              </p>
+              <p className="stay-divider">
+                Availability is checked across your whole stay.
+              </p>
+              <button
+                type="button"
+                className="stay-text-action"
+                onClick={() => setPicker("party")}
+              >
+                Choose rooms and guests →
+              </button>
+            </section>
+          </div>
+          <section className="panel">
+            <h2>Stay dates</h2>
+            <div className="stay-date-summary">
+              <small>Check-in</small>
+              {readableDate(dates.checkIn)}
+            </div>
+            <div className="stay-date-summary">
+              <small>Check-out</small>
+              {readableDate(dates.checkOut)}
+            </div>
+            {nights > 0 && (
+              <p className="stay-divider">
+                {nights} {nights === 1 ? "night" : "nights"}
+              </p>
+            )}
+            <button
+              type="button"
+              className="stay-text-action"
+              onClick={() => setPicker("dates")}
+            >
+              Choose stay dates →
+            </button>
+          </section>
         </div>
         <details
           open={!!(params.minPrice || params.maxPrice || params.minRating)}
@@ -158,8 +244,22 @@ export function StaySearch() {
             </Field>
           </div>
         </details>
-        <button className="button">Search stays →</button>
+        <div className="actions">
+          <button className="button">Search stays</button>
+          <Link href="/flights">Search flights</Link>
+        </div>
       </form>
+      {picker && (
+        <StayPickerDialog
+          picker={picker}
+          dates={dates}
+          party={party}
+          onDates={setDates}
+          onParty={setParty}
+          today={today}
+          onClose={() => setPicker(null)}
+        />
+      )}
       {active && <Status state={result} />}{" "}
       {result.data && (
         <section className="stack">
@@ -209,7 +309,9 @@ export function StaySearch() {
           <Pager
             page={result.data.page}
             pages={result.data.pages}
-            onPage={(page) => router.push("/stays?" + qs({ ...params, page }))}
+            onPage={(page) =>
+              router.push("/stays?" + qs({ ...params, ...extra, page }))
+            }
           />
         </section>
       )}
