@@ -12,11 +12,13 @@
     ],
     "implementation": [
       "backend/src/auth/auth.ts",
-      "backend/src/admin/admin.ts"
+      "backend/src/admin/admin.ts",
+      "frontend/src/components/account.tsx",
+      "frontend/src/lib/session.tsx"
     ],
-    "status": "Backend implemented; acceptance evidence requires review",
-    "notes": "Consent/password validation and unique-email index; inline UI belongs to M2.",
-    "verification": "backend/test/integration/platform.spec.ts; backend/test/unit/rules.spec.ts; docs/milestone-1/REVIEW_AND_VERIFICATION.md"
+    "status": "Implementation mapped with representative module checks",
+    "notes": "Registration validates consent, password and email. Browser coverage checks inline errors.",
+    "verification": "backend/test/integration/platform.spec.ts; frontend/tests/account.spec.ts; docs/milestone-2/evidence/acceptance-2026-11-25.json"
   },
   {
     "id": "ACC-04",
@@ -34,11 +36,13 @@
     ],
     "implementation": [
       "backend/src/auth/auth.ts",
-      "backend/src/admin/admin.ts"
+      "backend/src/admin/admin.ts",
+      "frontend/src/components/account.tsx",
+      "frontend/src/lib/session.tsx"
     ],
-    "status": "Backend implemented; acceptance evidence requires review",
-    "notes": "Role landing path returned by API; actual dashboard pages belong to M2.",
-    "verification": "backend/test/integration/platform.spec.ts; backend/test/unit/rules.spec.ts; docs/milestone-1/REVIEW_AND_VERIFICATION.md"
+    "status": "Implementation mapped with representative module checks",
+    "notes": "Login selects the workspace for the authenticated role.",
+    "verification": "backend/test/integration/platform.spec.ts; frontend/tests/account.spec.ts; docs/milestone-2/evidence/acceptance-2026-11-25.json"
   },
   {
     "id": "ACC-05",
@@ -55,11 +59,13 @@
     ],
     "implementation": [
       "backend/src/auth/auth.ts",
-      "backend/src/admin/admin.ts"
+      "backend/src/admin/admin.ts",
+      "frontend/src/components/account.tsx",
+      "frontend/src/lib/session.tsx"
     ],
-    "status": "Backend implemented; acceptance evidence requires review",
-    "notes": "Source is implemented. Local tests cover representative module workflows; this row is not a claim of exhaustive requirement acceptance.",
-    "verification": "backend/test/integration/platform.spec.ts; backend/test/unit/rules.spec.ts; docs/milestone-1/REVIEW_AND_VERIFICATION.md"
+    "status": "Implementation mapped with representative module checks",
+    "notes": "Representative account, provider and audit workflows are covered.",
+    "verification": "backend/test/integration/platform.spec.ts; frontend/tests/account.spec.ts; docs/milestone-2/evidence/acceptance-2026-11-25.json"
   },
   {
     "id": "ACC-06",
@@ -78,11 +84,13 @@
     ],
     "implementation": [
       "backend/src/auth/auth.ts",
-      "backend/src/admin/admin.ts"
+      "backend/src/admin/admin.ts",
+      "frontend/src/components/account.tsx",
+      "frontend/src/lib/session.tsx"
     ],
-    "status": "Backend implemented; acceptance evidence requires review",
-    "notes": "Server inactivity, refresh revocation and cookie clearing are implemented.",
-    "verification": "backend/test/integration/platform.spec.ts; backend/test/unit/rules.spec.ts; docs/milestone-1/REVIEW_AND_VERIFICATION.md"
+    "status": "Implementation mapped with representative module checks",
+    "notes": "Representative account, provider and audit workflows are covered.",
+    "verification": "backend/test/integration/platform.spec.ts; frontend/tests/account.spec.ts; docs/milestone-2/evidence/acceptance-2026-11-25.json"
   },
   {
     "id": "ACC-07a",
@@ -100,11 +108,12 @@
     ],
     "implementation": [
       "backend/src/auth/auth.ts",
-      "backend/src/admin/admin.ts"
+      "backend/src/admin/admin.ts",
+      "frontend/src/features/staff/admin.tsx"
     ],
-    "status": "Backend implemented; acceptance evidence requires review",
-    "notes": "Source is implemented. Local tests cover representative module workflows; this row is not a claim of exhaustive requirement acceptance.",
-    "verification": "backend/test/integration/platform.spec.ts; backend/test/unit/rules.spec.ts; docs/milestone-1/REVIEW_AND_VERIFICATION.md"
+    "status": "Implementation mapped with representative module checks",
+    "notes": "Representative account, provider and audit workflows are covered.",
+    "verification": "backend/test/integration/platform.spec.ts; frontend/tests/staff.spec.ts; docs/milestone-2/evidence/acceptance-2026-11-25.json"
   },
   {
     "id": "ACC-08",
@@ -121,11 +130,13 @@
     ],
     "implementation": [
       "backend/src/auth/auth.ts",
-      "backend/src/admin/admin.ts"
+      "backend/src/admin/admin.ts",
+      "frontend/src/components/account.tsx",
+      "frontend/src/lib/session.tsx"
     ],
-    "status": "Backend implemented; acceptance evidence requires review",
-    "notes": "Source is implemented. Local tests cover representative module workflows; this row is not a claim of exhaustive requirement acceptance.",
-    "verification": "backend/test/integration/platform.spec.ts; backend/test/unit/rules.spec.ts; docs/milestone-1/REVIEW_AND_VERIFICATION.md"
+    "status": "Implementation mapped with representative module checks",
+    "notes": "Representative account, provider and audit workflows are covered.",
+    "verification": "backend/test/integration/platform.spec.ts; frontend/tests/account.spec.ts; docs/milestone-2/evidence/acceptance-2026-11-25.json"
   },
   {
     "id": "ACC-09",
@@ -142,11 +153,13 @@
     ],
     "implementation": [
       "backend/src/auth/auth.ts",
-      "backend/src/admin/admin.ts"
+      "backend/src/admin/admin.ts",
+      "frontend/src/components/account.tsx",
+      "frontend/src/lib/session.tsx"
     ],
-    "status": "Backend implemented; acceptance evidence requires review",
-    "notes": "Source is implemented. Local tests cover representative module workflows; this row is not a claim of exhaustive requirement acceptance.",
-    "verification": "backend/test/integration/platform.spec.ts; backend/test/unit/rules.spec.ts; docs/milestone-1/REVIEW_AND_VERIFICATION.md"
+    "status": "Implementation mapped with representative module checks",
+    "notes": "Representative account, provider and audit workflows are covered.",
+    "verification": "backend/test/integration/platform.spec.ts; frontend/tests/account.spec.ts; docs/milestone-2/evidence/acceptance-2026-11-25.json"
   },
   {
     "id": "ACC-10",
@@ -161,11 +174,15 @@
     "endpoints": [],
     "implementation": [
       "backend/src/auth/auth.ts",
-      "backend/src/admin/admin.ts"
+      "backend/src/admin/admin.ts",
+      "frontend/src/components/account.tsx",
+      "frontend/src/features/booking/flights.tsx",
+      "frontend/src/features/booking/stays.tsx",
+      "frontend/src/features/discovery/planner.tsx"
     ],
-    "status": "Backend implemented; acceptance evidence requires review",
-    "notes": "Restricted APIs return 401. Login redirect and return-to-action navigation belong to M2.",
-    "verification": "backend/test/integration/platform.spec.ts; backend/test/unit/rules.spec.ts; docs/milestone-1/REVIEW_AND_VERIFICATION.md"
+    "status": "Implementation mapped with representative module checks",
+    "notes": "Login restores the protected destination. Browser tests cover guest flight and hotel handoffs and a forced password change.",
+    "verification": "backend/test/integration/platform.spec.ts; frontend/tests/booking.spec.ts; frontend/tests/public-rendering.spec.ts; docs/milestone-2/evidence/acceptance-2026-11-25.json"
   },
   {
     "id": "ACC-11",
@@ -182,11 +199,16 @@
     ],
     "implementation": [
       "backend/src/auth/auth.ts",
-      "backend/src/admin/admin.ts"
+      "backend/src/itineraries/itineraries.ts",
+      "backend/src/bookings/bookings.ts",
+      "frontend/src/components/account.tsx",
+      "frontend/src/features/booking/flights.tsx",
+      "frontend/src/features/booking/stays.tsx",
+      "frontend/src/features/discovery/planner.tsx"
     ],
-    "status": "Backend implemented; acceptance evidence requires review",
-    "notes": "Source is implemented. Local tests cover representative module workflows; this row is not a claim of exhaustive requirement acceptance.",
-    "verification": "backend/test/integration/platform.spec.ts; backend/test/unit/rules.spec.ts; docs/milestone-1/REVIEW_AND_VERIFICATION.md"
+    "status": "Implementation mapped with representative module checks",
+    "notes": "Representative account, provider and audit workflows are covered.",
+    "verification": "backend/test/integration/platform.spec.ts; frontend/tests/booking.spec.ts; frontend/tests/public-rendering.spec.ts; docs/milestone-2/evidence/acceptance-2026-11-25.json"
   },
   {
     "id": "ACC-12",
@@ -204,11 +226,13 @@
     ],
     "implementation": [
       "backend/src/auth/auth.ts",
-      "backend/src/admin/admin.ts"
+      "backend/src/admin/admin.ts",
+      "frontend/src/components/account.tsx",
+      "frontend/src/lib/session.tsx"
     ],
-    "status": "Backend implemented; acceptance evidence requires review",
-    "notes": "Source is implemented. Local tests cover representative module workflows; this row is not a claim of exhaustive requirement acceptance.",
-    "verification": "backend/test/integration/platform.spec.ts; backend/test/unit/rules.spec.ts; docs/milestone-1/REVIEW_AND_VERIFICATION.md"
+    "status": "Implementation mapped with representative module checks",
+    "notes": "Representative account, provider and audit workflows are covered.",
+    "verification": "backend/test/integration/platform.spec.ts; frontend/tests/account.spec.ts; docs/milestone-2/evidence/acceptance-2026-11-25.json"
   },
   {
     "id": "ACC-13",
@@ -223,15 +247,17 @@
     "complexity": "Medium",
     "classification": "Mandatory",
     "endpoints": [
-      "POST /api/admin/moderators"
+      "POST /api/admin/moderators",
+      "GET /api/admin/providers"
     ],
     "implementation": [
       "backend/src/auth/auth.ts",
-      "backend/src/admin/admin.ts"
+      "backend/src/admin/admin.ts",
+      "frontend/src/features/staff/admin.tsx"
     ],
-    "status": "Backend implemented; acceptance evidence requires review",
-    "notes": "Source is implemented. Local tests cover representative module workflows; this row is not a claim of exhaustive requirement acceptance.",
-    "verification": "backend/test/integration/platform.spec.ts; backend/test/unit/rules.spec.ts; docs/milestone-1/REVIEW_AND_VERIFICATION.md"
+    "status": "Implementation mapped with representative module checks",
+    "notes": "Representative account, provider and audit workflows are covered.",
+    "verification": "backend/test/integration/platform.spec.ts; frontend/tests/staff.spec.ts; docs/milestone-2/evidence/acceptance-2026-11-25.json"
   },
   {
     "id": "ACC-14",
@@ -248,11 +274,12 @@
     ],
     "implementation": [
       "backend/src/auth/auth.ts",
-      "backend/src/admin/admin.ts"
+      "backend/src/admin/admin.ts",
+      "frontend/src/features/staff/admin.tsx"
     ],
-    "status": "Backend implemented; acceptance evidence requires review",
-    "notes": "Source is implemented. Local tests cover representative module workflows; this row is not a claim of exhaustive requirement acceptance.",
-    "verification": "backend/test/integration/platform.spec.ts; backend/test/unit/rules.spec.ts; docs/milestone-1/REVIEW_AND_VERIFICATION.md"
+    "status": "Implementation mapped with representative module checks",
+    "notes": "Representative account, provider and audit workflows are covered.",
+    "verification": "backend/test/integration/platform.spec.ts; frontend/tests/staff.spec.ts; docs/milestone-2/evidence/acceptance-2026-11-25.json"
   },
   {
     "id": "ACC-15",
@@ -266,6 +293,7 @@
     "complexity": "Medium",
     "classification": "Mandatory",
     "endpoints": [
+      "GET /api/admin/providers",
       "PATCH /api/admin/accounts/{id}/suspend",
       "PATCH /api/admin/accounts/{id}/reactivate",
       "PATCH /api/admin/providers/{type}/{id}/deactivate",
@@ -273,11 +301,12 @@
     ],
     "implementation": [
       "backend/src/auth/auth.ts",
-      "backend/src/admin/admin.ts"
+      "backend/src/admin/admin.ts",
+      "frontend/src/features/staff/admin.tsx"
     ],
-    "status": "Backend implemented; acceptance evidence requires review",
-    "notes": "Source is implemented. Local tests cover representative module workflows; this row is not a claim of exhaustive requirement acceptance.",
-    "verification": "backend/test/integration/platform.spec.ts; backend/test/unit/rules.spec.ts; docs/milestone-1/REVIEW_AND_VERIFICATION.md"
+    "status": "Implementation mapped with representative module checks",
+    "notes": "Representative account, provider and audit workflows are covered.",
+    "verification": "backend/test/integration/platform.spec.ts; frontend/tests/staff.spec.ts; docs/milestone-2/evidence/acceptance-2026-11-25.json"
   },
   {
     "id": "ACC-16",
@@ -295,11 +324,12 @@
     ],
     "implementation": [
       "backend/src/auth/auth.ts",
-      "backend/src/admin/admin.ts"
+      "backend/src/admin/admin.ts",
+      "frontend/src/features/staff/admin.tsx"
     ],
-    "status": "Backend implemented; acceptance evidence requires review",
-    "notes": "Source is implemented. Local tests cover representative module workflows; this row is not a claim of exhaustive requirement acceptance.",
-    "verification": "backend/test/integration/platform.spec.ts; backend/test/unit/rules.spec.ts; docs/milestone-1/REVIEW_AND_VERIFICATION.md"
+    "status": "Implementation mapped with representative module checks",
+    "notes": "Representative account, provider and audit workflows are covered.",
+    "verification": "backend/test/integration/platform.spec.ts; frontend/tests/staff.spec.ts; docs/milestone-2/evidence/acceptance-2026-11-25.json"
   },
   {
     "id": "ACC-17",
@@ -317,11 +347,12 @@
     ],
     "implementation": [
       "backend/src/auth/auth.ts",
-      "backend/src/admin/admin.ts"
+      "backend/src/admin/admin.ts",
+      "frontend/src/features/staff/admin.tsx"
     ],
-    "status": "Backend implemented; acceptance evidence requires review",
-    "notes": "Source is implemented. Local tests cover representative module workflows; this row is not a claim of exhaustive requirement acceptance.",
-    "verification": "backend/test/integration/platform.spec.ts; backend/test/unit/rules.spec.ts; docs/milestone-1/REVIEW_AND_VERIFICATION.md"
+    "status": "Implementation mapped with representative module checks",
+    "notes": "Representative account, provider and audit workflows are covered.",
+    "verification": "backend/test/integration/platform.spec.ts; frontend/tests/staff.spec.ts; docs/milestone-2/evidence/acceptance-2026-11-25.json"
   },
   {
     "id": "FLT-01",
@@ -343,11 +374,13 @@
     "implementation": [
       "backend/src/flights/flights.ts",
       "backend/src/bookings/inventory.ts",
-      "backend/src/bookings/bookings.ts"
+      "backend/src/bookings/bookings.ts",
+      "frontend/src/features/staff/admin.tsx",
+      "frontend/src/features/staff/provider.tsx"
     ],
-    "status": "Backend implemented; acceptance evidence requires review",
-    "notes": "Source is implemented. Local tests cover representative module workflows; this row is not a claim of exhaustive requirement acceptance.",
-    "verification": "backend/test/integration/platform.spec.ts; backend/test/unit/rules.spec.ts; docs/milestone-1/REVIEW_AND_VERIFICATION.md"
+    "status": "Implementation mapped with representative module checks",
+    "notes": "Representative flight scheduling, search, holds and ticket workflows are covered.",
+    "verification": "backend/test/integration/platform.spec.ts; frontend/tests/staff.spec.ts; docs/milestone-2/evidence/acceptance-2026-11-25.json"
   },
   {
     "id": "FLT-02",
@@ -363,13 +396,14 @@
       "GET /api/airports"
     ],
     "implementation": [
-      "backend/src/flights/flights.ts",
-      "backend/src/bookings/inventory.ts",
-      "backend/src/bookings/bookings.ts"
+      "backend/src/support/support.ts",
+      "backend/src/seed.ts",
+      "frontend/src/features/booking/flights.tsx",
+      "backend/data/reference.json"
     ],
-    "status": "Backend implemented; acceptance evidence requires review",
-    "notes": "Source is implemented. Local tests cover representative module workflows; this row is not a claim of exhaustive requirement acceptance.",
-    "verification": "backend/test/integration/platform.spec.ts; backend/test/unit/rules.spec.ts; docs/milestone-1/REVIEW_AND_VERIFICATION.md"
+    "status": "Implementation mapped with representative module checks",
+    "notes": "Representative flight scheduling, search, holds and ticket workflows are covered.",
+    "verification": "backend/test/integration/platform.spec.ts; frontend/tests/booking.spec.ts; docs/milestone-2/evidence/acceptance-2026-11-25.json"
   },
   {
     "id": "FLT-03",
@@ -383,16 +417,18 @@
     "complexity": "Medium",
     "classification": "Mandatory",
     "endpoints": [
+      "GET /api/airlines/{id}/flights",
       "POST /api/flights"
     ],
     "implementation": [
       "backend/src/flights/flights.ts",
       "backend/src/bookings/inventory.ts",
-      "backend/src/bookings/bookings.ts"
+      "backend/src/bookings/bookings.ts",
+      "frontend/src/features/staff/airline.tsx"
     ],
-    "status": "Backend implemented; acceptance evidence requires review",
-    "notes": "Source is implemented. Local tests cover representative module workflows; this row is not a claim of exhaustive requirement acceptance.",
-    "verification": "backend/test/integration/platform.spec.ts; backend/test/unit/rules.spec.ts; docs/milestone-1/REVIEW_AND_VERIFICATION.md"
+    "status": "Implementation mapped with representative module checks",
+    "notes": "Representative flight scheduling, search, holds and ticket workflows are covered.",
+    "verification": "backend/test/integration/platform.spec.ts; frontend/tests/staff.spec.ts; docs/milestone-2/evidence/acceptance-2026-11-25.json"
   },
   {
     "id": "FLT-04",
@@ -411,11 +447,12 @@
     "implementation": [
       "backend/src/flights/flights.ts",
       "backend/src/bookings/inventory.ts",
-      "backend/src/bookings/bookings.ts"
+      "backend/src/bookings/bookings.ts",
+      "frontend/src/features/staff/airline.tsx"
     ],
-    "status": "Backend implemented; acceptance evidence requires review",
-    "notes": "Source is implemented. Local tests cover representative module workflows; this row is not a claim of exhaustive requirement acceptance.",
-    "verification": "backend/test/integration/platform.spec.ts; backend/test/unit/rules.spec.ts; docs/milestone-1/REVIEW_AND_VERIFICATION.md"
+    "status": "Implementation mapped with representative module checks",
+    "notes": "Representative flight scheduling, search, holds and ticket workflows are covered.",
+    "verification": "backend/test/integration/platform.spec.ts; frontend/tests/staff.spec.ts; docs/milestone-2/evidence/acceptance-2026-11-25.json"
   },
   {
     "id": "FLT-05",
@@ -431,17 +468,19 @@
     "complexity": "Medium",
     "classification": "Mandatory",
     "endpoints": [
+      "GET /api/airlines/{id}/flights",
       "PATCH /api/flights/{id}",
       "PATCH /api/flights/{id}/cabins/{cabinId}"
     ],
     "implementation": [
       "backend/src/flights/flights.ts",
       "backend/src/bookings/inventory.ts",
-      "backend/src/bookings/bookings.ts"
+      "backend/src/bookings/bookings.ts",
+      "frontend/src/features/staff/airline.tsx"
     ],
-    "status": "Backend implemented; acceptance evidence requires review",
-    "notes": "Source is implemented. Local tests cover representative module workflows; this row is not a claim of exhaustive requirement acceptance.",
-    "verification": "backend/test/integration/platform.spec.ts; backend/test/unit/rules.spec.ts; docs/milestone-1/REVIEW_AND_VERIFICATION.md"
+    "status": "Implementation mapped with representative module checks",
+    "notes": "Representative flight scheduling, search, holds and ticket workflows are covered.",
+    "verification": "backend/test/integration/platform.spec.ts; frontend/tests/staff.spec.ts; docs/milestone-2/evidence/acceptance-2026-11-25.json"
   },
   {
     "id": "FLT-06",
@@ -462,11 +501,12 @@
     "implementation": [
       "backend/src/flights/flights.ts",
       "backend/src/bookings/inventory.ts",
-      "backend/src/bookings/bookings.ts"
+      "backend/src/bookings/bookings.ts",
+      "frontend/src/features/staff/airline.tsx"
     ],
-    "status": "Backend implemented; acceptance evidence requires review",
-    "notes": "Source is implemented. Local tests cover representative module workflows; this row is not a claim of exhaustive requirement acceptance.",
-    "verification": "backend/test/integration/platform.spec.ts; backend/test/unit/rules.spec.ts; docs/milestone-1/REVIEW_AND_VERIFICATION.md"
+    "status": "Implementation mapped with representative module checks",
+    "notes": "Representative flight scheduling, search, holds and ticket workflows are covered.",
+    "verification": "backend/test/integration/platform.spec.ts; frontend/tests/staff.spec.ts; docs/milestone-2/evidence/acceptance-2026-11-25.json"
   },
   {
     "id": "FLT-08",
@@ -484,11 +524,13 @@
     "implementation": [
       "backend/src/flights/flights.ts",
       "backend/src/bookings/inventory.ts",
-      "backend/src/bookings/bookings.ts"
+      "backend/src/bookings/bookings.ts",
+      "frontend/src/features/staff/provider.tsx",
+      "frontend/src/features/booking/shared.tsx"
     ],
-    "status": "Backend implemented; acceptance evidence requires review",
-    "notes": "Source is implemented. Local tests cover representative module workflows; this row is not a claim of exhaustive requirement acceptance.",
-    "verification": "backend/test/integration/platform.spec.ts; backend/test/unit/rules.spec.ts; docs/milestone-1/REVIEW_AND_VERIFICATION.md"
+    "status": "Implementation mapped with representative module checks",
+    "notes": "Representative flight scheduling, search, holds and ticket workflows are covered.",
+    "verification": "backend/test/integration/platform.spec.ts; frontend/tests/staff-pagination.spec.ts; frontend/tests/booking.spec.ts; docs/milestone-2/evidence/acceptance-2026-11-25.json"
   },
   {
     "id": "FLT-09",
@@ -506,11 +548,13 @@
     "implementation": [
       "backend/src/flights/flights.ts",
       "backend/src/bookings/inventory.ts",
-      "backend/src/bookings/bookings.ts"
+      "backend/src/bookings/bookings.ts",
+      "frontend/src/features/staff/provider.tsx",
+      "frontend/src/features/booking/shared.tsx"
     ],
-    "status": "Backend implemented; acceptance evidence requires review",
-    "notes": "Source is implemented. Local tests cover representative module workflows; this row is not a claim of exhaustive requirement acceptance.",
-    "verification": "backend/test/integration/platform.spec.ts; backend/test/unit/rules.spec.ts; docs/milestone-1/REVIEW_AND_VERIFICATION.md"
+    "status": "Implementation mapped with representative module checks",
+    "notes": "Representative flight scheduling, search, holds and ticket workflows are covered.",
+    "verification": "backend/test/integration/platform.spec.ts; frontend/tests/staff-pagination.spec.ts; frontend/tests/booking.spec.ts; docs/milestone-2/evidence/acceptance-2026-11-25.json"
   },
   {
     "id": "FLT-11",
@@ -531,11 +575,12 @@
     "implementation": [
       "backend/src/flights/flights.ts",
       "backend/src/bookings/inventory.ts",
-      "backend/src/bookings/bookings.ts"
+      "backend/src/bookings/bookings.ts",
+      "frontend/src/features/booking/flights.tsx"
     ],
-    "status": "Backend implemented; acceptance evidence requires review",
-    "notes": "Source is implemented. Local tests cover representative module workflows; this row is not a claim of exhaustive requirement acceptance.",
-    "verification": "backend/test/integration/platform.spec.ts; backend/test/unit/rules.spec.ts; docs/milestone-1/REVIEW_AND_VERIFICATION.md"
+    "status": "Implementation mapped with representative module checks",
+    "notes": "Representative flight scheduling, search, holds and ticket workflows are covered.",
+    "verification": "backend/test/integration/platform.spec.ts; frontend/tests/booking.spec.ts; docs/milestone-2/evidence/acceptance-2026-11-25.json"
   },
   {
     "id": "FLT-12",
@@ -554,11 +599,12 @@
     "implementation": [
       "backend/src/flights/flights.ts",
       "backend/src/bookings/inventory.ts",
-      "backend/src/bookings/bookings.ts"
+      "backend/src/bookings/bookings.ts",
+      "frontend/src/features/booking/flights.tsx"
     ],
-    "status": "Backend implemented; acceptance evidence requires review",
-    "notes": "Source is implemented. Local tests cover representative module workflows; this row is not a claim of exhaustive requirement acceptance.",
-    "verification": "backend/test/integration/platform.spec.ts; backend/test/unit/rules.spec.ts; docs/milestone-1/REVIEW_AND_VERIFICATION.md"
+    "status": "Implementation mapped with representative module checks",
+    "notes": "Representative flight scheduling, search, holds and ticket workflows are covered.",
+    "verification": "backend/test/integration/platform.spec.ts; frontend/tests/booking.spec.ts; docs/milestone-2/evidence/acceptance-2026-11-25.json"
   },
   {
     "id": "FLT-15",
@@ -576,11 +622,12 @@
     "implementation": [
       "backend/src/flights/flights.ts",
       "backend/src/bookings/inventory.ts",
-      "backend/src/bookings/bookings.ts"
+      "backend/src/bookings/bookings.ts",
+      "frontend/src/features/booking/flights.tsx"
     ],
-    "status": "Backend implemented; acceptance evidence requires review",
-    "notes": "Source is implemented. Local tests cover representative module workflows; this row is not a claim of exhaustive requirement acceptance.",
-    "verification": "backend/test/integration/platform.spec.ts; backend/test/unit/rules.spec.ts; docs/milestone-1/REVIEW_AND_VERIFICATION.md"
+    "status": "Implementation mapped with representative module checks",
+    "notes": "Representative flight scheduling, search, holds and ticket workflows are covered.",
+    "verification": "backend/test/integration/platform.spec.ts; frontend/tests/booking.spec.ts; docs/milestone-2/evidence/acceptance-2026-11-25.json"
   },
   {
     "id": "FLT-17",
@@ -598,11 +645,12 @@
     "implementation": [
       "backend/src/flights/flights.ts",
       "backend/src/bookings/inventory.ts",
-      "backend/src/bookings/bookings.ts"
+      "backend/src/bookings/bookings.ts",
+      "frontend/src/features/booking/flights.tsx"
     ],
-    "status": "Backend implemented; acceptance evidence requires review",
-    "notes": "Source is implemented. Local tests cover representative module workflows; this row is not a claim of exhaustive requirement acceptance.",
-    "verification": "backend/test/integration/platform.spec.ts; backend/test/unit/rules.spec.ts; docs/milestone-1/REVIEW_AND_VERIFICATION.md"
+    "status": "Implementation mapped with representative module checks",
+    "notes": "Representative flight scheduling, search, holds and ticket workflows are covered.",
+    "verification": "backend/test/integration/platform.spec.ts; frontend/tests/booking.spec.ts; docs/milestone-2/evidence/acceptance-2026-11-25.json"
   },
   {
     "id": "FLT-19",
@@ -621,11 +669,12 @@
     "implementation": [
       "backend/src/flights/flights.ts",
       "backend/src/bookings/inventory.ts",
-      "backend/src/bookings/bookings.ts"
+      "backend/src/bookings/bookings.ts",
+      "frontend/src/features/booking/flights.tsx"
     ],
-    "status": "Backend implemented; acceptance evidence requires review",
-    "notes": "Source is implemented. Local tests cover representative module workflows; this row is not a claim of exhaustive requirement acceptance.",
-    "verification": "backend/test/integration/platform.spec.ts; backend/test/unit/rules.spec.ts; docs/milestone-1/REVIEW_AND_VERIFICATION.md"
+    "status": "Implementation mapped with representative module checks",
+    "notes": "Representative flight scheduling, search, holds and ticket workflows are covered.",
+    "verification": "backend/test/integration/platform.spec.ts; frontend/tests/booking.spec.ts; docs/milestone-2/evidence/acceptance-2026-11-25.json"
   },
   {
     "id": "FLT-21",
@@ -643,11 +692,12 @@
     "implementation": [
       "backend/src/flights/flights.ts",
       "backend/src/bookings/inventory.ts",
-      "backend/src/bookings/bookings.ts"
+      "backend/src/bookings/bookings.ts",
+      "frontend/src/features/booking/flights.tsx"
     ],
-    "status": "Backend implemented; acceptance evidence requires review",
-    "notes": "Source is implemented. Local tests cover representative module workflows; this row is not a claim of exhaustive requirement acceptance.",
-    "verification": "backend/test/integration/platform.spec.ts; backend/test/unit/rules.spec.ts; docs/milestone-1/REVIEW_AND_VERIFICATION.md"
+    "status": "Implementation mapped with representative module checks",
+    "notes": "Representative flight scheduling, search, holds and ticket workflows are covered.",
+    "verification": "backend/test/integration/platform.spec.ts; frontend/tests/booking.spec.ts; docs/milestone-2/evidence/acceptance-2026-11-25.json"
   },
   {
     "id": "FLT-22",
@@ -666,11 +716,13 @@
     "implementation": [
       "backend/src/flights/flights.ts",
       "backend/src/bookings/inventory.ts",
-      "backend/src/bookings/bookings.ts"
+      "backend/src/bookings/bookings.ts",
+      "frontend/src/features/booking/payment.tsx",
+      "frontend/src/features/booking/trips.tsx"
     ],
-    "status": "Backend implemented; acceptance evidence requires review",
-    "notes": "Source is implemented. Local tests cover representative module workflows; this row is not a claim of exhaustive requirement acceptance.",
-    "verification": "backend/test/integration/platform.spec.ts; backend/test/unit/rules.spec.ts; docs/milestone-1/REVIEW_AND_VERIFICATION.md"
+    "status": "Implementation mapped with representative module checks",
+    "notes": "Representative flight scheduling, search, holds and ticket workflows are covered.",
+    "verification": "backend/test/integration/platform.spec.ts; frontend/tests/booking.spec.ts; docs/milestone-2/evidence/acceptance-2026-11-25.json"
   },
   {
     "id": "FLT-23",
@@ -692,11 +744,13 @@
     "implementation": [
       "backend/src/flights/flights.ts",
       "backend/src/bookings/inventory.ts",
-      "backend/src/bookings/bookings.ts"
+      "backend/src/bookings/bookings.ts",
+      "frontend/src/features/booking/payment.tsx",
+      "frontend/src/features/booking/trips.tsx"
     ],
-    "status": "Backend implemented; acceptance evidence requires review",
-    "notes": "Source is implemented. Local tests cover representative module workflows; this row is not a claim of exhaustive requirement acceptance.",
-    "verification": "backend/test/integration/platform.spec.ts; backend/test/unit/rules.spec.ts; docs/milestone-1/REVIEW_AND_VERIFICATION.md"
+    "status": "Implementation mapped with representative module checks",
+    "notes": "Representative flight scheduling, search, holds and ticket workflows are covered.",
+    "verification": "backend/test/integration/platform.spec.ts; frontend/tests/booking.spec.ts; docs/milestone-2/evidence/acceptance-2026-11-25.json"
   },
   {
     "id": "FLT-25",
@@ -715,11 +769,12 @@
     "implementation": [
       "backend/src/flights/flights.ts",
       "backend/src/bookings/inventory.ts",
-      "backend/src/bookings/bookings.ts"
+      "backend/src/bookings/bookings.ts",
+      "frontend/src/features/booking/trips.tsx"
     ],
-    "status": "Backend implemented; acceptance evidence requires review",
-    "notes": "Source is implemented. Local tests cover representative module workflows; this row is not a claim of exhaustive requirement acceptance.",
-    "verification": "backend/test/integration/platform.spec.ts; backend/test/unit/rules.spec.ts; docs/milestone-1/REVIEW_AND_VERIFICATION.md"
+    "status": "Implementation mapped with representative module checks",
+    "notes": "Representative flight scheduling, search, holds and ticket workflows are covered.",
+    "verification": "backend/test/integration/platform.spec.ts; frontend/tests/booking.spec.ts; docs/milestone-2/evidence/acceptance-2026-11-25.json"
   },
   {
     "id": "FLT-26",
@@ -740,11 +795,12 @@
     "implementation": [
       "backend/src/flights/flights.ts",
       "backend/src/bookings/inventory.ts",
-      "backend/src/bookings/bookings.ts"
+      "backend/src/bookings/bookings.ts",
+      "frontend/src/features/booking/trips.tsx"
     ],
-    "status": "Backend implemented; acceptance evidence requires review",
-    "notes": "Source is implemented. Local tests cover representative module workflows; this row is not a claim of exhaustive requirement acceptance.",
-    "verification": "backend/test/integration/platform.spec.ts; backend/test/unit/rules.spec.ts; docs/milestone-1/REVIEW_AND_VERIFICATION.md"
+    "status": "Implementation mapped with representative module checks",
+    "notes": "Representative flight scheduling, search, holds and ticket workflows are covered.",
+    "verification": "backend/test/integration/platform.spec.ts; frontend/tests/booking.spec.ts; docs/milestone-2/evidence/acceptance-2026-11-25.json"
   },
   {
     "id": "FLT-29",
@@ -763,11 +819,12 @@
     "implementation": [
       "backend/src/flights/flights.ts",
       "backend/src/bookings/inventory.ts",
-      "backend/src/bookings/bookings.ts"
+      "backend/src/bookings/bookings.ts",
+      "frontend/src/features/staff/airline.tsx"
     ],
-    "status": "Backend implemented; acceptance evidence requires review",
-    "notes": "Source is implemented. Local tests cover representative module workflows; this row is not a claim of exhaustive requirement acceptance.",
-    "verification": "backend/test/integration/platform.spec.ts; backend/test/unit/rules.spec.ts; docs/milestone-1/REVIEW_AND_VERIFICATION.md"
+    "status": "Implementation mapped with representative module checks",
+    "notes": "Representative flight scheduling, search, holds and ticket workflows are covered.",
+    "verification": "backend/test/integration/platform.spec.ts; frontend/tests/staff.spec.ts; docs/milestone-2/evidence/acceptance-2026-11-25.json"
   },
   {
     "id": "HTL-01",
@@ -789,11 +846,13 @@
     "implementation": [
       "backend/src/hotels/hotels.ts",
       "backend/src/bookings/inventory.ts",
-      "backend/src/community/community.ts"
+      "backend/src/community/community.ts",
+      "frontend/src/features/staff/admin.tsx",
+      "frontend/src/features/staff/provider.tsx"
     ],
-    "status": "Backend implemented; acceptance evidence requires review",
-    "notes": "Source is implemented. Local tests cover representative module workflows; this row is not a claim of exhaustive requirement acceptance.",
-    "verification": "backend/test/integration/platform.spec.ts; backend/test/unit/rules.spec.ts; docs/milestone-1/REVIEW_AND_VERIFICATION.md"
+    "status": "Implementation mapped with representative module checks",
+    "notes": "Representative availability, room selection, reservation and staff workflows are covered.",
+    "verification": "backend/test/integration/platform.spec.ts; frontend/tests/staff.spec.ts; docs/milestone-2/evidence/acceptance-2026-11-25.json"
   },
   {
     "id": "HTL-02",
@@ -811,11 +870,12 @@
     "implementation": [
       "backend/src/hotels/hotels.ts",
       "backend/src/bookings/inventory.ts",
-      "backend/src/community/community.ts"
+      "backend/src/community/community.ts",
+      "frontend/src/features/booking/stays.tsx"
     ],
-    "status": "Backend implemented; acceptance evidence requires review",
-    "notes": "Source is implemented. Local tests cover representative module workflows; this row is not a claim of exhaustive requirement acceptance.",
-    "verification": "backend/test/integration/platform.spec.ts; backend/test/unit/rules.spec.ts; docs/milestone-1/REVIEW_AND_VERIFICATION.md"
+    "status": "Implementation mapped with representative module checks",
+    "notes": "Representative availability, room selection, reservation and staff workflows are covered.",
+    "verification": "backend/test/integration/platform.spec.ts; frontend/tests/booking.spec.ts; docs/milestone-2/evidence/acceptance-2026-11-25.json"
   },
   {
     "id": "HTL-03",
@@ -828,16 +888,18 @@
     "complexity": "Low",
     "classification": "Mandatory",
     "endpoints": [
+      "GET /api/hotels/{id}/rooms",
       "POST /api/hotels/{id}/rooms"
     ],
     "implementation": [
       "backend/src/hotels/hotels.ts",
       "backend/src/bookings/inventory.ts",
-      "backend/src/community/community.ts"
+      "backend/src/community/community.ts",
+      "frontend/src/features/staff/hotel.tsx"
     ],
-    "status": "Backend implemented; acceptance evidence requires review",
-    "notes": "Source is implemented. Local tests cover representative module workflows; this row is not a claim of exhaustive requirement acceptance.",
-    "verification": "backend/test/integration/platform.spec.ts; backend/test/unit/rules.spec.ts; docs/milestone-1/REVIEW_AND_VERIFICATION.md"
+    "status": "Implementation mapped with representative module checks",
+    "notes": "Representative availability, room selection, reservation and staff workflows are covered.",
+    "verification": "backend/test/integration/platform.spec.ts; frontend/tests/staff.spec.ts; frontend/tests/staff-pagination.spec.ts; docs/milestone-2/evidence/acceptance-2026-11-25.json"
   },
   {
     "id": "HTL-04",
@@ -855,11 +917,12 @@
     "implementation": [
       "backend/src/hotels/hotels.ts",
       "backend/src/bookings/inventory.ts",
-      "backend/src/community/community.ts"
+      "backend/src/community/community.ts",
+      "frontend/src/features/staff/hotel.tsx"
     ],
-    "status": "Backend implemented; acceptance evidence requires review",
-    "notes": "Source is implemented. Local tests cover representative module workflows; this row is not a claim of exhaustive requirement acceptance.",
-    "verification": "backend/test/integration/platform.spec.ts; backend/test/unit/rules.spec.ts; docs/milestone-1/REVIEW_AND_VERIFICATION.md"
+    "status": "Implementation mapped with representative module checks",
+    "notes": "Representative availability, room selection, reservation and staff workflows are covered.",
+    "verification": "backend/test/integration/platform.spec.ts; frontend/tests/staff.spec.ts; frontend/tests/staff-pagination.spec.ts; docs/milestone-2/evidence/acceptance-2026-11-25.json"
   },
   {
     "id": "HTL-05",
@@ -872,17 +935,19 @@
     "complexity": "Medium",
     "classification": "Mandatory",
     "endpoints": [
+      "GET /api/hotels/{id}/rooms",
       "PATCH /api/hotels/{id}/rooms/{roomId}",
       "PATCH /api/hotels/{id}/rooms/{roomId}/availability"
     ],
     "implementation": [
       "backend/src/hotels/hotels.ts",
       "backend/src/bookings/inventory.ts",
-      "backend/src/community/community.ts"
+      "backend/src/community/community.ts",
+      "frontend/src/features/staff/hotel.tsx"
     ],
-    "status": "Backend implemented; acceptance evidence requires review",
-    "notes": "Source is implemented. Local tests cover representative module workflows; this row is not a claim of exhaustive requirement acceptance.",
-    "verification": "backend/test/integration/platform.spec.ts; backend/test/unit/rules.spec.ts; docs/milestone-1/REVIEW_AND_VERIFICATION.md"
+    "status": "Implementation mapped with representative module checks",
+    "notes": "Representative availability, room selection, reservation and staff workflows are covered.",
+    "verification": "backend/test/integration/platform.spec.ts; frontend/tests/staff.spec.ts; frontend/tests/staff-pagination.spec.ts; docs/milestone-2/evidence/acceptance-2026-11-25.json"
   },
   {
     "id": "HTL-06",
@@ -903,11 +968,12 @@
     "implementation": [
       "backend/src/hotels/hotels.ts",
       "backend/src/bookings/inventory.ts",
-      "backend/src/community/community.ts"
+      "backend/src/community/community.ts",
+      "frontend/src/features/staff/hotel.tsx"
     ],
-    "status": "Backend implemented; acceptance evidence requires review",
-    "notes": "Source is implemented. Local tests cover representative module workflows; this row is not a claim of exhaustive requirement acceptance.",
-    "verification": "backend/test/integration/platform.spec.ts; backend/test/unit/rules.spec.ts; docs/milestone-1/REVIEW_AND_VERIFICATION.md"
+    "status": "Implementation mapped with representative module checks",
+    "notes": "Representative availability, room selection, reservation and staff workflows are covered.",
+    "verification": "backend/test/integration/platform.spec.ts; frontend/tests/staff.spec.ts; frontend/tests/staff-pagination.spec.ts; docs/milestone-2/evidence/acceptance-2026-11-25.json"
   },
   {
     "id": "HTL-08",
@@ -925,11 +991,12 @@
     "implementation": [
       "backend/src/hotels/hotels.ts",
       "backend/src/bookings/inventory.ts",
-      "backend/src/community/community.ts"
+      "backend/src/community/community.ts",
+      "frontend/src/features/staff/hotel.tsx"
     ],
-    "status": "Backend implemented; acceptance evidence requires review",
-    "notes": "Source is implemented. Local tests cover representative module workflows; this row is not a claim of exhaustive requirement acceptance.",
-    "verification": "backend/test/integration/platform.spec.ts; backend/test/unit/rules.spec.ts; docs/milestone-1/REVIEW_AND_VERIFICATION.md"
+    "status": "Implementation mapped with representative module checks",
+    "notes": "Representative availability, room selection, reservation and staff workflows are covered.",
+    "verification": "backend/test/integration/platform.spec.ts; frontend/tests/staff.spec.ts; frontend/tests/staff-pagination.spec.ts; docs/milestone-2/evidence/acceptance-2026-11-25.json"
   },
   {
     "id": "HTL-09",
@@ -947,11 +1014,13 @@
     "implementation": [
       "backend/src/hotels/hotels.ts",
       "backend/src/bookings/inventory.ts",
-      "backend/src/community/community.ts"
+      "backend/src/community/community.ts",
+      "frontend/src/features/staff/provider.tsx",
+      "frontend/src/features/booking/shared.tsx"
     ],
-    "status": "Backend implemented; acceptance evidence requires review",
-    "notes": "Source is implemented. Local tests cover representative module workflows; this row is not a claim of exhaustive requirement acceptance.",
-    "verification": "backend/test/integration/platform.spec.ts; backend/test/unit/rules.spec.ts; docs/milestone-1/REVIEW_AND_VERIFICATION.md"
+    "status": "Implementation mapped with representative module checks",
+    "notes": "Representative availability, room selection, reservation and staff workflows are covered.",
+    "verification": "backend/test/integration/platform.spec.ts; frontend/tests/staff-pagination.spec.ts; frontend/tests/booking.spec.ts; docs/milestone-2/evidence/acceptance-2026-11-25.json"
   },
   {
     "id": "HTL-10",
@@ -969,11 +1038,13 @@
     "implementation": [
       "backend/src/hotels/hotels.ts",
       "backend/src/bookings/inventory.ts",
-      "backend/src/community/community.ts"
+      "backend/src/community/community.ts",
+      "frontend/src/features/staff/provider.tsx",
+      "frontend/src/features/booking/shared.tsx"
     ],
-    "status": "Backend implemented; acceptance evidence requires review",
-    "notes": "Source is implemented. Local tests cover representative module workflows; this row is not a claim of exhaustive requirement acceptance.",
-    "verification": "backend/test/integration/platform.spec.ts; backend/test/unit/rules.spec.ts; docs/milestone-1/REVIEW_AND_VERIFICATION.md"
+    "status": "Implementation mapped with representative module checks",
+    "notes": "Representative availability, room selection, reservation and staff workflows are covered.",
+    "verification": "backend/test/integration/platform.spec.ts; frontend/tests/staff-pagination.spec.ts; frontend/tests/booking.spec.ts; docs/milestone-2/evidence/acceptance-2026-11-25.json"
   },
   {
     "id": "HTL-11",
@@ -994,11 +1065,12 @@
     "implementation": [
       "backend/src/hotels/hotels.ts",
       "backend/src/bookings/inventory.ts",
-      "backend/src/community/community.ts"
+      "backend/src/community/community.ts",
+      "frontend/src/features/booking/stays.tsx"
     ],
-    "status": "Backend implemented; acceptance evidence requires review",
-    "notes": "Source is implemented. Local tests cover representative module workflows; this row is not a claim of exhaustive requirement acceptance.",
-    "verification": "backend/test/integration/platform.spec.ts; backend/test/unit/rules.spec.ts; docs/milestone-1/REVIEW_AND_VERIFICATION.md"
+    "status": "Implementation mapped with representative module checks",
+    "notes": "Representative availability, room selection, reservation and staff workflows are covered.",
+    "verification": "backend/test/integration/platform.spec.ts; frontend/tests/booking.spec.ts; docs/milestone-2/evidence/acceptance-2026-11-25.json"
   },
   {
     "id": "HTL-12",
@@ -1017,11 +1089,12 @@
     "implementation": [
       "backend/src/hotels/hotels.ts",
       "backend/src/bookings/inventory.ts",
-      "backend/src/community/community.ts"
+      "backend/src/community/community.ts",
+      "frontend/src/features/booking/stays.tsx"
     ],
-    "status": "Backend implemented; acceptance evidence requires review",
-    "notes": "Source is implemented. Local tests cover representative module workflows; this row is not a claim of exhaustive requirement acceptance.",
-    "verification": "backend/test/integration/platform.spec.ts; backend/test/unit/rules.spec.ts; docs/milestone-1/REVIEW_AND_VERIFICATION.md"
+    "status": "Implementation mapped with representative module checks",
+    "notes": "Representative availability, room selection, reservation and staff workflows are covered.",
+    "verification": "backend/test/integration/platform.spec.ts; frontend/tests/booking.spec.ts; docs/milestone-2/evidence/acceptance-2026-11-25.json"
   },
   {
     "id": "HTL-15",
@@ -1039,11 +1112,12 @@
     "implementation": [
       "backend/src/hotels/hotels.ts",
       "backend/src/bookings/inventory.ts",
-      "backend/src/community/community.ts"
+      "backend/src/community/community.ts",
+      "frontend/src/features/booking/stays.tsx"
     ],
-    "status": "Backend implemented; acceptance evidence requires review",
-    "notes": "Source is implemented. Local tests cover representative module workflows; this row is not a claim of exhaustive requirement acceptance.",
-    "verification": "backend/test/integration/platform.spec.ts; backend/test/unit/rules.spec.ts; docs/milestone-1/REVIEW_AND_VERIFICATION.md"
+    "status": "Implementation mapped with representative module checks",
+    "notes": "Representative availability, room selection, reservation and staff workflows are covered.",
+    "verification": "backend/test/integration/platform.spec.ts; frontend/tests/booking.spec.ts; docs/milestone-2/evidence/acceptance-2026-11-25.json"
   },
   {
     "id": "HTL-16",
@@ -1063,11 +1137,12 @@
     "implementation": [
       "backend/src/hotels/hotels.ts",
       "backend/src/bookings/inventory.ts",
-      "backend/src/community/community.ts"
+      "backend/src/community/community.ts",
+      "frontend/src/features/booking/stays.tsx"
     ],
-    "status": "Backend implemented; acceptance evidence requires review",
-    "notes": "Source is implemented. Local tests cover representative module workflows; this row is not a claim of exhaustive requirement acceptance.",
-    "verification": "backend/test/integration/platform.spec.ts; backend/test/unit/rules.spec.ts; docs/milestone-1/REVIEW_AND_VERIFICATION.md"
+    "status": "Implementation mapped with representative module checks",
+    "notes": "Representative availability, room selection, reservation and staff workflows are covered.",
+    "verification": "backend/test/integration/platform.spec.ts; frontend/tests/booking.spec.ts; docs/milestone-2/evidence/acceptance-2026-11-25.json"
   },
   {
     "id": "HTL-17",
@@ -1086,11 +1161,13 @@
     "implementation": [
       "backend/src/hotels/hotels.ts",
       "backend/src/bookings/inventory.ts",
-      "backend/src/community/community.ts"
+      "backend/src/community/community.ts",
+      "frontend/src/features/booking/payment.tsx",
+      "frontend/src/features/booking/trips.tsx"
     ],
-    "status": "Backend implemented; acceptance evidence requires review",
-    "notes": "Source is implemented. Local tests cover representative module workflows; this row is not a claim of exhaustive requirement acceptance.",
-    "verification": "backend/test/integration/platform.spec.ts; backend/test/unit/rules.spec.ts; docs/milestone-1/REVIEW_AND_VERIFICATION.md"
+    "status": "Implementation mapped with representative module checks",
+    "notes": "Representative availability, room selection, reservation and staff workflows are covered.",
+    "verification": "backend/test/integration/platform.spec.ts; frontend/tests/booking.spec.ts; docs/milestone-2/evidence/acceptance-2026-11-25.json"
   },
   {
     "id": "HTL-18",
@@ -1109,11 +1186,13 @@
     "implementation": [
       "backend/src/hotels/hotels.ts",
       "backend/src/bookings/inventory.ts",
-      "backend/src/community/community.ts"
+      "backend/src/community/community.ts",
+      "frontend/src/features/booking/payment.tsx",
+      "frontend/src/features/booking/trips.tsx"
     ],
-    "status": "Backend implemented; acceptance evidence requires review",
-    "notes": "Source is implemented. Local tests cover representative module workflows; this row is not a claim of exhaustive requirement acceptance.",
-    "verification": "backend/test/integration/platform.spec.ts; backend/test/unit/rules.spec.ts; docs/milestone-1/REVIEW_AND_VERIFICATION.md"
+    "status": "Implementation mapped with representative module checks",
+    "notes": "Representative availability, room selection, reservation and staff workflows are covered.",
+    "verification": "backend/test/integration/platform.spec.ts; frontend/tests/booking.spec.ts; docs/milestone-2/evidence/acceptance-2026-11-25.json"
   },
   {
     "id": "HTL-20",
@@ -1132,11 +1211,12 @@
     "implementation": [
       "backend/src/hotels/hotels.ts",
       "backend/src/bookings/inventory.ts",
-      "backend/src/community/community.ts"
+      "backend/src/community/community.ts",
+      "frontend/src/features/booking/trips.tsx"
     ],
-    "status": "Backend implemented; acceptance evidence requires review",
-    "notes": "Source is implemented. Local tests cover representative module workflows; this row is not a claim of exhaustive requirement acceptance.",
-    "verification": "backend/test/integration/platform.spec.ts; backend/test/unit/rules.spec.ts; docs/milestone-1/REVIEW_AND_VERIFICATION.md"
+    "status": "Implementation mapped with representative module checks",
+    "notes": "Representative availability, room selection, reservation and staff workflows are covered.",
+    "verification": "backend/test/integration/platform.spec.ts; frontend/tests/booking.spec.ts; docs/milestone-2/evidence/acceptance-2026-11-25.json"
   },
   {
     "id": "HTL-21",
@@ -1157,11 +1237,12 @@
     "implementation": [
       "backend/src/hotels/hotels.ts",
       "backend/src/bookings/inventory.ts",
-      "backend/src/community/community.ts"
+      "backend/src/community/community.ts",
+      "frontend/src/features/booking/trips.tsx"
     ],
-    "status": "Backend implemented; acceptance evidence requires review",
-    "notes": "Source is implemented. Local tests cover representative module workflows; this row is not a claim of exhaustive requirement acceptance.",
-    "verification": "backend/test/integration/platform.spec.ts; backend/test/unit/rules.spec.ts; docs/milestone-1/REVIEW_AND_VERIFICATION.md"
+    "status": "Implementation mapped with representative module checks",
+    "notes": "Representative availability, room selection, reservation and staff workflows are covered.",
+    "verification": "backend/test/integration/platform.spec.ts; frontend/tests/booking.spec.ts; docs/milestone-2/evidence/acceptance-2026-11-25.json"
   },
   {
     "id": "HTL-22",
@@ -1179,11 +1260,12 @@
     "implementation": [
       "backend/src/hotels/hotels.ts",
       "backend/src/bookings/inventory.ts",
-      "backend/src/community/community.ts"
+      "backend/src/community/community.ts",
+      "frontend/src/features/staff/hotel.tsx"
     ],
-    "status": "Backend implemented; acceptance evidence requires review",
-    "notes": "Source is implemented. Local tests cover representative module workflows; this row is not a claim of exhaustive requirement acceptance.",
-    "verification": "backend/test/integration/platform.spec.ts; backend/test/unit/rules.spec.ts; docs/milestone-1/REVIEW_AND_VERIFICATION.md"
+    "status": "Implementation mapped with representative module checks",
+    "notes": "Representative availability, room selection, reservation and staff workflows are covered.",
+    "verification": "backend/test/integration/platform.spec.ts; frontend/tests/staff.spec.ts; frontend/tests/staff-pagination.spec.ts; docs/milestone-2/evidence/acceptance-2026-11-25.json"
   },
   {
     "id": "HTL-23",
@@ -1204,11 +1286,12 @@
     "implementation": [
       "backend/src/hotels/hotels.ts",
       "backend/src/bookings/inventory.ts",
-      "backend/src/community/community.ts"
+      "backend/src/community/community.ts",
+      "frontend/src/features/booking/stays.tsx"
     ],
-    "status": "Backend implemented; acceptance evidence requires review",
-    "notes": "Source is implemented. Local tests cover representative module workflows; this row is not a claim of exhaustive requirement acceptance.",
-    "verification": "backend/test/integration/platform.spec.ts; backend/test/unit/rules.spec.ts; docs/milestone-1/REVIEW_AND_VERIFICATION.md"
+    "status": "Implementation mapped with representative module checks",
+    "notes": "Representative availability, room selection, reservation and staff workflows are covered.",
+    "verification": "backend/test/integration/platform.spec.ts; frontend/tests/booking.spec.ts; docs/milestone-2/evidence/acceptance-2026-11-25.json"
   },
   {
     "id": "HTL-24",
@@ -1226,11 +1309,12 @@
     "implementation": [
       "backend/src/hotels/hotels.ts",
       "backend/src/bookings/inventory.ts",
-      "backend/src/community/community.ts"
+      "backend/src/community/community.ts",
+      "frontend/src/features/booking/stays.tsx"
     ],
-    "status": "Backend implemented; acceptance evidence requires review",
-    "notes": "Source is implemented. Local tests cover representative module workflows; this row is not a claim of exhaustive requirement acceptance.",
-    "verification": "backend/test/integration/platform.spec.ts; backend/test/unit/rules.spec.ts; docs/milestone-1/REVIEW_AND_VERIFICATION.md"
+    "status": "Implementation mapped with representative module checks",
+    "notes": "Representative availability, room selection, reservation and staff workflows are covered.",
+    "verification": "backend/test/integration/platform.spec.ts; frontend/tests/booking.spec.ts; docs/milestone-2/evidence/acceptance-2026-11-25.json"
   },
   {
     "id": "PAY-01",
@@ -1253,11 +1337,13 @@
     ],
     "implementation": [
       "backend/src/payments/payments.ts",
-      "backend/src/bookings/inventory.ts"
+      "backend/src/bookings/bookings.ts",
+      "frontend/src/features/booking/payment.tsx",
+      "frontend/src/features/booking/trips.tsx"
     ],
-    "status": "Backend implemented; acceptance evidence requires review",
-    "notes": "Signed HTTP webhook and adapter workflows pass locally; a real Stripe test account is not configured.",
-    "verification": "backend/test/integration/platform.spec.ts; backend/test/unit/rules.spec.ts; docs/milestone-1/REVIEW_AND_VERIFICATION.md"
+    "status": "Implementation mapped with representative module checks",
+    "notes": "Stripe Elements completed a sandbox payment and a signed webhook confirmed the booking.",
+    "verification": "backend/test/integration/platform.spec.ts; frontend/tests/booking.spec.ts; docs/milestone-2/evidence/acceptance-2026-11-25.json"
   },
   {
     "id": "PAY-02",
@@ -1281,11 +1367,13 @@
     ],
     "implementation": [
       "backend/src/payments/payments.ts",
-      "backend/src/bookings/inventory.ts"
+      "backend/src/bookings/bookings.ts",
+      "frontend/src/features/booking/payment.tsx",
+      "frontend/src/features/booking/trips.tsx"
     ],
-    "status": "Backend implemented; acceptance evidence requires review",
-    "notes": "Source is implemented. Local tests cover representative module workflows; this row is not a claim of exhaustive requirement acceptance.",
-    "verification": "backend/test/integration/platform.spec.ts; backend/test/unit/rules.spec.ts; docs/milestone-1/REVIEW_AND_VERIFICATION.md"
+    "status": "Implementation mapped with representative module checks",
+    "notes": "Policy acceptance, settlement and refund scenarios are covered.",
+    "verification": "backend/test/integration/platform.spec.ts; frontend/tests/booking.spec.ts; docs/milestone-2/evidence/acceptance-2026-11-25.json"
   },
   {
     "id": "PAY-03",
@@ -1305,11 +1393,13 @@
     ],
     "implementation": [
       "backend/src/payments/payments.ts",
-      "backend/src/bookings/inventory.ts"
+      "backend/src/bookings/bookings.ts",
+      "frontend/src/features/booking/payment.tsx",
+      "frontend/src/features/booking/trips.tsx"
     ],
-    "status": "Backend implemented; acceptance evidence requires review",
-    "notes": "Refund records, compensation, idempotency and retry tested with adapter fixtures; real Stripe refund unverified.",
-    "verification": "backend/test/integration/platform.spec.ts; backend/test/unit/rules.spec.ts; docs/milestone-1/REVIEW_AND_VERIFICATION.md"
+    "status": "Implementation mapped with representative module checks",
+    "notes": "The browser cancellation produced a successful refund in the Stripe sandbox.",
+    "verification": "backend/test/integration/platform.spec.ts; frontend/tests/booking.spec.ts; docs/milestone-2/evidence/acceptance-2026-11-25.json; backend/test/unit/rules.spec.ts"
   },
   {
     "id": "ITN-01",
@@ -1329,11 +1419,13 @@
     ],
     "implementation": [
       "backend/src/itineraries/itineraries.ts",
-      "backend/src/ops.ts"
+      "backend/src/ops.ts",
+      "frontend/src/features/discovery/planner.tsx",
+      "frontend/src/features/discovery/planner-data.tsx"
     ],
-    "status": "Backend implemented; acceptance evidence requires review",
-    "notes": "Source is implemented. Local tests cover representative module workflows; this row is not a claim of exhaustive requirement acceptance.",
-    "verification": "backend/test/integration/platform.spec.ts; backend/test/unit/rules.spec.ts; docs/milestone-1/REVIEW_AND_VERIFICATION.md"
+    "status": "Implementation mapped with representative module checks",
+    "notes": "Representative itinerary editing, budgeting, search and visibility workflows are covered.",
+    "verification": "backend/test/integration/platform.spec.ts; frontend/tests/discovery.spec.ts; frontend/tests/public-rendering.spec.ts; docs/milestone-2/evidence/acceptance-2026-11-25.json"
   },
   {
     "id": "ITN-03",
@@ -1351,11 +1443,13 @@
     ],
     "implementation": [
       "backend/src/itineraries/itineraries.ts",
-      "backend/src/ops.ts"
+      "backend/src/ops.ts",
+      "frontend/src/features/discovery/planner.tsx",
+      "frontend/src/features/discovery/planner-data.tsx"
     ],
-    "status": "Backend implemented; acceptance evidence requires review",
-    "notes": "Source is implemented. Local tests cover representative module workflows; this row is not a claim of exhaustive requirement acceptance.",
-    "verification": "backend/test/integration/platform.spec.ts; backend/test/unit/rules.spec.ts; docs/milestone-1/REVIEW_AND_VERIFICATION.md"
+    "status": "Implementation mapped with representative module checks",
+    "notes": "Representative itinerary editing, budgeting, search and visibility workflows are covered.",
+    "verification": "backend/test/integration/platform.spec.ts; frontend/tests/discovery.spec.ts; frontend/tests/public-rendering.spec.ts; docs/milestone-2/evidence/acceptance-2026-11-25.json"
   },
   {
     "id": "ITN-05",
@@ -1374,11 +1468,13 @@
     ],
     "implementation": [
       "backend/src/itineraries/itineraries.ts",
-      "backend/src/ops.ts"
+      "backend/src/ops.ts",
+      "frontend/src/features/discovery/day.tsx",
+      "frontend/src/features/discovery/planner.tsx"
     ],
-    "status": "Backend implemented; acceptance evidence requires review",
-    "notes": "Source is implemented. Local tests cover representative module workflows; this row is not a claim of exhaustive requirement acceptance.",
-    "verification": "backend/test/integration/platform.spec.ts; backend/test/unit/rules.spec.ts; docs/milestone-1/REVIEW_AND_VERIFICATION.md"
+    "status": "Implementation mapped with representative module checks",
+    "notes": "Representative itinerary editing, budgeting, search and visibility workflows are covered.",
+    "verification": "backend/test/integration/platform.spec.ts; frontend/tests/discovery.spec.ts; docs/milestone-2/evidence/acceptance-2026-11-25.json"
   },
   {
     "id": "ITN-07",
@@ -1395,11 +1491,13 @@
     ],
     "implementation": [
       "backend/src/itineraries/itineraries.ts",
-      "backend/src/ops.ts"
+      "backend/src/ops.ts",
+      "frontend/src/features/discovery/day.tsx",
+      "frontend/src/features/discovery/planner.tsx"
     ],
-    "status": "Backend implemented; acceptance evidence requires review",
-    "notes": "Source is implemented. Local tests cover representative module workflows; this row is not a claim of exhaustive requirement acceptance.",
-    "verification": "backend/test/integration/platform.spec.ts; backend/test/unit/rules.spec.ts; docs/milestone-1/REVIEW_AND_VERIFICATION.md"
+    "status": "Implementation mapped with representative module checks",
+    "notes": "Representative itinerary editing, budgeting, search and visibility workflows are covered.",
+    "verification": "backend/test/integration/platform.spec.ts; frontend/tests/discovery.spec.ts; docs/milestone-2/evidence/acceptance-2026-11-25.json"
   },
   {
     "id": "ITN-08",
@@ -1416,11 +1514,13 @@
     ],
     "implementation": [
       "backend/src/itineraries/itineraries.ts",
-      "backend/src/ops.ts"
+      "backend/src/ops.ts",
+      "frontend/src/features/discovery/day.tsx",
+      "frontend/src/features/discovery/planner.tsx"
     ],
-    "status": "Backend implemented; acceptance evidence requires review",
-    "notes": "Source is implemented. Local tests cover representative module workflows; this row is not a claim of exhaustive requirement acceptance.",
-    "verification": "backend/test/integration/platform.spec.ts; backend/test/unit/rules.spec.ts; docs/milestone-1/REVIEW_AND_VERIFICATION.md"
+    "status": "Implementation mapped with representative module checks",
+    "notes": "Representative itinerary editing, budgeting, search and visibility workflows are covered.",
+    "verification": "backend/test/integration/platform.spec.ts; frontend/tests/discovery.spec.ts; docs/milestone-2/evidence/acceptance-2026-11-25.json"
   },
   {
     "id": "ITN-09",
@@ -1437,11 +1537,13 @@
     ],
     "implementation": [
       "backend/src/itineraries/itineraries.ts",
-      "backend/src/ops.ts"
+      "backend/src/ops.ts",
+      "frontend/src/features/discovery/day.tsx",
+      "frontend/src/features/discovery/planner.tsx"
     ],
-    "status": "Backend implemented; acceptance evidence requires review",
-    "notes": "Source is implemented. Local tests cover representative module workflows; this row is not a claim of exhaustive requirement acceptance.",
-    "verification": "backend/test/integration/platform.spec.ts; backend/test/unit/rules.spec.ts; docs/milestone-1/REVIEW_AND_VERIFICATION.md"
+    "status": "Implementation mapped with representative module checks",
+    "notes": "Representative itinerary editing, budgeting, search and visibility workflows are covered.",
+    "verification": "backend/test/integration/platform.spec.ts; frontend/tests/discovery.spec.ts; docs/milestone-2/evidence/acceptance-2026-11-25.json"
   },
   {
     "id": "ITN-10",
@@ -1460,11 +1562,13 @@
     ],
     "implementation": [
       "backend/src/itineraries/itineraries.ts",
-      "backend/src/ops.ts"
+      "backend/src/ops.ts",
+      "frontend/src/features/discovery/day.tsx",
+      "frontend/src/features/discovery/planner.tsx"
     ],
-    "status": "Backend implemented; acceptance evidence requires review",
-    "notes": "Source is implemented. Local tests cover representative module workflows; this row is not a claim of exhaustive requirement acceptance.",
-    "verification": "backend/test/integration/platform.spec.ts; backend/test/unit/rules.spec.ts; docs/milestone-1/REVIEW_AND_VERIFICATION.md"
+    "status": "Implementation mapped with representative module checks",
+    "notes": "Representative itinerary editing, budgeting, search and visibility workflows are covered.",
+    "verification": "backend/test/integration/platform.spec.ts; frontend/tests/discovery.spec.ts; docs/milestone-2/evidence/acceptance-2026-11-25.json"
   },
   {
     "id": "ITN-12",
@@ -1483,11 +1587,13 @@
     ],
     "implementation": [
       "backend/src/itineraries/itineraries.ts",
-      "backend/src/ops.ts"
+      "backend/src/ops.ts",
+      "frontend/src/features/discovery/day.tsx",
+      "frontend/src/features/discovery/planner.tsx"
     ],
-    "status": "Backend implemented; acceptance evidence requires review",
-    "notes": "Source is implemented. Local tests cover representative module workflows; this row is not a claim of exhaustive requirement acceptance.",
-    "verification": "backend/test/integration/platform.spec.ts; backend/test/unit/rules.spec.ts; docs/milestone-1/REVIEW_AND_VERIFICATION.md"
+    "status": "Implementation mapped with representative module checks",
+    "notes": "Representative itinerary editing, budgeting, search and visibility workflows are covered.",
+    "verification": "backend/test/integration/platform.spec.ts; frontend/tests/discovery.spec.ts; docs/milestone-2/evidence/acceptance-2026-11-25.json"
   },
   {
     "id": "ITN-14",
@@ -1509,11 +1615,13 @@
     ],
     "implementation": [
       "backend/src/itineraries/itineraries.ts",
-      "backend/src/ops.ts"
+      "backend/src/ops.ts",
+      "frontend/src/features/discovery/day.tsx",
+      "frontend/src/features/discovery/planner.tsx"
     ],
-    "status": "Backend implemented; acceptance evidence requires review",
-    "notes": "Source is implemented. Local tests cover representative module workflows; this row is not a claim of exhaustive requirement acceptance.",
-    "verification": "backend/test/integration/platform.spec.ts; backend/test/unit/rules.spec.ts; docs/milestone-1/REVIEW_AND_VERIFICATION.md"
+    "status": "Implementation mapped with representative module checks",
+    "notes": "Representative itinerary editing, budgeting, search and visibility workflows are covered.",
+    "verification": "backend/test/integration/platform.spec.ts; frontend/tests/discovery.spec.ts; docs/milestone-2/evidence/acceptance-2026-11-25.json"
   },
   {
     "id": "ITN-16",
@@ -1532,11 +1640,13 @@
     ],
     "implementation": [
       "backend/src/itineraries/itineraries.ts",
-      "backend/src/ops.ts"
+      "backend/src/ops.ts",
+      "frontend/src/features/discovery/day.tsx",
+      "frontend/src/features/discovery/planner.tsx"
     ],
-    "status": "Backend implemented; acceptance evidence requires review",
-    "notes": "Source is implemented. Local tests cover representative module workflows; this row is not a claim of exhaustive requirement acceptance.",
-    "verification": "backend/test/integration/platform.spec.ts; backend/test/unit/rules.spec.ts; docs/milestone-1/REVIEW_AND_VERIFICATION.md"
+    "status": "Implementation mapped with representative module checks",
+    "notes": "Representative itinerary editing, budgeting, search and visibility workflows are covered.",
+    "verification": "backend/test/integration/platform.spec.ts; frontend/tests/discovery.spec.ts; docs/milestone-2/evidence/acceptance-2026-11-25.json"
   },
   {
     "id": "ITN-18",
@@ -1557,11 +1667,14 @@
     ],
     "implementation": [
       "backend/src/itineraries/itineraries.ts",
-      "backend/src/ops.ts"
+      "backend/src/ops.ts",
+      "backend/src/jobs.ts",
+      "frontend/src/features/discovery/day.tsx",
+      "frontend/src/features/discovery/planner.tsx"
     ],
-    "status": "Backend implemented; acceptance evidence requires review",
-    "notes": "Actual FXRatesAPI fetch/cache verified separately; outage fallback tested with cached fixture.",
-    "verification": "backend/test/integration/platform.spec.ts; backend/test/unit/rules.spec.ts; docs/milestone-1/REVIEW_AND_VERIFICATION.md"
+    "status": "Implementation mapped with representative module checks",
+    "notes": "Integration tests cover first use, conversion and cached fallback. A separate read-only check verified the configured provider response.",
+    "verification": "backend/test/integration/platform.spec.ts; frontend/tests/discovery.spec.ts; docs/milestone-2/evidence/acceptance-2026-11-25.json"
   },
   {
     "id": "ITN-20",
@@ -1579,11 +1692,13 @@
     ],
     "implementation": [
       "backend/src/itineraries/itineraries.ts",
-      "backend/src/ops.ts"
+      "backend/src/ops.ts",
+      "frontend/src/features/discovery/planner.tsx",
+      "frontend/src/features/discovery/planner-data.tsx"
     ],
-    "status": "Backend implemented; acceptance evidence requires review",
-    "notes": "Source is implemented. Local tests cover representative module workflows; this row is not a claim of exhaustive requirement acceptance.",
-    "verification": "backend/test/integration/platform.spec.ts; backend/test/unit/rules.spec.ts; docs/milestone-1/REVIEW_AND_VERIFICATION.md"
+    "status": "Implementation mapped with representative module checks",
+    "notes": "Representative itinerary editing, budgeting, search and visibility workflows are covered.",
+    "verification": "backend/test/integration/platform.spec.ts; frontend/tests/discovery.spec.ts; frontend/tests/public-rendering.spec.ts; docs/milestone-2/evidence/acceptance-2026-11-25.json"
   },
   {
     "id": "ITN-21",
@@ -1602,11 +1717,13 @@
     ],
     "implementation": [
       "backend/src/itineraries/itineraries.ts",
-      "backend/src/ops.ts"
+      "backend/src/ops.ts",
+      "frontend/src/features/discovery/planner.tsx",
+      "frontend/src/features/discovery/planner-data.tsx"
     ],
-    "status": "Backend implemented; acceptance evidence requires review",
-    "notes": "Source is implemented. Local tests cover representative module workflows; this row is not a claim of exhaustive requirement acceptance.",
-    "verification": "backend/test/integration/platform.spec.ts; backend/test/unit/rules.spec.ts; docs/milestone-1/REVIEW_AND_VERIFICATION.md"
+    "status": "Implementation mapped with representative module checks",
+    "notes": "Representative itinerary editing, budgeting, search and visibility workflows are covered.",
+    "verification": "backend/test/integration/platform.spec.ts; frontend/tests/discovery.spec.ts; frontend/tests/public-rendering.spec.ts; docs/milestone-2/evidence/acceptance-2026-11-25.json"
   },
   {
     "id": "ITN-25",
@@ -1624,11 +1741,12 @@
     ],
     "implementation": [
       "backend/src/itineraries/itineraries.ts",
-      "backend/src/ops.ts"
+      "backend/src/ops.ts",
+      "frontend/src/features/discovery/plan-travel.tsx"
     ],
-    "status": "Backend implemented; acceptance evidence requires review",
-    "notes": "Source is implemented. Local tests cover representative module workflows; this row is not a claim of exhaustive requirement acceptance.",
-    "verification": "backend/test/integration/platform.spec.ts; backend/test/unit/rules.spec.ts; docs/milestone-1/REVIEW_AND_VERIFICATION.md"
+    "status": "Implementation mapped with representative module checks",
+    "notes": "Representative itinerary editing, budgeting, search and visibility workflows are covered.",
+    "verification": "backend/test/integration/platform.spec.ts; frontend/tests/discovery.spec.ts; docs/milestone-2/evidence/acceptance-2026-11-25.json"
   },
   {
     "id": "ITN-26",
@@ -1648,11 +1766,12 @@
     ],
     "implementation": [
       "backend/src/itineraries/itineraries.ts",
-      "backend/src/ops.ts"
+      "backend/src/ops.ts",
+      "frontend/src/features/discovery/plan-travel.tsx"
     ],
-    "status": "Backend implemented; acceptance evidence requires review",
-    "notes": "Source is implemented. Local tests cover representative module workflows; this row is not a claim of exhaustive requirement acceptance.",
-    "verification": "backend/test/integration/platform.spec.ts; backend/test/unit/rules.spec.ts; docs/milestone-1/REVIEW_AND_VERIFICATION.md"
+    "status": "Implementation mapped with representative module checks",
+    "notes": "Representative itinerary editing, budgeting, search and visibility workflows are covered.",
+    "verification": "backend/test/integration/platform.spec.ts; frontend/tests/discovery.spec.ts; docs/milestone-2/evidence/acceptance-2026-11-25.json"
   },
   {
     "id": "BLG-01",
@@ -1669,11 +1788,13 @@
     ],
     "implementation": [
       "backend/src/community/community.ts",
-      "backend/src/media/media.ts"
+      "backend/src/media/media.ts",
+      "frontend/src/features/discovery/journal.tsx",
+      "frontend/src/features/discovery/shared.tsx"
     ],
-    "status": "Backend implemented; acceptance evidence requires review",
-    "notes": "Source is implemented. Local tests cover representative module workflows; this row is not a claim of exhaustive requirement acceptance.",
-    "verification": "backend/test/integration/platform.spec.ts; backend/test/unit/rules.spec.ts; docs/milestone-1/REVIEW_AND_VERIFICATION.md"
+    "status": "Implementation mapped with representative module checks",
+    "notes": "Representative publishing, search, comments, likes and public rendering workflows are covered.",
+    "verification": "backend/test/integration/platform.spec.ts; frontend/tests/discovery.spec.ts; frontend/tests/public-rendering.spec.ts; docs/milestone-2/evidence/acceptance-2026-11-25.json"
   },
   {
     "id": "BLG-02",
@@ -1692,11 +1813,13 @@
     ],
     "implementation": [
       "backend/src/community/community.ts",
-      "backend/src/media/media.ts"
+      "backend/src/media/media.ts",
+      "frontend/src/features/discovery/journal.tsx",
+      "frontend/src/features/discovery/shared.tsx"
     ],
-    "status": "Backend implemented; acceptance evidence requires review",
-    "notes": "Source is implemented. Local tests cover representative module workflows; this row is not a claim of exhaustive requirement acceptance.",
-    "verification": "backend/test/integration/platform.spec.ts; backend/test/unit/rules.spec.ts; docs/milestone-1/REVIEW_AND_VERIFICATION.md"
+    "status": "Implementation mapped with representative module checks",
+    "notes": "Representative publishing, search, comments, likes and public rendering workflows are covered.",
+    "verification": "backend/test/integration/platform.spec.ts; frontend/tests/discovery.spec.ts; frontend/tests/public-rendering.spec.ts; docs/milestone-2/evidence/acceptance-2026-11-25.json"
   },
   {
     "id": "BLG-03",
@@ -1713,11 +1836,13 @@
     ],
     "implementation": [
       "backend/src/community/community.ts",
-      "backend/src/media/media.ts"
+      "backend/src/media/media.ts",
+      "frontend/src/features/discovery/journal.tsx",
+      "frontend/src/features/discovery/shared.tsx"
     ],
-    "status": "Backend implemented; acceptance evidence requires review",
-    "notes": "Source is implemented. Local tests cover representative module workflows; this row is not a claim of exhaustive requirement acceptance.",
-    "verification": "backend/test/integration/platform.spec.ts; backend/test/unit/rules.spec.ts; docs/milestone-1/REVIEW_AND_VERIFICATION.md"
+    "status": "Implementation mapped with representative module checks",
+    "notes": "Representative publishing, search, comments, likes and public rendering workflows are covered.",
+    "verification": "backend/test/integration/platform.spec.ts; frontend/tests/discovery.spec.ts; frontend/tests/public-rendering.spec.ts; docs/milestone-2/evidence/acceptance-2026-11-25.json"
   },
   {
     "id": "BLG-04",
@@ -1735,11 +1860,13 @@
     ],
     "implementation": [
       "backend/src/community/community.ts",
-      "backend/src/media/media.ts"
+      "backend/src/media/media.ts",
+      "frontend/src/features/discovery/journal.tsx",
+      "frontend/src/features/discovery/shared.tsx"
     ],
-    "status": "Backend implemented; acceptance evidence requires review",
-    "notes": "Source is implemented. Local tests cover representative module workflows; this row is not a claim of exhaustive requirement acceptance.",
-    "verification": "backend/test/integration/platform.spec.ts; backend/test/unit/rules.spec.ts; docs/milestone-1/REVIEW_AND_VERIFICATION.md"
+    "status": "Implementation mapped with representative module checks",
+    "notes": "Representative publishing, search, comments, likes and public rendering workflows are covered.",
+    "verification": "backend/test/integration/platform.spec.ts; frontend/tests/discovery.spec.ts; frontend/tests/public-rendering.spec.ts; docs/milestone-2/evidence/acceptance-2026-11-25.json"
   },
   {
     "id": "BLG-05",
@@ -1756,11 +1883,13 @@
     ],
     "implementation": [
       "backend/src/community/community.ts",
-      "backend/src/media/media.ts"
+      "backend/src/media/media.ts",
+      "frontend/src/features/discovery/journal.tsx",
+      "frontend/src/features/discovery/shared.tsx"
     ],
-    "status": "Backend implemented; acceptance evidence requires review",
-    "notes": "Source is implemented. Local tests cover representative module workflows; this row is not a claim of exhaustive requirement acceptance.",
-    "verification": "backend/test/integration/platform.spec.ts; backend/test/unit/rules.spec.ts; docs/milestone-1/REVIEW_AND_VERIFICATION.md"
+    "status": "Implementation mapped with representative module checks",
+    "notes": "Representative publishing, search, comments, likes and public rendering workflows are covered.",
+    "verification": "backend/test/integration/platform.spec.ts; frontend/tests/discovery.spec.ts; frontend/tests/public-rendering.spec.ts; docs/milestone-2/evidence/acceptance-2026-11-25.json"
   },
   {
     "id": "BLG-06",
@@ -1778,11 +1907,13 @@
     ],
     "implementation": [
       "backend/src/community/community.ts",
-      "backend/src/media/media.ts"
+      "backend/src/media/media.ts",
+      "frontend/src/features/discovery/journal.tsx",
+      "frontend/src/features/discovery/shared.tsx"
     ],
-    "status": "Backend implemented; acceptance evidence requires review",
-    "notes": "Source is implemented. Local tests cover representative module workflows; this row is not a claim of exhaustive requirement acceptance.",
-    "verification": "backend/test/integration/platform.spec.ts; backend/test/unit/rules.spec.ts; docs/milestone-1/REVIEW_AND_VERIFICATION.md"
+    "status": "Implementation mapped with representative module checks",
+    "notes": "Representative publishing, search, comments, likes and public rendering workflows are covered.",
+    "verification": "backend/test/integration/platform.spec.ts; frontend/tests/discovery.spec.ts; frontend/tests/public-rendering.spec.ts; docs/milestone-2/evidence/acceptance-2026-11-25.json"
   },
   {
     "id": "BLG-07",
@@ -1800,11 +1931,13 @@
     ],
     "implementation": [
       "backend/src/community/community.ts",
-      "backend/src/media/media.ts"
+      "backend/src/media/media.ts",
+      "frontend/src/features/discovery/journal.tsx",
+      "frontend/src/features/discovery/shared.tsx"
     ],
-    "status": "Backend implemented; acceptance evidence requires review",
-    "notes": "Source is implemented. Local tests cover representative module workflows; this row is not a claim of exhaustive requirement acceptance.",
-    "verification": "backend/test/integration/platform.spec.ts; backend/test/unit/rules.spec.ts; docs/milestone-1/REVIEW_AND_VERIFICATION.md"
+    "status": "Implementation mapped with representative module checks",
+    "notes": "Representative publishing, search, comments, likes and public rendering workflows are covered.",
+    "verification": "backend/test/integration/platform.spec.ts; frontend/tests/discovery.spec.ts; frontend/tests/public-rendering.spec.ts; docs/milestone-2/evidence/acceptance-2026-11-25.json"
   },
   {
     "id": "BLG-08",
@@ -1823,11 +1956,13 @@
     ],
     "implementation": [
       "backend/src/community/community.ts",
-      "backend/src/media/media.ts"
+      "backend/src/media/media.ts",
+      "frontend/src/features/discovery/journal.tsx",
+      "frontend/src/features/discovery/shared.tsx"
     ],
-    "status": "Backend implemented; acceptance evidence requires review",
-    "notes": "Source is implemented. Local tests cover representative module workflows; this row is not a claim of exhaustive requirement acceptance.",
-    "verification": "backend/test/integration/platform.spec.ts; backend/test/unit/rules.spec.ts; docs/milestone-1/REVIEW_AND_VERIFICATION.md"
+    "status": "Implementation mapped with representative module checks",
+    "notes": "Representative publishing, search, comments, likes and public rendering workflows are covered.",
+    "verification": "backend/test/integration/platform.spec.ts; frontend/tests/discovery.spec.ts; frontend/tests/public-rendering.spec.ts; docs/milestone-2/evidence/acceptance-2026-11-25.json"
   },
   {
     "id": "BLG-09",
@@ -1844,11 +1979,13 @@
     ],
     "implementation": [
       "backend/src/community/community.ts",
-      "backend/src/media/media.ts"
+      "backend/src/media/media.ts",
+      "frontend/src/features/discovery/journal.tsx",
+      "frontend/src/features/discovery/shared.tsx"
     ],
-    "status": "Backend implemented; acceptance evidence requires review",
-    "notes": "Source is implemented. Local tests cover representative module workflows; this row is not a claim of exhaustive requirement acceptance.",
-    "verification": "backend/test/integration/platform.spec.ts; backend/test/unit/rules.spec.ts; docs/milestone-1/REVIEW_AND_VERIFICATION.md"
+    "status": "Implementation mapped with representative module checks",
+    "notes": "Representative publishing, search, comments, likes and public rendering workflows are covered.",
+    "verification": "backend/test/integration/platform.spec.ts; frontend/tests/discovery.spec.ts; frontend/tests/public-rendering.spec.ts; docs/milestone-2/evidence/acceptance-2026-11-25.json"
   },
   {
     "id": "BLG-10",
@@ -1867,11 +2004,13 @@
     ],
     "implementation": [
       "backend/src/community/community.ts",
-      "backend/src/media/media.ts"
+      "backend/src/media/media.ts",
+      "frontend/src/features/discovery/journal.tsx",
+      "frontend/src/features/discovery/shared.tsx"
     ],
-    "status": "Backend implemented; acceptance evidence requires review",
-    "notes": "Source is implemented. Local tests cover representative module workflows; this row is not a claim of exhaustive requirement acceptance.",
-    "verification": "backend/test/integration/platform.spec.ts; backend/test/unit/rules.spec.ts; docs/milestone-1/REVIEW_AND_VERIFICATION.md"
+    "status": "Implementation mapped with representative module checks",
+    "notes": "Representative publishing, search, comments, likes and public rendering workflows are covered.",
+    "verification": "backend/test/integration/platform.spec.ts; frontend/tests/discovery.spec.ts; frontend/tests/public-rendering.spec.ts; docs/milestone-2/evidence/acceptance-2026-11-25.json"
   },
   {
     "id": "BLG-12",
@@ -1889,11 +2028,13 @@
     ],
     "implementation": [
       "backend/src/community/community.ts",
-      "backend/src/media/media.ts"
+      "backend/src/media/media.ts",
+      "frontend/src/features/discovery/journal.tsx",
+      "frontend/src/features/discovery/shared.tsx"
     ],
-    "status": "Backend implemented; acceptance evidence requires review",
-    "notes": "Source is implemented. Local tests cover representative module workflows; this row is not a claim of exhaustive requirement acceptance.",
-    "verification": "backend/test/integration/platform.spec.ts; backend/test/unit/rules.spec.ts; docs/milestone-1/REVIEW_AND_VERIFICATION.md"
+    "status": "Implementation mapped with representative module checks",
+    "notes": "Representative publishing, search, comments, likes and public rendering workflows are covered.",
+    "verification": "backend/test/integration/platform.spec.ts; frontend/tests/discovery.spec.ts; frontend/tests/public-rendering.spec.ts; docs/milestone-2/evidence/acceptance-2026-11-25.json"
   },
   {
     "id": "GEN-01",
@@ -1908,14 +2049,15 @@
       "PATCH /api/notifications/{id}/read"
     ],
     "implementation": [
-      "backend/src/bootstrap.ts",
-      "backend/src/database.ts",
       "backend/src/ops.ts",
-      "backend/src/jobs.ts"
+      "backend/src/support/support.ts",
+      "backend/src/jobs.ts",
+      "frontend/src/components/account.tsx",
+      "frontend/src/components/shell.tsx"
     ],
-    "status": "Backend implemented; acceptance evidence requires review",
-    "notes": "Source is implemented. Local tests cover representative module workflows; this row is not a claim of exhaustive requirement acceptance.",
-    "verification": "backend/test/integration/platform.spec.ts; backend/test/unit/rules.spec.ts; docs/milestone-1/REVIEW_AND_VERIFICATION.md"
+    "status": "Implementation mapped with representative module checks",
+    "notes": "Representative API and cross-role browser workflows are covered.",
+    "verification": "backend/test/integration/platform.spec.ts; frontend/tests/account.spec.ts; docs/milestone-2/evidence/acceptance-2026-11-25.json"
   },
   {
     "id": "GEN-02",
@@ -1928,11 +2070,16 @@
     "endpoints": [],
     "implementation": [
       "backend/src/bootstrap.ts",
-      "backend/src/dto.ts"
+      "backend/src/common.ts",
+      "backend/src/dto.ts",
+      "frontend/src/lib/form-errors.ts",
+      "frontend/src/features/staff/ui.tsx",
+      "frontend/src/features/discovery/shared.tsx",
+      "frontend/src/features/booking/shared.tsx"
     ],
-    "status": "Backend implemented; acceptance evidence requires review",
-    "notes": "Field-specific backend errors implemented; inline rendering belongs to M2.",
-    "verification": "backend/test/integration/platform.spec.ts; backend/test/unit/rules.spec.ts; docs/milestone-1/REVIEW_AND_VERIFICATION.md"
+    "status": "Implementation mapped with representative module checks",
+    "notes": "The API returns field errors. The frontend associates them with the relevant inputs.",
+    "verification": "backend/test/integration/platform.spec.ts; frontend/tests/account.spec.ts; frontend/tests/booking.spec.ts; frontend/tests/staff.spec.ts; docs/milestone-2/evidence/acceptance-2026-11-25.json"
   },
   {
     "id": "GEN-03",
@@ -1944,11 +2091,14 @@
     "classification": "Mandatory",
     "endpoints": [],
     "implementation": [
-      "backend/src/dto.ts"
+      "backend/src/dto.ts",
+      "frontend/src/features/staff/ui.tsx",
+      "frontend/src/features/booking/shared.tsx",
+      "frontend/src/features/discovery/shared.tsx"
     ],
-    "status": "Backend implemented; acceptance evidence requires review",
-    "notes": "Destructive endpoints require explicit confirmation where applicable; confirmation dialogs belong to M2.",
-    "verification": "backend/test/integration/platform.spec.ts; backend/test/unit/rules.spec.ts; docs/milestone-1/REVIEW_AND_VERIFICATION.md"
+    "status": "Implementation mapped with representative module checks",
+    "notes": "Representative browser scenarios exercise confirmations for destructive actions.",
+    "verification": "backend/test/integration/platform.spec.ts; frontend/tests/booking.spec.ts; frontend/tests/staff-pagination.spec.ts; frontend/tests/discovery.spec.ts; docs/milestone-2/evidence/acceptance-2026-11-25.json"
   },
   {
     "id": "GEN-04",
@@ -1960,11 +2110,14 @@
     "classification": "Mandatory",
     "endpoints": [],
     "implementation": [
-      "backend/src/common.ts"
+      "backend/src/common.ts",
+      "frontend/src/features/staff/ui.tsx",
+      "frontend/src/features/booking/shared.tsx",
+      "frontend/src/features/discovery/shared.tsx"
     ],
-    "status": "Backend implemented; acceptance evidence requires review",
-    "notes": "Empty search/list results are explicit; friendly visual states belong to M2.",
-    "verification": "backend/test/integration/platform.spec.ts; backend/test/unit/rules.spec.ts; docs/milestone-1/REVIEW_AND_VERIFICATION.md"
+    "status": "Implementation mapped with representative module checks",
+    "notes": "The browser suite checks that an empty flight search gives the traveler a recovery action.",
+    "verification": "backend/test/integration/platform.spec.ts; frontend/tests/booking.spec.ts; frontend/tests/staff-pagination.spec.ts; frontend/tests/discovery.spec.ts; docs/milestone-2/evidence/acceptance-2026-11-25.json"
   },
   {
     "id": "GEN-05",
@@ -1976,11 +2129,14 @@
     "classification": "Mandatory",
     "endpoints": [],
     "implementation": [
-      "backend/src/common.ts"
+      "backend/src/common.ts",
+      "frontend/src/features/staff/ui.tsx",
+      "frontend/src/features/booking/shared.tsx",
+      "frontend/src/features/discovery/shared.tsx"
     ],
-    "status": "Backend implemented; acceptance evidence requires review",
-    "notes": "Paginated collection endpoints use page size 10. Nested document structures and exports are not collection pages.",
-    "verification": "backend/test/integration/platform.spec.ts; backend/test/unit/rules.spec.ts; docs/milestone-1/REVIEW_AND_VERIFICATION.md"
+    "status": "Implementation mapped with representative module checks",
+    "notes": "Coverage includes ten-row collection pages and nested staff date, calendar and refund-tier lists.",
+    "verification": "backend/test/integration/platform.spec.ts; frontend/tests/booking.spec.ts; frontend/tests/staff-pagination.spec.ts; frontend/tests/discovery.spec.ts; docs/milestone-2/evidence/acceptance-2026-11-25.json"
   },
   {
     "id": "GEN-06",
@@ -1998,11 +2154,14 @@
     ],
     "implementation": [
       "backend/src/flights/flights.ts",
-      "backend/src/bookings/bookings.ts"
+      "backend/src/bookings/bookings.ts",
+      "frontend/src/features/booking/flights.tsx",
+      "frontend/src/features/booking/trips.tsx",
+      "frontend/src/features/staff/airline.tsx"
     ],
-    "status": "Backend implemented; acceptance evidence requires review",
-    "notes": "Flight detail/search include local timestamps; tickets include both airport zones.",
-    "verification": "backend/test/integration/platform.spec.ts; backend/test/unit/rules.spec.ts; docs/milestone-1/REVIEW_AND_VERIFICATION.md"
+    "status": "Implementation mapped with representative module checks",
+    "notes": "Search, flight details and tickets display airport-local times.",
+    "verification": "backend/test/integration/platform.spec.ts; frontend/tests/booking.spec.ts; frontend/tests/staff.spec.ts; docs/milestone-2/evidence/acceptance-2026-11-25.json; backend/test/unit/rules.spec.ts"
   },
   {
     "id": "GEN-07",
@@ -2021,11 +2180,12 @@
     ],
     "implementation": [
       "backend/src/admin/admin.ts",
-      "backend/src/ops.ts"
+      "backend/src/ops.ts",
+      "frontend/src/features/staff/admin.tsx"
     ],
-    "status": "Backend implemented; acceptance evidence requires review",
-    "notes": "Source is implemented. Local tests cover representative module workflows; this row is not a claim of exhaustive requirement acceptance.",
-    "verification": "backend/test/integration/platform.spec.ts; backend/test/unit/rules.spec.ts; docs/milestone-1/REVIEW_AND_VERIFICATION.md"
+    "status": "Implementation mapped with representative module checks",
+    "notes": "Representative API and cross-role browser workflows are covered.",
+    "verification": "backend/test/integration/platform.spec.ts; frontend/tests/staff.spec.ts; docs/milestone-2/evidence/acceptance-2026-11-25.json"
   },
   {
     "id": "GEN-08",
@@ -2045,11 +2205,14 @@
       "DELETE /api/airlines/{id}/logo/{imageId}"
     ],
     "implementation": [
-      "backend/src/media/media.ts"
+      "backend/src/media/media.ts",
+      "frontend/src/features/discovery/shared.tsx",
+      "frontend/src/features/booking/stays.tsx",
+      "frontend/src/features/staff/provider.tsx"
     ],
-    "status": "Backend implemented; acceptance evidence requires review",
-    "notes": "Source is implemented. Local tests cover representative module workflows; this row is not a claim of exhaustive requirement acceptance.",
-    "verification": "backend/test/integration/platform.spec.ts; backend/test/unit/rules.spec.ts; docs/milestone-1/REVIEW_AND_VERIFICATION.md"
+    "status": "Implementation mapped with representative module checks",
+    "notes": "Representative API and cross-role browser workflows are covered.",
+    "verification": "backend/test/integration/platform.spec.ts; frontend/tests/discovery.spec.ts; docs/milestone-2/evidence/acceptance-2026-11-25.json; backend/test/unit/rules.spec.ts"
   },
   {
     "id": "GEN-09",
@@ -2065,11 +2228,14 @@
       "POST /api/reports"
     ],
     "implementation": [
-      "backend/src/community/community.ts"
+      "backend/src/community/community.ts",
+      "frontend/src/features/discovery/shared.tsx",
+      "frontend/src/features/booking/stays.tsx",
+      "frontend/src/features/staff/provider.tsx"
     ],
-    "status": "Backend implemented; acceptance evidence requires review",
-    "notes": "Source is implemented. Local tests cover representative module workflows; this row is not a claim of exhaustive requirement acceptance.",
-    "verification": "backend/test/integration/platform.spec.ts; backend/test/unit/rules.spec.ts; docs/milestone-1/REVIEW_AND_VERIFICATION.md"
+    "status": "Implementation mapped with representative module checks",
+    "notes": "Representative API and cross-role browser workflows are covered.",
+    "verification": "backend/test/integration/platform.spec.ts; frontend/tests/discovery.spec.ts; docs/milestone-2/evidence/acceptance-2026-11-25.json"
   },
   {
     "id": "GEN-10",
@@ -2088,11 +2254,14 @@
       "DELETE /api/admin/content/{type}/{id}"
     ],
     "implementation": [
-      "backend/src/admin/admin.ts"
+      "backend/src/admin/admin.ts",
+      "backend/src/community/community.ts",
+      "backend/src/itineraries/itineraries.ts",
+      "frontend/src/features/staff/admin.tsx"
     ],
-    "status": "Backend implemented; acceptance evidence requires review",
-    "notes": "Source is implemented. Local tests cover representative module workflows; this row is not a claim of exhaustive requirement acceptance.",
-    "verification": "backend/test/integration/platform.spec.ts; backend/test/unit/rules.spec.ts; docs/milestone-1/REVIEW_AND_VERIFICATION.md"
+    "status": "Implementation mapped with representative module checks",
+    "notes": "Representative API and cross-role browser workflows are covered.",
+    "verification": "backend/test/integration/platform.spec.ts; frontend/tests/staff.spec.ts; docs/milestone-2/evidence/acceptance-2026-11-25.json"
   },
   {
     "id": "GEN-11",
@@ -2110,11 +2279,14 @@
     "implementation": [
       "backend/src/bookings/inventory.ts",
       "backend/src/bookings/bookings.ts",
-      "backend/src/payments/payments.ts"
+      "backend/src/payments/payments.ts",
+      "backend/src/jobs.ts",
+      "frontend/src/features/booking/payment.tsx",
+      "frontend/src/features/booking/trips.tsx"
     ],
-    "status": "Backend implemented; acceptance evidence requires review",
-    "notes": "Booking transitions and scheduled completion/expiry implemented. Invalidated holds release inventory once and remain Pending Payment until the original timeout; payment is blocked and late success refunded. GEN-11 regression passes.",
-    "verification": "backend/test/integration/platform.spec.ts; backend/test/unit/rules.spec.ts; docs/milestone-1/REVIEW_AND_VERIFICATION.md"
+    "status": "Implementation mapped with representative module checks",
+    "notes": "Wall-clock tests verified expiry and inventory release for both a flight and a hotel hold.",
+    "verification": "backend/test/integration/platform.spec.ts; frontend/tests/booking.spec.ts; docs/milestone-2/evidence/acceptance-2026-11-25.json"
   },
   {
     "id": "FLT-30",
@@ -2130,11 +2302,12 @@
     "implementation": [
       "backend/src/flights/flights.ts",
       "backend/src/bookings/inventory.ts",
-      "backend/src/bookings/bookings.ts"
+      "backend/src/bookings/bookings.ts",
+      "frontend/src/features/staff/airline.tsx"
     ],
-    "status": "Backend implemented; acceptance evidence requires review",
-    "notes": "Source is implemented. Local tests cover representative module workflows; this row is not a claim of exhaustive requirement acceptance.",
-    "verification": "backend/test/integration/platform.spec.ts; backend/test/unit/rules.spec.ts; docs/milestone-1/REVIEW_AND_VERIFICATION.md"
+    "status": "Implementation mapped with representative module checks",
+    "notes": "Representative flight scheduling, search, holds and ticket workflows are covered.",
+    "verification": "backend/test/integration/platform.spec.ts; frontend/tests/staff.spec.ts; docs/milestone-2/evidence/acceptance-2026-11-25.json"
   },
   {
     "id": "ACC-18",
@@ -2148,11 +2321,12 @@
     "classification": "Mandatory",
     "endpoints": [],
     "implementation": [
-      "backend/src/seed.ts"
+      "backend/src/seed.ts",
+      "backend/src/auth/auth.ts"
     ],
-    "status": "Backend implemented; acceptance evidence requires review",
-    "notes": "Administrator is seeded; no admin self-registration route exists.",
-    "verification": "backend/test/integration/platform.spec.ts; backend/test/unit/rules.spec.ts; docs/milestone-1/REVIEW_AND_VERIFICATION.md"
+    "status": "Implementation mapped with representative module checks",
+    "notes": "The seed creates the administrator. Registration creates traveler accounts.",
+    "verification": "backend/test/integration/platform.spec.ts; docs/milestone-2/evidence/acceptance-2026-11-25.json"
   },
   {
     "id": "PAY-04",
@@ -2165,11 +2339,13 @@
     "endpoints": [],
     "implementation": [
       "backend/src/payments/payments.ts",
-      "backend/src/bookings/inventory.ts"
+      "backend/src/bookings/bookings.ts",
+      "frontend/src/features/booking/payment.tsx",
+      "frontend/src/features/booking/trips.tsx"
     ],
-    "status": "Backend implemented; acceptance evidence requires review",
-    "notes": "Source is implemented. Local tests cover representative module workflows; this row is not a claim of exhaustive requirement acceptance.",
-    "verification": "backend/test/integration/platform.spec.ts; backend/test/unit/rules.spec.ts; docs/milestone-1/REVIEW_AND_VERIFICATION.md"
+    "status": "Implementation mapped with representative module checks",
+    "notes": "Policy acceptance, settlement and refund scenarios are covered.",
+    "verification": "backend/test/integration/platform.spec.ts; frontend/tests/booking.spec.ts; docs/milestone-2/evidence/acceptance-2026-11-25.json"
   },
   {
     "id": "GEN-12",
@@ -2187,11 +2363,13 @@
     ],
     "implementation": [
       "backend/src/seed.ts",
+      "frontend/src/lib/destinations.ts",
+      "frontend/src/components/home.tsx",
       "backend/data/reference.json"
     ],
-    "status": "Backend implemented; acceptance evidence requires review",
-    "notes": "Official countries/cities/airports/attractions and derived supported currencies are seeded idempotently.",
-    "verification": "backend/test/integration/platform.spec.ts; backend/test/unit/rules.spec.ts; docs/milestone-1/REVIEW_AND_VERIFICATION.md"
+    "status": "Implementation mapped with representative module checks",
+    "notes": "The seed imports the supplied reference dataset and derives supported currencies.",
+    "verification": "backend/test/integration/platform.spec.ts; frontend/tests/home.spec.ts; docs/milestone-2/evidence/acceptance-2026-11-25.json"
   },
   {
     "id": "GEN-13",
@@ -2205,11 +2383,13 @@
     "implementation": [
       "backend/src/auth/auth.ts",
       "backend/src/bootstrap.ts",
-      "backend/src/dto.ts"
+      "backend/src/dto.ts",
+      "backend/src/common.ts",
+      "frontend/src/lib/api.ts"
     ],
-    "status": "Backend implemented; acceptance evidence requires review",
-    "notes": "Global DTO validation, service rules, ownership checks and salted scrypt password hashing.",
-    "verification": "backend/test/integration/platform.spec.ts; backend/test/unit/rules.spec.ts; docs/milestone-1/REVIEW_AND_VERIFICATION.md"
+    "status": "Implementation mapped with representative module checks",
+    "notes": "The API enforces validation and ownership. Regressions cover private booking references in public reviews and discovery responses.",
+    "verification": "backend/test/integration/platform.spec.ts; frontend/tests/account.spec.ts; frontend/tests/public-rendering.spec.ts; docs/milestone-2/evidence/acceptance-2026-11-25.json; backend/test/unit/rules.spec.ts"
   },
   {
     "id": "ACC-19",
@@ -2228,11 +2408,13 @@
     ],
     "implementation": [
       "backend/src/auth/auth.ts",
-      "backend/src/bootstrap.ts"
+      "backend/src/bootstrap.ts",
+      "frontend/src/lib/api.ts",
+      "frontend/src/lib/session.tsx"
     ],
-    "status": "Backend implemented; acceptance evidence requires review",
-    "notes": "httpOnly/Secure/SameSite cookies, refresh rotation and /auth/me; frontend storage behavior needs M2 inspection.",
-    "verification": "backend/test/integration/platform.spec.ts; backend/test/unit/rules.spec.ts; docs/milestone-1/REVIEW_AND_VERIFICATION.md"
+    "status": "Implementation mapped with representative module checks",
+    "notes": "The API issues secure httpOnly access and refresh cookies. The frontend restores the session through /auth/me.",
+    "verification": "backend/test/integration/platform.spec.ts; frontend/tests/account.spec.ts; docs/milestone-2/evidence/acceptance-2026-11-25.json"
   },
   {
     "id": "GEN-14",
@@ -2244,14 +2426,13 @@
     "classification": "Mandatory",
     "endpoints": [],
     "implementation": [
-      "backend/src/bootstrap.ts",
-      "backend/src/database.ts",
-      "backend/src/ops.ts",
-      "backend/src/jobs.ts"
+      "frontend/src/components/shell.tsx",
+      "frontend/src/components/home.tsx",
+      "frontend/src/app/style.css"
     ],
-    "status": "Milestone 2 frontend",
-    "notes": "Milestone 2 frontend information architecture; role paths, resource APIs and validation contracts available now.",
-    "verification": "backend/test/integration/platform.spec.ts; backend/test/unit/rules.spec.ts; docs/milestone-1/REVIEW_AND_VERIFICATION.md"
+    "status": "Implemented with human UX review outstanding",
+    "notes": "Browser workflows cover navigation across roles. Independent review of information architecture remains a human check.",
+    "verification": "backend/test/integration/platform.spec.ts; frontend/tests/home.spec.ts; frontend/tests/account.spec.ts; frontend/tests/booking.spec.ts; frontend/tests/discovery.spec.ts; frontend/tests/staff.spec.ts; docs/milestone-2/evidence/acceptance-2026-11-25.json"
   },
   {
     "id": "GEN-15",
@@ -2263,14 +2444,13 @@
     "classification": "Mandatory",
     "endpoints": [],
     "implementation": [
-      "backend/src/bootstrap.ts",
-      "backend/src/database.ts",
-      "backend/src/ops.ts",
-      "backend/src/jobs.ts"
+      "frontend/src/components/shell.tsx",
+      "frontend/src/components/home.tsx",
+      "frontend/src/app/style.css"
     ],
-    "status": "Milestone 2 frontend",
-    "notes": "Milestone 2 frontend ease of use and visual workflow evaluation.",
-    "verification": "backend/test/integration/platform.spec.ts; backend/test/unit/rules.spec.ts; docs/milestone-1/REVIEW_AND_VERIFICATION.md"
+    "status": "Implemented with human UX review outstanding",
+    "notes": "Task-flow tests cover search, booking and editing. Ease of learning still calls for first-time user feedback.",
+    "verification": "backend/test/integration/platform.spec.ts; frontend/tests/home.spec.ts; frontend/tests/account.spec.ts; frontend/tests/booking.spec.ts; frontend/tests/discovery.spec.ts; frontend/tests/staff.spec.ts; docs/milestone-2/evidence/acceptance-2026-11-25.json"
   },
   {
     "id": "GEN-16",
@@ -2286,14 +2466,13 @@
     "classification": "Mandatory",
     "endpoints": [],
     "implementation": [
-      "backend/src/bootstrap.ts",
-      "backend/src/database.ts",
-      "backend/src/ops.ts",
-      "backend/src/jobs.ts"
+      "frontend/src/components/shell.tsx",
+      "frontend/src/components/home.tsx",
+      "frontend/src/app/style.css"
     ],
-    "status": "Milestone 2 frontend",
-    "notes": "Milestone 2 responsive/loading/success/error UI; backend errors and operation results available now.",
-    "verification": "backend/test/integration/platform.spec.ts; backend/test/unit/rules.spec.ts; docs/milestone-1/REVIEW_AND_VERIFICATION.md"
+    "status": "Implemented with human UX review outstanding",
+    "notes": "Browser tests exercise validation, recovery and responsive layouts. The separate 360-pixel check covers 20 screens.",
+    "verification": "backend/test/integration/platform.spec.ts; frontend/tests/home.spec.ts; frontend/tests/account.spec.ts; frontend/tests/booking.spec.ts; frontend/tests/discovery.spec.ts; frontend/tests/staff.spec.ts; docs/milestone-2/evidence/acceptance-2026-11-25.json"
   },
   {
     "id": "GEN-17",
@@ -2305,14 +2484,13 @@
     "classification": "Mandatory",
     "endpoints": [],
     "implementation": [
-      "backend/src/bootstrap.ts",
-      "backend/src/database.ts",
-      "backend/src/ops.ts",
-      "backend/src/jobs.ts"
+      "frontend/src/components/shell.tsx",
+      "frontend/src/components/home.tsx",
+      "frontend/src/app/style.css"
     ],
-    "status": "Milestone 2 frontend",
-    "notes": "Milestone 2 palette, typography, spacing and component consistency.",
-    "verification": "backend/test/integration/platform.spec.ts; backend/test/unit/rules.spec.ts; docs/milestone-1/REVIEW_AND_VERIFICATION.md"
+    "status": "Implemented with human UX review outstanding",
+    "notes": "Shared styles and responsive layouts are implemented. Visual consistency requires human review. Figma quota prevented a fresh frame comparison.",
+    "verification": "backend/test/integration/platform.spec.ts; frontend/tests/home.spec.ts; frontend/tests/account.spec.ts; frontend/tests/booking.spec.ts; frontend/tests/discovery.spec.ts; frontend/tests/staff.spec.ts; docs/milestone-2/evidence/acceptance-2026-11-25.json"
   },
   {
     "id": "ACC-02",
@@ -2330,11 +2508,13 @@
     ],
     "implementation": [
       "backend/src/auth/auth.ts",
-      "backend/src/admin/admin.ts"
+      "backend/src/admin/admin.ts",
+      "frontend/src/components/verify-email.tsx",
+      "frontend/src/components/account.tsx"
     ],
-    "status": "Backend implemented; acceptance evidence requires review",
-    "notes": "Verification gate and single-use links tested; actual inbox delivery unverified.",
-    "verification": "backend/test/integration/platform.spec.ts; backend/test/unit/rules.spec.ts; docs/milestone-1/REVIEW_AND_VERIFICATION.md"
+    "status": "Implementation and representative bonus scenario verified",
+    "notes": "The bonus run exercised verification and the local SMTP inbox.",
+    "verification": "backend/test/integration/platform.spec.ts; docs/milestone-2/evidence/acceptance-2026-11-25.json; backend/scripts/verify-bonuses.mjs"
   },
   {
     "id": "ACC-07",
@@ -2354,11 +2534,13 @@
     ],
     "implementation": [
       "backend/src/auth/auth.ts",
-      "backend/src/admin/admin.ts"
+      "backend/src/admin/admin.ts",
+      "frontend/src/components/verify-email.tsx",
+      "frontend/src/components/account.tsx"
     ],
-    "status": "Backend implemented; acceptance evidence requires review",
-    "notes": "Reset expiry/supersession/single-use implemented; actual inbox delivery unverified.",
-    "verification": "backend/test/integration/platform.spec.ts; backend/test/unit/rules.spec.ts; docs/milestone-1/REVIEW_AND_VERIFICATION.md"
+    "status": "Implementation and representative bonus scenario verified",
+    "notes": "The bonus run exercised reset email, token supersession and single use with a local SMTP inbox.",
+    "verification": "backend/test/integration/platform.spec.ts; docs/milestone-2/evidence/acceptance-2026-11-25.json; backend/scripts/verify-bonuses.mjs"
   },
   {
     "id": "GEN-01-B",
@@ -2372,14 +2554,12 @@
     "classification": "Bonus",
     "endpoints": [],
     "implementation": [
-      "backend/src/bootstrap.ts",
-      "backend/src/database.ts",
       "backend/src/ops.ts",
       "backend/src/jobs.ts"
     ],
-    "status": "Backend implemented; acceptance evidence requires review",
-    "notes": "Email queue/retry and actual SMTP delivery to the local development inbox passed on 19 November; see BONUS_VERIFICATION.md. Personal/internet mailbox delivery was not tested.",
-    "verification": "backend/test/integration/platform.spec.ts; backend/test/unit/rules.spec.ts; docs/milestone-1/REVIEW_AND_VERIFICATION.md"
+    "status": "Implementation and representative bonus scenario verified",
+    "notes": "The bonus run delivered notification email to a dedicated loopback SMTP inbox.",
+    "verification": "backend/test/integration/platform.spec.ts; docs/milestone-2/evidence/acceptance-2026-11-25.json; backend/scripts/verify-bonuses.mjs"
   },
   {
     "id": "FLT-27",
@@ -2404,11 +2584,12 @@
     "implementation": [
       "backend/src/flights/flights.ts",
       "backend/src/bookings/inventory.ts",
-      "backend/src/bookings/bookings.ts"
+      "backend/src/bookings/bookings.ts",
+      "frontend/src/features/booking/trips.tsx"
     ],
-    "status": "Backend implemented; acceptance evidence requires review",
-    "notes": "Source is implemented. Local tests cover representative module workflows; this row is not a claim of exhaustive requirement acceptance.",
-    "verification": "backend/test/integration/platform.spec.ts; backend/test/unit/rules.spec.ts; docs/milestone-1/REVIEW_AND_VERIFICATION.md"
+    "status": "Implementation and representative bonus scenario verified",
+    "notes": "Representative flight scheduling, search, holds and ticket workflows are covered.",
+    "verification": "backend/test/integration/platform.spec.ts; frontend/tests/booking.spec.ts; docs/milestone-2/evidence/acceptance-2026-11-25.json; backend/scripts/verify-bonuses.mjs"
   },
   {
     "id": "FLT-28",
@@ -2427,11 +2608,12 @@
     "implementation": [
       "backend/src/flights/flights.ts",
       "backend/src/bookings/inventory.ts",
-      "backend/src/bookings/bookings.ts"
+      "backend/src/bookings/bookings.ts",
+      "frontend/src/features/booking/trips.tsx"
     ],
-    "status": "Backend implemented; acceptance evidence requires review",
-    "notes": "Source is implemented. Local tests cover representative module workflows; this row is not a claim of exhaustive requirement acceptance.",
-    "verification": "backend/test/integration/platform.spec.ts; backend/test/unit/rules.spec.ts; docs/milestone-1/REVIEW_AND_VERIFICATION.md"
+    "status": "Implementation and representative bonus scenario verified",
+    "notes": "Representative flight scheduling, search, holds and ticket workflows are covered.",
+    "verification": "backend/test/integration/platform.spec.ts; frontend/tests/booking.spec.ts; docs/milestone-2/evidence/acceptance-2026-11-25.json; backend/scripts/verify-bonuses.mjs"
   },
   {
     "id": "HTL-26",
@@ -2449,11 +2631,12 @@
     "implementation": [
       "backend/src/hotels/hotels.ts",
       "backend/src/bookings/inventory.ts",
-      "backend/src/community/community.ts"
+      "backend/src/community/community.ts",
+      "frontend/src/features/staff/hotel.tsx"
     ],
-    "status": "Backend implemented; acceptance evidence requires review",
-    "notes": "Source is implemented. Local tests cover representative module workflows; this row is not a claim of exhaustive requirement acceptance.",
-    "verification": "backend/test/integration/platform.spec.ts; backend/test/unit/rules.spec.ts; docs/milestone-1/REVIEW_AND_VERIFICATION.md"
+    "status": "Implementation and representative bonus scenario verified",
+    "notes": "Representative availability, room selection, reservation and staff workflows are covered.",
+    "verification": "backend/test/integration/platform.spec.ts; frontend/tests/staff.spec.ts; frontend/tests/staff-pagination.spec.ts; docs/milestone-2/evidence/acceptance-2026-11-25.json; backend/scripts/verify-bonuses.mjs"
   },
   {
     "id": "ITN-27",
@@ -2472,11 +2655,12 @@
     ],
     "implementation": [
       "backend/src/itineraries/itineraries.ts",
-      "backend/src/ops.ts"
+      "backend/src/ops.ts",
+      "frontend/src/features/discovery/plan-travel.tsx"
     ],
-    "status": "Backend implemented; acceptance evidence requires review",
-    "notes": "Source is implemented. Local tests cover representative module workflows; this row is not a claim of exhaustive requirement acceptance.",
-    "verification": "backend/test/integration/platform.spec.ts; backend/test/unit/rules.spec.ts; docs/milestone-1/REVIEW_AND_VERIFICATION.md"
+    "status": "Implementation and representative bonus scenario verified",
+    "notes": "Representative itinerary editing, budgeting, search and visibility workflows are covered.",
+    "verification": "backend/test/integration/platform.spec.ts; frontend/tests/discovery.spec.ts; docs/milestone-2/evidence/acceptance-2026-11-25.json; backend/scripts/verify-bonuses.mjs"
   },
   {
     "id": "ITN-28",
@@ -2493,11 +2677,13 @@
     ],
     "implementation": [
       "backend/src/itineraries/itineraries.ts",
-      "backend/src/ops.ts"
+      "backend/src/ops.ts",
+      "frontend/src/features/discovery/planner.tsx",
+      "frontend/src/features/discovery/planner-data.tsx"
     ],
-    "status": "Backend implemented; acceptance evidence requires review",
-    "notes": "Source is implemented. Local tests cover representative module workflows; this row is not a claim of exhaustive requirement acceptance.",
-    "verification": "backend/test/integration/platform.spec.ts; backend/test/unit/rules.spec.ts; docs/milestone-1/REVIEW_AND_VERIFICATION.md"
+    "status": "Implementation and representative bonus scenario verified",
+    "notes": "Representative itinerary editing, budgeting, search and visibility workflows are covered.",
+    "verification": "backend/test/integration/platform.spec.ts; frontend/tests/discovery.spec.ts; frontend/tests/public-rendering.spec.ts; docs/milestone-2/evidence/acceptance-2026-11-25.json; backend/scripts/verify-bonuses.mjs"
   },
   {
     "id": "BLG-13",
@@ -2515,11 +2701,13 @@
     ],
     "implementation": [
       "backend/src/community/community.ts",
-      "backend/src/media/media.ts"
+      "backend/src/media/media.ts",
+      "frontend/src/features/discovery/journal.tsx",
+      "frontend/src/features/discovery/shared.tsx"
     ],
-    "status": "Backend implemented; acceptance evidence requires review",
-    "notes": "Source is implemented. Local tests cover representative module workflows; this row is not a claim of exhaustive requirement acceptance.",
-    "verification": "backend/test/integration/platform.spec.ts; backend/test/unit/rules.spec.ts; docs/milestone-1/REVIEW_AND_VERIFICATION.md"
+    "status": "Implementation and representative bonus scenario verified",
+    "notes": "Representative publishing, search, comments, likes and public rendering workflows are covered.",
+    "verification": "backend/test/integration/platform.spec.ts; frontend/tests/discovery.spec.ts; frontend/tests/public-rendering.spec.ts; docs/milestone-2/evidence/acceptance-2026-11-25.json; backend/scripts/verify-bonuses.mjs"
   },
   {
     "id": "BON-01",
@@ -2536,11 +2724,11 @@
     ],
     "implementation": [
       "backend/src/admin/admin.ts",
-      "backend/src/support/support.ts"
+      "frontend/src/features/staff/admin.tsx"
     ],
-    "status": "Backend implemented; acceptance evidence requires review",
-    "notes": "Source is implemented. Local tests cover representative module workflows; this row is not a claim of exhaustive requirement acceptance.",
-    "verification": "backend/test/integration/platform.spec.ts; backend/test/unit/rules.spec.ts; docs/milestone-1/REVIEW_AND_VERIFICATION.md"
+    "status": "Implementation and representative bonus scenario verified",
+    "notes": "Representative account, provider and audit workflows are covered.",
+    "verification": "backend/test/integration/platform.spec.ts; frontend/tests/staff.spec.ts; docs/milestone-2/evidence/acceptance-2026-11-25.json; backend/scripts/verify-bonuses.mjs"
   },
   {
     "id": "BON-02",
@@ -2559,11 +2747,13 @@
       "DELETE /api/favourites/{id}"
     ],
     "implementation": [
-      "backend/src/admin/admin.ts",
-      "backend/src/support/support.ts"
+      "backend/src/support/support.ts",
+      "frontend/src/components/account.tsx",
+      "frontend/src/features/discovery/planner.tsx",
+      "frontend/src/features/booking/stays.tsx"
     ],
-    "status": "Backend implemented; acceptance evidence requires review",
-    "notes": "Source is implemented. Local tests cover representative module workflows; this row is not a claim of exhaustive requirement acceptance.",
-    "verification": "backend/test/integration/platform.spec.ts; backend/test/unit/rules.spec.ts; docs/milestone-1/REVIEW_AND_VERIFICATION.md"
+    "status": "Implementation and representative bonus scenario verified",
+    "notes": "Representative API and cross-role browser workflows are covered.",
+    "verification": "backend/test/integration/platform.spec.ts; frontend/tests/discovery.spec.ts; docs/milestone-2/evidence/acceptance-2026-11-25.json; backend/scripts/verify-bonuses.mjs"
   }
 ]

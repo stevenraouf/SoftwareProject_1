@@ -8,7 +8,7 @@ The repository contains the Next.js frontend in `frontend/` and the NestJS API i
 - [Frontend handover and verification](docs/milestone-2/HANDOVER.md) describes the application architecture, each role, setup, service dependencies and review evidence.
 - [Original backend handbook](output/pdf/MILESTONE_1_HANDBOOK_2026-11-20.pdf) covers the November 20 release.
 
-**Verified on 24 November 2026.** Backend lint/build, 62/62 Jest tests, all 151 REST operations, frontend type checking/production build and 14/14 Edge browser workflows passed. The configured D: API reached Atlas and Stripe sandbox checks succeeded. A new browser card payment awaits a matching publishable test key. See the handover for the exact environments, remaining human review and reproduction steps.
+**Milestone 2 acceptance, 25 November 2026.** The [acceptance report](docs/milestone-2/ACCEPTANCE.md) maps the required deliverables to the current code, test results and outstanding student review. The integrated browser checkout completed a USD 180.00 Stripe test payment, received its signed webhook and confirmed a USD 162.00 refund after cancellation.
 
 ### Start the integrated site on Windows
 
@@ -34,6 +34,8 @@ npm.cmd run dev
 ```
 
 Open [AERIS on localhost](https://localhost:3000). To enable browser checkout, set `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY` in `frontend/.env.local` to the publishable test key from the backend's Stripe sandbox. Keep Stripe secret keys, webhook secrets, Atlas credentials and session secrets in private backend configuration. Restart the frontend after local environment changes. For a production build, run `npm.cmd run typecheck`, `npm.cmd run build`, then `npm.cmd start` from `frontend`.
+
+For a walkthrough with flights, hotels and accounts for each role, run `npm.cmd run seed:demo` from `backend` against a dedicated demonstration database. For automated browser tests, build both apps, then run `npm.cmd run test:browser` from `frontend`. Playwright starts its own disposable database, API and frontend. Add `-- --headed` to watch Edge on Windows.
 
 After installing dependencies, generating local certificates and building both projects, run **START_AERIS.cmd** from the repository root. The active checkout's ignored root `.env.local` points to its own `backend/.env` with `AERIS_BACKEND_ENV=backend/.env`. It sets `AERIS_API_PORT=3444` on this PC. The standard launcher defaults to API port 3443 on a fresh checkout. To receive sandbox webhooks, run `node scripts/start-aeris.mjs --stripe` in a separate terminal at the active root. Restart the backend after the first signing-secret setup and keep the listener running.
 
@@ -194,6 +196,8 @@ With the application running, `npm.cmd run check:live` checks 11 public GET requ
 
 ## Repository workflow
 
-Use `feature/<requirement-id>-<description>` branches from `develop`. For future AI-assisted changes, update the prompt log, run relevant checks, and record your own human review before merging into `develop`; release to `main` after acceptance checks. `origin` points to the student's supplied `https://github.com/stevenraouf/SoftwareProject_1.git`. The current review branch `feature/PAY-01-stripe-verification` was published with its genuine history on 15 November; latest GitHub CI passed on 19 November for audited application commit `1ac0130` (see [github-ci.json](docs/milestone-1/evidence/github-ci.json)). It is the remote's initial default branch. Release merges await the sole student's actual review. No earlier student approvals or additional contributors are fabricated. The source brief uses team-leader wording; the policy record preserves that fact without inventing a teammate or an instructor waiver.
+The integrated Milestone 2 version is on the [frontend review branch](https://github.com/stevenraouf/SoftwareProject_1/tree/feature/milestone-2-frontend). The November 19 CI evidence refers to the earlier Milestone 1 revision. [Milestone 1 CI record](docs/milestone-1/evidence/github-ci.json)
+
+Start new features from `develop`, reference the affected requirement IDs, maintain the AI prompt log and run the relevant tests. The student reviews AI-assisted changes before merging into `develop` and approving release to `main`.
 
 The earlier backend baseline is on `develop`; the 19 November audit changes remain on the review branch. `main` retains the initial specification baseline. On 20 November the owner approved inclusion of the supplied written explanations and documentation/package finalization and reported personally checking Swagger. The [approval and test record](docs/milestone-1/STUDENT_APPROVAL_AND_TEST_RECORD.md) distinguishes that approval from detailed personal test execution and historical engineering results. The package manifest identifies the exact source snapshot. Commits created during this session identify Codex as their author; they do not pretend to be historical student contributions.

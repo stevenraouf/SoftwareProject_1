@@ -1,0 +1,115 @@
+{
+  "date": "2026-11-25",
+  "specification": {
+    "mandatory": 104,
+    "bonus": 11,
+    "registerMatchesWorkbook": true
+  },
+  "checks": {
+    "atlas": {
+      "authenticated": true,
+      "readOnlyTransactionAborted": true
+    },
+    "backendTypecheck": true,
+    "backendESLint": true,
+    "backendProductionBuild": true,
+    "frontendTypecheck": true,
+    "frontendProductionBuild": true,
+    "backendTests": {
+      "passed": 64,
+      "total": 64
+    },
+    "apiOperations": {
+      "successful": 151,
+      "documented": 151
+    },
+    "browserTests": {
+      "expected": 17,
+      "unexpected": 0,
+      "skipped": 0,
+      "flaky": 0
+    },
+    "mobileLayout": {
+      "width": 360,
+      "roleScreens": 20,
+      "roles": [
+        "admin",
+        "airline",
+        "guest",
+        "hotel",
+        "traveler"
+      ],
+      "horizontalOverflow": false
+    },
+    "fxService": {
+      "passed": true,
+      "http": 200,
+      "base": "USD",
+      "providerDate": "2026-11-24T23:59:00.000Z",
+      "supportedCurrencyCount": 7,
+      "missingCurrencies": []
+    }
+  },
+  "tenMinuteHolds": {
+    "database": "Disposable local replica set",
+    "clock": "Wall clock with normal background worker",
+    "passed": true,
+    "startedAt": "2026-11-25T06:50:34.855Z",
+    "deadlines": [
+      "2026-11-25T07:00:34.903Z",
+      "2026-11-25T07:00:34.954Z"
+    ],
+    "before": {
+      "observedAt": "2026-11-25T07:00:28.907Z",
+      "statuses": [
+        "Pending Payment",
+        "Pending Payment"
+      ],
+      "heldSeats": 1,
+      "heldRoomNights": 2
+    },
+    "after": {
+      "observedAt": "2026-11-25T07:00:36.015Z",
+      "statuses": [
+        "Expired",
+        "Expired"
+      ],
+      "heldSeats": 0,
+      "heldRoomNights": 0
+    },
+    "sameInventoryCanBeHeldAgain": true
+  },
+  "stripeSandbox": {
+    "browser": "Microsoft Edge",
+    "currency": "USD",
+    "paidMinor": 18000,
+    "refundedMinor": 16200,
+    "signedWebhookConfirmed": true
+  },
+  "bonusScenarios": {
+    "passed": [
+      "ACC-02",
+      "ACC-07",
+      "BLG-13",
+      "BON-01",
+      "BON-02",
+      "FLT-27",
+      "FLT-28",
+      "GEN-01-B",
+      "HTL-26",
+      "ITN-27",
+      "ITN-28"
+    ],
+    "reportDateUsedForBoundaryTest": "2026-11-24",
+    "analytics": {
+      "utcFrom": "2026-11-25",
+      "utcTo": "2026-11-25",
+      "grossPayments": 23,
+      "refunds": 13,
+      "netRevenue": 10,
+      "currency": "USD"
+    },
+    "mailTransport": "Dedicated loopback SMTP inbox"
+  },
+  "dataset": "Disposable local MongoDB replica sets for all application writes in these checks."
+}

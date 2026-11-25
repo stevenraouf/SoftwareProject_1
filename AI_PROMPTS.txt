@@ -842,6 +842,31 @@ Validation: File checksums and junction targets were compared. The website, Swag
 Review: AI-assisted documentation and technical checks. Personal review is recorded separately.
 ================================================
 
+================================================
+Date: 2026-11-25
+Student: Steven, sole repository owner
+Tool: OpenAI Codex
+Related requirements: Milestone 2 integration and verification, ACC-10, HTL-15, GEN-05, GEN-13, GEN-16 and brief section 9
+Material prompts in chronological order (summarized):
+1. Test the project against its objectives using the supplied sandbox and design reference.
+2. Investigate the displayed Express.Multer.File type error and fix the four reported gaps.
+3. Explain how to test the frontend in a browser and address the reported headed Edge screenshot failure.
+How the output was used: Checked source against the workbook, exercised isolated and sandbox workflows, restored Multer type augmentation, restricted public itinerary summaries, improved the hotel sign-in handoff, added pagination and server rendering, and verified Windows browser captures. No credentials are reproduced here.
+Validation: The first follow-up passed 63 backend tests and 17 browser tests. Headed desktop, phone and tablet checks subsequently passed three consecutive repetitions.
+Review: Technical checks are AI-assisted. Student review remains a separate activity.
+================================================
+
+Date: 2026-11-25
+Student: Steven, sole repository owner
+Tool: OpenAI Codex
+Related requirements: Milestone 2 deliverables in section 13.2 and the mandatory workbook rows
+Prompt: "I want to check what is missing now for milestone 2 and complete if there is anything is missing from the required objective please"
+Follow-up: The student authorized publication of a review branch after the tests pass.
+How the output was used: Rechecked the original brief and workbook, corrected guest room and fare selection through login, improved validation and staff paging, checked visibility rules, corrected itinerary search and currency data loading, and rendered public discovery search results on the server. Updated setup, acceptance evidence and the integrated handbook.
+Validation: See docs/milestone-2/ACCEPTANCE.md and its dated evidence for the verified outcomes.
+Review: The student is responsible for source review, the architectural explanation and release approval.
+================================================
+
 FUTURE ENTRY FORMAT (template, not a completed event)
 Date: YYYY-MM-DD
 Student: Your actual student identity

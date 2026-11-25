@@ -25,6 +25,8 @@ Use Node.js 22 and npm. Run the backend and frontend in separate terminals. Keep
 
 On Steven's PC, open `D:\Steven_Software_project_M2` and run `START_AERIS.cmd`. This active checkout contains the Milestone 1 API and Milestone 2 website. Its ignored root `.env.local` sets `AERIS_BACKEND_ENV=backend/.env`, a path relative to the project root, and `AERIS_API_PORT=3444`. The website opens on port 3000. The launcher can reuse a healthy API and prints both URLs. Use the active checkout for launches and demos. The original checkout and Git history are preserved at `D:\Steven_Software_project_M1_Archive` for reference. A fresh checkout requires private settings and TLS files and defaults to API port 3443.
 
+The homepage is generated at build time. The browser loads its public API address and Stripe publishable key from `/aeris-config.js` at startup so the same build works on the development and test ports. Public stories, author profiles and itineraries use the anonymous API on each request. The initial HTML contains readable content and item-specific metadata. Public Journal and Planner searches also render their results on the server. Pagination links preserve the filters and work with JavaScript disabled. Per-request reads let changes to publication or privacy take effect on the next visit. Client components handle editing, likes and booking actions after the session loads. Flight and hotel searches request current fares and availability from the API as travelers change search criteria. The local frontend trusts the API certificate in `../.certs/localhost.pem`. Set `AERIS_API_CA_PATH` if the loopback API uses another certificate.
+
 ## How a screen reaches the database
 
 Next.js App Router serves the page. The shared shell restores the cookie-backed account with `/auth/me`. The requested route opens a feature screen. Its forms build typed requests that the NestJS controllers validate. Services check the role, owner, assignment, record state and capacity, then read or mutate MongoDB. The UI renders the returned record and validation errors.
@@ -105,18 +107,19 @@ The Git history and actual human review are separate course deliverables. Before
 
 ## Verification results
 
-The final checks ran on 24 November 2026. The Next.js frontend passed TypeScript checking and its optimized production build. The NestJS backend passed lint and compilation. The browser tests drove the production frontend and a real HTTP API with disposable records.
+The table records the 25 November verification. The [acceptance report](ACCEPTANCE.md) links each course deliverable to its implementation or evidence. The browser suites drive the production frontend and a real HTTP API with disposable records.
 
 | Check | Measured result |
 | --- | --- |
-| Backend tests | 62 of 62 Jest tests passed against MongoDB 8.2.6. The suite covered business rules, permissions, transaction handling and payment races. |
+| Backend tests | All 64 Jest tests passed. The suite covered pricing, permissions, visibility, exchange-rate loading, transaction handling and payment races. Both applications passed type checking and production builds. Backend lint passed. |
 | REST operations | Successful workflows exercised all 151 operations in the current OpenAPI export across 125 paths. The integrated version adds an administrator provider directory and two protected provider inventory reads to the original 148 operations. |
-| Browser workflows | All 14 Microsoft Edge tests passed with zero skips and zero flaky results. Cases covered account access, flight and stay holds, a guest round trip, empty search, seats and ticket PDF, planner and journal, and all three staff workspaces. |
+| Browser workflows | All 17 Edge tests passed without skips or retries. They covered account validation, guest room and fare choices across sign-in, holds, flight tickets, public content without JavaScript, editing, and all three staff workspaces. |
+| Hold expiry | A flight seat and two hotel room nights were held for ten real minutes. The normal background worker expired both unpaid reservations, returned the inventory and allowed the same seat capacity and room nights to be booked again. |
 | Responsive behavior | Desktop (1360 px), tablet (834 px) and phone (390 px) checks passed. The phone test exercised navigation, horizontal overflow and the flight shortcut. Screenshots of the running desktop and phone homepage appear in the first chapter. |
 
 To reproduce the browser run, install dependencies and build both projects, generate the local certificates and use Microsoft Edge. Run `npm.cmd run test:browser` from `frontend`. The harness starts web port 3300 and API port 3445, seeds disposable accounts and uses an isolated replica set. The seat and PDF scenario starts with a fixture-confirmed booking. External Stripe and SMTP services are disabled in that browser harness.
 
-Evidence files in `docs/milestone-2/evidence/` include [backend-tests.json](evidence/backend-tests.json), [api-route-coverage.json](evidence/api-route-coverage.json), [browser-tests.json](evidence/browser-tests.json), and [live-checks.json](evidence/live-checks.json). The original November 20 backend release and its verification history remain on pages 1–105.
+The [dated acceptance evidence](evidence/acceptance-2026-11-25.json) records the current run. The 24 November baseline remains in [backend-tests.json](evidence/backend-tests.json), [api-route-coverage.json](evidence/api-route-coverage.json), [browser-tests.json](evidence/browser-tests.json) and [live-checks.json](evidence/live-checks.json). This handbook retains the 20 November backend release on pages 1–105.
 
 ## Connected services and final review
 
@@ -125,11 +128,11 @@ The D: website and API were checked against their configured environment on 24 N
 | Dependency or gate | Evidence and remaining action |
 | --- | --- |
 | MongoDB Atlas | The live application reported a connected database. Read-only reference and journal checks succeeded. The browser regression suite used its own disposable MongoDB records. |
-| Stripe sandbox | Authentication to the test API succeeded. Three existing refund records were checked for amount and status. A new browser card transaction remains unverified because this checkout has no sandbox publishable key configured. |
-| Browser checkout demonstration | Privately set `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY` to the matching test key, start the D: webhook listener, restart the backend after signing-secret initialization, and exercise a new test payment, confirmation, cancellation and refund. |
-| Email | The archived backend report records SMTP test-inbox verification for Milestone 1. This milestone's isolated browser run disabled email delivery. A fresh end-to-end inbox demonstration remains open. |
-| Human review and delivery | The student is the sole human contributor. Personal source review, an uncoached first-time traveler phone trial and final sign-off need actual student or participant observations. The Milestone 2 feature branch is local. |
+| Stripe sandbox | On 25 November a browser flight booking through Stripe Elements charged USD 180.00 in test mode. The API verified the signed event and confirmed the booking. Cancellation in the browser produced a USD 162.00 refund verified against Stripe. |
+| Browser checkout demonstration | Set the matching publishable test key privately in the frontend, run the sandbox webhook listener and keep it open during a demonstration. The setup instructions above give the exact local commands. |
+| Email | The 25 November service run delivered account verification, recovery and booking notifications to a local SMTP inbox. |
+| Human review and delivery | The sole student reviews the source and explains the architecture at evaluation. A first-time participant can provide additional usability evidence. The acceptance report distinguishes these observations from the automated checks. |
 
 The workbook contains 104 mandatory requirements and 11 bonuses. Component mapping, browser scenarios and successful API operations provide different levels of evidence. The student can record remaining manual acceptance scenarios by workbook ID with the role, inputs, observed result, date and build used.
 
-For the active integrated checkout, open `https://localhost:3000` for the website and `https://localhost:3444/api/docs` for Swagger. Review the local `feature/milestone-2-frontend` branch before authorizing a GitHub release.
+For the active integrated checkout, open `https://localhost:3000` for the website and `https://localhost:3444/api/docs` for Swagger. The review branch is `feature/milestone-2-frontend`. The course workflow places student review before integration into `develop` and release to `main`.
