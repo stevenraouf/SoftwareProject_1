@@ -20,6 +20,7 @@ import {
   Actor,
   dateOnly,
   escapeRegex,
+  fieldError,
   nights,
   pageNumber,
   paginated,
@@ -57,11 +58,11 @@ export class HotelsService {
     if (dto.city) {
       const city = await this.ops.city(dto.city);
       if (dto.country && city.country_code !== dto.country)
-        throw new BadRequestException("City is not in the selected country");
+        throw fieldError("city", "City is not in the selected country");
     }
     if (dto.country) await this.ops.countries([dto.country]);
     if (dto.timezone && !DateTime.now().setZone(dto.timezone).isValid)
-      throw new BadRequestException("Invalid IANA time zone");
+      throw fieldError("timezone", "Invalid IANA time zone");
   }
   async create(dto: HotelDto) {
     await this.validateProfile(dto);
@@ -151,9 +152,9 @@ export class HotelsService {
       dateOnly(sorted[i].start);
       dateOnly(sorted[i].end);
       if (sorted[i].end <= sorted[i].start)
-        throw new BadRequestException("Range end must be after start");
+        throw fieldError("end", "Range end must be after start");
       if (i && sorted[i].start < sorted[i - 1].end)
-        throw new BadRequestException("Availability ranges must not overlap");
+        throw fieldError("start", "Availability ranges must not overlap");
     }
     const merged: { start: string; end: string }[] = [];
     for (const r of sorted) {
@@ -227,12 +228,15 @@ export class HotelsService {
   async search(q: HotelSearchDto) {
     await this.inventory.expireDue();
     nights(q.checkIn, q.checkOut);
+    // Before the earliest local calendar day, the check-in is past everywhere.
+    if (q.checkIn < today("Etc/GMT+12"))
+      throw fieldError("checkIn", "Check-in cannot be in the past");
     if (
       q.minPrice !== undefined &&
       q.maxPrice !== undefined &&
       q.minPrice > q.maxPrice
     )
-      throw new BadRequestException("minPrice exceeds maxPrice");
+      throw fieldError("maxPrice", "minPrice exceeds maxPrice");
     const cities = await this.db
       .model("City")
       .find({
@@ -266,6 +270,8 @@ export class HotelsService {
       })
       .lean();
     const result: any[] = [];
+    if (hotels.length && hotels.every((hotel: any) => q.checkIn < today(hotel.timezone)))
+      throw fieldError("checkIn", "Check-in cannot be in the past at the destination");
     for (const hotel of hotels) {
       if (q.checkIn < today(hotel.timezone)) continue;
       const rooms = await this.inventory.availableRooms(
@@ -317,10 +323,13 @@ export class HotelsService {
     const hotel = await this.hotel(id);
     if (!!q.checkIn !== !!q.checkOut)
       throw new BadRequestException("Supply both checkIn and checkOut");
-    const reviews = await paginated(this.db.model("Review"), {
-      hotelId: hotel._id,
-      hidden: false,
-    });
+    const reviews = await paginated(
+      this.db.model("Review"),
+      { hotelId: hotel._id, hidden: false },
+      1,
+      { createdAt: -1 },
+      { bookingId: 0 },
+    );
     reviews.items = await Promise.all(
       reviews.items.map(async (review: any) => ({
         ...review,

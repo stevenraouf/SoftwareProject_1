@@ -108,8 +108,19 @@ export class CommunityService {
       likes.countDocuments({ postId: p._id }),
       actor ? likes.exists({ postId: p._id, userId: oid(actor.id) }) : null,
     ]);
+    const post = p.toObject();
+    const attachedItinerary = p.itineraryId
+      ? await this.itineraries
+          .access(actor, String(p.itineraryId))
+          .then((d) => ({ id: d.id, title: d.title }))
+          .catch((error) => {
+            if (error instanceof NotFoundException) return null;
+            throw error;
+          })
+      : null;
+    if (!attachedItinerary) delete post.itineraryId;
     return {
-      ...p.toObject(),
+      ...post,
       author,
       likeCount,
       likedByMe: Boolean(ownLike),
@@ -122,12 +133,7 @@ export class CommunityService {
           })),
         ),
       },
-      attachedItinerary: p.itineraryId
-        ? await this.itineraries
-            .access(actor, String(p.itineraryId))
-            .then((d) => ({ id: d.id, title: d.title }))
-            .catch(() => null)
-        : null,
+      attachedItinerary,
     };
   }
   async list(q: PostQueryDto) {
@@ -286,11 +292,15 @@ export class CommunityService {
         this.db.model("Post"),
         { userId: user._id, status: "Published", hidden: false },
         page,
+        { createdAt: -1 },
+        { itineraryId: 0 },
       ),
       itineraries: await paginated(
         this.db.model("Itinerary"),
         { userId: user._id, visibility: "Public", hidden: false },
         page,
+        { createdAt: -1 },
+        { _id: 1, title: 1, countries: 1, startDate: 1 },
       ),
     };
   }
@@ -382,10 +392,11 @@ export class CommunityService {
       averageRating: hotel.averageRating,
       ratingCount: hotel.ratingCount,
       items: await Promise.all(
-        data.items.map(async (r: any) => ({
-          ...r,
-          author: await this.publicAuthor(r.userId),
-        })),
+        data.items.map(async (r: any) => {
+          if (actor?.role !== "Admin" && !same(r.userId, actor?.id))
+            delete r.bookingId;
+          return { ...r, author: await this.publicAuthor(r.userId) };
+        }),
       ),
     };
   }

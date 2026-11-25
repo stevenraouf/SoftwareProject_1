@@ -6,10 +6,11 @@ import {
 import { ClientSession } from "mongoose";
 import nodemailer from "nodemailer";
 import { Db, oid } from "./database.js";
-import { Actor, dateOnly, token } from "./common.js";
+import { Actor, dateOnly, fieldError, token } from "./common.js";
 
 @Injectable()
 export class Ops {
+  private updatingRates?: Promise<{ date: string; base: string }>;
   constructor(readonly db: Db) {}
   async publicAuthor(id: any) {
     const user = await this.db.get("User", id);
@@ -19,14 +20,14 @@ export class Ops {
       joinDate: user.createdAt,
     };
   }
-  async currency(code: string) {
+  async currency(code: string, field = "currency") {
     if (!(await this.db.model("Country").exists({ currency: code })))
-      throw new BadRequestException("Unsupported currency");
+      throw fieldError(field, "Unsupported currency");
     return code;
   }
   async city(id: string) {
     const c = await this.db.model("City").findOne({ city_id: id }).lean();
-    if (!c) throw new BadRequestException("Unknown reference city");
+    if (!c) throw fieldError("city", "Unknown reference city");
     return c;
   }
   async countries(codes: string[]) {
@@ -115,7 +116,13 @@ export class Ops {
       text,
     });
   }
-  async refreshRates() {
+  refreshRates() {
+    this.updatingRates ??= this.fetchRates().finally(() => {
+      this.updatingRates = undefined;
+    });
+    return this.updatingRates;
+  }
+  private async fetchRates() {
     const supported = await this.db.model("Country").distinct("currency");
     const url = new URL(
       process.env.FX_API_URL || "https://api.fxratesapi.com/latest",
@@ -149,16 +156,23 @@ export class Ops {
       );
     return { date, base: "USD" };
   }
-  async rates() {
-    const cached = await this.db
+  private latestRates() {
+    return this.db
       .model("ExchangeRate")
       .findOne({ base: "USD" })
       .sort({ date: -1 })
       .lean();
-    if (!cached)
-      throw new ServiceUnavailableException(
-        "Exchange rates are unavailable; configure FXRatesAPI and run the refresh operation",
-      );
-    return cached;
+  }
+  async rates() {
+    const cached = await this.latestRates();
+    if (cached) return cached;
+    try {
+      await this.refreshRates();
+    } catch {
+      throw new ServiceUnavailableException("Exchange rates are temporarily unavailable. Try again later.");
+    }
+    const first = await this.latestRates();
+    if (!first) throw new ServiceUnavailableException("Exchange rates are temporarily unavailable. Try again later.");
+    return first;
   }
 }

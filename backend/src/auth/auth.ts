@@ -32,7 +32,7 @@ import {
 } from "node:crypto";
 import { promisify } from "node:util";
 import { Db, oid } from "../database.js";
-import { Actor, hash, token, definedFields } from "../common.js";
+import { Actor, hash, token, definedFields, fieldError } from "../common.js";
 import {
   ChangePasswordDto,
   ConfirmDto,
@@ -252,7 +252,7 @@ export class AuthService {
   async changePassword(actor: Actor, dto: ChangePasswordDto, res: Response) {
     const user = await this.db.get("User", actor.id);
     if (!(await passwordMatches(dto.currentPassword, user.passwordHash)))
-      throw new BadRequestException("Current password is incorrect");
+      throw fieldError("currentPassword", "Current password is incorrect");
     user.passwordHash = await passwordHash(dto.newPassword);
     user.forcePasswordChange = false;
     await user.save();
@@ -283,7 +283,7 @@ export class AuthService {
     return { message: "Logged out" };
   }
   async profile(actor: Actor, dto: ProfileDto) {
-    if (dto.preferredCurrency) await this.ops.currency(dto.preferredCurrency);
+    if (dto.preferredCurrency) await this.ops.currency(dto.preferredCurrency, "preferredCurrency");
     const user = await this.db.get("User", actor.id);
     Object.assign(user, definedFields(dto));
     await user.save();

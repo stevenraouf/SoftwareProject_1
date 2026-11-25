@@ -55,6 +55,27 @@ try {
     .model("User")
     .findOne({ email: "traveler@example.test" });
   const flight = await db.model("Flight").findOne({ flightNumber: "DEMO100" });
+  flight.cabins.push({
+    category: "Business",
+    capacity: 4,
+    price: 320,
+    freeBags: 2,
+    bagWeightKg: 32,
+  });
+  await flight.save();
+  await db.model("Provider").updateOne(
+    { _id: flight.airlineId },
+    {
+      $push: {
+        cancellationTiers: {
+          $each: Array.from({ length: 8 }, (_, i) => ({
+            threshold: 100 + i,
+            refundPercent: 100,
+          })),
+        },
+      },
+    },
+  );
   const reservation = await app.get(BookingsService).holdFlight(
     { id: user.id, role: "User", emailVerified: true },
     {

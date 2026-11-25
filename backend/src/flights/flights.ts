@@ -20,6 +20,7 @@ import { Db, oid, same } from "../database.js";
 import {
   Actor,
   allowFields,
+  fieldError,
   dateOnly,
   localInstant,
   money,
@@ -106,7 +107,7 @@ export class FlightsService {
   }
   async instants(dto: any) {
     if (dto.departureAirport === dto.arrivalAirport)
-      throw new BadRequestException(
+      throw fieldError("arrivalAirport",
         "Departure and arrival airports must differ",
       );
     const [departure, arrival] = await Promise.all([
@@ -114,15 +115,15 @@ export class FlightsService {
       this.db.model("Airport").findOne({ iata_code: dto.arrivalAirport }),
     ]);
     if (!departure || !arrival)
-      throw new BadRequestException(
+      throw fieldError(!departure ? "departureAirport" : "arrivalAirport",
         "Choose an airport from the official reference list",
       );
-    const departureAt = localInstant(dto.departureLocal, departure.time_zone),
-      arrivalAt = localInstant(dto.arrivalLocal, arrival.time_zone);
-    if (departureAt <= new Date() || arrivalAt <= departureAt)
-      throw new BadRequestException(
-        "Departure must be in the future and arrival must follow departure in UTC",
-      );
+    const departureAt = localInstant(dto.departureLocal, departure.time_zone, "departureLocal"),
+      arrivalAt = localInstant(dto.arrivalLocal, arrival.time_zone, "arrivalLocal");
+    if (departureAt <= new Date())
+      throw fieldError("departureLocal", "Departure must be in the future");
+    if (arrivalAt <= departureAt)
+      throw fieldError("arrivalLocal", "Arrival must follow departure when compared in UTC");
     return {
       departureAt,
       arrivalAt,
@@ -237,7 +238,7 @@ export class FlightsService {
           "Only future Scheduled flights may be edited",
         );
       if (f.cabins.some((c: any) => c.category === dto.category))
-        throw new BadRequestException("Cabin category already exists");
+        throw fieldError("category", "Cabin category already exists");
       f.cabins.push(dto);
       return f.save({ session });
     });
@@ -259,9 +260,9 @@ export class FlightsService {
       const c = f.cabins.id(oid(cabinId));
       if (!c) throw new BadRequestException("Unknown cabin");
       if (dto.category && dto.category !== c.category)
-        throw new BadRequestException("Cabin categories cannot be renamed");
+        throw fieldError("category", "Cabin categories cannot be renamed");
       if (dto.capacity !== undefined && dto.capacity < c.booked + c.held)
-        throw new BadRequestException(
+        throw fieldError("capacity",
           "Capacity cannot be below booked and held seats",
         );
       if (dto.capacity !== undefined && dto.capacity < c.capacity) {
@@ -348,6 +349,7 @@ export class FlightsService {
         .setZone(zone(f.arrivalAirport))
         .toISO(),
       durationMinutes: (+f.arrivalAt - +f.departureAt) / 60000,
+      currency: process.env.PLATFORM_CURRENCY || "USD",
       cancellationTiers: airline.cancellationTiers,
       extraBagPrice: airline.extraBagPrice,
       maxExtraBags: airline.maxExtraBags,
@@ -360,17 +362,16 @@ export class FlightsService {
   async search(query: FlightSearchDto) {
     await this.inventory.expireDue();
     dateOnly(query.departureDate);
-    if (
-      query.departureAirport === query.arrivalAirport ||
-      query.infants > query.adults
-    )
-      throw new BadRequestException("Invalid route or infant count");
+    if (query.departureAirport === query.arrivalAirport)
+      throw fieldError("arrivalAirport", "Choose different departure and arrival airports");
+    if (query.infants > query.adults)
+      throw fieldError("infants", "Each infant must travel with an adult");
     if (
       query.minPrice !== undefined &&
       query.maxPrice !== undefined &&
       query.minPrice > query.maxPrice
     )
-      throw new BadRequestException("minPrice exceeds maxPrice");
+      throw fieldError("maxPrice", "minPrice exceeds maxPrice");
     const origin = await this.db
       .model("Airport")
       .findOne({ iata_code: query.departureAirport });
@@ -378,12 +379,12 @@ export class FlightsService {
       .model("Airport")
       .findOne({ iata_code: query.arrivalAirport });
     if (!origin || !destination)
-      throw new BadRequestException("Unknown airport");
+      throw fieldError(!origin ? "departureAirport" : "arrivalAirport", "Unknown airport");
     if (
       query.departureDate <
       DateTime.now().setZone(origin.time_zone).toISODate()!
     )
-      throw new BadRequestException("Departure date is in the past");
+      throw fieldError("departureDate", "Departure date is in the past");
     const airlines = await this.db
       .model("Provider")
       .find({ type: "airline", active: true })
@@ -460,7 +461,7 @@ export class FlightsService {
     if (!query.returnDate) return outbound;
     dateOnly(query.returnDate);
     if (query.returnDate < query.departureDate)
-      throw new BadRequestException("Return date precedes outbound date");
+      throw fieldError("returnDate", "Return date precedes outbound date");
     return {
       outbound,
       return: await leg(

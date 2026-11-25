@@ -575,7 +575,7 @@ export class ItinerariesService {
       throw new BadRequestException("Add an itinerary day first");
     const airports = await this.db
       .model("Airport")
-      .find({ city_id: doc.days[0].city })
+      .find({ city_id: doc.days[0].city, iata_code: { $ne: q.origin } })
       .lean();
     const results = [];
     for (const a of airports)

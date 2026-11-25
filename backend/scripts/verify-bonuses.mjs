@@ -32,10 +32,11 @@ const local = resolve(backend, ".local");
 mkdirSync(local, { recursive: true });
 const run = randomBytes(5).toString("hex"),
   password = `V9${randomBytes(24).toString("hex")}`;
+const runStarted = new Date();
 const clientDate =
   process.env.VERIFICATION_CLIENT_DATE ||
   new Intl.DateTimeFormat("en-CA", { timeZone: "Africa/Cairo" }).format(
-    new Date(),
+    runStarted,
   );
 const state = { run, password, ids: {}, actors: {} };
 const report = {
@@ -726,13 +727,16 @@ try {
     600,
   );
   const rows = [];
+  // Analytics groups bookings by their UTC creation dates. A run can span midnight.
+  const from = runStarted.toISOString().slice(0, 10);
+  const to = new Date().toISOString().slice(0, 10);
   let page = 1,
     pages = 1;
   do {
     const data = (
       await api(
         "GET",
-        `/admin/analytics?from=${clientDate}&to=${clientDate}&page=${page}`,
+        `/admin/analytics?from=${from}&to=${to}&page=${page}`,
         admin,
       )
     ).json;

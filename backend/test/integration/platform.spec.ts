@@ -384,6 +384,14 @@ describe("Boundary, provider and integration adapter regressions", () => {
     });
     expect(review.status).toBe(201);
     try {
+      for (const viewer of [undefined, users.a]) {
+        const publicReviews = await send("get", `/hotels/${hotel._id}/reviews`, viewer);
+        const item = publicReviews.body.items.find((r: any) => r._id === review.body._id);
+        expect(item).toBeDefined();
+        expect(item).not.toHaveProperty("bookingId");
+      }
+      const ownReviews = await send("get", `/hotels/${hotel._id}/reviews`, user);
+      expect(ownReviews.body.items.find((r: any) => r._id === review.body._id).bookingId).toBe(b.id);
       expect(
         (await send("delete", "/users/me", user, { confirm: true })).status,
       ).toBe(200);
@@ -394,6 +402,7 @@ describe("Boundary, provider and integration adapter regressions", () => {
       expect(detailReview.author).toEqual(
         expect.objectContaining({ id: null, name: "Deleted user" }),
       );
+      expect(detailReview).not.toHaveProperty("bookingId");
       const listed = await send("get", `/hotels/${hotel._id}/reviews`);
       expect(
         listed.body.items.find((r: any) => r._id === review.body._id).author
@@ -429,6 +438,9 @@ describe("Boundary, provider and integration adapter regressions", () => {
       ).status,
     ).toBe(400);
     const hotelQuery = `destination=Cairo&checkIn=${start}&checkOut=${end}&guests=6&rooms=2`;
+    const pastStay = await send("get", "/hotels/search?destination=Cairo&checkIn=2001-06-01&checkOut=2001-06-02");
+    expect(pastStay.status).toBe(400);
+    expect(pastStay.body.message).toContain("past");
     expect((await send("get", `/hotels/search?${hotelQuery}`)).body.total).toBe(
       1,
     );
@@ -1100,6 +1112,68 @@ describe("Boundary, provider and integration adapter regressions", () => {
     expect(report.body.items[0]).toHaveProperty("refunds");
     expect(report.body.items[0]).toHaveProperty("netRevenue");
   });
+  test("public author summaries omit private booking links for anonymous and unrelated travelers", async () => {
+    for (const name of ["privacy-owner", "privacy-viewer"])
+      expect(
+        (await send("post", "/auth/register", undefined, traveler(`${name}@example.test`))).status,
+      ).toBe(201);
+    const owner = await login("privacy-owner@example.test");
+    const viewer = await login("privacy-viewer@example.test");
+    const booking = await db.model("Booking").create({
+      userId: oidUser(owner),
+      type: "flight",
+      providerIds: [],
+      status: "Confirmed",
+      startsAt: DateTime.now().plus({ days: 21 }).toJSDate(),
+      endsAt: DateTime.now().plus({ days: 22 }).toJSDate(),
+      amount: 120,
+      currency: "USD",
+      snapshot: {},
+      policySnapshot: {},
+    });
+    const created = await send("post", "/itineraries", owner, {
+      title: "Privacy-safe itinerary",
+      countries: ["EG"],
+      startDate: start,
+    });
+    expect(created.status).toBe(201);
+    const id = created.body._id;
+    const day = await send("post", `/itineraries/${id}/days`, owner, { city: "cairo" });
+    expect(day.status).toBe(201);
+    const link = { bookingId: booking.id, dayId: day.body.days[0]._id };
+    expect((await send("post", `/itineraries/${id}/bookings`, owner, link)).status).toBe(201);
+    const privateDetail = await send("get", `/itineraries/${id}`, owner);
+    expect(privateDetail.status).toBe(200);
+    expect(privateDetail.body.bookingLinks).toEqual([expect.objectContaining(link)]);
+    expect((await send("patch", `/itineraries/${id}`, owner, { visibility: "Public" })).status).toBe(200);
+
+    for (const actor of [undefined, viewer]) {
+      const author = await send("get", `/authors/${owner.user.id}`, actor);
+      expect(author.status).toBe(200);
+      expect(author.body.itineraries).toMatchObject({ page: 1, pageSize: 10, total: 1, pages: 1 });
+      expect(author.body.itineraries.items).toEqual([{
+        _id: id,
+        title: "Privacy-safe itinerary",
+        countries: ["EG"],
+        startDate: start,
+      }]);
+      expect(JSON.stringify(author.body)).not.toContain(booking.id);
+
+      const detail = await send("get", `/itineraries/public/${id}`, actor);
+      expect(detail.status).toBe(200);
+      expect(detail.body).not.toHaveProperty("bookingLinks");
+      expect(JSON.stringify(detail.body)).not.toContain(booking.id);
+      const search = await send("get", "/itineraries/public/search?q=Privacy-safe", actor);
+      expect(search.status).toBe(200);
+      expect(search.body.items.some((item: any) => item.id === id)).toBe(true);
+      expect(JSON.stringify(search.body)).not.toContain(booking.id);
+    }
+    const ownerDetail = await send("get", `/itineraries/${id}`, owner);
+    expect(ownerDetail.status).toBe(200);
+    expect(ownerDetail.body.bookingLinks).toEqual([expect.objectContaining(link)]);
+    expect(ownerDetail.body.budget.total).toBe(120);
+  });
+
   test("linked booking budgets count once, clones copy costs without private IDs, and blog attachments respect visibility", async () => {
     const booking = await db.model("Booking").findOne({
       userId: oidUser(users.a),
@@ -1163,9 +1237,21 @@ describe("Boundary, provider and integration adapter regressions", () => {
     await send("patch", `/itineraries/${id}`, users.a, {
       visibility: "Private",
     });
-    expect(
-      (await send("get", `/posts/${post.body._id}`)).body.attachedItinerary,
-    ).toBeNull();
+    for (const viewer of [undefined, users.b]) {
+      const story = await send("get", `/posts/${post.body._id}`, viewer);
+      expect(story.status).toBe(200);
+      expect(story.body.attachedItinerary).toBeNull();
+      expect(story.body).not.toHaveProperty("itineraryId");
+      const profile = await send("get", `/authors/${oidUser(users.a)}`, viewer);
+      expect(profile.status).toBe(200);
+      const publicStory = profile.body.posts.items.find(
+        (entry: any) => entry._id === post.body._id,
+      );
+      expect(publicStory).toBeDefined();
+      expect(publicStory).not.toHaveProperty("itineraryId");
+    }
+    const ownerStory = await send("get", `/posts/${post.body._id}`, users.a);
+    expect(ownerStory.body.attachedItinerary.id).toBe(id);
   });
 });
 
@@ -1657,6 +1743,36 @@ describe("Inventory transactions and payment races", () => {
 });
 
 describe("Itineraries, privacy, community and bonuses", () => {
+  test("first rate lookup fetches and caches a provider quote for concurrent readers", async () => {
+    const ops = app.get(Ops);
+    const original = global.fetch;
+    const currencies = await db.model("Country").distinct("currency");
+    const rates = Object.fromEntries(
+      currencies.map((code: string) => [code, code === "EGP" ? 50 : 1]),
+    );
+    const quoteDate = "2020-01-03";
+    const provider = jest
+      .fn<typeof global.fetch>()
+      .mockRejectedValueOnce(new Error("offline"))
+      .mockResolvedValue({
+        ok: true,
+        json: async () => ({
+          success: true, base: "USD", date: quoteDate, rates,
+        }),
+      } as Response);
+    global.fetch = provider;
+    try {
+      expect(await db.model("ExchangeRate").countDocuments()).toBe(0);
+      await expect(ops.rates()).rejects.toMatchObject({ status: 503 });
+      const quotes = await Promise.all([ops.rates(), ops.rates()]);
+      expect(quotes.map((quote) => quote.date)).toEqual([quoteDate, quoteDate]);
+      expect((await ops.rates()).rates.EGP).toBe(50);
+      expect(provider).toHaveBeenCalledTimes(2);
+    } finally {
+      global.fetch = original;
+      await db.model("ExchangeRate").deleteOne({ base: "USD", date: quoteDate });
+    }
+  });
   test("itinerary ordering, currency totals, private access, cloning and deletion are consistent", async () => {
     await db.model("ExchangeRate").create({
       base: "USD",
@@ -2230,6 +2346,7 @@ describe("Complete operation workflows on independent fixtures", () => {
       bagWeightKg: 23,
     });
     const detail = await ok("get", `/flights/${scheduled._id}`);
+    expect(detail.body.currency).toBe(process.env.PLATFORM_CURRENCY || "USD");
     expect(detail.body.cabins[0].capacity).toBe(12);
     await ok("get", `/flights/${scheduled._id}/bookings`, air);
     const csv = await ok(
@@ -2458,11 +2575,38 @@ describe("Complete operation workflows on independent fixtures", () => {
       owner,
     );
     await ok("get", `/itineraries/${id}/flights?origin=DXB`, owner);
+    const alternative = await db.model("Airport").create({
+      iata_code: "ZZQ",
+      name: "Second Cairo test airport",
+      city_id: "cairo",
+      country_code: "EG",
+      time_zone: "Africa/Cairo",
+    });
+    try {
+      const response = await ok(
+        "get", `/itineraries/${id}/flights?origin=CAI&tripType=round-trip`, owner,
+      );
+      const routes: { airport: string; results: unknown }[] = response.body;
+      expect(routes.map((route) => route.airport)).not.toContain("CAI");
+      expect(routes.find((route) => route.airport === "ZZQ")?.results).toHaveProperty("return");
+    } finally {
+      await alternative.deleteOne();
+    }
     await ok("get", "/itineraries", owner);
     await ok("patch", `/itineraries/${id}`, owner, { visibility: "Public" });
     expect(
       (await ok("get", "/itineraries/public/search?q=Coverage")).body.total,
     ).toBeGreaterThan(0);
+    await ok("patch", `/admin/content/itinerary/${id}`, users.admin, {
+      hidden: true,
+    });
+    for (const viewer of [undefined, other])
+      expect((await send("get", `/itineraries/public/${id}`, viewer)).status).toBe(404);
+    await ok("get", `/itineraries/${id}`, owner);
+    await ok("get", `/itineraries/${id}`, users.admin);
+    await ok("patch", `/itineraries/${id}`, owner, { visibility: "Private" });
+    expect((await send("get", `/itineraries/${id}`, users.admin)).status).toBe(404);
+    await ok("get", `/itineraries/${id}`, owner);
     await ok("delete", `/activities/${activity._id}`, owner, { confirm: true });
     await ok("delete", `/budgets/${budget._id}`, owner, { confirm: true });
     await ok("delete", `/transport-costs/${transport._id}`, owner, {

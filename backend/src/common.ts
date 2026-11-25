@@ -20,6 +20,9 @@ export interface Actor {
   emailVerified: boolean;
 }
 export const now = () => new Date();
+export function fieldError(field: string, message: string) {
+  return new BadRequestException({ message, errors: [{ field, messages: [message] }] });
+}
 export function definedFields<T extends object>(value: T): Partial<T> {
   return Object.fromEntries(
     Object.entries(value).filter(([, field]) => field !== undefined),
@@ -64,16 +67,16 @@ export function overlaps(
 ): boolean {
   return a.start < b.end && b.start < a.end;
 }
-export function localInstant(value: string, zone: string): Date {
+export function localInstant(value: string, zone: string, field = "localTime"): Date {
   if (!/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}(:\d{2})?$/.test(value))
-    throw new BadRequestException(
+    throw fieldError(field,
       "Use local YYYY-MM-DDTHH:mm without an offset",
     );
   const dt = DateTime.fromISO(value, { zone });
   if (!dt.isValid || dt.toFormat("yyyy-MM-dd'T'HH:mm") !== value.slice(0, 16))
-    throw new BadRequestException("Invalid or nonexistent local time");
+    throw fieldError(field, "Invalid or nonexistent local time");
   if (dt.getPossibleOffsets().length > 1)
-    throw new BadRequestException(
+    throw fieldError(field,
       "Ambiguous local time; choose an unambiguous departure or arrival time",
     );
   return dt.toUTC().toJSDate();
@@ -99,11 +102,12 @@ export async function paginated(
   filter: any,
   page: any = 1,
   sort: any = { createdAt: -1 },
+  fields?: Record<string, 0 | 1>,
 ) {
   const p = pageNumber(page);
   const [items, total] = await Promise.all([
     model
-      .find(filter)
+      .find(filter, fields)
       .sort(sort)
       .skip((p - 1) * 10)
       .limit(10)
@@ -133,6 +137,15 @@ export class ApiErrors implements ExceptionFilter {
       detail = {
         message: "A unique value or inventory allocation already exists",
       };
+      const messages: Record<string, string> = {
+        email: "This email address is already registered.",
+        code: "This code is already in use.",
+        flightNumber: "This flight number is already scheduled for that airline and departure date.",
+        number: "This room number already exists at this hotel.",
+      };
+      const field = Object.keys(messages).find((key) => error.keyPattern?.[key]);
+      if (field)
+        detail = { message: messages[field], errors: [{ field, messages: [messages[field]] }] };
     }
     if (
       error?.name === "ValidationError" ||
